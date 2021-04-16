@@ -1,0 +1,26 @@
+[
+  {
+    "victoryPoints": 3,
+    "description": "This is a Storage Leader 1",
+    "requirement": "COIN",
+    "type": "STONE"
+  },
+  {
+  "victoryPoints": 3,
+  "description": "This is a Storage Leader 2",
+  "requirement": "STONE",
+  "type": "SERVANT"
+},
+  {
+  "victoryPoints": 3,
+  "description": "This is a Storage Leader 3",
+  "requirement": "SERVANT",
+  "type": "SHIELD"
+},
+  {
+  "victoryPoints": 3,
+  "description": "This is a Storage Leader 4",
+  "requirement": "SHIELD",
+  "type": "COIN"
+}
+]
