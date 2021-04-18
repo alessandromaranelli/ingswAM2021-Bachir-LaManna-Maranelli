@@ -1,16 +1,16 @@
 package it.polimi.ingsw.model;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class VaticanReportSectionTest {
+public class VaticanReportSectionTest {
 
     @Test
-    void report1() throws FileNotFoundException {
+    public void report1() throws FileNotFoundException {
         Game game= new Game();
         ArrayList<Player> players= new ArrayList<>();
         Player player= new Player("Aldo",1, game);
@@ -48,7 +48,7 @@ class VaticanReportSectionTest {
     }
 
     @Test
-    void report2() throws FileNotFoundException {
+    public void report2() throws FileNotFoundException {
         Game game= new Game();
         ArrayList<Player> players= new ArrayList<>();
         Player player= new Player("Aldo",1, game);

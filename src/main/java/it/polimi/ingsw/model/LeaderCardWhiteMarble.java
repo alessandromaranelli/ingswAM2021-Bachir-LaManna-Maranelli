@@ -3,8 +3,8 @@ package it.polimi.ingsw.model;
 import java.util.Map;
 
 public class LeaderCardWhiteMarble extends LeaderCard {
-    private Map<Color, Integer> requirement;
-    private Resource resource;
+    private final Map<Color, Integer> requirement;
+    private final Resource resource;
 
     public LeaderCardWhiteMarble(int victoryPoints, String description, Map<Color, Integer> requirement, Resource resource) {
         super(victoryPoints, description);

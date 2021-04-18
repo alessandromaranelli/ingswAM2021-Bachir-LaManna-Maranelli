@@ -1,26 +1,26 @@
 package it.polimi.ingsw.model;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.FileNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WhiteMarbleTest {
+public class WhiteMarbleTest {
     Game game= new Game();
     PersonalBoard personalBoard= new PersonalBoard(game.getVaticanReportSections());
 
-    WhiteMarbleTest() throws FileNotFoundException {
+    public WhiteMarbleTest() throws FileNotFoundException {
     }
 
     @Test
-    void whenDrawn1() {
+    public void whenDrawn1() {
         Marble marble= new WhiteMarble();
         marble.whenDrawn(personalBoard);
     }
 
     @Test
-    void whenDrawn2() {
+    public void whenDrawn2() {
         Marble marble= new WhiteMarble();
         personalBoard.getWhiteMarble().add(Resource.COIN);
         marble.whenDrawn(personalBoard);
@@ -28,7 +28,7 @@ class WhiteMarbleTest {
     }
 
     @Test
-    void whenDrawn3() {
+    public void whenDrawn3() {
         Marble marble= new WhiteMarble();
         personalBoard.getWhiteMarble().add(Resource.COIN);
         personalBoard.getWhiteMarble().add(Resource.STONE);

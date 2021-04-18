@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CpuActionShuffleTest {
+public class CpuActionShuffleTest {
 
     @Test
-    void testActivateAction() throws FileNotFoundException {
+    public void testActivateAction() throws FileNotFoundException {
         CpuActionShuffle cpuActionShuffle = new CpuActionShuffle();
         ArrayList<CpuAction> cpuActions = new ArrayList<>();
         cpuActions.add(new CpuActionShuffle());

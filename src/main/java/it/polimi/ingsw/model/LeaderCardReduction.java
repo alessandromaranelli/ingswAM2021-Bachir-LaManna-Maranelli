@@ -3,9 +3,9 @@ package it.polimi.ingsw.model;
 import java.util.ArrayList;
 
 public class LeaderCardReduction extends LeaderCard {
-    private Color color1;
-    private Color color2;
-    private Resource reduction;
+    private final Color color1;
+    private final Color color2;
+    private final Resource reduction;
 
     //vp sempre 2
 

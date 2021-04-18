@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model;
 
 public class LeaderCardSpecialProduction extends LeaderCard {
-    private Color color;
-    private Resource cost;
+    private final Color color;
+    private final Resource cost;
 
     public LeaderCardSpecialProduction(int victoryPoints, String description,Color color, Resource cost) {
         super(victoryPoints, description);

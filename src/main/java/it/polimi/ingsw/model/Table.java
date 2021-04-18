@@ -14,54 +14,9 @@ public class Table {
 
     public Table() throws FileNotFoundException{
         market = new Market();
-
-        Gson gson = new Gson();
-        File file = new File("C:\\Users\\Alessandro\\IdeaProjects\\runMe\\src\\main\\java\\cards.json");
-        InputStream inputStream = new FileInputStream(file);
-        Reader reader= new InputStreamReader(inputStream);
-        DevelopmentCard[] card= gson.fromJson(reader, DevelopmentCard[].class);
-        ArrayList<DevelopmentCard> developmentCards= new ArrayList<>();
-        this.developmentCardDecks = new ArrayList<>();
-        DevelopmentCardDeck developmentCardDeck;
-        for (int i=0; i<card.length;){
-            developmentCards=new ArrayList<>();
-            for (int j=0;j<4;j++){
-                developmentCards.add(card[i]);
-                i++;
-            }
-            developmentCardDeck=new DevelopmentCardDeck(developmentCards,card[i-1].getColor(),card[i-1].getLevel());
-            developmentCardDecks.add(developmentCardDeck);
-        }
-        file = new File("C:\\Users\\Alessandro\\IdeaProjects\\runMe\\src\\main\\java\\ReductionLeaderCardsData.json");
-        inputStream= new FileInputStream(file);
-        reader = new InputStreamReader(inputStream);
-        LeaderCard []leaderCard = gson.fromJson(reader, LeaderCardReduction[].class);
-        leaderCardDeck  = new LeaderCardDeck();
-        for(LeaderCard lc : leaderCard){
-            leaderCardDeck.addCard(lc);
-        }
-        file = new File("C:\\Users\\Alessandro\\IdeaProjects\\runMe\\src\\main\\java\\SpecialProductionLeaderCardsData.json");
-        inputStream= new FileInputStream(file);
-        reader = new InputStreamReader(inputStream);
-        leaderCard = gson.fromJson(reader, LeaderCardReduction[].class);
-        for(LeaderCard lc : leaderCard){
-            leaderCardDeck.addCard(lc);
-        }
-        file = new File("C:\\Users\\Alessandro\\IdeaProjects\\runMe\\src\\main\\java\\StorageLeaderCardsData.json");
-        inputStream= new FileInputStream(file);
-        reader = new InputStreamReader(inputStream);
-        leaderCard = gson.fromJson(reader, LeaderCardReduction[].class);
-        for(LeaderCard lc : leaderCard){
-            leaderCardDeck.addCard(lc);
-        }
-        file = new File("C:\\Users\\Alessandro\\IdeaProjects\\runMe\\src\\main\\java\\WhiteMarbleLeaderCardsData.json");
-        inputStream= new FileInputStream(file);
-        reader = new InputStreamReader(inputStream);
-        leaderCard = gson.fromJson(reader, LeaderCardReduction[].class);
-        for(LeaderCard lc : leaderCard){
-            leaderCardDeck.addCard(lc);
-        }
-        leaderCardDeck.randomize();
+        JsonParser jsonParser= new JsonParser();
+        developmentCardDecks=jsonParser.deserializeDevelopment();
+        leaderCardDeck=jsonParser.deserializeLeaders();
 
     }
 

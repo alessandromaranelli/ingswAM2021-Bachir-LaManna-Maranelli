@@ -1,13 +1,13 @@
 package it.polimi.ingsw.model;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BoxTest {
+public class BoxTest {
 
     @Test
-    void getVictoryPoints() {
+    public void getVictoryPoints() {
         Box box= new Box(6);
         assertEquals(6,box.getVictoryPoints());
     }

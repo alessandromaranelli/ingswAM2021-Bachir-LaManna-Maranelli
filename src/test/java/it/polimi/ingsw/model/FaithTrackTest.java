@@ -1,16 +1,16 @@
 package it.polimi.ingsw.model;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FaithTrackTest {
+public class FaithTrackTest {
 
     @Test
-    void checkPlayerPosition() throws FileNotFoundException {
+    public void checkPlayerPosition() throws FileNotFoundException {
         Game game= new Game();
         FaithTrack faithTrack= new FaithTrack(game.getVaticanReportSections());
         assertEquals(0, faithTrack.getTrack().indexOf(faithTrack.checkPlayerPosition()));
@@ -18,7 +18,7 @@ class FaithTrackTest {
 
 
     @Test
-    void movePositionForward() throws FileNotFoundException {
+    public void movePositionForward() throws FileNotFoundException {
         Game game = new Game();
         FaithTrack faithTrack = new FaithTrack(game.getVaticanReportSections());
         faithTrack.movePositionForward();

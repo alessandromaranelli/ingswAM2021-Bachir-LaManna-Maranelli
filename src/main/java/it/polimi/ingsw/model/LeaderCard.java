@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model;
 
 public abstract class LeaderCard {
-    private int victoryPoints ;
-    private String description;
+    private final int victoryPoints;
+    private final String description;
 
     public LeaderCard(int victoryPoints, String description) {
         this.victoryPoints = victoryPoints;

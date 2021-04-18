@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -8,10 +8,10 @@ import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CpuActionDiscardTest {
+public class CpuActionDiscardTest {
 
     @Test
-    void testActivateActionLevel1() throws FileNotFoundException {
+    public void testActivateActionLevel1() throws FileNotFoundException {
         CpuActionDiscard cpuActionDiscard=new CpuActionDiscard(Color.GREEN);
         ArrayList<CpuAction> cpuActions= new ArrayList<>();
         Table table= new Table();
@@ -20,7 +20,7 @@ class CpuActionDiscardTest {
     }
 
     @Test
-    void testActivateActionLevel2() throws FileNotFoundException {
+    public void testActivateActionLevel2() throws FileNotFoundException {
         CpuActionDiscard cpuActionDiscard=new CpuActionDiscard(Color.GREEN);
         ArrayList<CpuAction> cpuActions= new ArrayList<>();
         Table table= new Table();
@@ -33,7 +33,7 @@ class CpuActionDiscardTest {
         assertEquals(2,table.getDevelopmentCardDeck(Color.GREEN,2).getDevelopmentCards().size());
     }
     @Test
-    void testActivateActionLevel3() throws FileNotFoundException {
+    public void testActivateActionLevel3() throws FileNotFoundException {
         CpuActionDiscard cpuActionDiscard=new CpuActionDiscard(Color.GREEN);
         ArrayList<CpuAction> cpuActions= new ArrayList<>();
         Table table= new Table();
@@ -53,7 +53,7 @@ class CpuActionDiscardTest {
     }
 
     @Test
-    void testActivateActionLevel3bis() throws FileNotFoundException {
+    public void testActivateActionLevel3bis() throws FileNotFoundException {
         CpuActionDiscard cpuActionDiscard=new CpuActionDiscard(Color.GREEN);
         ArrayList<CpuAction> cpuActions= new ArrayList<>();
         Table table= new Table();
@@ -74,7 +74,7 @@ class CpuActionDiscardTest {
         assertEquals(0,table.getDevelopmentCardDeck(Color.GREEN,3).getDevelopmentCards().size());
     }
     @Test
-    void testActivateActionLevel12() throws FileNotFoundException {
+    public void testActivateActionLevel12() throws FileNotFoundException {
         CpuActionDiscard cpuActionDiscard=new CpuActionDiscard(Color.GREEN);
         ArrayList<CpuAction> cpuActions= new ArrayList<>();
         Table table= new Table();
@@ -88,7 +88,7 @@ class CpuActionDiscardTest {
 
     }
     @Test
-    void testActivateActionLevel23() throws FileNotFoundException {
+    public void testActivateActionLevel23() throws FileNotFoundException {
         CpuActionDiscard cpuActionDiscard=new CpuActionDiscard(Color.GREEN);
         ArrayList<CpuAction> cpuActions= new ArrayList<>();
         Table table= new Table();

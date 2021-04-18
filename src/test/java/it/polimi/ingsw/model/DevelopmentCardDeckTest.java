@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,25 +10,25 @@ import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DevelopmentCardDeckTest {
+public class DevelopmentCardDeckTest {
 
     Table table= new Table();
 
-    DevelopmentCardDeckTest() throws FileNotFoundException {
+    public DevelopmentCardDeckTest() throws FileNotFoundException {
     }
 
     @Test
-    void getColor() {
+    public void getColor() {
         assertEquals (Color.BLUE, table.getDevelopmentCardDeck(Color.BLUE, 1).getColor());
     }
 
     @Test
-    void getLevel() {
+    public void getLevel() {
         assertEquals (2, table.getDevelopmentCardDeck(Color.BLUE, 2).getLevel());
     }
 
     @Test
-    void getDevelopmentCards() {
+    public void getDevelopmentCards() {
         ArrayList<DevelopmentCard> developmentCardArraylist= new ArrayList<>();
         Stack<DevelopmentCard> developmentCardStack= new Stack<>();
         DevelopmentCard d=new DevelopmentCard();
@@ -39,7 +39,7 @@ class DevelopmentCardDeckTest {
     }
 
     @Test
-    void viewTopCard(){
+    public void viewTopCard(){
         Map<Resource, Integer> map=new HashMap<>();
         ArrayList<DevelopmentCard> developmentCards= new ArrayList<>();
         map.put(Resource.SHIELD,3);
@@ -52,7 +52,7 @@ class DevelopmentCardDeckTest {
     }
 
     @Test
-    void verifyRequirement() {
+    public void verifyRequirement() {
         Map<Resource, Integer> map=new HashMap<>();
         ArrayList<DevelopmentCard> developmentCards= new ArrayList<>();
         map.put(Resource.SHIELD,3);
@@ -64,7 +64,7 @@ class DevelopmentCardDeckTest {
     }
 
     @Test
-    void removeFromTop(){
+    public void removeFromTop(){
         table.getDevelopmentCardDeck(Color.BLUE,2).removeFromTop();
         assertEquals(3,table.getDevelopmentCardDeck(Color.BLUE,2).getDevelopmentCards().size());
 

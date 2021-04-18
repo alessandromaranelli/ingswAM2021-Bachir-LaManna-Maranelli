@@ -1,15 +1,15 @@
 package it.polimi.ingsw.model;
 
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CpuActionMoveOnTest {
+public class CpuActionMoveOnTest {
     @Test
-    void testActivateAction() throws FileNotFoundException {
+    public void testActivateAction() throws FileNotFoundException {
         CpuActionMoveOn cpuActionMoveOn = new CpuActionMoveOn();
         ArrayList<CpuAction> cpuActions= new ArrayList<>();
         cpuActions.add(new CpuActionShuffle());

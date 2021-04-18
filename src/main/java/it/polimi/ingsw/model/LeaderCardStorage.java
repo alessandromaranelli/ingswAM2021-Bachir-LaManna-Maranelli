@@ -3,8 +3,8 @@ package it.polimi.ingsw.model;
 import java.util.Map;
 
 public class LeaderCardStorage extends LeaderCard {
-    private Resource requirement;
-    private Resource type;
+    private final Resource requirement;
+    private final Resource type;
 
     public LeaderCardStorage(int victoryPoints, String description, Resource requirement, Resource type) {
         super(victoryPoints, description);

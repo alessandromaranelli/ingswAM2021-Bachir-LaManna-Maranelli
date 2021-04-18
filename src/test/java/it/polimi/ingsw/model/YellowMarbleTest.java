@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -9,9 +9,9 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class YellowMarbleTest {
+public class YellowMarbleTest {
     @Test
-    void whenDrawn() throws FileNotFoundException {
+    public void whenDrawn() throws FileNotFoundException {
         Marble marble= new YellowMarble();
         Game game= new Game();
         PersonalBoard personalBoard = new PersonalBoard(game.getVaticanReportSections());

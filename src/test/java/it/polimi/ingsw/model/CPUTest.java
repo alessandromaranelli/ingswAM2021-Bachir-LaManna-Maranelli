@@ -1,26 +1,26 @@
 package it.polimi.ingsw.model;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CPUTest {
+public class CPUTest {
     Game game=new Game();
     CPU cpu=new CPU(game);
 
-    CPUTest() throws FileNotFoundException {
+    public CPUTest() throws FileNotFoundException {
     }
 
     @Test
-    void getCpuPosition() {
+    public void getCpuPosition() {
         assertEquals(0,cpu.getCpuPosition());
     }
 
     @Test
-    void actionCpu() {
+    public void actionCpu() {
         ArrayList<CpuAction> cpuActionArrayList= new ArrayList<>();
         cpuActionArrayList.addAll(cpu.getCpuActions());
         cpu.actionCpu();

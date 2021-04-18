@@ -13,14 +13,14 @@ public class DevelopmentCard {
 
     public DevelopmentCard(){};
 
-    public DevelopmentCard(Color c, int lv, int vp, Map<Resource, Integer> rq, Map<Resource, Integer> input, Map<Resource, Integer> output, int fp){                //aggiunto per fare test in altre classi
-        color = c;
-        level = lv;
-        victoryPoints = vp;
-        requirements = rq;
-        productionInput = input;
-        productionOutput = output;
-        faithPoint = fp;
+    public DevelopmentCard(Color color, int level, int vp, Map<Resource, Integer> requirements, Map<Resource, Integer> input, Map<Resource, Integer> output, int fp){                //aggiunto per fare test in altre classi
+        this.color = color;
+        this.level = level;
+        this.victoryPoints = vp;
+        this.requirements = requirements;
+        this.productionInput = input;
+        this.productionOutput = output;
+        this.faithPoint = fp;
     }
 
     public Map<Resource, Integer> getRequirements() {

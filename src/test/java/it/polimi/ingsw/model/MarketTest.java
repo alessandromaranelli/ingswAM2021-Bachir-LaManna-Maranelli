@@ -1,15 +1,15 @@
 package it.polimi.ingsw.model;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MarketTest {
+public class MarketTest {
 
     @Test
-    void getMarketTable() {
+    public void getMarketTable() {
         Marble[][] marketTable= new Marble[3][4];
         marketTable[0][0]=new YellowMarble();
         marketTable[0][1]=new RedMarble();
@@ -29,7 +29,7 @@ class MarketTest {
     }
 
     @Test
-    void Reorganize1() {
+    public void Reorganize1() {
         Marble[][] marketTable= new Marble[3][4];
         marketTable[0][0]=new YellowMarble();
         marketTable[0][1]=new RedMarble();
@@ -60,7 +60,7 @@ class MarketTest {
     }
 
     @Test
-    void Reorganize2() {
+    public void Reorganize2() {
         Marble[][] marketTable= new Marble[3][4];
         marketTable[0][0]=new YellowMarble();
         marketTable[0][1]=new RedMarble();
@@ -89,7 +89,7 @@ class MarketTest {
     }
 
     @Test
-    void chooseRow() {
+    public void chooseRow() {
         Marble[][] marketTable= new Marble[3][4];
         marketTable[0][0]=new YellowMarble();
         marketTable[0][1]=new RedMarble();
@@ -115,7 +115,7 @@ class MarketTest {
     }
 
     @Test
-    void chooseColumn() {
+    public void chooseColumn() {
         Marble[][] marketTable= new Marble[3][4];
         marketTable[0][0]=new YellowMarble();
         marketTable[0][1]=new RedMarble();
