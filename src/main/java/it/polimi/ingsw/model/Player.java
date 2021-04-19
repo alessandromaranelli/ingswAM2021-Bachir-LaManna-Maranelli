@@ -29,12 +29,12 @@ public class Player {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
-        nickname = nickname;
+    public void setNickname(String name) {
+        nickname = name;
     }
 
     public void setPlayerID(int playerID) {
-        playerID = playerID;
+        this.playerID = playerID;
     }
 
     public PersonalBoard getPersonalBoard() {
@@ -64,8 +64,8 @@ public class Player {
 
     public void chooseLeaderCardsToDiscard(int i1, int i2) throws ModelException{
         if(phase != TurnState.CHOOSELEADERCARDS) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
-        personalBoard.getLeaderCardsInHand().remove(i1);
-        personalBoard.getLeaderCardsInHand().remove(i2);
+        personalBoard.getLeaderCardsInHand().remove(i1-1);
+        personalBoard.getLeaderCardsInHand().remove(i2-2);
         phase = TurnState.CHOOSERESOURCES;
     }
 
@@ -168,14 +168,14 @@ public class Player {
         if(phase != TurnState.MANAGERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getWareHouse().defaultAddResourcesToOrganize();
         if(personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
-        phase = TurnState.ADDRESOURCES;
+        else phase = TurnState.ADDRESOURCES;
     }
 
     public void manageResourcesToOrganize(Resource type, int i, int n) throws ModelException{
         if(phase != TurnState.MANAGERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getWareHouse().addResourcestoOrganize(type, i, n);
         if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty() && personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
-        if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty()) phase = TurnState.ADDRESOURCES;
+        else if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty()) phase = TurnState.ADDRESOURCES;
     }
 
     public void startAddResources() throws ModelException{
@@ -263,7 +263,8 @@ public class Player {
 
     public void startPayProduction() throws ModelException{
         if(phase != TurnState.PRODUCTIONPHASE) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
-        phase = TurnState.PAYPRODUCTIONS;
+        if(getPersonalBoard().getProduction().totalCostIsEmpty()) phase = TurnState.ENDTURN;
+        else phase = TurnState.PAYPRODUCTIONS;
     }
 
     public void payProductionAllFromChest() throws ModelException{
@@ -303,95 +304,4 @@ public class Player {
         personalBoard.discardLeaderCard(i);
         leaderAction = true;
     }
-
-
-
-
-
-
-
-
-    /*
-
-    public ArrayList<Marble> getResources (Table table, char rowCol, int dim){
-        ArrayList<Marble> resources;
-        if (rowCol=='c') resources= table.getMarket().chooseColumn(dim);
-        else resources= table.getMarket().chooseRow(dim);
-        table.getMarket().reorganize(resources,dim);
-        for (Marble marble : resources){
-            marble.whenDrawn(personalBoard);
-        }
-        manageResources();
-        return resources;  //serve ritornare l'array? anche qua per la view
-    }
-
-    public void manageResources (){
-        Map<Resource, Integer> resourcesToAdd = personalBoard.getWareHouse().getResourcesToAdd(); //forse serve per la view??
-        personalBoard.getWareHouse().getFromStorages();
-        Map<Resource, Integer> resourcesToOrganize = personalBoard.getWareHouse().getResourcesToOrganize(); //forse serve per la view??
-        while (!personalBoard.getWareHouse().resourcesToOrganizeIsEmpty()){
-            //l'utente sistema le risorse
-        }
-        if (!personalBoard.getWareHouse().resourcesToAddIsEmpty()){
-            //somma il numero di risorse che vengono scartate
-            int totResourcesToDiscard = personalBoard.getWareHouse().getResourcesToAdd().values().stream().reduce(0,Integer::sum);
-            for (int i=0;i<totResourcesToDiscard;i++){
-                discardResource();
-            }
-            personalBoard.getWareHouse().getResourcesToAdd().clear();
-        }
-    }
-
-    public void discardResource () {
-        for (Player player : game.getActivePlayers()){
-            if (!player.equals(game.getCurrentPlayer())){
-                player.getPersonalBoard().getFaithTrack().movePositionForward();
-            }
-        }
-    }
-
-    public void buyDevelopmentCard (Table table, Color color, int level) throws ModelException {
-        Map<Resource,Integer> requirements= new HashMap<>();
-        requirements.putAll(table.getDevelopmentCardDeck(color,level).verifyRequirement());
-        if (!personalBoard.getWareHouse().controlRequirements(table.getDevelopmentCardDeck(color,level).getDevelopmentCards().peek())){
-            throw new ModelException("Not enough resources");
-        }
-        requirements.forEach((Resource,Integer)->{
-            while (Integer>0){
-                //da aspettare per il prendere le risorse dai depositi
-            }
-        });
-    }
-
-    public void drawLeaderCard(Table table){
-        ArrayList<LeaderCard> leaderCards= new ArrayList<>();
-        for (int i=0 ; i<4 ; i++)
-        leaderCards.add(table.getLeaderCardDeck().draw());
-        chooseLeaderCards(leaderCards);
-    }
-
-    public void chooseLeaderCards(ArrayList<LeaderCard> leaderCards){
-
-    }
-
-    public void playLeaderCard(LeaderCard leaderCard) throws ModelException {
-        if (!leaderCard.verifyRequirements(personalBoard)) throw new ModelException("Not having the requirements");
-        personalBoard.getLeaderCardsPlayed().add(leaderCard);
-    }
-
-    public void discardLeaderCard(LeaderCard leaderCard){
-        leaderCard.discard(personalBoard.getFaithTrack());
-    }
-
-    public void updateFaithMarkerAtTheStart (int pos){
-        while (pos>0){
-            personalBoard.getFaithTrack().movePositionForward();
-            pos--;
-        }
-    }
-
-    public void ActivateProduction(){}
-
-
-     */
 }

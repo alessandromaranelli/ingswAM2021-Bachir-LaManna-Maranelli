@@ -138,7 +138,10 @@ public class PersonalBoard {
 
     //Adds a resource to be exchanged with drawn white marbles
     public void addWhiteMarble(Resource resource){
-        whiteMarble.add(resource);
+        if(whiteMarble.size() == 0)  whiteMarble.add(resource);
+        else if(whiteMarble.get(0) != resource) {
+            whiteMarble.add(resource);
+        }
     }
 
 
@@ -152,6 +155,7 @@ public class PersonalBoard {
     public void chooseCardToBuy(DevelopmentCard card, int i) throws ModelException{
         if(controlCardToBuy(card, i) == false) throw new ModelException("Not possible to buy this card");
         cardSlot.addCardToSlot(card, i);
+        cardCost.clear();                                       //cardCost è sempre vuoto quando sto scegliendo di comprare una carta. Questa istruzione serve solo per fare un test
         Set<Resource> s = card.getRequirements().keySet();
         for(Resource x : s){
             cardCost.put(x, card.getRequirements().get(x));
@@ -165,7 +169,7 @@ public class PersonalBoard {
 
             if(reduction.get(1) != null){
                 x = reduction.get(1);
-                if(cardCost.get(x) != null){
+                if(cardCost.get(x) != null && cardCost.get(x)-1 >= 0){
                     cardCost.put(x, cardCost.get(x)-1);
                 }
             }
