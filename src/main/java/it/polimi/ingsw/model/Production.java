@@ -213,7 +213,9 @@ public class Production {
             totalGain.put(i, 0);
         }
 
-        //personalBoard.getFaithTrack().movePositionForward(); devi mandare avanti il player di tanto quanti sono i faithPoints accumulati
+        for(int j = 0; j < faithPoints; j++){
+            personalBoard.getFaithTrack().movePositionForward();
+        }
         faithPoints = 0;
 
         for(int i=0; i < 3; i++){

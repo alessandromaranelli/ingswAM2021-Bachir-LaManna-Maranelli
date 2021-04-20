@@ -300,17 +300,15 @@ public class ProductionTest {
     }
 
     @Test
-    public void testpayCostfromStorage2() throws ModelException { //???
+    public void testpayCostfromStorage2() throws ModelException {
         WareHouse wareHouse = new WareHouse();
         wareHouse.addResource(Resource.COIN, 1);
         wareHouse.addResourcestoAdd(Resource.COIN, 1, 1);
-        wareHouse.addResource(Resource.SHIELD, 1);  /////
-        wareHouse.addResourcestoAdd(Resource.SHIELD, 2, 1); ////
+        wareHouse.addResource(Resource.SHIELD, 1);
+        wareHouse.addResourcestoAdd(Resource.SHIELD, 2, 1);
 
 
-        Production production = new Production(p, wareHouse, c);
-        System.out.println(production.getTotalGain().toString());
-        production.activatePersonalProduction(Resource.COIN, Resource.SHIELD, Resource.SERVANT);
+        Production production = new Production(p, wareHouse, c);production.activatePersonalProduction(Resource.COIN, Resource.SHIELD, Resource.SERVANT);
         production.payCostfromStorage(Resource.COIN, 1, 1);
 
         Map<Resource, Integer> m = new HashMap<>();
@@ -365,27 +363,32 @@ public class ProductionTest {
 
 
     @Test(expected = ModelException.class)
-    public void testgainResourcesAndEndProduction1() throws ModelException{
-        Production production = new Production(p, w, c);
-        production.activatePersonalProduction(Resource.STONE, Resource.COIN, Resource.SHIELD);
-        production.gainResourcesAndEndProduction();
+    public void testgainResourcesAndEndProduction1() throws ModelException, FileNotFoundException{
+        Game game = new Game();
+        Player player = new Player("flavio", 0, game);
+
+        player.getPersonalBoard().getProduction().activatePersonalProduction(Resource.STONE, Resource.COIN, Resource.SHIELD);
+        player.getPersonalBoard().getProduction().gainResourcesAndEndProduction();
     }
 
     @Test
-    public void testgainResourcesAndEndProduction2() throws ModelException{
-        WareHouse wareHouse = new WareHouse();
-        wareHouse.addToChest(Resource.COIN, 50);
-        wareHouse.addToChest(Resource.STONE, 50);
+    public void testgainResourcesAndEndProduction2() throws ModelException, FileNotFoundException{
+        Game game = new Game();
+        Player player = new Player("flavio", 0, game);
 
-        Production production = new Production(p, wareHouse, c);
-        production.activatePersonalProduction(Resource.STONE, Resource.COIN, Resource.SHIELD);
-        production.payCostfromChest(Resource.COIN, 1);
-        production.payCostfromChest(Resource.STONE, 1);
-        production.addSpecialProduction(Resource.SHIELD);
-        production.gainResourcesAndEndProduction();
+        player.getPersonalBoard().getWareHouse().addToChest(Resource.COIN, 50);
+        player.getPersonalBoard().getWareHouse().addToChest(Resource.STONE, 50);
+        player.getPersonalBoard().getProduction().addSpecialProduction(Resource.COIN);
 
-        assertFalse(production.isPersonalProductionActivated());
-        assertEquals(1, wareHouse.getFromChest(Resource.SHIELD));
-        assertTrue(production.totalGainIsEmpty());
+        player.getPersonalBoard().getProduction().activatePersonalProduction(Resource.STONE, Resource.COIN, Resource.SHIELD);
+        player.getPersonalBoard().getProduction().activateSpecialProduction(Resource.STONE, 1);
+
+        player.getPersonalBoard().getProduction().payAllfromChest();
+        player.getPersonalBoard().getProduction().gainResourcesAndEndProduction();
+
+        assertFalse(player.getPersonalBoard().getProduction().isPersonalProductionActivated());
+        assertFalse(player.getPersonalBoard().getProduction().isSpecialProductionActivated(1));
+        assertEquals(1, player.getPersonalBoard().getWareHouse().getFromChest(Resource.SHIELD));
+        assertTrue(player.getPersonalBoard().getProduction().totalGainIsEmpty());
     }
 }

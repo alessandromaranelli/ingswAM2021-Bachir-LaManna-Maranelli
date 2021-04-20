@@ -497,7 +497,6 @@ public class WareHouseTest {
     @Test
     public void testaddInitResources1() throws ModelException {
         WareHouse wareHouse= new WareHouse();
-        wareHouse.getStorages().get(0).setType(Resource.COIN);
         wareHouse.addInitResources(Resource.COIN);
         assertEquals(1,wareHouse.getFromStorage(1));
 
@@ -508,6 +507,7 @@ public class WareHouseTest {
         WareHouse wareHouse= new WareHouse();
         wareHouse.getStorages().get(0).setType(Resource.COIN);
         wareHouse.getStorages().get(1).setType(Resource.SERVANT);
+        wareHouse.getStorages().get(2).setType(Resource.STONE);
         wareHouse.addInitResources(Resource.COIN,Resource.SERVANT);
         assertEquals(1,wareHouse.getFromStorage(1));
         assertEquals(1,wareHouse.getFromStorage(2));

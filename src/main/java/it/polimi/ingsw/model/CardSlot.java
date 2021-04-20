@@ -27,7 +27,7 @@ public class CardSlot {
     }
 
     public DevelopmentCard getTopCardofSlot(int i) throws ModelException{
-        if(getSlot(i).isEmpty() == true) throw new ModelException("Slot is empty");
+        if(getSlot(i).isEmpty() == true) throw new ModelException("Slot " + i + " is empty");
         return getSlot(i).peek();
     }
 

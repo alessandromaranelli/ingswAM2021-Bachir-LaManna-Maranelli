@@ -8,7 +8,6 @@ public class WareHouse {
     private ArrayList<Storage> storages;
     private Map<Resource, Integer> resourcesToAdd;
     private Map<Resource, Integer> resourcesToOrganize;
-    private Map<Resource, Integer> backupResourcesToOrganize;
 
     public WareHouse() {
         chest = new Chest();
@@ -50,7 +49,7 @@ public class WareHouse {
 
     //metodo per controllare che i 3 storage abbiano tipi diversi e che insieme tutti gli storage possano ospitare tutte le risorse da organizzare
     public boolean controlStoragesType(){
-        if (storages.get(0).getType() == storages.get(1).getType() || storages.get(1) == storages.get(2) || storages.get(0) == storages.get(2))
+        if (storages.get(0).getType() == storages.get(1).getType() || storages.get(1).getType() == storages.get(2).getType() || storages.get(0).getType() == storages.get(2).getType())
             return false;
         else {
             Map<Resource, Integer> m = new HashMap<>();
