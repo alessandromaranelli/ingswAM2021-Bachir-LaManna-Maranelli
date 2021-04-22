@@ -189,8 +189,8 @@ public class PersonalBoardTest {
         for (int i=0;i<17;i++){
             player.getPersonalBoard().getFaithTrack().movePositionForward();
         }
-        player.getPersonalBoard().getFaithTrack().getPopeFavours().get(0).Activate();
-        player.getPersonalBoard().getFaithTrack().getPopeFavours().get(1).Activate();
+        player.getPersonalBoard().getFaithTrack().getPopeFavours().get(0).activate();
+        player.getPersonalBoard().getFaithTrack().getPopeFavours().get(1).activate();
         assertEquals (53,player.getPersonalBoard().countVictoryPoints());
     }
 

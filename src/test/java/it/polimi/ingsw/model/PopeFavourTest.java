@@ -9,7 +9,7 @@ public class PopeFavourTest {
     @Test
     public void activate() {
         PopeFavour popeFavour=new PopeFavour(5);
-        popeFavour.Activate();
+        popeFavour.activate();
         assertEquals(true,popeFavour.isActivated());
     }
 

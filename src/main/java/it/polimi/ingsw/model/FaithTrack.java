@@ -2,11 +2,22 @@ package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
 
+
+/**
+ * FaithTrack is the class that describes the fatih path. It is composed by an arraylist of 25 Boxes, of which
+ * 22 are normal Boxes and 3 are PopeSpaces. It also has an arraylist of three PopeFavours and an attribute
+ * playerPosition that contains the Box in which the FaithMarker is in.
+ */
 public class FaithTrack {
     private ArrayList<Box> track;
     private ArrayList<PopeFavour> popeFavours;
     private Box playerPosition;
 
+    /**
+     * Constructor FaithTrack creates a new FaithTrack instance
+     * @param vaticanReportSections - ArrayList<VaticanReportSection>, a list the contain the vaticanReportSections
+     * of the game
+     */
     public FaithTrack(ArrayList<VaticanReportSection> vaticanReportSections) {
         track=new ArrayList<>();
         Box box= new Box(0); //0
@@ -70,18 +81,34 @@ public class FaithTrack {
         popeFavours.add(popeFavour);
     }
 
+    /**
+     * Getter method that returns the actual playerPosition
+     * @return Box playerPosition
+     */
     public Box checkPlayerPosition(){
         return playerPosition;
     }
 
+    /**
+     * Getter method that returns the track
+     * @return ArrayList<Box> track
+     */
     public ArrayList<Box> getTrack() {
         return track;
     }
 
+    /**
+     * Getter method that returns the popeFavours
+     * @return ArrayList<PopeFavour> popeFavours
+     */
     public ArrayList<PopeFavour> getPopeFavours() {
         return popeFavours;
     }
 
+    /**
+     * Method that increases by 1 box the playerPosition on the track.
+     * At the end, method report is called
+     */
     public void movePositionForward(){
         int playerPos= track.indexOf(playerPosition);
         playerPosition= track.get(playerPos+1);
