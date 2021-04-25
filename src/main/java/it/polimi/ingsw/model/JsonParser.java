@@ -4,13 +4,22 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * The type Json parser. This class is used to build the decks of DevelopmentCards and
+ * LeaderCards when the game starts.
+ */
 public class JsonParser {
-
     Gson gson = new Gson();
     File file;
     InputStream inputStream;
     Reader reader;
 
+    /**
+     * Deserialize DevelopmentCards.
+     *
+     * @return the array list of 12 DevelopmentCardDecks
+     * @throws FileNotFoundException the file not found exception
+     */
     public ArrayList<DevelopmentCardDeck> deserializeDevelopment() throws FileNotFoundException {
         file = new File("src/main/resources/cards.json");
         inputStream = new FileInputStream(file);
@@ -31,6 +40,12 @@ public class JsonParser {
         return developmentCardDecks;
     }
 
+    /**
+     * Deserialize LeaderCards.
+     *
+     * @return the LeaderCardDeck
+     * @throws FileNotFoundException the file not found exception
+     */
     public LeaderCardDeck deserializeLeaders() throws FileNotFoundException {
         file = new File("src/main/resources/ReductionLeaderCardsData.json");
         inputStream= new FileInputStream(file);

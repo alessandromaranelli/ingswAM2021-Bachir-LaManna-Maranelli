@@ -2,16 +2,23 @@ package it.polimi.ingsw.model;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import Exceptions.ModelException;
-import com.google.gson.Gson;
 
+/**
+ * The type Table contains the marketTable, the LeaderCardDeck and 12 DevelopmentCardDecks. It is visible from
+ * all the players.
+ */
 public class Table {
     private Market market;
     private LeaderCardDeck leaderCardDeck;
     private ArrayList<DevelopmentCardDeck> developmentCardDecks;
 
+    /**
+     * Instantiates a new Table.
+     *
+     * @throws FileNotFoundException the file not found exception
+     */
     public Table() throws FileNotFoundException{
         market = new Market();
         JsonParser jsonParser= new JsonParser();
@@ -20,10 +27,22 @@ public class Table {
 
     }
 
+    /**
+     * Getter method to see the market.
+     *
+     * @return the market
+     */
     public Market getMarket() {
         return market;
     }
 
+    /**
+     * Gets a developmentCardDeck.
+     *
+     * @param color the color of the deck
+     * @param level the level of the deck
+     * @return the developmentCardDeck
+     */
     public DevelopmentCardDeck getDevelopmentCardDeck(Color color, int level) {
         DevelopmentCardDeck deck = developmentCardDecks.get(0);
         for (DevelopmentCardDeck developmentCardDeck : developmentCardDecks){
@@ -35,6 +54,14 @@ public class Table {
         return deck;
     }
 
+    /**
+     * Gets the top card of a developmentCardDeck.
+     *
+     * @param color the color of the deck
+     * @param level the level of the deck
+     * @return the development card
+     * @throws ModelException the model exception
+     */
     public DevelopmentCard viewDevelopmentCard(Color color, int level) throws ModelException {
         DevelopmentCardDeck deck = developmentCardDecks.get(0);
         for (DevelopmentCardDeck developmentCardDeck : developmentCardDecks){
@@ -47,6 +74,13 @@ public class Table {
         return deck.viewTopCard();
     }
 
+    /**
+     * Remove the top card of a developmentCardDeck.
+     *
+     * @param color the color of the deck
+     * @param level the level of the deck
+     * @throws ModelException the model exception
+     */
     public void removeDevelopmentCard(Color color, int level) throws ModelException {
         DevelopmentCardDeck deck = developmentCardDecks.get(0);
         for (DevelopmentCardDeck developmentCardDeck : developmentCardDecks){
@@ -60,6 +94,11 @@ public class Table {
     }
 
 
+    /**
+     * Getter method to get the LeaderCardDeck.
+     *
+     * @return the LeaderCardDeck
+     */
     public LeaderCardDeck getLeaderCardDeck() {
         return leaderCardDeck;
     }
