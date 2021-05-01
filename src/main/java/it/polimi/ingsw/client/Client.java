@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.messages.NickNameMsg;
-import it.polimi.ingsw.messages.NumberOfPlayersMsg;
+import it.polimi.ingsw.messages.commands.NickNameMsg;
+import it.polimi.ingsw.messages.commands.NumberOfPlayersMsg;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

@@ -52,6 +52,7 @@ public class Server {
                 if (areAllReady() && this.clientConnectionThreads.size() == controller.getNumberOfPlayers()) {
                     System.out.println("Starting game...");
                     this.listening=false;
+                    controller.startGame();
                     for (ClientHandler clientConnectionThread : clientConnectionThreads) {
                         clientConnectionThread.startGame();
                     }

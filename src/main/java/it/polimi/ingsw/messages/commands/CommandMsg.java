@@ -1,11 +1,14 @@
-package it.polimi.ingsw.messages;
+package it.polimi.ingsw.messages.commands;
 
 
 
+import it.polimi.ingsw.messages.NetworkMessage;
+import it.polimi.ingsw.model.TurnState;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.UUID;
 
 
@@ -14,17 +17,16 @@ import java.util.UUID;
  */
 public abstract class CommandMsg extends NetworkMessage
 {
-    UUID identifier = UUID.randomUUID();
+    private TurnState turnState;
 
-
-    /**
-     * Unique identifier for the message.
-     * Allows matching a message with its response.
-     * @return The identifier
-     */
-    public UUID getIdentifier()
-    {
-        return identifier;
+    public CommandMsg(TurnState turnState) {
+        this.turnState = turnState;
     }
+
+
+    public TurnState getTurnState() {
+        return turnState;
+    }
+
     public abstract void processMessage(ClientHandler clientHandler, Controller controller) throws IOException;
 }

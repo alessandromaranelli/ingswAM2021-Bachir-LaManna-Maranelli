@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server;
 
 
-import it.polimi.ingsw.messages.CommandMsg;
-import it.polimi.ingsw.messages.NickNameMsg;
+import it.polimi.ingsw.messages.commands.CommandMsg;
+import it.polimi.ingsw.messages.commands.NickNameMsg;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -69,7 +69,9 @@ public class ClientHandler extends Thread {
                 System.out.println("input");
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg)next;
-                command.processMessage(this, controller);
+                if (controller.checkCommandValidity(this, command)) {
+                    command.processMessage(this, controller);
+                }
             }
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             System.out.println("invalid stream from client");

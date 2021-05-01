@@ -1,6 +1,9 @@
-package it.polimi.ingsw.messages;
+package it.polimi.ingsw.messages.commands;
 
+import it.polimi.ingsw.messages.answers.NumberOfPlayersRequestMsg;
+import it.polimi.ingsw.messages.answers.InvalidNicknameMsg;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.TurnState;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
@@ -11,14 +14,15 @@ public class NickNameMsg extends CommandMsg {
     private String nickName;
 
     public NickNameMsg(String nickName) {
+        super(TurnState.BEFORESTART);
         this.nickName = nickName;
     }
 
     public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException {
         for (Player p : controller.getGame().getPlayers()){
-            if (p.getNickname()==nickName){
+            if (p.getNickname().equals(nickName)){
                 try {
-                    clientHandler.getOutput().writeObject("NickName già preso. Riprova!");
+                    clientHandler.getOutput().writeObject(new InvalidNicknameMsg());
                 } catch (IOException e) {
                     System.out.println("non sono riuscito a stampare" );
                     e.printStackTrace();
@@ -31,7 +35,7 @@ public class NickNameMsg extends CommandMsg {
             clientHandler.setPlayerID(1);
             clientHandler.getOutput().writeObject("You joined the server.");
             clientHandler.getOutput().writeObject("You are player Number " + clientHandler.getPlayerID());
-            clientHandler.getOutput().writeObject("Please insert the number of players of the game");
+            clientHandler.getOutput().writeObject(new NumberOfPlayersRequestMsg());
         }
         else{
             controller.getGame().getPlayers().add(new Player(nickName,controller.getGame().getPlayers().size(),controller.getGame()));
