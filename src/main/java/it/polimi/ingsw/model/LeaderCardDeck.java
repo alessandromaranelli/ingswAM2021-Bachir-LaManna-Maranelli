@@ -8,7 +8,7 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 /**
- * The deck of that at the starting point has 16 leaderCards from which each player draws 4 of them.
+ * A deck that at the beginning has 16 leaderCards from which each player draws 4 of them from the top.
  * It is created at the beginning of the match and the order is random.
  */
 public class LeaderCardDeck {
