@@ -50,6 +50,10 @@ public class Game {
         return table;
     }
 
+    public Player getPlayerById(int Id){
+        return players.get(Id-1);
+    }
+
     public void setCurrentPlayer(Player player) {
         this.currentPlayer = player;
         this.currentPlayerID = player.getPlayerID();

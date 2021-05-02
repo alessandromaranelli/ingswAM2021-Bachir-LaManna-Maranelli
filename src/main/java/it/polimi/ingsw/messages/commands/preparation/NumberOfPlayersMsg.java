@@ -1,5 +1,6 @@
-package it.polimi.ingsw.messages.commands;
+package it.polimi.ingsw.messages.commands.preparation;
 
+import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.model.TurnState;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
@@ -19,7 +20,6 @@ public class NumberOfPlayersMsg extends CommandMsg {
             try {
                 clientHandler.getOutput().writeObject("Numero di giocatori impossibile. Riprova!");
             } catch (IOException e) {
-                System.out.println("non sono riuscito a stampare" );
                 e.printStackTrace();
             }
             return;

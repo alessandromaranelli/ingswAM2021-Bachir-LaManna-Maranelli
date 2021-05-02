@@ -120,14 +120,14 @@ public class Player {
         if(phase != TurnState.MARKETPHASE) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         ArrayList<Marble> marbles;
         if(row == true){
-            marbles = game.getTable().getMarket().chooseRow(dim);
+            marbles = game.getTable().getMarket().chooseRow(dim-1);
         }
-        else marbles = game.getTable().getMarket().chooseColumn(dim);
+        else marbles = game.getTable().getMarket().chooseColumn(dim-1);
 
         for(Marble i : marbles){
             i.whenDrawn(personalBoard);
         }
-        game.getTable().getMarket().reorganize(marbles, dim);
+        game.getTable().getMarket().reorganize(marbles, dim-1);
         if(personalBoard.getWhiteMarble().size() == 2 && personalBoard.getManageWhiteMarbles() > 0) phase = TurnState.WHITEMARBLES;
         else phase = TurnState.CHOICE;
     }
@@ -164,7 +164,7 @@ public class Player {
         else phase = TurnState.MANAGERESOURCES;
     }
 
-    public void defualtManageResourcesToOrganize() throws ModelException{
+    public void defaultManageResourcesToOrganize() throws ModelException{
         if(phase != TurnState.MANAGERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getWareHouse().defaultAddResourcesToOrganize();
         if(personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;

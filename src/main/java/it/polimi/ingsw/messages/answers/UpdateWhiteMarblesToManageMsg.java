@@ -4,15 +4,15 @@ import it.polimi.ingsw.client.ServerHandler;
 
 import java.io.IOException;
 
-public class ErrorMsg extends AnswerMsg{
-    private String error;
+public class UpdateWhiteMarblesToManageMsg extends AnswerMsg{
+    int whiteMarbles;
 
-    public ErrorMsg(String error) {
-        this.error = error;
+    public UpdateWhiteMarblesToManageMsg(int whiteMarbles) {
+        this.whiteMarbles = whiteMarbles;
     }
 
     @Override
     public void processMessage(ServerHandler serverHandler) throws IOException {
-        System.out.println(error);
+
     }
 }
