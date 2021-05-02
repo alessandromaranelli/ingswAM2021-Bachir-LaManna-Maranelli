@@ -11,7 +11,6 @@ public class NumberOfPlayersMsg extends CommandMsg {
     private int numberOfPlayers;
 
     public NumberOfPlayersMsg(int numberOfPlayers) {
-        super(TurnState.BEFORESTART);
         this.numberOfPlayers = numberOfPlayers;
     }
 

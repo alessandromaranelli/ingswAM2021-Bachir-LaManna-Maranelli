@@ -14,7 +14,6 @@ public class NickNameMsg extends CommandMsg {
     private String nickName;
 
     public NickNameMsg(String nickName) {
-        super(TurnState.BEFORESTART);
         this.nickName = nickName;
     }
 

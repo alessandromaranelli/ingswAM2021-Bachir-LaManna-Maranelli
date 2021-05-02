@@ -34,25 +34,9 @@ public class Controller {
         this.numberOfPlayers = numberOfPlayers;
     }
 
-    public boolean checkCommandValidity(ClientHandler clientHandler, CommandMsg commandMsg){
-        if (!gameStarted) return checkCommandValidityBeforeStart(clientHandler,commandMsg);
-        else return checkCommandValidityAfterStart(clientHandler,commandMsg);
-    }
-
-    public boolean checkCommandValidityBeforeStart(ClientHandler clientHandler, CommandMsg commandMsg){
-        if (commandMsg.getTurnState()!= TurnState.BEFORESTART || commandMsg.getTurnState()!=TurnState.PREPARATION){
-            //Command not valid
-            return false;
-        }
-        return true;
-    }
-    public boolean checkCommandValidityAfterStart(ClientHandler clientHandler, CommandMsg commandMsg){
+    public boolean isCurrentPlayer(ClientHandler clientHandler, CommandMsg commandMsg){
         if(clientHandler.getPlayerID()!=game.getCurrentPlayer().getPlayerID()){
             //Wrong player
-            return false;
-        }
-        if(commandMsg.getTurnState()!=game.getCurrentPlayer().getPhase()){
-            //Wrong Phase
             return false;
         }
         return true;

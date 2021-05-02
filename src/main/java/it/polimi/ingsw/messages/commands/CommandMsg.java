@@ -17,16 +17,5 @@ import java.util.UUID;
  */
 public abstract class CommandMsg extends NetworkMessage
 {
-    private TurnState turnState;
-
-    public CommandMsg(TurnState turnState) {
-        this.turnState = turnState;
-    }
-
-
-    public TurnState getTurnState() {
-        return turnState;
-    }
-
     public abstract void processMessage(ClientHandler clientHandler, Controller controller) throws IOException;
 }

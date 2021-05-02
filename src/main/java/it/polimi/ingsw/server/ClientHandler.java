@@ -69,7 +69,7 @@ public class ClientHandler extends Thread {
                 System.out.println("input");
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg)next;
-                if (controller.checkCommandValidity(this, command)) {
+                if (controller.isCurrentPlayer(this, command)) {
                     command.processMessage(this, controller);
                 }
             }
