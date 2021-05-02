@@ -1,7 +1,8 @@
-package it.polimi.ingsw.messages.commands;
+package it.polimi.ingsw.messages.commands.preparation;
 
 import it.polimi.ingsw.messages.answers.NumberOfPlayersRequestMsg;
 import it.polimi.ingsw.messages.answers.InvalidNicknameMsg;
+import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.TurnState;
 import it.polimi.ingsw.server.ClientHandler;
@@ -14,7 +15,6 @@ public class NickNameMsg extends CommandMsg {
     private String nickName;
 
     public NickNameMsg(String nickName) {
-        super(TurnState.BEFORESTART);
         this.nickName = nickName;
     }
 
@@ -24,7 +24,6 @@ public class NickNameMsg extends CommandMsg {
                 try {
                     clientHandler.getOutput().writeObject(new InvalidNicknameMsg());
                 } catch (IOException e) {
-                    System.out.println("non sono riuscito a stampare" );
                     e.printStackTrace();
                 }
                 return;

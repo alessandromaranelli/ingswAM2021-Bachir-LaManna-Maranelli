@@ -8,8 +8,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Server {
-    private Controller controller= new Controller();
     private final Set<ClientHandler> clientConnectionThreads = new LinkedHashSet<>();
+    private Controller controller= new Controller(clientConnectionThreads);
     public static final int PORT = 1235;
     private boolean listening = true;
 

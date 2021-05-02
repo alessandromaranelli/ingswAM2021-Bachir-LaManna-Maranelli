@@ -345,11 +345,11 @@ public class PlayerTest {
     public void testdefualtManageResourcesToOrganize1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.defualtManageResourcesToOrganize();
+        player.defaultManageResourcesToOrganize();
     }
 
     @Test
-    public void testdefualtManageResourcesToOrganize2() throws ModelException, FileNotFoundException{
+    public void testdefaultManageResourcesToOrganize2() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.getPersonalBoard().getWareHouse().addResource(Resource.COIN, 1);
@@ -359,7 +359,7 @@ public class PlayerTest {
 
         player.manageResourcesInStorages();
         player.setStoragesTypes(Resource.COIN, Resource.SHIELD, Resource.SERVANT);
-        player.defualtManageResourcesToOrganize();
+        player.defaultManageResourcesToOrganize();
         assertEquals(1, player.getPersonalBoard().getWareHouse().getFromStorage(1));
         assertEquals(3, player.getPersonalBoard().getWareHouse().getFromStorage(3));
         assertEquals(TurnState.ENDTURN, player.getPhase());
@@ -432,7 +432,7 @@ public class PlayerTest {
         player.startMarketPhase(1, false);
         player.startOrganizeResources();
         player.setStoragesTypes(Resource.COIN, Resource.SHIELD, Resource.SERVANT);
-        player.defualtManageResourcesToOrganize();
+        player.defaultManageResourcesToOrganize();
 
         player.addResources(Resource.COIN, 1, 1);
         assertEquals(1, player.getPersonalBoard().getWareHouse().getFromStorage(1));

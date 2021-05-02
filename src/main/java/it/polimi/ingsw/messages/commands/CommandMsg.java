@@ -2,6 +2,7 @@ package it.polimi.ingsw.messages.commands;
 
 
 
+import Exceptions.ModelException;
 import it.polimi.ingsw.messages.NetworkMessage;
 import it.polimi.ingsw.model.TurnState;
 import it.polimi.ingsw.server.ClientHandler;
@@ -17,16 +18,5 @@ import java.util.UUID;
  */
 public abstract class CommandMsg extends NetworkMessage
 {
-    private TurnState turnState;
-
-    public CommandMsg(TurnState turnState) {
-        this.turnState = turnState;
-    }
-
-
-    public TurnState getTurnState() {
-        return turnState;
-    }
-
-    public abstract void processMessage(ClientHandler clientHandler, Controller controller) throws IOException;
+    public abstract void processMessage(ClientHandler clientHandler, Controller controller) throws IOException, ModelException;
 }
