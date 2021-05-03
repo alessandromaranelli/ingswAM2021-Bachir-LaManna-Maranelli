@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 public enum TurnState {
     BEFORESTART,
+    WAIT,
     PREPARATION,
     CHOOSELEADERCARDS,
     CHOOSERESOURCES,

@@ -4,48 +4,54 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Server {
-    private Controller controller= new Controller();
-    private final Set<ClientHandler> clientConnectionThreads = new LinkedHashSet<>();
-    public static final int PORT = 1235;
-    private boolean listening = true;
+    private Controller controller;
+    private final int PORT;
 
-    public Server() throws FileNotFoundException {
+    public Server(int port) throws FileNotFoundException {
+        controller = new Controller();
+        PORT = port;
     }
 
-    public static void main(String[] args) throws IOException {
-
-        Server s = new Server();
-        s.createLobby();
-    }
-
-    public void createLobby() {
-        new Thread(this::waitReady).start();
-        runServer();
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Insert server port: ");
+        int port = scanner.nextInt();
+        Server server = new Server(port);
+        server.runServer();
     }
 
     public void runServer(){
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("Server waiting for connections...");
-            while(listening){
-                Socket client = serverSocket.accept();
-                this.clientConnectionThreads.add(new ClientHandler(client, controller));
-                System.out.println("Player "+(controller.getGame().getPlayers().size()+1)+" is now connected");
-
-                if (clientConnectionThreads.size() == controller.getNumberOfPlayers()){
-                    listening=false;
-                }
-
-            }
+        ServerSocket serverSocket;
+        try {
+            serverSocket = new ServerSocket(PORT);
         } catch (IOException e) {
-            System.err.println("Could not listen on port " + PORT);
-            System.exit(-1);
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("Server on");
+
+        while(true){
+            Socket socket;
+            try {
+                socket = serverSocket.accept();
+                ClientHandler clientHandler = new ClientHandler(socket, controller);
+                Thread thread = new Thread(clientHandler);
+                thread.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
+
+
+
+
+
+   /*
     public void waitReady(){
         while (true) {
             try {
@@ -70,5 +76,5 @@ public class Server {
 
     public boolean areAllReady() {
         return clientConnectionThreads.stream().allMatch(ClientHandler::isReady);
-    }
+    }   */
 }
