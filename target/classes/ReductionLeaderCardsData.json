@@ -1,0 +1,30 @@
+[
+  {
+    "victoryPoints":  2,
+    "description":  "This is a Reduction Leader 1",
+    "color1":  "PURPLE",
+    "color2":  "YELLOW",
+    "reduction": "COIN"
+  },
+  {
+    "victoryPoints":  2,
+    "description":  "This is a Reduction Leader 2",
+    "color1":  "GREEN",
+    "color2":  "BLUE",
+    "reduction": "STONE"
+  },
+  {
+    "victoryPoints":  2,
+    "description":  "This is a Reduction Leader 3",
+    "color1":  "PURPLE",
+    "color2":  "BLUE",
+    "reduction": "SHIELD"
+  },
+  {
+    "victoryPoints":  2,
+    "description":  "This is a Reduction Leader 4",
+    "color1":  "GREEN",
+    "color2":  "YELLOW",
+    "reduction": "SERVANT"
+  }
+]

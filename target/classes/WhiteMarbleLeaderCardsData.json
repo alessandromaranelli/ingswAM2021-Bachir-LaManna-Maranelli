@@ -1,0 +1,38 @@
+[
+  {
+    "victoryPoints": 5,
+    "description": "This is a WhiteMarble Leader 1",
+    "requirement": {
+      "PURPLE" : 2,
+      "GREEN" : 1
+    },
+    "resource": "COIN"
+  },
+  {
+    "victoryPoints": 5,
+    "description": "This is a WhiteMarble Leader 2",
+    "requirement": {
+      "BLUE" : 2,
+      "YELLOW" : 1
+    },
+    "resource": "STONE"
+  },
+  {
+    "victoryPoints": 5,
+    "description": "This is a WhiteMarble Leader 3",
+    "requirement": {
+      "GREEN" : 2,
+      "PURPLE" : 1
+    },
+    "resource": "SHIELD"
+  },
+  {
+    "victoryPoints": 5,
+    "description": "This is a WhiteMarble Leader 4",
+    "requirement": {
+      "YELLOW" : 2,
+      "BLUE" : 1
+    },
+    "resource": "SERVANT"
+  }
+]

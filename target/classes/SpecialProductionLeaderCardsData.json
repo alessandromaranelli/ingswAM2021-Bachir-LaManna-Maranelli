@@ -1,0 +1,26 @@
+[
+  {
+    "victoryPoints":  4,
+    "description":  "This is a SpecialProduction Leader 1",
+    "color":  "GREEN",
+    "cost": "COIN"
+  },
+  {
+    "victoryPoints":  4,
+    "description":  "This is a SpecialProduction Leader 2",
+    "color":  "PURPLE",
+    "cost": "STONE"
+  },
+  {
+  "victoryPoints":  4,
+  "description":  "This is a SpecialProduction Leader 3",
+  "color":  "BLUE",
+  "cost": "SERVANT"
+  },
+  {
+  "victoryPoints":  4,
+  "description":  "This is a SpecialProduction Leader 4",
+  "color":  "YELLOW",
+  "cost": "SHIELD"
+  }
+]
