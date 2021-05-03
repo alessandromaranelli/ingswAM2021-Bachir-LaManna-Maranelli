@@ -1,4 +1,5 @@
 package it.polimi.ingsw.model;
+import Exceptions.ModelException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public class MarketTest {
     }
 
     @Test
-    public void chooseRow() {
+    public void chooseRow() throws ModelException {
         Marble[][] marketTable= new Marble[3][4];
         marketTable[0][0]=new YellowMarble();
         marketTable[0][1]=new RedMarble();
@@ -115,7 +116,7 @@ public class MarketTest {
     }
 
     @Test
-    public void chooseColumn() {
+    public void chooseColumn() throws ModelException {
         Marble[][] marketTable= new Marble[3][4];
         marketTable[0][0]=new YellowMarble();
         marketTable[0][1]=new RedMarble();

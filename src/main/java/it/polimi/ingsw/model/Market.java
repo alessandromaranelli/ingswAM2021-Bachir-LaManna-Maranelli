@@ -58,7 +58,8 @@ public class Market {
         return marbleInExcess;
     }
 
-    public ArrayList<Marble> chooseRow(int row){
+    public ArrayList<Marble> chooseRow(int row) throws ModelException {
+        if(row>3||row<0) throw new ModelException("Wrong dimension");
         ArrayList<Marble> marbles= new ArrayList<>();
         for (int i=0;i<4;i++){
             marbles.add(marketTable[row][i]);
@@ -66,8 +67,9 @@ public class Market {
         return marbles;
     }
 
-    public ArrayList<Marble> chooseColumn(int column){
+    public ArrayList<Marble> chooseColumn(int column) throws ModelException {
         ArrayList<Marble> marbles= new ArrayList<>();
+        if(column>2||column<0) throw new ModelException("Wrong dimension");
         for (int i=0;i<3;i++){
             marbles.add(marketTable[i][column]);
         }
