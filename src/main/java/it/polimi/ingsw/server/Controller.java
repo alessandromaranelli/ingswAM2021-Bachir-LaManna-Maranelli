@@ -47,7 +47,6 @@ public class Controller {
             //Wrong player
             return false;
         }
-
         return true;
     }
 

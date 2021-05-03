@@ -2,6 +2,7 @@ package it.polimi.ingsw.messages.commands.marketphase;
 
 import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
+import it.polimi.ingsw.messages.answers.UpdateStorageMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.model.Storage;
 import it.polimi.ingsw.server.ClientHandler;
@@ -17,12 +18,12 @@ public class DefaultManageResourcesToOrganizeMsg extends CommandMsg {
         }catch (ModelException e){
             clientHandler.getOutput().writeObject(new ErrorMsg(e.getMessage()));
         }
-        /*try{
+        try{
             clientHandler.getOutput().writeObject(new UpdateStorageMsg(
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
                             stream().map(Storage::getType).toArray(Integer[]::new)));
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 }

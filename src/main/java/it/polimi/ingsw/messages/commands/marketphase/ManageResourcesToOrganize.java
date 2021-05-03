@@ -2,8 +2,11 @@ package it.polimi.ingsw.messages.commands.marketphase;
 
 import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
+import it.polimi.ingsw.messages.answers.ResourcesToOrganizeMsg;
+import it.polimi.ingsw.messages.answers.UpdateStorageMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.model.Resource;
+import it.polimi.ingsw.model.Storage;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
@@ -20,7 +23,7 @@ public class ManageResourcesToOrganize extends CommandMsg {
         } catch (ModelException e) {
             clientHandler.getOutput().writeObject(new ErrorMsg(e.getMessage()));
         }
-        /*try{
+        try{
             clientHandler.getOutput().writeObject(new UpdateStorageMsg(
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
                             stream().map(Storage::getType).toArray(Integer[]::new)));
@@ -28,6 +31,6 @@ public class ManageResourcesToOrganize extends CommandMsg {
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToOrganize()));
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 }

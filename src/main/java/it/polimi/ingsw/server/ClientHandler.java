@@ -18,6 +18,7 @@ public class ClientHandler extends Thread {
     private int playerID;
     private boolean ready= false;
     private Controller controller;
+
     public ClientHandler(Socket socket, Controller controller) throws IOException {
 
         this.socket = socket;
