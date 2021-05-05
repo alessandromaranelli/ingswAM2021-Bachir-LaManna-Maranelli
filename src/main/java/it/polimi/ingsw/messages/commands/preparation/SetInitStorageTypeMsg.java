@@ -1,4 +1,4 @@
-package it.polimi.ingsw.messages.commands;
+package it.polimi.ingsw.messages.commands.preparation;
 
 import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
@@ -23,9 +23,9 @@ public class SetInitStorageTypeMsg extends CommandMsg {
 
     public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try {
-                controller.getGame().getCurrentPlayer().setInitStorageTypes(r1,r2,r3);
-            } catch (ModelException e) {
-            clientHandler.getOutput().writeObject(new ErrorMsg(e.getMessage()));
+            controller.getGame().getCurrentPlayer().setInitStorageTypes(r1,r2,r3);
+        } catch (ModelException e) {
+            clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
 
     }

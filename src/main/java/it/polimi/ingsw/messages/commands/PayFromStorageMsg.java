@@ -26,15 +26,15 @@ public class PayFromStorageMsg extends  CommandMsg{
     public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException {
         if(controller.getGame().getCurrentPlayer().getPersonalBoard().isCardPayed()){
             ErrorMsg error = new ErrorMsg("You've already payed for this card");
-            clientHandler.getOutput().writeObject(error);
+            clientHandler.sendAnswerMessage(error);
         }else {
             try {
                 controller.getGame().getCurrentPlayer().payCardFromStorage(r, n, i);
-                clientHandler.getOutput().writeObject(new CardPriceMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getCardCost()));
-                clientHandler.getOutput().writeObject(new StorageMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromAllStorages()));
-                clientHandler.getOutput().writeObject(new ChestMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromChest()));
+                clientHandler.sendAnswerMessage(new CardPriceMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getCardCost()));
+                clientHandler.sendAnswerMessage(new StorageMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromAllStorages()));
+                clientHandler.sendAnswerMessage(new ChestMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromChest()));
             } catch (ModelException e) {
-                clientHandler.getOutput().writeObject(new ErrorMsg(e.getMessage()));
+                clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
             }
         }
     }

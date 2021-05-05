@@ -25,11 +25,11 @@ public class PayFromChestMsg extends CommandMsg{
     public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException {
         try {
             controller.getGame().getCurrentPlayer().payCardFromChest(r, i);
-            clientHandler.getOutput().writeObject(new CardPriceMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getCardCost()));
-            clientHandler.getOutput().writeObject(new StorageMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromAllStorages()));
-            clientHandler.getOutput().writeObject(new ChestMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromChest()));
+            clientHandler.sendAnswerMessage(new CardPriceMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getCardCost()));
+            clientHandler.sendAnswerMessage(new StorageMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromAllStorages()));
+            clientHandler.sendAnswerMessage(new ChestMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromChest()));
         } catch (ModelException e) {
-            clientHandler.getOutput().writeObject(new ErrorMsg(e.getMessage()));
+            clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
     }
 }

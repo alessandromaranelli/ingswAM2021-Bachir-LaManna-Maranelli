@@ -1,11 +1,10 @@
 package it.polimi.ingsw.server;
 
 
-import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.AnswerMsg;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
-import it.polimi.ingsw.messages.commands.NickNameMsg;
+import it.polimi.ingsw.messages.commands.preparation.NickNameMsg;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

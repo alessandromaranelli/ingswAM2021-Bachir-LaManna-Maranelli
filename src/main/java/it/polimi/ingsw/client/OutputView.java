@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.messages.commands.CommandMsg;
-import it.polimi.ingsw.messages.commands.NickNameMsg;
+import it.polimi.ingsw.messages.commands.preparation.NickNameMsg;
 import it.polimi.ingsw.model.TurnState;
 
 import java.io.IOException;

@@ -1,10 +1,9 @@
-package it.polimi.ingsw.messages.commands;
+package it.polimi.ingsw.messages.commands.preparation;
 
-import Exceptions.ModelException;
+import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
-import java.io.IOException;
 
 public class NickNameMsg extends CommandMsg {
     private String nickname;

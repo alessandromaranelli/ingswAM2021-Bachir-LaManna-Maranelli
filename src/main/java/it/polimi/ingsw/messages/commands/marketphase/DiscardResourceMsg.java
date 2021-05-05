@@ -24,18 +24,14 @@ public class DiscardResourceMsg extends CommandMsg {
         try {
             controller.getGame().getCurrentPlayer().discardResources(r,quantity);
         } catch (ModelException e) {
-            clientHandler.getOutput().writeObject(new ErrorMsg(e.getMessage()));
+            clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
         try{
             controller.sendAllPos(clientHandler);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
-            clientHandler.getOutput().writeObject(new UpdateResourcesToAddMsg(
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        clientHandler.sendAnswerMessage(new UpdateResourcesToAddMsg(
+                controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
     }
 }

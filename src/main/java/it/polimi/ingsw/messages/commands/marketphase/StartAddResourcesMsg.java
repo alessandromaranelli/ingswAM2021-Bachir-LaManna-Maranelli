@@ -14,7 +14,7 @@ public class StartAddResourcesMsg extends CommandMsg {
         try {
             controller.getGame().getCurrentPlayer().startAddResources();
         } catch (ModelException e) {
-            clientHandler.getOutput().writeObject(new ErrorMsg(e.getMessage()));
+            clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
     }
 }

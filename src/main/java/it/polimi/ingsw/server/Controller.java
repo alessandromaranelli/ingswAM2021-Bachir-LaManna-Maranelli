@@ -55,27 +55,26 @@ public class Controller {
 
     public void sendAll(AnswerMsg answer){
         for(ClientHandler clientHandler : clientConnectionThreads){
-            try{
-                clientHandler.getOutput().writeObject(answer);
-            } catch (IOException e) {
+            clientHandler.sendAnswerMessage(answer);
+        }
+    }
 
-                e.printStackTrace();
+    public void sendAllExcept(AnswerMsg answer, ClientHandler cH){
+        for(ClientHandler clientHandler : clientConnectionThreads){
+            if(clientHandler.equals(cH)) {
+                clientHandler.sendAnswerMessage(answer);
             }
         }
     }
 
     public void sendAllPos(ClientHandler cH){
         for(ClientHandler clientHandler : clientConnectionThreads){
-            if(clientHandler.equals(cH)) return;
-            try{
-                clientHandler.getOutput().writeObject(new UpdateFaithMarkerPositionMsg(
-                        this.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                                this.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                        this.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().getPopeFavours().
-                                stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
-            } catch (IOException e) {
-
-                e.printStackTrace();
+            if(clientHandler.equals(cH)) {
+            clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(
+                    this.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().getTrack().indexOf(
+                            this.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().checkPlayerPosition()),
+                    this.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().getPopeFavours().
+                            stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
             }
         }
     }

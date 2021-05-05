@@ -1,15 +1,16 @@
-package it.polimi.ingsw.messages.commands;
+package it.polimi.ingsw.messages.commands.buydevelopmentphase;
 
 import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.CardPriceMsg;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
+import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
-public class BuyCardMsg extends CommandMsg{
+public class BuyCardMsg extends CommandMsg {
     private Color c;
     private int level;
     private int slot;
@@ -25,9 +26,9 @@ public class BuyCardMsg extends CommandMsg{
         try {
             controller.getGame().getCurrentPlayer().chooseDevelopmentCard(c,level,slot);
             CardPriceMsg cp = new CardPriceMsg(controller.getGame().getTable().viewDevelopmentCard(c,level).getRequirements());
-            clientHandler.getOutput().writeObject(cp);
+            clientHandler.sendAnswerMessage(cp);
         } catch (ModelException e) {
-            clientHandler.getOutput().writeObject(new ErrorMsg(e.getMessage()));
+            clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
 
     }

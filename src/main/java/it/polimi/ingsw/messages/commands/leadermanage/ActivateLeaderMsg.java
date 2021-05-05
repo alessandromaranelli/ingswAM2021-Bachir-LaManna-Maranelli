@@ -1,4 +1,4 @@
-package it.polimi.ingsw.messages.commands.marketphase;
+package it.polimi.ingsw.messages.commands.leadermanage;
 
 import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
@@ -8,14 +8,20 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
-public class SelectMarketPhaseMsg extends CommandMsg {
+public class ActivateLeaderMsg extends CommandMsg {
+    int i;
+
+    public ActivateLeaderMsg(int i) {
+        this.i = i;
+    }
+
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
-        try{
-            controller.getGame().getCurrentPlayer().selectMarketPhase();
-        }catch (ModelException e){
+        try {
+            controller.getGame().getCurrentPlayer().activateLeaderCard(i);
+        } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
-            return;
         }
+        //aggiornare la roba giusta
     }
 }

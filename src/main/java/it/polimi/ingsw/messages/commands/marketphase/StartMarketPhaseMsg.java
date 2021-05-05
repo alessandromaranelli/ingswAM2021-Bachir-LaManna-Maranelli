@@ -24,28 +24,24 @@ public class StartMarketPhaseMsg extends CommandMsg {
         try{
             controller.getGame().getCurrentPlayer().startMarketPhase(dim,row);
         }catch (ModelException e){
-            clientHandler.getOutput().writeObject(new ErrorMsg(e.getMessage()));
+            clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
         try{
             controller.sendAll(new UpdateMarketMsg(controller.getGame().getTable().getMarket()));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
-            clientHandler.getOutput().writeObject(new UpdateResourcesToAddMsg(
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
-            clientHandler.getOutput().writeObject(new UpdateFaithMarkerPositionMsg(
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                            controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
-                            stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
-            if (controller.getGame().getCurrentPlayer().getPhase()== TurnState.WHITEMARBLES){
-                clientHandler.getOutput().writeObject(new UpdateWhiteMarblesToManageMsg(
-                        controller.getGame().getCurrentPlayer().getPersonalBoard().getManageWhiteMarbles()
-                ));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        clientHandler.sendAnswerMessage(new UpdateResourcesToAddMsg(
+                controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
+        clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(
+                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
+                        controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
+                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
+                        stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
+        if (controller.getGame().getCurrentPlayer().getPhase()== TurnState.WHITEMARBLES){
+            clientHandler.sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getManageWhiteMarbles()
+            ));
         }
 
 
