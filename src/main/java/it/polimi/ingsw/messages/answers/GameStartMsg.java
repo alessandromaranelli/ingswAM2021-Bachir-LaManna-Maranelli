@@ -1,19 +1,20 @@
 package it.polimi.ingsw.messages.answers;
 
-import Exceptions.ModelException;
 import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.model.*;
 
-public class GameStartMessage extends AnswerMessage{
+import java.util.List;
+
+public class GameStartMsg extends AnswerMsg {
     private String message;
     private Marble[][] market;
     private Marble marbleInExcess;
-    private DevelopmentCard[] developmentCards;
+    private List<DevelopmentCard> developmentCards;
     private PersonalBoard personalBoard;
     private String currentPlayer;
     private TurnState phase;
 
-    public GameStartMessage(Marble[][] m, Marble mx, DevelopmentCard[] d, PersonalBoard p, String c, TurnState phase){
+    public GameStartMsg(Marble[][] m, Marble mx, List<DevelopmentCard> d, PersonalBoard p, String c, TurnState phase){
         market = m;
         marbleInExcess = mx;
         developmentCards = d;
@@ -24,7 +25,7 @@ public class GameStartMessage extends AnswerMessage{
     }
 
 
-    public void handleMessage(LightModel lightModel){
+    public void processMessage(LightModel lightModel){
         lightModel.setMarket(market);
         lightModel.setMarbleInExcess(marbleInExcess);
         lightModel.setDevelopmentCardsToBuy(developmentCards);

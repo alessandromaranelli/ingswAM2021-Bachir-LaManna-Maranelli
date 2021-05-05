@@ -7,15 +7,16 @@ public class LightModel {
     private String nickname;
     private int playerID;
     private int numberOfPlayers;
+    private TurnState phase;                //ricordarsi che ogni messaggio di update aggiorna la fase del player
     private String currentPlayer;
-    private TurnState phase;
     private boolean[] popeFavours;
+    private int faithPoints;
 
     private Marble[][] market;
     private Marble marbleInExcess;
-    private LeaderCard[] leaderCardsInHand;
-    private LeaderCard[] leaderCardsPlayed;
-    private DevelopmentCard[] developmentCardsToBuy;
+    private List<LeaderCard> leaderCardsInHand;
+    private List<LeaderCard> leaderCardsPlayed;
+    private List<DevelopmentCard> developmentCardsToBuy;
 
     private Resource[] storageType;
     private int[] storageQuantity;
@@ -24,18 +25,18 @@ public class LightModel {
     private Map<Resource, Integer> resourcesToAdd;
     private Map<Resource, Integer> totalCost;
     private Map<Resource, Integer> totalGain;
-    private int faithPoints;
-    private DevelopmentCard[] developmentCard;
+    private List<DevelopmentCard> developmentCard;
     private Map<Resource, Integer> cardCost;
 
     public LightModel(){
         phase = TurnState.BEFORESTART;
         popeFavours = new boolean[3];
         market = new Marble[3][4];
-        leaderCardsInHand = new LeaderCard[4];
-        developmentCardsToBuy = new DevelopmentCard[12];
+        leaderCardsInHand = new ArrayList<>();
+        leaderCardsPlayed = new ArrayList<>();
+        developmentCardsToBuy = new ArrayList<>();
         faithPoints = 0;
-        developmentCard = new DevelopmentCard[3];
+        developmentCard = new ArrayList<>();
         storageType = new Resource[3];
         storageQuantity = new int[3];
 
@@ -111,15 +112,15 @@ public class LightModel {
         this.marbleInExcess = marbleInExcess;
     }
 
-    public void setLeaderCardsInHand(LeaderCard[] leaderCardsInHand) {
+    public void setLeaderCardsInHand(List<LeaderCard> leaderCardsInHand) {
         this.leaderCardsInHand = leaderCardsInHand;
     }
 
-    public void setLeaderCardsPlayed(LeaderCard[] leaderCardsPlayed) {
+    public void setLeaderCardsPlayed(List<LeaderCard> leaderCardsPlayed) {
         this.leaderCardsPlayed = leaderCardsPlayed;
     }
 
-    public void setDevelopmentCardsToBuy(DevelopmentCard[] developmentCardsToBuy) {
+    public void setDevelopmentCardsToBuy(List<DevelopmentCard> developmentCardsToBuy) {
         this.developmentCardsToBuy = developmentCardsToBuy;
     }
 
@@ -171,7 +172,7 @@ public class LightModel {
         this.faithPoints = faithPoints;
     }
 
-    public void setDevelopmentCard(DevelopmentCard[] developmentCard) {
+    public void setDevelopmentCard(List<DevelopmentCard> developmentCard) {
         this.developmentCard = developmentCard;
     }
 

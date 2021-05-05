@@ -1,8 +1,7 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.messages.answers.AnswerMessage;
-import it.polimi.ingsw.messages.commands.CommandMessage;
-import it.polimi.ingsw.messages.commands.NickNameMessage;
+import it.polimi.ingsw.messages.commands.CommandMsg;
+import it.polimi.ingsw.messages.commands.NickNameMsg;
 import it.polimi.ingsw.model.TurnState;
 
 import java.io.IOException;
@@ -34,6 +33,9 @@ public class OutputView implements Runnable{
         while (true){
             String s = scanner.nextLine();
             String parts[] = s.split(":");
+            if(client.getLightModel().getPhase() == TurnState.WAIT){
+                System.out.println("Waiting for other players to join the game");
+            }
             if(client.getLightModel().getPhase() == TurnState.ENDTURN){
                 System.out.println("It's not your turn! IT's player " + client.getLightModel().getCurrentPlayer() + " turn");
             }
@@ -41,14 +43,14 @@ public class OutputView implements Runnable{
                 System.out.println("Wrong syntax!");
             }
             else {
-                CommandMessage commandMessage = createCommandMessage(parts);
+                CommandMsg commandMessage = createCommandMessage(parts);
                 sendCommandMessage(commandMessage);
                 type = 0;
             }
         }
     }
 
-    public void sendCommandMessage(CommandMessage commandMessage){
+    public void sendCommandMessage(CommandMsg commandMessage){
         try {
             output.writeObject((Object)commandMessage);
         } catch (IOException e) {
@@ -56,9 +58,9 @@ public class OutputView implements Runnable{
         }
     }
 
-    public CommandMessage createCommandMessage(String parts[]){
+    public CommandMsg createCommandMessage(String parts[]){
         if(type == 1) {
-            NickNameMessage nickNameMessage = new NickNameMessage(parts[1], Integer.parseInt(parts[3]));
+            NickNameMsg nickNameMessage = new NickNameMsg(parts[1], Integer.parseInt(parts[3]));
             return nickNameMessage;
         }
         else return null;

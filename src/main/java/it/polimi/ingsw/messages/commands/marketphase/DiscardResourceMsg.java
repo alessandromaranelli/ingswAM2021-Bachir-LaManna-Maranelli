@@ -20,7 +20,7 @@ public class DiscardResourceMsg extends CommandMsg {
     }
 
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException, ModelException {
+    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try {
             controller.getGame().getCurrentPlayer().discardResources(r,quantity);
         } catch (ModelException e) {

@@ -1,74 +1,78 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.messages.answers.GameStartMsg;
+import it.polimi.ingsw.model.TurnState;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Server {
-    private Controller controller;
-    private final int PORT;
+    private final Set<ClientHandler> clientConnectionThreads = new LinkedHashSet<>();
+    private Controller controller= new Controller(clientConnectionThreads);
+    public static final int PORT = 1235;
+    private boolean listening = true;
 
-    public Server(int port) throws FileNotFoundException {
-        controller = new Controller();
-        PORT = port;
+    public Server() throws FileNotFoundException {
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Insert server port: ");
-        int port = scanner.nextInt();
-        Server server = new Server(port);
-        server.runServer();
+    public static void main(String[] args) throws IOException {
+
+        Server s = new Server();
+        s.createLobby();
+    }
+
+    public void createLobby() {
+        new Thread(this::waitReady).start();
+        runServer();
     }
 
     public void runServer(){
-        ServerSocket serverSocket;
-        try {
-            serverSocket = new ServerSocket(PORT);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-        System.out.println("Server on");
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            System.out.println("Server waiting for connections...");
+            while(listening){
+                Socket client = serverSocket.accept();
+                this.clientConnectionThreads.add(new ClientHandler(client, controller));     //vedi controller
+                System.out.println("Player "+(controller.getGame().getPlayers().size()+1)+" is now connected");
 
-        while(true){
-            Socket socket;
-            try {
-                socket = serverSocket.accept();
-                ClientHandler clientHandler = new ClientHandler(socket, controller);
-                Thread thread = new Thread(clientHandler);
-                thread.start();
-            } catch (IOException e) {
-                e.printStackTrace();
+                if (clientConnectionThreads.size() == controller.getNumberOfPlayers()){
+                    listening=false;
+                }
+
             }
+        } catch (IOException e) {
+            System.err.println("Could not listen on port " + PORT);
+            System.exit(-1);
         }
     }
 
-
-
-
-
-
-   /*
     public void waitReady(){
         while (true) {
             try {
-                if (areAllReady() && this.clientConnectionThreads.size() == controller.getNumberOfPlayers()) {
+                if (areAllReady() && this.clientConnectionThreads.size() == controller.getNumberOfPlayers()) {     //vedi controller
                     System.out.println("Starting game...");
                     this.listening=false;
-                    controller.startGame();
-                    for (ClientHandler clientConnectionThread : clientConnectionThreads) {
-                        clientConnectionThread.startGame();
+                    controller.startGame();   //non so se serve
+                    controller.getGame().getPlayers().get(0).setAsCurrentPlayer();
+                    for (ClientHandler c: clientConnectionThreads) {
+                        //c.startGame();
+                        if (c.getPlayerID() == 1) {
+                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getCurrentPlayer().getPersonalBoard(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.PREPARATION);
+                            c.sendAnswerMessage(gameStartMsg);
+                        }
+                        else{
+                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getPlayers().get(c.getPlayerID()).getPersonalBoard(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.ENDTURN);
+                            c.sendAnswerMessage(gameStartMsg);
+                        }
                     }
 
                     return;
                 }
                 Thread.sleep(100);
-            } catch (InterruptedException | FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -76,5 +80,5 @@ public class Server {
 
     public boolean areAllReady() {
         return clientConnectionThreads.stream().allMatch(ClientHandler::isReady);
-    }   */
+    }
 }

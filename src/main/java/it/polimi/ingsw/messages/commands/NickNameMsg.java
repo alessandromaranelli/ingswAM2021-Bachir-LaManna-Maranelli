@@ -1,18 +1,21 @@
 package it.polimi.ingsw.messages.commands;
 
+import Exceptions.ModelException;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
-public class NickNameMessage extends CommandMessage{
+import java.io.IOException;
+
+public class NickNameMsg extends CommandMsg {
     private String nickname;
     private int numOfPlayers;
 
-    public NickNameMessage(String nickname, int numOfPlayers){
+    public NickNameMsg(String nickname, int numOfPlayers) {
         this.nickname = nickname;
         this.numOfPlayers = numOfPlayers;
     }
 
-    public void handleMessage(Controller controller, ClientHandler clientHandler){
+    public void processMessage(ClientHandler clientHandler, Controller controller) {
         controller.setNickname(nickname, numOfPlayers, clientHandler);
     }
 }

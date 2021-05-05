@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class SelectMarketPhaseMsg extends CommandMsg {
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException, ModelException {
+    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try{
             controller.getGame().getCurrentPlayer().selectMarketPhase();
         }catch (ModelException e){

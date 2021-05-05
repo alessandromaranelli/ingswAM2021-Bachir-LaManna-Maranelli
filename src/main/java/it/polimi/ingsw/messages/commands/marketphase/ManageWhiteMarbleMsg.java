@@ -22,7 +22,7 @@ public class ManageWhiteMarbleMsg extends CommandMsg {
     }
 
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException, ModelException {
+    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try{
             controller.getGame().getCurrentPlayer().manageWhiteMarbles(resource);
         }catch (ModelException e){

@@ -14,7 +14,7 @@ public class ManageResourcesToOrganize extends CommandMsg {
     int storageNumber;
     int quantity;
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException, ModelException {
+    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try {
             controller.getGame().getCurrentPlayer().manageResourcesToOrganize(r,storageNumber,quantity);
         } catch (ModelException e) {

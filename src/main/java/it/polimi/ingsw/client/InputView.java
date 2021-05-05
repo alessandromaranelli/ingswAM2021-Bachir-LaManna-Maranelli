@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.messages.answers.AnswerMessage;
+import it.polimi.ingsw.messages.answers.AnswerMsg;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -34,8 +34,8 @@ public class InputView implements Runnable{
                 e.printStackTrace();
             }
 
-            AnswerMessage message = (AnswerMessage) next;
-            message.handleMessage(client.getLightModel());
+            AnswerMsg message = (AnswerMsg) next;
+            message.processMessage(client.getLightModel());
             message.printMessage();
         }
     }

@@ -16,7 +16,7 @@ public class SetStorageTypesMsg extends CommandMsg {
     Resource r2;
     Resource r3;
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException, ModelException {
+    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try{
             controller.getGame().getCurrentPlayer().setStoragesTypes(r1,r2,r3);
         }catch (ModelException e){

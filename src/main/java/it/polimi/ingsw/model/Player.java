@@ -11,6 +11,7 @@ public class Player {
     private Game game;
     private TurnState phase;
     private boolean leaderAction;
+    private boolean initPhaseDone;
 
     public Player(String nickname, int playerID, Game game) {
         this.nickname = nickname;
@@ -19,6 +20,7 @@ public class Player {
         this.personalBoard = new PersonalBoard(game.getVaticanReportSections());
         this.phase = TurnState.PREPARATION;
         this.leaderAction = false;
+        this.initPhaseDone = false;
     }
 
     public int getPlayerID() {
@@ -27,6 +29,10 @@ public class Player {
 
     public String getNickname() {
         return nickname;
+    }
+
+    public boolean getInitPhaseDone(){
+        return initPhaseDone;
     }
 
     public void setNickname(String name) {
@@ -42,7 +48,10 @@ public class Player {
     }
 
     public void setAsCurrentPlayer(){
-        phase = TurnState.START;
+        if (initPhaseDone == false) {
+            phase = TurnState.PREPARATION;
+        }
+        else phase = TurnState.START;
         leaderAction = false;
     }
 
@@ -88,15 +97,20 @@ public class Player {
 
     public void addInitResources(Resource i) throws ModelException{
         if(phase != TurnState.CHOOSERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
-        if(playerID == 0) phase = TurnState.ENDPREPARATION;
+        if(playerID == 0) {
+            phase = TurnState.ENDPREPARATION;
+            initPhaseDone = true;
+        }
         if(playerID == 1){
             personalBoard.getWareHouse().addInitResources(i);
             phase = TurnState.ENDPREPARATION;
+            initPhaseDone = true;
         }
         if(playerID == 2){
             personalBoard.getWareHouse().addInitResources(i);
             personalBoard.getFaithTrack().movePositionForward();
             phase = TurnState.ENDPREPARATION;
+            initPhaseDone = true;
         }
         if(playerID == 3) throw new ModelException("Player 4 must choose 2 resources to start");
     }
@@ -108,6 +122,7 @@ public class Player {
         personalBoard.getFaithTrack().movePositionForward();
         personalBoard.getFaithTrack().movePositionForward();
         phase = TurnState.ENDPREPARATION;
+        initPhaseDone = true;
     }
 
 

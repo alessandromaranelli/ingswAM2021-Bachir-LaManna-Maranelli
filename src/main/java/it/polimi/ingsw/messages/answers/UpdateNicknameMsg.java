@@ -3,14 +3,14 @@ package it.polimi.ingsw.messages.answers;
 import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.model.TurnState;
 
-public class UpdateNicknameMessage extends AnswerMessage{
+public class UpdateNicknameMsg extends AnswerMsg {
     private String message;
     private String nickname;
     private TurnState phase;
     private int playerID;
     private int numberOfPlayers;
 
-    public UpdateNicknameMessage(String nickname, int playerID, int numberOfPlayers){
+    public UpdateNicknameMsg(String nickname, int playerID, int numberOfPlayers){
         this.numberOfPlayers = numberOfPlayers;
         this.message = "You entered in a game with " + numberOfPlayers + " other players. Wait for other players to join";
         this.nickname = nickname;
@@ -18,7 +18,7 @@ public class UpdateNicknameMessage extends AnswerMessage{
         this.playerID = playerID;
     }
 
-    public void handleMessage(LightModel lightModel){
+    public void processMessage(LightModel lightModel){
         lightModel.setNickname(nickname);
         lightModel.setPhase(phase);
         lightModel.setPlayerID(playerID);

@@ -21,7 +21,7 @@ public class addResourceMsg extends CommandMsg {
     }
 
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException, ModelException {
+    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try {
             controller.getGame().getCurrentPlayer().addResources(r,storageNumber,quantity);
         } catch (ModelException e) {

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import Exceptions.ModelException;
 
@@ -91,6 +92,15 @@ public class Table {
         }
         if(deck.getDevelopmentCards().isEmpty()) throw new ModelException("Empty Deck");
         deck.removeFromTop();
+    }
+
+    //metodo usato per passare alla view tutte le possibili carte che si possono comprare
+    public List<DevelopmentCard> getTopDevelopmentcards(){
+        List<DevelopmentCard> topDevelopmentCards = new ArrayList<>();
+        for(DevelopmentCardDeck d : developmentCardDecks){
+            if(d.getDevelopmentCards().isEmpty() == false) topDevelopmentCards.add(d.viewTopCard());
+        }
+        return topDevelopmentCards;
     }
 
 

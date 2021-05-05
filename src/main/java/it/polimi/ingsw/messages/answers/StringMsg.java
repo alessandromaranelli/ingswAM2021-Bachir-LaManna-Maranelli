@@ -2,14 +2,14 @@ package it.polimi.ingsw.messages.answers;
 
 import it.polimi.ingsw.client.LightModel;
 
-public class StringMessage extends AnswerMessage{
+public class StringMsg extends AnswerMsg {
     String message;
 
-    public StringMessage(String message){
+    public StringMsg(String message){
         this.message = message;
     }
 
-    public void handleMessage(LightModel lightModel){}
+    public void processMessage(LightModel lightModel){}
 
     public void printMessage(){
         System.out.println(message);

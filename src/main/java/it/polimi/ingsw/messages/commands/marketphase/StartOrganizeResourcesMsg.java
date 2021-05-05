@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class StartOrganizeResourcesMsg extends CommandMsg {
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException, ModelException {
+    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try {
             controller.getGame().getCurrentPlayer().startOrganizeResources();
         } catch (ModelException e) {

@@ -20,7 +20,7 @@ public class StartMarketPhaseMsg extends CommandMsg {
     }
 
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException, ModelException {
+    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try{
             controller.getGame().getCurrentPlayer().startMarketPhase(dim,row);
         }catch (ModelException e){

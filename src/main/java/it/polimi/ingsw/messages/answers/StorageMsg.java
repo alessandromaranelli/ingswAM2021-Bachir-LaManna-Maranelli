@@ -1,6 +1,5 @@
 package it.polimi.ingsw.messages.answers;
-
-import it.polimi.ingsw.client.ServerHandler;
+import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.model.Resource;
 
 import java.io.IOException;
@@ -13,7 +12,12 @@ public class StorageMsg extends AnswerMsg{
     }
 
     @Override
-    public void processMessage(ServerHandler serverHandler) throws IOException {
+    public void processMessage(LightModel lightModel) {
+
+    }
+
+    @Override
+    public void printMessage() {
 
     }
 }

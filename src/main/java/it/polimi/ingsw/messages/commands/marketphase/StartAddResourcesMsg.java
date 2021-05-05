@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class StartAddResourcesMsg extends CommandMsg {
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException, ModelException {
+    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try {
             controller.getGame().getCurrentPlayer().startAddResources();
         } catch (ModelException e) {

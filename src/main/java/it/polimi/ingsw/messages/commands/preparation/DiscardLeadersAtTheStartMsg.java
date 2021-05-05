@@ -2,8 +2,10 @@ package it.polimi.ingsw.messages.commands.preparation;
 
 import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
+import it.polimi.ingsw.messages.answers.StringMsg;
 import it.polimi.ingsw.messages.answers.UpdateLeaderCardsMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
+import it.polimi.ingsw.model.TurnState;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
@@ -19,17 +21,22 @@ public class DiscardLeadersAtTheStartMsg extends CommandMsg {
     }
 
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException, ModelException {
-        try{
-            controller.getGame().getCurrentPlayer().chooseLeaderCardsToDiscard(leader1,leader2);
-        }catch (ModelException e){
-            clientHandler.getOutput().writeObject(new ErrorMsg(e.getMessage()));
-        }
-        try{
-            clientHandler.getOutput().writeObject(new UpdateLeaderCardsMsg(
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsInHand()));
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void processMessage(ClientHandler clientHandler, Controller controller){
+        try {
+            controller.getGame().getCurrentPlayer().chooseLeaderCardsToDiscard(leader1, leader2);
+
+            UpdateLeaderCardsMsg updateLeaderCardsMsg = new UpdateLeaderCardsMsg(TurnState.CHOOSERESOURCES, controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsInHand(), controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsPlayed(), "You discarded 2 leader cards");
+            clientHandler.sendAnswerMessage(updateLeaderCardsMsg);
+
+            for(ClientHandler c : controller.getClientConnectionThreads()){
+                if(c.getPlayerID() != controller.getGame().getCurrentPlayer().getPlayerID()){
+                    StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " discarded 2 leader cards");
+                    c.sendAnswerMessage(stringMsg);
+                }
+            }
+        } catch (ModelException e) {
+            ErrorMsg errorMsg = new ErrorMsg(e.getMessage());
+            clientHandler.sendAnswerMessage(errorMsg);
         }
     }
 }
