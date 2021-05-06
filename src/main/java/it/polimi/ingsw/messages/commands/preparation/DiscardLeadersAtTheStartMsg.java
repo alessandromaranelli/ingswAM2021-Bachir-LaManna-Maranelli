@@ -25,7 +25,10 @@ public class DiscardLeadersAtTheStartMsg extends CommandMsg {
         try {
             controller.getGame().getCurrentPlayer().chooseLeaderCardsToDiscard(leader1, leader2);
 
-            UpdateLeaderCardsMsg updateLeaderCardsMsg = new UpdateLeaderCardsMsg(TurnState.CHOOSERESOURCES, controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsInHand(), controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsPlayed(), "You discarded 2 leader cards");
+            UpdateLeaderCardsMsg updateLeaderCardsMsg = new UpdateLeaderCardsMsg(TurnState.CHOOSERESOURCES,
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsInHand(),
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsPlayed(),
+                    "You discarded 2 leader cards");
             clientHandler.sendAnswerMessage(updateLeaderCardsMsg);
 
             StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " discarded 2 leader cards");

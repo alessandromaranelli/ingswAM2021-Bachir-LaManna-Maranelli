@@ -131,7 +131,7 @@ public class Player {
         phase = TurnState.MARKETPHASE;
     }
 
-    public void startMarketPhase(int dim, boolean row) throws ModelException{
+    public ArrayList<Marble> startMarketPhase(int dim, boolean row) throws ModelException{
         if(phase != TurnState.MARKETPHASE) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         ArrayList<Marble> marbles;
         if(row == true){
@@ -145,6 +145,7 @@ public class Player {
         game.getTable().getMarket().reorganize(marbles, dim-1);
         if(personalBoard.getWhiteMarble().size() == 2 && personalBoard.getManageWhiteMarbles() > 0) phase = TurnState.WHITEMARBLES;
         else phase = TurnState.CHOICE;
+        return marbles;
     }
 
     public void manageWhiteMarbles(Resource type) throws ModelException{
@@ -308,10 +309,18 @@ public class Player {
     }
 
 
-    public void activateLeaderCard(int i) throws ModelException{
+    public char activateLeaderCard(int i) throws ModelException{
         if(phase != TurnState.START && phase != TurnState.ENDTURN) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
+        int storageLeader=personalBoard.getWareHouse().getStorages().size();
+        int reduction=personalBoard.getReduction().size();
+        int whiteMarbles=personalBoard.getWhiteMarble().size();
+        int specialProd=personalBoard.getProduction().numOfSpecialProduction();
         personalBoard.activateLeaderCard(i);
         leaderAction = true;
+        if (storageLeader<personalBoard.getWareHouse().getStorages().size()) return 's';
+        if (reduction<personalBoard.getReduction().size()) return 'r';
+        if (whiteMarbles<personalBoard.getWhiteMarble().size()) return 'w';
+        else return 'p';
     }
 
     public void discardLeaderCard(int i) throws ModelException{
