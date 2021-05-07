@@ -23,7 +23,7 @@ public class ManageResourcesToOrganize extends CommandMsg {
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
-        clientHandler.sendAnswerMessage(new UpdateStorageMsg(
+        clientHandler.sendAnswerMessage(new UpdateStorageMsg(controller.getGame().getCurrentPlayer().getPhase(),
                 controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
                         stream().map(Storage::getQuantity).toArray(Integer[]::new)));
         clientHandler.sendAnswerMessage(new ResourcesToOrganizeMsg(

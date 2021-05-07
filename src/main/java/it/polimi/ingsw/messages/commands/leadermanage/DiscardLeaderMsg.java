@@ -24,7 +24,7 @@ public class DiscardLeaderMsg extends CommandMsg {
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
-        clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(
+        clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(controller.getGame().getCurrentPlayer().getPhase(),
                 controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
                         controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
                 controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().

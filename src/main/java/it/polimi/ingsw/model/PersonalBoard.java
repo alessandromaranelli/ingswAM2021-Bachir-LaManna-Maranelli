@@ -16,7 +16,7 @@ public class PersonalBoard {
     private ArrayList<Resource> whiteMarble;
     private int manageWhiteMarbles;
 
-    private Map<Resource, Integer> cardCost= new HashMap<>();
+    private Map<Resource, Integer> cardCost;
 
     public PersonalBoard(ArrayList<VaticanReportSection> vaticanReportSections) {
         faithTrack = new FaithTrack(vaticanReportSections);

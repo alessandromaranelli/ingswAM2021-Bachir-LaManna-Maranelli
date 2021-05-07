@@ -9,7 +9,7 @@ public class LightModel {
     private int numberOfPlayers;
     private TurnState phase;                //ricordarsi che ogni messaggio di update aggiorna la fase del player
     private String currentPlayer;
-    private boolean[] popeFavours;
+    private Boolean[] popeFavours;
     private int faithPoints;
 
     private Marble[][] market;
@@ -30,7 +30,7 @@ public class LightModel {
 
     public LightModel(){
         phase = TurnState.BEFORESTART;
-        popeFavours = new boolean[3];
+        popeFavours = new Boolean[3];
         market = new Marble[3][4];
         leaderCardsInHand = new ArrayList<>();
         leaderCardsPlayed = new ArrayList<>();
@@ -100,7 +100,7 @@ public class LightModel {
         this.currentPlayer = currentPlayer;
     }
 
-    public void setPopeFavours(boolean[] popeFavours) {
+    public void setPopeFavours(Boolean[] popeFavours) {
         this.popeFavours = popeFavours;
     }
 

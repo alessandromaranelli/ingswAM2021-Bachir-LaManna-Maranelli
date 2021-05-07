@@ -61,7 +61,7 @@ public class Controller {
 
     public void sendAllExcept(AnswerMsg answer, ClientHandler cH){
         for(ClientHandler clientHandler : clientConnectionThreads){
-            if(clientHandler.equals(cH)) {
+            if(!clientHandler.equals(cH)) {
                 clientHandler.sendAnswerMessage(answer);
             }
         }
@@ -70,7 +70,7 @@ public class Controller {
     public void sendAllPos(ClientHandler cH){
         for(ClientHandler clientHandler : clientConnectionThreads){
             if(clientHandler.equals(cH)) {
-            clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(
+            clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(getGame().getPlayerById(clientHandler.getPlayerID()).getPhase(),
                     this.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().getTrack().indexOf(
                             this.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().checkPlayerPosition()),
                     this.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().getPopeFavours().
@@ -103,7 +103,7 @@ public class Controller {
                 return;
             }
 
-            game.createNewPlayer(new Player(nickname, game.getPlayers().size() + 1, game));
+            game.createNewPlayer(new Player(nickname, game.getPlayers().size()+1, game));
             //clientConnectionThreads.add(clientHandler);               sarebbe meglio aggiungere i clienthandler al set solo dopo aver controllato che hanno un nickname giusto. E' come aggiungerli al set sapendo che sono già ready
             UpdateNicknameMsg updateNicknameMsg = new UpdateNicknameMsg(nickname, game.getPlayers().size(), this.numberOfPlayers);
             clientHandler.sendAnswerMessage(updateNicknameMsg);

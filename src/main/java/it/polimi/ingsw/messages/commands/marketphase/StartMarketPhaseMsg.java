@@ -3,12 +3,15 @@ package it.polimi.ingsw.messages.commands.marketphase;
 import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.*;
 import it.polimi.ingsw.messages.commands.CommandMsg;
+import it.polimi.ingsw.model.Marble;
 import it.polimi.ingsw.model.PopeFavour;
+import it.polimi.ingsw.model.RedMarble;
 import it.polimi.ingsw.model.TurnState;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class StartMarketPhaseMsg extends CommandMsg {
     int dim;
@@ -21,8 +24,9 @@ public class StartMarketPhaseMsg extends CommandMsg {
 
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
+        ArrayList<Marble> marbles=new ArrayList<>();
         try{
-            controller.getGame().getCurrentPlayer().startMarketPhase(dim,row);
+            marbles= controller.getGame().getCurrentPlayer().startMarketPhase(dim,row);
         }catch (ModelException e){
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
@@ -33,17 +37,18 @@ public class StartMarketPhaseMsg extends CommandMsg {
         }
         clientHandler.sendAnswerMessage(new UpdateResourcesToAddMsg(
                 controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
-        clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                        controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
-                        stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
+        for(Marble m: marbles){
+            if(m instanceof RedMarble)
+                clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(controller.getGame().getCurrentPlayer().getPhase(),
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
+                            controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
+                            stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
+        }
         if (controller.getGame().getCurrentPlayer().getPhase()== TurnState.WHITEMARBLES){
             clientHandler.sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getManageWhiteMarbles()
             ));
         }
-
-
     }
 }
