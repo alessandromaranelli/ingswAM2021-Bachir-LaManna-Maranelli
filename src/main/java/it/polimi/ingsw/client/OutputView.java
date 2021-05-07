@@ -37,7 +37,7 @@ public class OutputView implements Runnable{
                 System.out.println("Waiting for other players to join the game");
             }
             if(client.getLightModel().getPhase() == TurnState.ENDTURN){
-                System.out.println("It's not your turn! IT's player " + client.getLightModel().getCurrentPlayer() + " turn");
+                System.out.println("It's not your turn! It's player " + client.getLightModel().getCurrentPlayer() + "'s turn");
             }
             else if(parseInt(parts) == false){
                 System.out.println("Wrong syntax!");
