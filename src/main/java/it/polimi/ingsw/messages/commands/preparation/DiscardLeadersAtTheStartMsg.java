@@ -32,7 +32,7 @@ public class DiscardLeadersAtTheStartMsg extends CommandMsg {
             clientHandler.sendAnswerMessage(updateLeaderCardsMsg);
 
             StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " discarded 2 leader cards");
-            controller.sendAllExcept(stringMsg,clientHandler);
+            controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
             ErrorMsg errorMsg = new ErrorMsg(e.getMessage());
             clientHandler.sendAnswerMessage(errorMsg);

@@ -29,7 +29,7 @@ public class SetStorageTypesMsg extends CommandMsg {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
         try{
-            clientHandler.sendAnswerMessage(new UpdateStorageTypesMsg(
+            clientHandler.sendAnswerMessage(new UpdateStorageTypesMsg(controller.getGame().getCurrentPlayer().getPhase(),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getTypeStorage(1),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getTypeStorage(2),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getTypeStorage(3)));

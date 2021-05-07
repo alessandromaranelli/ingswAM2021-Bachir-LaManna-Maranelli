@@ -30,12 +30,16 @@ public class ManageWhiteMarbleMsg extends CommandMsg {
         }
         clientHandler.sendAnswerMessage(new UpdateResourcesToAddMsg(
                 controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
-        clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(
+
+        /* Non serve perchè in questa fase i faith points non vengono mai toccati in questa fase
+        clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(controller.getGame().getCurrentPlayer().getPhase(),
                 controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
                         controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
                 controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
                         stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
-        if (controller.getGame().getCurrentPlayer().getPhase()== TurnState.WHITEMARBLES){
+        */
+
+        if (controller.getGame().getCurrentPlayer().getPhase() == TurnState.WHITEMARBLES){
             clientHandler.sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getManageWhiteMarbles()
             ));

@@ -39,7 +39,7 @@ public class StartMarketPhaseMsg extends CommandMsg {
                 controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
         for(Marble m: marbles){
             if(m instanceof RedMarble)
-                clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(
+                clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(controller.getGame().getCurrentPlayer().getPhase(),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
                             controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().

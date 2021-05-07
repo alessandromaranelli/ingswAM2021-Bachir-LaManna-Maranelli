@@ -23,7 +23,7 @@ public class DrawLeadersMsg extends CommandMsg {
 
             StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " drew 4 leader cards");
 
-            controller.sendAllExcept(stringMsg,clientHandler);
+            controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
             ErrorMsg errorMsg = new ErrorMsg(e.getMessage());
             clientHandler.sendAnswerMessage(errorMsg);

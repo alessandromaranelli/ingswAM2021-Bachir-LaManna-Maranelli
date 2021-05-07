@@ -97,27 +97,27 @@ public class Player {
 
     public void addInitResources(Resource i) throws ModelException{
         if(phase != TurnState.CHOOSERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
-        if(playerID == 0) {
-            phase = TurnState.ENDPREPARATION;
-            initPhaseDone = true;
-        }
-        if(playerID == 1){
-            personalBoard.getWareHouse().addInitResources(i);
+        if(playerID == 1) {
             phase = TurnState.ENDPREPARATION;
             initPhaseDone = true;
         }
         if(playerID == 2){
             personalBoard.getWareHouse().addInitResources(i);
+            phase = TurnState.ENDPREPARATION;
+            initPhaseDone = true;
+        }
+        if(playerID == 3){
+            personalBoard.getWareHouse().addInitResources(i);
             personalBoard.getFaithTrack().movePositionForward();
             phase = TurnState.ENDPREPARATION;
             initPhaseDone = true;
         }
-        if(playerID == 3) throw new ModelException("Player 4 must choose 2 resources to start");
+        if(playerID == 4) throw new ModelException("Player 4 must choose 2 resources to start");
     }
 
     public void addInitResources(Resource i1, Resource i2) throws ModelException{
         if(phase != TurnState.CHOOSERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
-        if(playerID != 3) throw new ModelException("Player " + playerID+1 + " must choose only 1 resource");
+        if(playerID != 3) throw new ModelException("Player " + playerID + " must choose only 1 resource");
         personalBoard.getWareHouse().addInitResources(i1, i2);
         personalBoard.getFaithTrack().movePositionForward();
         personalBoard.getFaithTrack().movePositionForward();
