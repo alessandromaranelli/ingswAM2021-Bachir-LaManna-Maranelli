@@ -2,6 +2,7 @@ package it.polimi.ingsw.messages.commands.productionphase;
 
 import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
+import it.polimi.ingsw.messages.answers.StringMsg;
 import it.polimi.ingsw.messages.answers.UpdateCostsGainsMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.model.Resource;
@@ -20,12 +21,16 @@ public class ActivateSpecialProduction extends CommandMsg {
     }
 
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException {
+    public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().activateSpecialProduction(r,i);
+            controller.getGame().getCurrentPlayer().activateSpecialProduction(r, i);
+
             clientHandler.sendAnswerMessage(new UpdateCostsGainsMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().getTotalCost(),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().getTotalGain(),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().getFaithPoints()));
+
+            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " activated a special production");
+            controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

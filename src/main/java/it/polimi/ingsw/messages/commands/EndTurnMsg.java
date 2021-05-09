@@ -9,7 +9,7 @@ import it.polimi.ingsw.server.Controller;
 public class EndTurnMsg extends CommandMsg{
 
     public void processMessage(ClientHandler clientHandler, Controller controller) {
-        if(controller.getGame().getCurrentPlayer().getPhase() != TurnState.ENDTURN){
+        if(controller.getGame().getCurrentPlayer().getPhase() != TurnState.ENDTURN || controller.getGame().getCurrentPlayer().getPhase() != TurnState.ENDPREPARATION){
             StringMsg stringMsg = new StringMsg("You can't end the turn now");
             clientHandler.sendAnswerMessage(stringMsg);
         }

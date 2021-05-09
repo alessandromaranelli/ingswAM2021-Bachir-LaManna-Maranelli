@@ -12,7 +12,7 @@ public class StartTurnMsg extends AnswerMsg{
     public StartTurnMsg(TurnState phase, String currentPlayer){
         this.phase = phase;
         this.currentPlayer = currentPlayer;
-        message = "Current player is: " + currentPlayer;
+        message = "New current player is: " + currentPlayer;
     }
 
     public void processMessage(LightModel lightModel) {

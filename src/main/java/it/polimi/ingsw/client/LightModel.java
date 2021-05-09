@@ -10,7 +10,8 @@ public class LightModel {
     private TurnState phase;                //ricordarsi che ogni messaggio di update aggiorna la fase del player
     private String currentPlayer;
     private Boolean[] popeFavours;
-    private int faithPoints;
+    private int position;                   //posizione sul faithTrack
+    private int faithPoints;                //faithPoints guadagnati in fase di produzione
 
     private Marble[][] market;
     private Marble marbleInExcess;
@@ -35,6 +36,7 @@ public class LightModel {
         leaderCardsInHand = new ArrayList<>();
         leaderCardsPlayed = new ArrayList<>();
         developmentCardsToBuy = new ArrayList<>();
+        position = 0;
         faithPoints = 0;
         developmentCard = new ArrayList<>();
         storageType = new Resource[3];
@@ -168,12 +170,16 @@ public class LightModel {
         this.totalGain = totalGain;
     }
 
-    public void setFaithPoints(int faithPoints) {
+    public void setPosition(int faithPoints) {
+        this.position = faithPoints;
+    }
+
+    public void setFaithPoints(int faithPoints){
         this.faithPoints = faithPoints;
     }
 
-    public void setDevelopmentCard(List<DevelopmentCard> developmentCard) {
-        this.developmentCard = developmentCard;
+    public void setDevelopmentCard(DevelopmentCard card, int slot) {
+        developmentCard.set(slot-1, card);
     }
 
     public void setCardCost(Map<Resource, Integer> cardCost) {

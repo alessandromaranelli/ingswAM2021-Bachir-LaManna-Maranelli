@@ -6,6 +6,7 @@ import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.model.PopeFavour;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.Storage;
+import it.polimi.ingsw.model.TurnState;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
@@ -22,29 +23,34 @@ public class PayProductionFromChest extends CommandMsg {
     }
 
     @Override
+    public void processMessage(ClientHandler clientHandler, Controller controller) {
+        try {
+            controller.getGame().getCurrentPlayer().payProductionFromChest(r, i);
 
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException {
-        if(controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().totalCostIsEmpty()){
-            ErrorMsg error = new ErrorMsg("You've already payed for this production");
-            clientHandler.sendAnswerMessage(error);
-        }else {
-            try {
-                Map<Resource,Integer> gains = controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().getTotalGain();
-                int faithP = controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().getFaithPoints();
-                Boolean [] popeF = controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
-                        stream().map(PopeFavour::isActivated).toArray(Boolean[]::new);
-                controller.getGame().getCurrentPlayer().payProductionFromChest(r,i);
-                clientHandler.sendAnswerMessage(new CardPriceMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getCardCost()));
-                clientHandler.sendAnswerMessage(new UpdateStorageMsg(
-                        controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
-                                stream().map(Storage::getQuantity).toArray(Integer[]::new)));
-                clientHandler.sendAnswerMessage(new ChestMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromChest()));
-                if(controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().totalCostIsEmpty()){
-                    clientHandler.sendAnswerMessage(new EndProductionMsg(gains,faithP, popeF));
-                }
-            } catch (ModelException e) {
-                clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
+            UpdateProductionCostMsg updateProductionCostMsg = new UpdateProductionCostMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().getTotalCost());
+            clientHandler.sendAnswerMessage(updateProductionCostMsg);
+
+            if(controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().totalCostIsEmpty()){
+                EndProductionMsg endProductionMsg = new EndProductionMsg(TurnState.ENDTURN, controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromChest(),
+                        controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
+                                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
+                        controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
+                                stream().map(PopeFavour::isActivated).toArray(Boolean[]::new));
+                clientHandler.sendAnswerMessage(endProductionMsg);
+
+                StringMsg stringMsg1 = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " ended production phase");
+                controller.sendAllExcept(stringMsg1, clientHandler);
             }
+            else{
+                ChestMsg chestMsg = new ChestMsg(TurnState.PAYPRODUCTIONS, controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromChest());
+                clientHandler.sendAnswerMessage(chestMsg);
+
+                StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " paid productions from chest");
+                controller.sendAllExcept(stringMsg, clientHandler);
+            }
+        } catch (ModelException e) {
+            clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
     }
 }
+

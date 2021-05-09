@@ -46,8 +46,7 @@ public class AddInitResourcesMsg extends CommandMsg {
         }
 
         clientHandler.sendAnswerMessage(new UpdateStorageMsg(TurnState.ENDPREPARATION,
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
-                        stream().map(Storage::getQuantity).toArray(Integer[]::new)));
+                controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromAllStorages().values().toArray(new Integer[3])));
 
         clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(TurnState.ENDPREPARATION,
                 controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
@@ -55,7 +54,7 @@ public class AddInitResourcesMsg extends CommandMsg {
                 controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
                         stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
 
-        StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " added some initial resources");
+        StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " added initial resources");
         controller.sendAllExcept(stringMsg, clientHandler);
     }
 }

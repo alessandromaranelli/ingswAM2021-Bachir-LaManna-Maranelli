@@ -14,13 +14,13 @@ public class UpdateFaithMarkerPositionMsg extends AnswerMsg{
         this.position = position;
         this.popeFavours = popeFavours;
         this.phase = phase;
-        this.message = "Now you have: " + position + " faithpoints and the three popeFavours are: " + popeFavours[0] + ", " + popeFavours[1] + ", " + popeFavours[2];
+        this.message = "Now you are in: " + position + " position on the faithTrack and the three popeFavours are: " + popeFavours[0] + ", " + popeFavours[1] + ", " + popeFavours[2];
     }
 
     @Override
     public void processMessage(LightModel lightModel) {
         lightModel.setPhase(phase);
-        lightModel.setFaithPoints(position);
+        lightModel.setPosition(position);
         lightModel.setPopeFavours(popeFavours);
     }
 
