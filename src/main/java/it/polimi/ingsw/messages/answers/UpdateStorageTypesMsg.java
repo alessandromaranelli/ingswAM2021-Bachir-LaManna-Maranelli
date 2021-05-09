@@ -6,11 +6,11 @@ import it.polimi.ingsw.model.TurnState;
 
 
 public class UpdateStorageTypesMsg extends AnswerMsg{
-    Resource r1;
-    Resource r2;
-    Resource r3;
-    TurnState phase;
-    String message;
+    private Resource r1;
+    private Resource r2;
+    private Resource r3;
+    private TurnState phase;
+    private String message;
 
     public UpdateStorageTypesMsg(TurnState phase, Resource r1, Resource r2, Resource r3) {
         this.r1 = r1;

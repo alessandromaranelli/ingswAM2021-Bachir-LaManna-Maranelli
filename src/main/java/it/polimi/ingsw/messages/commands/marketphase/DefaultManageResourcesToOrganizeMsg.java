@@ -15,11 +15,13 @@ public class DefaultManageResourcesToOrganizeMsg extends CommandMsg {
     public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try{
             controller.getGame().getCurrentPlayer().defaultManageResourcesToOrganize();
+
+            clientHandler.sendAnswerMessage(new UpdateStorageMsg(controller.getGame().getCurrentPlayer().getPhase(),
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
+                            stream().map(Storage::getQuantity).toArray(Integer[]::new)));
         }catch (ModelException e){
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
-        clientHandler.sendAnswerMessage(new UpdateStorageMsg(controller.getGame().getCurrentPlayer().getPhase(),
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
-                        stream().map(Storage::getQuantity).toArray(Integer[]::new)));
+
     }
 }

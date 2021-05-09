@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EndProductionMsg extends AnswerMsg {
-    TurnState phase;
-    Map<Resource, Integer> chest;
-    int position;
-    Boolean[] popeFavours;
-    String message;
+    private TurnState phase;
+    private Map<Resource, Integer> chest;
+    private int position;
+    private Boolean[] popeFavours;
+    private String message;
 
     public EndProductionMsg(TurnState phase, Map<Resource, Integer> chest, int position, Boolean[] popeFavours) {
         this.phase = phase;

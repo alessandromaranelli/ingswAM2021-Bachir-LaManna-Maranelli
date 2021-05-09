@@ -4,7 +4,9 @@ import it.polimi.ingsw.client.LightModel;
 import java.io.IOException;
 
 public class UpdateWhiteMarblesToManageMsg extends AnswerMsg{
-    int whiteMarbles;
+    private int whiteMarbles;
+    private String message="Still "+whiteMarbles+" white marbles to manage";
+
 
     public UpdateWhiteMarblesToManageMsg(int whiteMarbles) {
         this.whiteMarbles = whiteMarbles;
@@ -12,11 +14,12 @@ public class UpdateWhiteMarblesToManageMsg extends AnswerMsg{
 
     @Override
     public void processMessage(LightModel lightModel) {
+        lightModel.setWhiteMarblesToManage(whiteMarbles);
 
     }
 
     @Override
     public void printMessage() {
-
+        System.out.println(message);
     }
 }

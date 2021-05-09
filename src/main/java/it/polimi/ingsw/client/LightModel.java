@@ -11,7 +11,7 @@ public class LightModel {
     private String currentPlayer;
     private Boolean[] popeFavours;
     private int position;                   //posizione sul faithTrack
-    private int faithPoints;                //faithPoints guadagnati in fase di produzione
+    private int faithPoints;            //faithPoints guadagnati in fase di produzione
 
     private Marble[][] market;
     private Marble marbleInExcess;
@@ -29,6 +29,8 @@ public class LightModel {
     private List<DevelopmentCard> developmentCard;
     private Map<Resource, Integer> cardCost;
 
+    private int whiteMarblesToManage;
+
     public LightModel(){
         phase = TurnState.BEFORESTART;
         popeFavours = new Boolean[3];
@@ -41,6 +43,8 @@ public class LightModel {
         developmentCard = new ArrayList<>();
         storageType = new Resource[3];
         storageQuantity = new int[3];
+
+        whiteMarblesToManage=0;
 
         chest.put(Resource.COIN, 0);
         chest.put(Resource.SHIELD, 0);
@@ -184,5 +188,9 @@ public class LightModel {
 
     public void setCardCost(Map<Resource, Integer> cardCost) {
         this.cardCost = cardCost;
+    }
+
+    public void setWhiteMarblesToManage(int whiteMarblesToManage) {
+        this.whiteMarblesToManage = whiteMarblesToManage;
     }
 }

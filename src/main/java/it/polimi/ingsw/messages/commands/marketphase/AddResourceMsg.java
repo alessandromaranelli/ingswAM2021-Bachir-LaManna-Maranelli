@@ -12,12 +12,12 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
-public class addResourceMsg extends CommandMsg {
-    Resource r;
-    int storageNumber;
-    int quantity;
+public class AddResourceMsg extends CommandMsg {
+    private Resource r;
+    private int storageNumber;
+    private int quantity;
 
-    public addResourceMsg(Resource r, int storageNumber, int quantity) {
+    public AddResourceMsg(Resource r, int storageNumber, int quantity) {
         this.r = r;
         this.storageNumber = storageNumber;
         this.quantity = quantity;
@@ -27,14 +27,16 @@ public class addResourceMsg extends CommandMsg {
     public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try {
             controller.getGame().getCurrentPlayer().addResources(r,storageNumber,quantity);
+
+            clientHandler.sendAnswerMessage(new UpdateStorageMsg(controller.getGame().getCurrentPlayer().getPhase(),
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
+                            stream().map(Storage::getQuantity).toArray(Integer[]::new)));
+            clientHandler.sendAnswerMessage(new UpdateResourcesToAddMsg(
+                    controller.getGame().getCurrentPlayer().getPhase(),
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
-        clientHandler.sendAnswerMessage(new UpdateStorageMsg(controller.getGame().getCurrentPlayer().getPhase(),
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
-                        stream().map(Storage::getQuantity).toArray(Integer[]::new)));
-        clientHandler.sendAnswerMessage(new UpdateResourcesToAddMsg(
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
     }
 }
 

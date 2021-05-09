@@ -15,7 +15,7 @@ import it.polimi.ingsw.server.Controller;
 import java.io.IOException;
 
 public class ManageWhiteMarbleMsg extends CommandMsg {
-    Resource resource;
+    private Resource resource;
 
     public ManageWhiteMarbleMsg(Resource resource) {
         this.resource = resource;
@@ -25,24 +25,18 @@ public class ManageWhiteMarbleMsg extends CommandMsg {
     public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
         try{
             controller.getGame().getCurrentPlayer().manageWhiteMarbles(resource);
-        }catch (ModelException e){
-            clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
-        }
-        clientHandler.sendAnswerMessage(new UpdateResourcesToAddMsg(
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
 
-        /* Non serve perchè in questa fase i faith points non vengono mai toccati in questa fase
-        clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(controller.getGame().getCurrentPlayer().getPhase(),
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                        controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
-                        stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
-        */
+            clientHandler.sendAnswerMessage(new UpdateResourcesToAddMsg(
+                    controller.getGame().getCurrentPlayer().getPhase(),
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
 
-        if (controller.getGame().getCurrentPlayer().getPhase() == TurnState.WHITEMARBLES){
-            clientHandler.sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getManageWhiteMarbles()
-            ));
-        }
+            if (controller.getGame().getCurrentPlayer().getPhase() == TurnState.WHITEMARBLES){
+                clientHandler.sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
+                        controller.getGame().getCurrentPlayer().getPersonalBoard().getManageWhiteMarbles()
+                ));
+            }
+            }catch (ModelException e){
+                clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
+            }
     }
 }

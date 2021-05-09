@@ -5,10 +5,10 @@ import it.polimi.ingsw.model.TurnState;
 import java.io.IOException;
 
 public class UpdateFaithMarkerPositionMsg extends AnswerMsg{
-    int position;
-    Boolean[] popeFavours;
-    TurnState phase;
-    String message;
+    private int position;
+    private Boolean[] popeFavours;
+    private TurnState phase;
+    private String message;
 
     public UpdateFaithMarkerPositionMsg(TurnState phase, int position, Boolean[] popeFavours) {
         this.position = position;

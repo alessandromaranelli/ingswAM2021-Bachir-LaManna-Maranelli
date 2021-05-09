@@ -83,6 +83,26 @@ public class OutputView implements Runnable{
         if(type == TypeOfCommand.ORGANIZERESOURCES){
             return new StartOrganizeResourcesMsg();
         }
+        if(type == TypeOfCommand.SETSTORAGETYPES){
+            return new SetStorageTypesMsg(Resource.valueOf(parts[1]),Resource.valueOf(parts[2]),Resource.valueOf(parts[3]));
+        }
+        if(type == TypeOfCommand.MANAGERESOURCESBYDEFAULT){
+            return new DefaultManageResourcesToOrganizeMsg();
+        }
+        if(type == TypeOfCommand.MANAGERESOURCES){
+            return new ManageResourcesToOrganizeMsg(Resource.valueOf(parts[1]),Integer.parseInt(parts[2]),Integer.parseInt(parts[3]));
+        }
+        if(type == TypeOfCommand.STARTADDRESOURCES){
+            return new StartAddResourcesMsg();
+        }
+        if(type == TypeOfCommand.ADDRESOURCES){
+            return new AddResourceMsg(Resource.valueOf(parts[1]),Integer.parseInt(parts[2]),Integer.parseInt(parts[3]));
+        }
+        if(type == TypeOfCommand.DISCARDRESOURCES){
+            return new DiscardResourceMsg(Resource.valueOf(parts[1]),Integer.parseInt(parts[2]));
+        }
+
+
         if(type == TypeOfCommand.SELECTBUYDEVELOPMENTCARDPHASE){
             return new BuyDevelopmentPhaseMsg();
         }
@@ -140,8 +160,30 @@ public class OutputView implements Runnable{
             this.type = TypeOfCommand.ORGANIZERESOURCES;
             return true;
         }
-
-
+        if (parts[0].toLowerCase().equals("setstoragetypes") && client.getLightModel().getPhase() == TurnState.ORGANIZERESOURCES){
+            this.type = TypeOfCommand.ORGANIZERESOURCES;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("defaultmanageresourcestoorganize") && client.getLightModel().getPhase() == TurnState.MANAGERESOURCES){
+            this.type = TypeOfCommand.MANAGERESOURCESBYDEFAULT;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("manageresourcestoorganize") && client.getLightModel().getPhase() == TurnState.MANAGERESOURCES){
+            this.type = TypeOfCommand.MANAGERESOURCES;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("startaddresources") && client.getLightModel().getPhase() == TurnState.CHOICE){
+            this.type = TypeOfCommand.STARTADDRESOURCES;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("addresources") && client.getLightModel().getPhase() == TurnState.ADDRESOURCES){
+            this.type = TypeOfCommand.ADDRESOURCES;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("discardresources") && client.getLightModel().getPhase() == TurnState.ADDRESOURCES) {
+            this.type = TypeOfCommand.DISCARDRESOURCES;
+            return true;
+        }
         if (parts[0].toLowerCase().equals("selectbuydevelopmentcardphase") && client.getLightModel().getPhase() == TurnState.START){
             this.type = TypeOfCommand.SELECTBUYDEVELOPMENTCARDPHASE;
             return true;

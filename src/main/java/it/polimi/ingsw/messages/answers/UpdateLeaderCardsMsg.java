@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateLeaderCardsMsg extends AnswerMsg{
-    List<LeaderCard> leaderCardInHand;
-    List<LeaderCard> leaderCardsPlayed;
-    TurnState phase;
-    String message;
+    private List<LeaderCard> leaderCardInHand;
+    private List<LeaderCard> leaderCardsPlayed;
+    private TurnState phase;
+    private String message;
 
     public UpdateLeaderCardsMsg(TurnState phase, ArrayList<LeaderCard> leaderCardInHand, ArrayList<LeaderCard> leaderCardsPlayed, String message) {
         this.leaderCardInHand = leaderCardInHand;

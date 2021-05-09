@@ -13,11 +13,12 @@ public class ManageResourcesInStorageMsg extends CommandMsg {
     public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException {
         try {
             controller.getGame().getCurrentPlayer().manageResourcesInStorages();
+
+            clientHandler.sendAnswerMessage(new ResourcesToOrganizeMsg(
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToOrganize(),
+                    controller.getGame().getCurrentPlayer().getPhase()));
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
-        clientHandler.sendAnswerMessage(new ResourcesToOrganizeMsg(
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToOrganize()));
-
     }
 }

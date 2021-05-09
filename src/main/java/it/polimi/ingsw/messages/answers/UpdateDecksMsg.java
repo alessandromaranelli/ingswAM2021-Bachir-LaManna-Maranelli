@@ -7,7 +7,7 @@ import java.util.List;
 
 public class UpdateDecksMsg extends AnswerMsg{
     private List<DevelopmentCard> developmentCards;
-    String message;
+    private String message;
 
     public UpdateDecksMsg(String message, List<DevelopmentCard> cards){
         this.developmentCards = cards;

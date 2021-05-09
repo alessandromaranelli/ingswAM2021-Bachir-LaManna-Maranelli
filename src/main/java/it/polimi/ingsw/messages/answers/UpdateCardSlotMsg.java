@@ -4,9 +4,9 @@ import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.model.DevelopmentCard;
 
 public class UpdateCardSlotMsg extends AnswerMsg{
-    DevelopmentCard card;
-    int slot;
-    String message;
+    private DevelopmentCard card;
+    private int slot;
+    private String message;
 
     public UpdateCardSlotMsg(DevelopmentCard card, int slot){
         this.card = card;

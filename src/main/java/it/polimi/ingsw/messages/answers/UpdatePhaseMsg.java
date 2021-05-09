@@ -4,8 +4,8 @@ import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.model.TurnState;
 
 public class UpdatePhaseMsg extends AnswerMsg{
-    TurnState phase;
-    String message;
+    private TurnState phase;
+    private String message;
 
     public UpdatePhaseMsg(TurnState phase, String message){
         this.phase = phase;

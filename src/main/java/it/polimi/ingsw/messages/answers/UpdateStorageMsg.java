@@ -4,9 +4,9 @@ import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.model.TurnState;
 
 public class UpdateStorageMsg extends AnswerMsg{
-    Integer[] storages;
-    String message;
-    TurnState phase;
+    private Integer[] storages;
+    private String message;
+    private TurnState phase;
 
     public UpdateStorageMsg(TurnState phase, Integer[] storages) {
         this.storages = storages;
