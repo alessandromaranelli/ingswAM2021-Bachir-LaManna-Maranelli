@@ -18,7 +18,7 @@ public class Controller {
         game = new Game();
         this.clientConnectionThreads = clientConnectionThreads;
         gameStarted = false;
-        numberOfPlayers = 0;
+        numberOfPlayers = -1;
     }
 
     public Game getGame() {
@@ -26,6 +26,7 @@ public class Controller {
     }
 
     public void startGame(){
+        game.start();
         gameStarted=true;
     }
 
@@ -83,10 +84,10 @@ public class Controller {
     //metodo chiamato dal primo messaggio di un client in cui setta nickname e giocatori che vorrebbe nella partita
     //messo nel controller perchè serve synchronized
     public synchronized void setNickname(String nickname, int numberOfPlayers, ClientHandler clientHandler) {
-        if (this.numberOfPlayers == 0) {
+        if (this.numberOfPlayers == -1) {
             this.numberOfPlayers = numberOfPlayers;
             game.createNewPlayer(new Player(nickname, 1, game));
-            //clientConnectionThreads.add(clientHandler);               sarebbe meglio aggiungere i clienthandler al set solo dopo aver controllato che hanno un nickname giusto. E' come aggiungerli al set sapendo che sono già ready
+            clientConnectionThreads.add(clientHandler);               //sarebbe meglio aggiungere i clienthandler al set solo dopo aver controllato che hanno un nickname giusto. E' come aggiungerli al set sapendo che sono già ready
             UpdateNicknameMsg updateNicknameMsg = new UpdateNicknameMsg(nickname, 1, this.numberOfPlayers);
             clientHandler.sendAnswerMessage(updateNicknameMsg);
             clientHandler.setReady();                                   //serve a qualcosa il boolean ready?
@@ -99,12 +100,12 @@ public class Controller {
                 if (p.getNickname().equals(nickname)) {
                     StringMsg stringMsg = new StringMsg("Nickname already taken, choose another nickname");
                     clientHandler.sendAnswerMessage(stringMsg);
+                    return;
                 }
-                return;
             }
 
             game.createNewPlayer(new Player(nickname, game.getPlayers().size()+1, game));
-            //clientConnectionThreads.add(clientHandler);               sarebbe meglio aggiungere i clienthandler al set solo dopo aver controllato che hanno un nickname giusto. E' come aggiungerli al set sapendo che sono già ready
+            clientConnectionThreads.add(clientHandler);               //sarebbe meglio aggiungere i clienthandler al set solo dopo aver controllato che hanno un nickname giusto. E' come aggiungerli al set sapendo che sono già ready
             UpdateNicknameMsg updateNicknameMsg = new UpdateNicknameMsg(nickname, game.getPlayers().size(), this.numberOfPlayers);
             clientHandler.sendAnswerMessage(updateNicknameMsg);
             clientHandler.setReady();                                   //serve a qualcosa il boolean ready?

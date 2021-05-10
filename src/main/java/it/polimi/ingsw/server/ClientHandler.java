@@ -56,7 +56,7 @@ public class ClientHandler extends Thread {
             while (!ready) {
                 socket.setSoTimeout(20000);
                 Object next = input.readObject();
-                CommandMsg command = (NickNameMsg) next;
+                CommandMsg command = (CommandMsg) next;
                 command.processMessage(this, controller);
             }
 
@@ -100,14 +100,10 @@ public class ClientHandler extends Thread {
         return output;
     }
 
-    /* Viene fatto nel GameStartMsg
-    public void startGame() throws IOException {
-        output.writeObject("Game is starting");
-    } */
 
     public synchronized void sendAnswerMessage(AnswerMsg answerMessage){
         try {
-            output.writeObject((Object)answerMessage);
+            output.writeObject(answerMessage);
             //System.out.println("Answer send");
         } catch (IOException e) {
             e.printStackTrace();

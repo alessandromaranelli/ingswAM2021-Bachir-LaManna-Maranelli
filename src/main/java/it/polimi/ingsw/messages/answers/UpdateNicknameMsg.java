@@ -12,7 +12,7 @@ public class UpdateNicknameMsg extends AnswerMsg {
 
     public UpdateNicknameMsg(String nickname, int playerID, int numberOfPlayers){
         this.numberOfPlayers = numberOfPlayers;
-        this.message = "You entered in a game with " + numberOfPlayers + " other players. Wait for other players to join";
+        this.message = "You entered in a game with " + (numberOfPlayers-1) + " other players. Wait for other players to join";
         this.nickname = nickname;
         this.phase = TurnState.WAIT;
         this.playerID = playerID;

@@ -22,7 +22,7 @@ public class GameTest {
         }
         Player player= new Player("Aldo",1, game);
         game.createNewPlayer(player);
-        game.createCPU();
+        game.start();
         assertTrue(game.isSoloMatch());
 
     }
@@ -103,7 +103,7 @@ public class GameTest {
         Player player= new Player("Aldo",1, game);
         game.createNewPlayer(player);
         game.setCurrentPlayer(player);
-        game.createCPU();
+        game.start();
         game.nextPlayer();
         assertEquals(player, game.getCurrentPlayer());
     }

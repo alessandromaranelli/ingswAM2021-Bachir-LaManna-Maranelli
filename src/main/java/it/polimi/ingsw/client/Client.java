@@ -19,17 +19,27 @@ public class Client {
         lightModel = new LightModel();
     }
 
-    public static void main(String[] args){
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
+        /*Scanner scanner = new Scanner(System.in);
         System.out.println("Insert server address: ");
         String hostname = scanner.nextLine();
         System.out.println("Insert server port: ");
-        int port = scanner.nextInt();
-        Client client = new Client(port, hostname);
-
+        int port = scanner.nextInt();*/
+        if (args.length != 2) {
+            System.err.println(
+                    "Usage: java EchoClient <host name> <port number>");
+            System.exit(1);
+        }
+        String hostName = args[0];
+        int portNumber = Integer.parseInt(args[1]);
+        System.out.println("Connected" + " " + hostName + " " + portNumber);
         Socket socket;
+
+        Client client = new Client(portNumber, hostName);
+
+
         try {
-            socket = new Socket(hostname, port);
+            socket = new Socket(hostName, portNumber);
         } catch (IOException e) {
             System.out.println("server unreachable");
             return;
@@ -40,13 +50,13 @@ public class Client {
         Thread input = new Thread(inputView);
         input.start();
 
+        Scanner scanner = new Scanner(System.in);
         OutputView outputView = new OutputView(socket, scanner, client);
         Thread output = new Thread(outputView);
         output.start();
 
         PongThread pongThread = new PongThread(outputView);
-        Thread pong = new Thread(pongThread);
-        pong.start();
+        pongThread.start();
     }
 
     public LightModel getLightModel(){

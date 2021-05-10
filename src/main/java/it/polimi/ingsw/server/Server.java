@@ -35,13 +35,8 @@ public class Server {
             System.out.println("Server waiting for connections...");
             while(listening){
                 Socket client = serverSocket.accept();
-                this.clientConnectionThreads.add(new ClientHandler(client, controller));     //vedi controller
-                System.out.println("Player "+(controller.getGame().getPlayers().size()+1)+" is now connected");
-
-                if (clientConnectionThreads.size() == controller.getNumberOfPlayers()){
-                    listening=false;
-                }
-
+                new ClientHandler(client, controller);
+                if (clientConnectionThreads.size()==controller.getNumberOfPlayers()) listening=false;
             }
         } catch (IOException e) {
             System.err.println("Could not listen on port " + PORT);
@@ -54,17 +49,16 @@ public class Server {
             try {
                 if (areAllReady() && this.clientConnectionThreads.size() == controller.getNumberOfPlayers()) {     //vedi controller
                     System.out.println("Starting game...");
-                    this.listening=false;
+                    listening=false;
                     controller.startGame();   //non so se serve
                     controller.getGame().getPlayers().get(0).setAsCurrentPlayer();
                     for (ClientHandler c: clientConnectionThreads) {
-                        //c.startGame();
                         if (c.getPlayerID() == 1) {
                             GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getCurrentPlayer().getPersonalBoard(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.PREPARATION);
                             c.sendAnswerMessage(gameStartMsg);
                         }
                         else{
-                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getPlayers().get(c.getPlayerID()).getPersonalBoard(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.ENDTURN);
+                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getPlayers().get(c.getPlayerID()-1).getPersonalBoard(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.ENDTURN);
                             c.sendAnswerMessage(gameStartMsg);
                         }
                     }

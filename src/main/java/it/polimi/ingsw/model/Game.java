@@ -23,11 +23,12 @@ public class Game {
         vaticanReportSections.add(vaticanReportSection);
     }
 
-    public void createCPU(){
+    public void start(){
         if (players.size()==1){
             cpu= new CPU(this);
             soloMatch=true;
         }
+        setCurrentPlayer(players.get(0));
     }
 
     public boolean isSoloMatch() {
