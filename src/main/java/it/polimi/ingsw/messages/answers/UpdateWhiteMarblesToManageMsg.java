@@ -15,7 +15,6 @@ public class UpdateWhiteMarblesToManageMsg extends AnswerMsg{
     @Override
     public void processMessage(LightModel lightModel) {
         lightModel.setWhiteMarblesToManage(whiteMarbles);
-
     }
 
     @Override

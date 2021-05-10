@@ -1,10 +1,13 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.messages.answers.UpdateLeaderCardsMsg;
 import it.polimi.ingsw.messages.commands.*;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.BuyCardMsg;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.BuyDevelopmentPhaseMsg;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.PayCardFromChestMsg;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.PayCardFromStorageMsg;
+import it.polimi.ingsw.messages.commands.leadermanage.ActivateLeaderMsg;
+import it.polimi.ingsw.messages.commands.leadermanage.DiscardLeaderMsg;
 import it.polimi.ingsw.messages.commands.marketphase.*;
 import it.polimi.ingsw.messages.commands.preparation.*;
 import it.polimi.ingsw.messages.commands.productionphase.*;
@@ -44,7 +47,7 @@ public class OutputView implements Runnable{
             if(client.getLightModel().getPhase() == TurnState.WAIT){
                 System.out.println("Waiting for other players to join the game");
             }
-            if(client.getLightModel().getPhase() == TurnState.ENDTURN || client.getLightModel().getPhase() == TurnState.ENDPREPARATION){
+            if(!client.getLightModel().getNickname().equals(client.getLightModel().getCurrentPlayer())){
                 System.out.println("It's not your turn! It's player " + client.getLightModel().getCurrentPlayer() + "'s turn");
             }
             else if(!parseEnum(parts)){
@@ -71,6 +74,22 @@ public class OutputView implements Runnable{
             NickNameMsg nickNameMessage = new NickNameMsg(parts[1], Integer.parseInt(parts[3]));
             return nickNameMessage;
         }
+        if(type == TypeOfCommand.DRAWLEADERCARDS){
+            return new DrawLeadersMsg();
+        }
+        if(type == TypeOfCommand.DISCARDLEADERCARDS){
+            return new DiscardLeadersAtTheStartMsg(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+        }
+        if(type == TypeOfCommand.SETINITSTORAGETYPES){
+            return new SetInitStorageTypeMsg(Resource.valueOf(parts[1]), Resource.valueOf(parts[2]), Resource.valueOf(parts[3]));
+        }
+        if(type == TypeOfCommand.ADDINITRESOURCES){
+            if(parts.length == 2)
+            return new AddInitResourcesMsg(Resource.valueOf(parts[1]));
+            else return new AddInitResourcesMsg(Resource.valueOf(parts[1]), Resource.valueOf(parts[2]));
+        }
+
+
         if(type == TypeOfCommand.SELECTMARKETPHASE){
             return new SelectMarketPhaseMsg();
         }
@@ -103,6 +122,11 @@ public class OutputView implements Runnable{
         }
 
 
+        if(type == TypeOfCommand.REORGANIZERESOURCES){
+            return new ManageResourcesInStorageMsg();
+        }
+
+
         if(type == TypeOfCommand.SELECTBUYDEVELOPMENTCARDPHASE){
             return new BuyDevelopmentPhaseMsg();
         }
@@ -115,6 +139,8 @@ public class OutputView implements Runnable{
         if(type == TypeOfCommand.PAYCARDFROMSTORAGE){
             return new PayCardFromStorageMsg(Resource.valueOf(parts[1]), Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
         }
+
+
         if(type == TypeOfCommand.SELECTPRODUCTIONPHASE){
             return new SelectProductionPhaseMsg();
         }
@@ -136,14 +162,46 @@ public class OutputView implements Runnable{
         if(type == TypeOfCommand.PAYPRODUCTIONFROMCHEST){
             return new PayProductionFromChest(Resource.valueOf(parts[1]), Integer.parseInt(parts[2]));
         }
+
+
+        if(type == TypeOfCommand.ACTIVATELEADERCARD){
+            return new ActivateLeaderMsg(Integer.parseInt(parts[1]));
+        }
+        if(type == TypeOfCommand.DISCARDLEADERCARD){
+            return new DiscardLeaderMsg(Integer.parseInt(parts[1]));
+        }
+
+
+        if(type == TypeOfCommand.ENDTURN){
+            return new EndTurnMsg();
+        }
         else return null;
     }
+
 
     public boolean parseEnum(String parts[]){
         if(parts[0].toLowerCase().equals("nickname") && parts[2].toLowerCase().equals("numberofplayers") && client.getLightModel().getPhase() == TurnState.BEFORESTART){
             this.type = TypeOfCommand.NICKNAME;
             return true;
         }
+        if (parts[0].toLowerCase().equals("drawleadercards") && client.getLightModel().getPhase() == TurnState.PREPARATION){
+            this.type = TypeOfCommand.DRAWLEADERCARDS;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("discardleadercards") && client.getLightModel().getPhase() == TurnState.CHOOSELEADERCARDS){
+            this.type = TypeOfCommand.DISCARDLEADERCARDS;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("setinitialstoragetypes") && client.getLightModel().getPhase() == TurnState.CHOOSERESOURCES){
+            this.type = TypeOfCommand.SETINITSTORAGETYPES;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("addinitialresources") && client.getLightModel().getPhase() == TurnState.CHOOSERESOURCES){
+            this.type = TypeOfCommand.ADDINITRESOURCES;
+            return true;
+        }
+
+
         if (parts[0].toLowerCase().equals("selectmarketphase") && client.getLightModel().getPhase() == TurnState.START){
             this.type = TypeOfCommand.SELECTMARKETPHASE;
             return true;
@@ -161,7 +219,7 @@ public class OutputView implements Runnable{
             return true;
         }
         if (parts[0].toLowerCase().equals("setstoragetypes") && client.getLightModel().getPhase() == TurnState.ORGANIZERESOURCES){
-            this.type = TypeOfCommand.ORGANIZERESOURCES;
+            this.type = TypeOfCommand.SETSTORAGETYPES;
             return true;
         }
         if (parts[0].toLowerCase().equals("defaultmanageresourcestoorganize") && client.getLightModel().getPhase() == TurnState.MANAGERESOURCES){
@@ -184,6 +242,14 @@ public class OutputView implements Runnable{
             this.type = TypeOfCommand.DISCARDRESOURCES;
             return true;
         }
+
+
+        if (parts[0].toLowerCase().equals("reorganizeresources") && (client.getLightModel().getPhase() == TurnState.START || client.getLightModel().getPhase() == TurnState.ENDTURN)){
+            this.type = TypeOfCommand.REORGANIZERESOURCES;
+            return true;
+        }
+
+
         if (parts[0].toLowerCase().equals("selectbuydevelopmentcardphase") && client.getLightModel().getPhase() == TurnState.START){
             this.type = TypeOfCommand.SELECTBUYDEVELOPMENTCARDPHASE;
             return true;
@@ -232,7 +298,20 @@ public class OutputView implements Runnable{
         }
 
 
+        if (parts[0].toLowerCase().equals("activateleadercard") && (client.getLightModel().getPhase() == TurnState.START || client.getLightModel().getPhase() == TurnState.ENDTURN)){
+            this.type = TypeOfCommand.ACTIVATELEADERCARD;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("discardleadercard") && (client.getLightModel().getPhase() == TurnState.START || client.getLightModel().getPhase() == TurnState.ENDTURN)){
+            this.type = TypeOfCommand.DISCARDLEADERCARD;
+            return true;
+        }
 
+
+        if (parts[0].toLowerCase().equals("endturn") && (client.getLightModel().getPhase() == TurnState.ENDTURN || client.getLightModel().getPhase() == TurnState.ENDPREPARATION)){
+            this.type = TypeOfCommand.ENDTURN;
+            return true;
+        }
         else return false;
     }
 }

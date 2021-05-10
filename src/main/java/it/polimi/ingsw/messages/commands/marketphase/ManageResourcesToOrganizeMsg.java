@@ -25,7 +25,7 @@ public class ManageResourcesToOrganizeMsg extends CommandMsg {
     }
 
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException {
+    public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
             controller.getGame().getCurrentPlayer().manageResourcesToOrganize(r,storageNumber,quantity);
 

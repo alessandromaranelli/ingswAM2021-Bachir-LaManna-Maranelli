@@ -22,7 +22,7 @@ public class ManageWhiteMarbleMsg extends CommandMsg {
     }
 
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
+    public void processMessage(ClientHandler clientHandler, Controller controller) {
         try{
             controller.getGame().getCurrentPlayer().manageWhiteMarbles(resource);
 
@@ -30,11 +30,9 @@ public class ManageWhiteMarbleMsg extends CommandMsg {
                     controller.getGame().getCurrentPlayer().getPhase(),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
 
-            if (controller.getGame().getCurrentPlayer().getPhase() == TurnState.WHITEMARBLES){
-                clientHandler.sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
-                        controller.getGame().getCurrentPlayer().getPersonalBoard().getManageWhiteMarbles()
-                ));
-            }
+            clientHandler.sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
+                        controller.getGame().getCurrentPlayer().getPersonalBoard().getManageWhiteMarbles()));
+
             }catch (ModelException e){
                 clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
             }

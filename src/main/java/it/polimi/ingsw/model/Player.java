@@ -12,6 +12,8 @@ public class Player {
     private TurnState phase;
     private boolean leaderAction;
     private boolean initPhaseDone;
+    private boolean manageResources;
+    private TurnState lastState;       //serve solo per la fase in cui il giocatore decide di riorganizzare le risorse
 
     public Player(String nickname, int playerID, Game game) {
         this.nickname = nickname;
@@ -21,6 +23,7 @@ public class Player {
         this.phase = TurnState.PREPARATION;
         this.leaderAction = false;
         this.initPhaseDone = false;
+        this.manageResources = false;
     }
 
     public int getPlayerID() {
@@ -29,10 +32,6 @@ public class Player {
 
     public String getNickname() {
         return nickname;
-    }
-
-    public boolean getInitPhaseDone(){
-        return initPhaseDone;
     }
 
     public void setNickname(String name) {
@@ -175,6 +174,7 @@ public class Player {
             personalBoard.getWareHouse().setTypeOfStorage(3, resource3);
             throw new ModelException("Wrong choice for storage types");
         }
+        else if(manageResources == true) phase = TurnState.MANAGERESOURCES;
         else if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty() && personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
         else if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty()) phase = TurnState.ADDRESOURCES;
         else phase = TurnState.MANAGERESOURCES;
@@ -183,14 +183,22 @@ public class Player {
     public void defaultManageResourcesToOrganize() throws ModelException{
         if(phase != TurnState.MANAGERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getWareHouse().defaultAddResourcesToOrganize();
-        if(personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
+        if(manageResources){
+            phase = lastState;
+            manageResources = false;
+        }
+        else if(personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
         else phase = TurnState.ADDRESOURCES;
     }
 
     public void manageResourcesToOrganize(Resource type, int i, int n) throws ModelException{
         if(phase != TurnState.MANAGERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getWareHouse().addResourcestoOrganize(type, i, n);
-        if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty() && personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
+        if(manageResources == true && personalBoard.getWareHouse().resourcesToOrganizeIsEmpty()){
+            phase = lastState;
+            manageResources = false;
+        }
+        else if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty() && personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
         else if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty()) phase = TurnState.ADDRESOURCES;
     }
 
@@ -220,7 +228,9 @@ public class Player {
     }
 
     public void manageResourcesInStorages() throws ModelException{
+        lastState = phase;
         phase = TurnState.CHOICE;
+        manageResources = true;
         startOrganizeResources();
     }
 

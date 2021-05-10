@@ -69,7 +69,7 @@ public class Controller {
 
     public void sendAllPos(ClientHandler cH){
         for(ClientHandler clientHandler : clientConnectionThreads){
-            if(clientHandler.equals(cH)) {
+            if(!clientHandler.equals(cH)) {
             clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(getGame().getPlayerById(clientHandler.getPlayerID()).getPhase(),
                     this.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().getTrack().indexOf(
                             this.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().checkPlayerPosition()),

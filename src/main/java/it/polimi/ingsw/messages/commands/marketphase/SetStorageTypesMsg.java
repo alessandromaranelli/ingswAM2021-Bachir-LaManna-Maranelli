@@ -2,6 +2,7 @@ package it.polimi.ingsw.messages.commands.marketphase;
 
 import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
+import it.polimi.ingsw.messages.answers.StringMsg;
 import it.polimi.ingsw.messages.answers.UpdateStorageTypesMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.model.Resource;
@@ -22,19 +23,20 @@ public class SetStorageTypesMsg extends CommandMsg {
     }
 
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
+    public void processMessage(ClientHandler clientHandler, Controller controller) {
         try{
             controller.getGame().getCurrentPlayer().setStoragesTypes(r1,r2,r3);
-        }catch (ModelException e){
-            clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
-        }
-        try{
+
             clientHandler.sendAnswerMessage(new UpdateStorageTypesMsg(controller.getGame().getCurrentPlayer().getPhase(),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getTypeStorage(1),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getTypeStorage(2),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getTypeStorage(3)));
+
+            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " set his storages types");
+            controller.sendAllExcept(stringMsg, clientHandler);
+
         } catch (ModelException e) {
-            e.printStackTrace();
+            clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
     }
 }

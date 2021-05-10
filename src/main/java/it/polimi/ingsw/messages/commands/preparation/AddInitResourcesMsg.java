@@ -30,7 +30,7 @@ public class AddInitResourcesMsg extends CommandMsg {
     }
 
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
+    public void processMessage(ClientHandler clientHandler, Controller controller) {
         if(r2 == null){
             try{
                 controller.getGame().getCurrentPlayer().addInitResources(r1);

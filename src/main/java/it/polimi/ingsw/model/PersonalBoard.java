@@ -60,8 +60,16 @@ public class PersonalBoard {
         return reduction;
     }
 
+    public Resource getLastReduction(){
+        return reduction.get(reduction.size()-1);
+    }
+
     public ArrayList<Resource> getWhiteMarble() {
         return whiteMarble;
+    }
+
+    public Resource getLastWhiteMarble(){
+        return whiteMarble.get(whiteMarble.size()-1);
     }
 
     public void addWhiteMarbleToManage(){

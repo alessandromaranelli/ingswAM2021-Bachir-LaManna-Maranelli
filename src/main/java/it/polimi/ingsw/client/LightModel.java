@@ -11,7 +11,7 @@ public class LightModel {
     private String currentPlayer;
     private Boolean[] popeFavours;
     private int position;                   //posizione sul faithTrack
-    private int faithPoints;            //faithPoints guadagnati in fase di produzione
+    private int faithPoints;                //faithPoints guadagnati in fase di produzione
 
     private Marble[][] market;
     private Marble marbleInExcess;
@@ -19,8 +19,8 @@ public class LightModel {
     private List<LeaderCard> leaderCardsPlayed;
     private List<DevelopmentCard> developmentCardsToBuy;
 
-    private Resource[] storageType;
-    private int[] storageQuantity;
+    private List<Resource> storageType;
+    private List<Integer> storageQuantity;
     private Map<Resource, Integer> chest;
     private Map<Resource, Integer> resourcesToOrganize;
     private Map<Resource, Integer> resourcesToAdd;
@@ -30,8 +30,12 @@ public class LightModel {
     private Map<Resource, Integer> cardCost;
 
     private int whiteMarblesToManage;
+    private List<Resource> whiteMarble;
+    private List<Resource> reduction;
+    private List<Resource> specialProduction;
 
     public LightModel(){
+        nickname = new String();
         phase = TurnState.BEFORESTART;
         popeFavours = new Boolean[3];
         market = new Marble[3][4];
@@ -41,10 +45,20 @@ public class LightModel {
         position = 0;
         faithPoints = 0;
         developmentCard = new ArrayList<>();
-        storageType = new Resource[3];
-        storageQuantity = new int[3];
+        storageType = new ArrayList<>(3);
+        storageQuantity = new ArrayList<>(3);
+        chest = new HashMap<>();
+        resourcesToOrganize = new HashMap<>();
+        resourcesToAdd = new HashMap<>();
+        totalCost = new HashMap<>();
+        totalGain = new HashMap<>();
+        cardCost = new HashMap<>();
 
         whiteMarblesToManage=0;
+        whiteMarble = new ArrayList<>();
+        reduction = new ArrayList<>();
+        specialProduction = new ArrayList<>();
+
 
         chest.put(Resource.COIN, 0);
         chest.put(Resource.SHIELD, 0);
@@ -83,6 +97,10 @@ public class LightModel {
 
     public String getCurrentPlayer(){
         return currentPlayer;
+    }
+
+    public String getNickname(){
+        return nickname;
     }
 
 
@@ -131,15 +149,30 @@ public class LightModel {
     }
 
     public void setStorageQuantity(int i1, int i2, int i3) {
-        storageQuantity[0] = i1;
-        storageQuantity[1] = i2;
-        storageQuantity[2] = i3;
+        storageQuantity.set(0, i1);
+        storageQuantity.set(1, i2);
+        storageQuantity.set(2, i3);
+    }
+
+    public void setStorageQuantity(int i1, int i2, int i3, int i4) {
+        storageQuantity.set(0, i1);
+        storageQuantity.set(1, i2);
+        storageQuantity.set(2, i3);
+        storageQuantity.set(3, 14);
+    }
+
+    public void setStorageQuantity(int i1, int i2, int i3, int i4, int i5) {
+        storageQuantity.set(0, i1);
+        storageQuantity.set(1, i2);
+        storageQuantity.set(2, i3);
+        storageQuantity.set(3, 14);
+        storageQuantity.set(4, i5);
     }
 
     public void setStorageType(Resource i1, Resource i2, Resource i3){
-        storageType[0] = i1;
-        storageType[1] = i2;
-        storageType[2] = i3;
+        storageType.set(0, i1);
+        storageType.set(1, i2);
+        storageType.set(2, i3);
     }
 
     public void setChest(Map<Resource, Integer> chest) {
@@ -192,5 +225,22 @@ public class LightModel {
 
     public void setWhiteMarblesToManage(int whiteMarblesToManage) {
         this.whiteMarblesToManage = whiteMarblesToManage;
+    }
+
+    public void addLeaderStorage(Resource resource){
+        storageQuantity.add(0);
+        storageType.add(resource);
+    }
+
+    public void addReduction(Resource resource){
+        reduction.add(resource);
+    }
+
+    public void addWhiteMarble(Resource resource){
+        whiteMarble.add(resource);
+    }
+
+    public void addSpecialProduction(Resource resource){
+        specialProduction.add(resource);
     }
 }

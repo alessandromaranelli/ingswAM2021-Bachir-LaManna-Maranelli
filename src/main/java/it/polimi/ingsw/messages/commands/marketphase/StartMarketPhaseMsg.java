@@ -23,7 +23,7 @@ public class StartMarketPhaseMsg extends CommandMsg {
     }
 
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
+    public void processMessage(ClientHandler clientHandler, Controller controller) {
         ArrayList<Marble> marbles=new ArrayList<>();
         try{
             marbles= controller.getGame().getCurrentPlayer().startMarketPhase(dim,row);

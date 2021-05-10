@@ -2,6 +2,7 @@ package it.polimi.ingsw.messages.commands.marketphase;
 
 import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
+import it.polimi.ingsw.messages.answers.ResourcesToOrganizeMsg;
 import it.polimi.ingsw.messages.answers.UpdateStorageMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.model.Storage;
@@ -12,13 +13,17 @@ import java.io.IOException;
 
 public class DefaultManageResourcesToOrganizeMsg extends CommandMsg {
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException{
+    public void processMessage(ClientHandler clientHandler, Controller controller) {
         try{
             controller.getGame().getCurrentPlayer().defaultManageResourcesToOrganize();
 
             clientHandler.sendAnswerMessage(new UpdateStorageMsg(controller.getGame().getCurrentPlayer().getPhase(),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
                             stream().map(Storage::getQuantity).toArray(Integer[]::new)));
+
+            clientHandler.sendAnswerMessage(new ResourcesToOrganizeMsg(
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToOrganize(),
+                    controller.getGame().getCurrentPlayer().getPhase()));
         }catch (ModelException e){
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

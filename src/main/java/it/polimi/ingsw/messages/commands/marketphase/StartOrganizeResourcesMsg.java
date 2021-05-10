@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class StartOrganizeResourcesMsg extends CommandMsg {
     @Override
-    public void processMessage(ClientHandler clientHandler, Controller controller) throws IOException {
+    public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
             controller.getGame().getCurrentPlayer().startOrganizeResources();
 
@@ -23,7 +23,7 @@ public class StartOrganizeResourcesMsg extends CommandMsg {
             StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " started organizing his resources");
             controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
-            clientHandler.getOutput().writeObject(new ErrorMsg(e.getMessage()));
+            clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
     }
 }
