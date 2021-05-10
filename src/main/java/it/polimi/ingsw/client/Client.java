@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.server.PingThread;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -41,6 +43,10 @@ public class Client {
         OutputView outputView = new OutputView(socket, scanner, client);
         Thread output = new Thread(outputView);
         output.start();
+
+        PongThread pongThread = new PongThread(outputView);
+        Thread pong = new Thread(pongThread);
+        pong.start();
     }
 
     public LightModel getLightModel(){

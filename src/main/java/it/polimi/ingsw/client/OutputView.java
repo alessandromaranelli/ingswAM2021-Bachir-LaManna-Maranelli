@@ -61,7 +61,7 @@ public class OutputView implements Runnable{
         }
     }
 
-    public void sendCommandMessage(CommandMsg commandMessage){
+    public synchronized void sendCommandMessage(CommandMsg commandMessage){
         try {
             output.writeObject((Object)commandMessage);
         } catch (IOException e) {

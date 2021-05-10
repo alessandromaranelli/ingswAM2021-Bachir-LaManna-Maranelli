@@ -5,6 +5,7 @@ import it.polimi.ingsw.messages.answers.AnswerMsg;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 public class InputView implements Runnable{
     private Socket socket;
@@ -27,7 +28,11 @@ public class InputView implements Runnable{
         while (true) {
             Object next = null;
             try {
+                socket.setSoTimeout(20000);
                 next = input.readObject();
+            } catch (SocketTimeoutException e){
+                System.out.println("Server died");
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
