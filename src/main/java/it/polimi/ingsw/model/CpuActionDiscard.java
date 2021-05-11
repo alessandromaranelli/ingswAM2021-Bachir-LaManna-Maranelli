@@ -55,4 +55,9 @@ public class CpuActionDiscard implements CpuAction {
         }
 
     }
+
+    @Override
+    public Color getcolor() {
+        return color;
+    }
 }

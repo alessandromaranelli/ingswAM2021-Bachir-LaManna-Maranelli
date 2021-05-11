@@ -8,5 +8,5 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public abstract class CommandMsg implements Serializable {
-    public abstract void processMessage(ClientHandler clientHandler, Controller controller);
+    public abstract void processMessage(ClientHandler clientHandler, Controller controller) throws ModelException;
 }

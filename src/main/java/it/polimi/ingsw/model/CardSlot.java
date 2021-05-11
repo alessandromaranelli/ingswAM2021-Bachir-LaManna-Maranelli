@@ -60,6 +60,16 @@ public class CardSlot {
         return n;
     }
 
+    public int countCards(){
+        int n = 0;
+        for(Stack<DevelopmentCard> i : slots){
+            for(DevelopmentCard c : i){
+                n++;
+            }
+        }
+        return n;
+    }
+
     //controlli per i requisiti delle carte leader
 
     public boolean controlForReduction(Color color1, Color color2){

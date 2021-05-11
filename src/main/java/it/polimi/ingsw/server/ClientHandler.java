@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 
+import Exceptions.ModelException;
 import it.polimi.ingsw.client.OutputView;
 import it.polimi.ingsw.messages.answers.AnswerMsg;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
@@ -22,6 +23,7 @@ public class ClientHandler extends Thread {
     private int playerID;
     private boolean ready;
     private Controller controller;
+
     public ClientHandler(Socket socket, Controller controller) throws IOException {
         this.socket = socket;
         this.controller = controller;
@@ -66,6 +68,8 @@ public class ClientHandler extends Thread {
             e.printStackTrace();
         } catch(IOException e){
             e.printStackTrace();
+        } catch (ModelException e) {
+            e.printStackTrace();
         }
 
         try {
@@ -94,6 +98,8 @@ public class ClientHandler extends Thread {
             e.printStackTrace();     //gestire la disconnessione del client
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             System.out.println("invalid stream from client");
+        } catch (ModelException e) {
+            e.printStackTrace();
         }
     }
     public ObjectOutputStream getOutput(){

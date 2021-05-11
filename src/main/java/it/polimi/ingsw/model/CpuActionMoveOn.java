@@ -24,4 +24,9 @@ public class CpuActionMoveOn implements CpuAction {
         faithTrack.movePositionForward();
         faithTrack.movePositionForward();
     }
+
+    @Override
+    public Color getcolor() {
+        return null;
+    }
 }

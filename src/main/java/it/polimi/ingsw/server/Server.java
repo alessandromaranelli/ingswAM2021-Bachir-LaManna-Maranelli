@@ -63,7 +63,6 @@ public class Server {
                         }
                     }
 
-                    return;
                 }
                 Thread.sleep(100);
             } catch (InterruptedException e) {

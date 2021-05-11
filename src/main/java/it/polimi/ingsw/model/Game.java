@@ -65,11 +65,33 @@ public class Game {
         return currentPlayer;
     }
 
-    public void nextPlayer() {
+    public Object nextPlayer() {
         if (soloMatch){
-            cpu.actionCpu();
+            return cpu.actionCpu();
         }
         currentPlayerID = (currentPlayerID == players.size()) ? 1 : currentPlayerID+1;
         setCurrentPlayer(players.get(currentPlayerID-1));
+        return currentPlayerID;
+    }
+
+    public boolean isGameAboutToFinish(){
+        if (vaticanReportSections.get(2).isPassed()) return true;
+        for (Player p : players){
+            if (p.getPersonalBoard().getCardSlot().countCards()>=7) return true;
+        }
+        return false;
+    }
+
+    public boolean hasLorenzoWon(){
+        if (vaticanReportSections.get(2).isPassed()) return true;
+        int counter;
+        for (Color c : Color.values()){
+            counter=0;
+            for (DevelopmentCardDeck developmentCardDeck: getTable().getDevelopmentCardDecks()){
+                if(developmentCardDeck.getColor()==c && developmentCardDeck.isEmpty()) counter++;
+            }
+            if(counter==3) return true;
+        }
+        return false;
     }
 }

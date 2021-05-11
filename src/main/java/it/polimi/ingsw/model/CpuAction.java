@@ -14,4 +14,5 @@ public interface CpuAction {
      * @param cpuActions - a list of all the action tokens
      */
     public void activateAction(Table table, FaithTrack faithTrack, ArrayList<CpuAction> cpuActions);
+    public Color getcolor();
 }

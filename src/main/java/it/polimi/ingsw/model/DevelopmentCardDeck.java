@@ -82,4 +82,8 @@ public class DevelopmentCardDeck {
         return developmentCards.peek().getRequirements();
     }
 
+    public boolean isEmpty(){
+        return developmentCards.isEmpty();
+    }
+
 }

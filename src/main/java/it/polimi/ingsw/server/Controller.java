@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server;
 
+import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.*;
 import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.model.*;
@@ -13,12 +14,14 @@ public class Controller {
     private final Set<ClientHandler> clientConnectionThreads;   //magari è meglio usare una mappa che associa ad ogni ID il relativo clientHandler così da evitare ogni volte di scorrere tutto il set alla ricerca del player giusto
     private boolean gameStarted;                                //non so se serve
     private int numberOfPlayers;
+    private int turnsToPlay;
 
     public Controller(Set<ClientHandler> clientConnectionThreads) throws FileNotFoundException {
         game = new Game();
         this.clientConnectionThreads = clientConnectionThreads;
         gameStarted = false;
         numberOfPlayers = -1;
+        turnsToPlay = -1;
     }
 
     public Game getGame() {
@@ -40,6 +43,14 @@ public class Controller {
 
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
+    }
+
+    public int getTurnsToPlay() {
+        return turnsToPlay;
+    }
+
+    public void setTurnsToPlay(int turnsToPlay) {
+        this.turnsToPlay = turnsToPlay;
     }
 
     public Set<ClientHandler> getClientConnectionThreads() {
@@ -136,4 +147,26 @@ public class Controller {
             } */
         }
     }
+
+    public void startLastTurn(){
+        setTurnsToPlay(game.getPlayers().size()-1);
+    }
+
+    public void endGame(boolean Lorenzo) throws ModelException {
+        if(Lorenzo){
+            //end connection
+            return;
+        }
+        Player player=game.getPlayerById(0);
+        int winPoints=player.getPersonalBoard().countVictoryPoints();
+        for(Player p: game.getPlayers()){
+            if(p.getPersonalBoard().countVictoryPoints()>winPoints){
+                player=p;
+                winPoints=p.getPersonalBoard().countVictoryPoints();
+            }
+        }
+        sendAll(new WinMsg("Player "+ player.getNickname()+" won the game with "+winPoints+" victoryPoints"));
+        //end connections
+    }
+
 }

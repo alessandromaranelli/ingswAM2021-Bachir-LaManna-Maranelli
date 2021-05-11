@@ -26,4 +26,9 @@ public class CpuActionShuffle implements CpuAction {
         faithTrack.movePositionForward();
         Collections.shuffle(cpuActions);
     }
+
+    @Override
+    public Color getcolor() {
+        return null;
+    }
 }

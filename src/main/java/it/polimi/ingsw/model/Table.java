@@ -94,6 +94,10 @@ public class Table {
         deck.removeFromTop();
     }
 
+    public ArrayList<DevelopmentCardDeck> getDevelopmentCardDecks() {
+        return developmentCardDecks;
+    }
+
     //metodo usato per passare alla view tutte le possibili carte che si possono comprare
     public List<DevelopmentCard> getTopDevelopmentcards(){
         List<DevelopmentCard> topDevelopmentCards = new ArrayList<>();

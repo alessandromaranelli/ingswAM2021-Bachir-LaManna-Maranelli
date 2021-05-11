@@ -58,13 +58,14 @@ public class CPU {
      * Method that implements the turn of the CPU: the first token of the list of actions gets activated
      * and a the end it is put at the end of the list
      */
-    public void actionCpu(){
+    public CpuAction actionCpu(){
         cpuActions.get(0).activateAction(game.getTable(),faithTrack, cpuActions);
         CpuAction cpuActionTemp = cpuActions.get(0);
         for (int i=0;i<cpuActions.size()-1;i++){
             cpuActions.set(i,cpuActions.get(i+1));
         }
         cpuActions.set(cpuActions.size()-1,cpuActionTemp);
+        return cpuActionTemp;
     }
 
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.messages.answers.AnswerMsg;
+import it.polimi.ingsw.messages.answers.WinMsg;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -42,6 +43,13 @@ public class InputView implements Runnable{
             AnswerMsg message = (AnswerMsg) next;
             message.processMessage(client.getLightModel());
             message.printMessage();
+            if (next instanceof WinMsg){
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
