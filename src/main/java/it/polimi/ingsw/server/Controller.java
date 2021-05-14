@@ -14,14 +14,15 @@ public class Controller {
     private final Set<ClientHandler> clientConnectionThreads;   //magari è meglio usare una mappa che associa ad ogni ID il relativo clientHandler così da evitare ogni volte di scorrere tutto il set alla ricerca del player giusto
     private boolean gameStarted;                                //non so se serve
     private int numberOfPlayers;
+    private boolean lastTurn;
     private int turnsToPlay;
 
     public Controller(Set<ClientHandler> clientConnectionThreads) throws FileNotFoundException {
         game = new Game();
         this.clientConnectionThreads = clientConnectionThreads;
         gameStarted = false;
-        numberOfPlayers = -1;
-        turnsToPlay = -1;
+        numberOfPlayers = 0;
+        lastTurn=false;
     }
 
     public Game getGame() {
@@ -31,6 +32,14 @@ public class Controller {
     public void startGame(){
         game.start();
         gameStarted=true;
+    }
+
+    public void setLastTurn(boolean lastTurn) {
+        this.lastTurn = lastTurn;
+    }
+
+    public boolean isLastTurn() {
+        return lastTurn;
     }
 
     public boolean isGameStarted() {
@@ -58,6 +67,7 @@ public class Controller {
     }
 
     public boolean isCurrentPlayer(ClientHandler clientHandler, CommandMsg commandMsg){
+        if(!gameStarted)return true;
         if(clientHandler.getPlayerID()!=game.getCurrentPlayer().getPlayerID()){
             //Wrong player
             return false;
@@ -95,7 +105,7 @@ public class Controller {
     //metodo chiamato dal primo messaggio di un client in cui setta nickname e giocatori che vorrebbe nella partita
     //messo nel controller perchè serve synchronized
     public synchronized void setNickname(String nickname, int numberOfPlayers, ClientHandler clientHandler) {
-        if (this.numberOfPlayers == -1) {
+        if (this.numberOfPlayers == 0) {
             this.numberOfPlayers = numberOfPlayers;
             game.createNewPlayer(new Player(nickname, 1, game));
             clientConnectionThreads.add(clientHandler);               //sarebbe meglio aggiungere i clienthandler al set solo dopo aver controllato che hanno un nickname giusto. E' come aggiungerli al set sapendo che sono già ready
@@ -149,6 +159,7 @@ public class Controller {
     }
 
     public void startLastTurn(){
+        setLastTurn(true);
         setTurnsToPlay(game.getPlayers().size()-1);
     }
 

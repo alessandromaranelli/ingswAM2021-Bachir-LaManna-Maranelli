@@ -47,21 +47,22 @@ public class Server {
     public void waitReady(){
         while (true) {
             try {
-                if (areAllReady() && this.clientConnectionThreads.size() == controller.getNumberOfPlayers()) {     //vedi controller
+                if (areAllReady() && controller.getNumberOfPlayers()>0 && this.clientConnectionThreads.size() == controller.getNumberOfPlayers()) {     //vedi controller
                     System.out.println("Starting game...");
                     listening=false;
                     controller.startGame();   //non so se serve
                     controller.getGame().getPlayers().get(0).setAsCurrentPlayer();
                     for (ClientHandler c: clientConnectionThreads) {
                         if (c.getPlayerID() == 1) {
-                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getCurrentPlayer().getPersonalBoard(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.PREPARATION);
+                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.PREPARATION);
                             c.sendAnswerMessage(gameStartMsg);
                         }
                         else{
-                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getPlayers().get(c.getPlayerID()-1).getPersonalBoard(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.ENDTURN);
+                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.ENDTURN);
                             c.sendAnswerMessage(gameStartMsg);
                         }
                     }
+                    return;
 
                 }
                 Thread.sleep(100);

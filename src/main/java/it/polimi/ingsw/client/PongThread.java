@@ -10,13 +10,17 @@ public class PongThread extends Thread{
 
     public void run(){
         while(true) {
-            PongMsg pongMsg = new PongMsg();
-            outputView.sendCommandMessage(pongMsg);
+            sendPong();
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void sendPong(){
+        PongMsg pongMsg=new PongMsg();
+        outputView.sendCommandMessage(pongMsg);
     }
 }

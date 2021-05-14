@@ -43,10 +43,10 @@ public class EndTurnMsg extends CommandMsg{
             }
             else controller.getGame().nextPlayer();
 
-            if(controller.getTurnsToPlay()<0 && controller.getGame().isGameAboutToFinish()){
+            if(!controller.isLastTurn() && controller.getGame().isGameAboutToFinish()){
                 controller.startLastTurn();
             }
-            if(controller.getTurnsToPlay()>0){
+            if(controller.isLastTurn() && controller.getTurnsToPlay()>0){
                 controller.setTurnsToPlay(controller.getTurnsToPlay()-1);
                 if(controller.getTurnsToPlay()==0){
                     controller.endGame(false);

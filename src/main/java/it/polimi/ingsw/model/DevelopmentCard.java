@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Map;
  * requirements necessary to buy it. Every developmentCard is useful in the production phase: it provides
  * a productionOutput in change of a productionInput.
  */
-public class DevelopmentCard {
+public class DevelopmentCard implements Serializable {
     private Color color;
     private int level;
     private int victoryPoints;

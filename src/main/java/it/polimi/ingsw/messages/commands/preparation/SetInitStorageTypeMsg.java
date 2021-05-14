@@ -5,6 +5,7 @@ import it.polimi.ingsw.messages.answers.ErrorMsg;
 import it.polimi.ingsw.messages.answers.StringMsg;
 import it.polimi.ingsw.messages.answers.UpdateStorageTypesMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.TurnState;
 import it.polimi.ingsw.server.ClientHandler;
@@ -28,7 +29,11 @@ public class SetInitStorageTypeMsg extends CommandMsg {
         try {
             controller.getGame().getCurrentPlayer().setInitStorageTypes(r1, r2, r3);
 
-            UpdateStorageTypesMsg updateStorageTypesMsg = new UpdateStorageTypesMsg(TurnState.CHOOSERESOURCES, r1, r2, r3);
+            if (controller.getGame().getPlayers().stream().allMatch(Player::isInitPhaseDone)) {
+                controller.getGame().setCurrentPlayer(controller.getGame().getPlayers().get(0));
+            }
+
+            UpdateStorageTypesMsg updateStorageTypesMsg = new UpdateStorageTypesMsg(controller.getGame().getCurrentPlayer().getPhase(), r1, r2, r3);
             clientHandler.sendAnswerMessage(updateStorageTypesMsg);
 
             StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " changed his storages type");

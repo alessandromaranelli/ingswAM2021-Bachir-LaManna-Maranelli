@@ -1,10 +1,12 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
+
 /**
  * Abstract class for the 4 types of leader cards. Getter methods for VP and description and discard method are already implemented.
  * The effect activation and requirements analyzes are left abstract.
  */
-public abstract class LeaderCard {
+public abstract class LeaderCard implements Serializable {
     private final int victoryPoints;
     private final String description;
 

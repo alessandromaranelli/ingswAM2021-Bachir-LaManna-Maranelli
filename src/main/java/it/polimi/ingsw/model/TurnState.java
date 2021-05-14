@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
-public enum TurnState {
+import java.io.Serializable;
+
+public enum TurnState implements Serializable {
     BEFORESTART,
     WAIT,
     PREPARATION,

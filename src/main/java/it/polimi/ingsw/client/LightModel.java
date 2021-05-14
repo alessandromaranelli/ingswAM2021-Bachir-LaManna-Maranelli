@@ -47,6 +47,8 @@ public class LightModel {
         developmentCard = new ArrayList<>();
         storageType = new ArrayList<>(3);
         storageQuantity = new ArrayList<>(3);
+        storageType.add(Resource.COIN);storageType.add(Resource.COIN);storageType.add(Resource.COIN);
+        storageQuantity.add(2);storageQuantity.add(2);storageQuantity.add(2);
         chest = new HashMap<>();
         resourcesToOrganize = new HashMap<>();
         resourcesToAdd = new HashMap<>();

@@ -14,11 +14,10 @@ public class GameStartMsg extends AnswerMsg {
     private String currentPlayer;
     private TurnState phase;
 
-    public GameStartMsg(Marble[][] m, Marble mx, List<DevelopmentCard> d, PersonalBoard p, String c, TurnState phase){
+    public GameStartMsg(Marble[][] m, Marble mx, List<DevelopmentCard> d, String c, TurnState phase){
         market = m;
         marbleInExcess = mx;
         developmentCards = d;
-        personalBoard = p;
         currentPlayer = c;
         this.phase = phase;
         message = "Game started. Current player is: " + currentPlayer;

@@ -6,10 +6,7 @@ import it.polimi.ingsw.messages.answers.StringMsg;
 import it.polimi.ingsw.messages.answers.UpdateFaithMarkerPositionMsg;
 import it.polimi.ingsw.messages.answers.UpdateStorageMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
-import it.polimi.ingsw.model.PopeFavour;
-import it.polimi.ingsw.model.Resource;
-import it.polimi.ingsw.model.Storage;
-import it.polimi.ingsw.model.TurnState;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
@@ -44,10 +41,12 @@ public class AddInitResourcesMsg extends CommandMsg {
                 clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
             }
         }
-
+        if (controller.getGame().getPlayers().stream().allMatch(Player::isInitPhaseDone)) {
+            controller.getGame().setCurrentPlayer(controller.getGame().getPlayers().get(0));
+        }
         clientHandler.sendAnswerMessage(new UpdateStorageMsg(TurnState.ENDPREPARATION,
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromAllStorages().values().toArray(new Integer[3])));
-
+                controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
+                        stream().map(Storage::getQuantity).toArray(Integer[]::new)));
         clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(TurnState.ENDPREPARATION,
                 controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
                         controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),

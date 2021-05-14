@@ -2,10 +2,11 @@ package it.polimi.ingsw.model;
 
 import Exceptions.ModelException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Market {
+public class Market implements Serializable {
     private Marble[][] marketTable;
     private Marble marbleInExcess;
 

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
