@@ -17,10 +17,12 @@ public class UpdateMarketMsg extends AnswerMsg {
     public void processMessage(LightModel lightModel) {
         lightModel.setMarket(market.getMarketTable());
         lightModel.setMarbleInExcess(market.getMarbleInExcess());
+        lightModel.getMarketView().showMarbles(market.getMarketTable());
+        lightModel.getMarketView().plot();
     }
 
     @Override
-    public void printMessage() {
-        System.out.println(message);
+    public void printMessage() { System.out.println(message);
+
     }
 }

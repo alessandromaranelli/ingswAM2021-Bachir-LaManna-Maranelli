@@ -54,8 +54,11 @@ public class OutputView implements Runnable{
             }
             else {
                 CommandMsg commandMessage = createCommandMessage(parts);
-                sendCommandMessage(commandMessage);
+                if(type != TypeOfCommand.VIEWMARKET) {
+                    sendCommandMessage(commandMessage);
+                }
                 type = TypeOfCommand.FOLD;
+
             }
         }
     }
@@ -92,7 +95,7 @@ public class OutputView implements Runnable{
             return new SelectMarketPhaseMsg();
         }
         if(type == TypeOfCommand.STARTMARKETPHASE){
-            return new StartMarketPhaseMsg(Integer.parseInt(parts[1]),Boolean.getBoolean(parts[2]));
+            return new StartMarketPhaseMsg(Integer.parseInt(parts[1]),Boolean.valueOf(parts[2]));
         }
         if(type == TypeOfCommand.WHITEMARBLES){
             return new ManageWhiteMarbleMsg(Resource.valueOf(parts[1]));
@@ -172,6 +175,12 @@ public class OutputView implements Runnable{
 
         if(type == TypeOfCommand.ENDTURN){
             return new EndTurnMsg();
+        }
+
+        if(type == TypeOfCommand.VIEWMARKET){
+            client.getLightModel().getMarketView().showMarbles(client.getLightModel().getMarket());
+            client.getLightModel().getMarketView().plot();
+            return null;
         }
         else return null;
     }
@@ -324,6 +333,11 @@ public class OutputView implements Runnable{
 
         if (parts[0].toLowerCase().equals("endturn") && (client.getLightModel().getPhase() == TurnState.ENDTURN || client.getLightModel().getPhase() == TurnState.ENDPREPARATION)){
             this.type = TypeOfCommand.ENDTURN;
+            return true;
+        }
+
+        if (parts[0].toLowerCase().equals("viewmarket")) {
+            this.type = TypeOfCommand.VIEWMARKET;
             return true;
         }
         else return false;

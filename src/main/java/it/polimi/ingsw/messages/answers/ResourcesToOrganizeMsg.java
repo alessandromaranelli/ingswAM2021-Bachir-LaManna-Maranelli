@@ -8,12 +8,13 @@ import java.util.Map;
 
 public class ResourcesToOrganizeMsg extends AnswerMsg{
     private Map<Resource,Integer> map;
-    private String message="Resources to reput in storages: "+map.toString();
+    private String message;
     private TurnState phase;
 
     public ResourcesToOrganizeMsg(Map<Resource, Integer> map, TurnState phase) {
         this.map = map;
         this.phase=phase;
+        this.message="Resources to reput in storages: "+map.toString();
     }
 
     @Override

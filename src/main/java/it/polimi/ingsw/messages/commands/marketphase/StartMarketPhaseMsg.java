@@ -28,6 +28,7 @@ public class StartMarketPhaseMsg extends CommandMsg {
         try{
             marbles= controller.getGame().getCurrentPlayer().startMarketPhase(dim,row);
 
+
             clientHandler.sendAnswerMessage(new UpdateResourcesToAddMsg(
                     controller.getGame().getCurrentPlayer().getPhase(),
                     controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));

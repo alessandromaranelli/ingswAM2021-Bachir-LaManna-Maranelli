@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.CLI.MarketVisualizer;
 import it.polimi.ingsw.model.*;
 import java.util.*;
 
@@ -33,6 +34,9 @@ public class LightModel {
     private List<Resource> whiteMarble;
     private List<Resource> reduction;
     private List<Resource> specialProduction;
+
+
+    private MarketVisualizer marketView=new MarketVisualizer();
 
     public LightModel(){
         nickname = new String();
@@ -132,6 +136,10 @@ public class LightModel {
 
     public void setMarket(Marble[][] market) {
         this.market = market;
+    }
+
+    public Marble[][] getMarket() {
+        return market;
     }
 
     public void setMarbleInExcess(Marble marbleInExcess) {
@@ -244,5 +252,9 @@ public class LightModel {
 
     public void addSpecialProduction(Resource resource){
         specialProduction.add(resource);
+    }
+
+    public MarketVisualizer getMarketView() {
+        return marketView;
     }
 }

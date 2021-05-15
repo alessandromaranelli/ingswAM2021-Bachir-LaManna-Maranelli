@@ -36,7 +36,7 @@ public class Server {
             while(listening){
                 Socket client = serverSocket.accept();
                 new ClientHandler(client, controller);
-                if (clientConnectionThreads.size()==controller.getNumberOfPlayers()) listening=false;
+                if (controller.getNumberOfPlayers()>0 && clientConnectionThreads.size()==controller.getNumberOfPlayers()) listening=false;
             }
         } catch (IOException e) {
             System.err.println("Could not listen on port " + PORT);

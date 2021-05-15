@@ -106,6 +106,10 @@ public class Controller {
     //messo nel controller perchè serve synchronized
     public synchronized void setNickname(String nickname, int numberOfPlayers, ClientHandler clientHandler) {
         if (this.numberOfPlayers == 0) {
+            if(numberOfPlayers<1 || numberOfPlayers>4) {
+                StringMsg stringMsg = new StringMsg("Impossible number of players man");
+                clientHandler.sendAnswerMessage(stringMsg);
+            }
             this.numberOfPlayers = numberOfPlayers;
             game.createNewPlayer(new Player(nickname, 1, game));
             clientConnectionThreads.add(clientHandler);               //sarebbe meglio aggiungere i clienthandler al set solo dopo aver controllato che hanno un nickname giusto. E' come aggiungerli al set sapendo che sono già ready

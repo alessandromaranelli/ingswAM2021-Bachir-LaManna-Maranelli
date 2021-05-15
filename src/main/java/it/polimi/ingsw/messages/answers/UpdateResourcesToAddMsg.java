@@ -8,12 +8,13 @@ import java.util.Map;
 
 public class UpdateResourcesToAddMsg extends AnswerMsg{
     private Map<Resource,Integer> map;
-    private String message="Resources to add to storages from the market: "+map.toString();
+    private String message;
     private TurnState phase;
 
     public UpdateResourcesToAddMsg(TurnState phase,Map<Resource, Integer> map) {
         this.phase=phase;
         this.map = map;
+        this.message="Resources to add to storages from the market: "+map.toString();
     }
 
     @Override
