@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.CLI.DevelopmentCardVisualizer;
 import it.polimi.ingsw.client.CLI.MarketVisualizer;
 import it.polimi.ingsw.model.*;
 import java.util.*;
@@ -27,6 +28,9 @@ public class LightModel {
     private Map<Resource, Integer> resourcesToAdd;
     private Map<Resource, Integer> totalCost;
     private Map<Resource, Integer> totalGain;
+
+
+
     private List<DevelopmentCard> developmentCard;
     private Map<Resource, Integer> cardCost;
 
@@ -37,7 +41,7 @@ public class LightModel {
 
 
     private MarketVisualizer marketView=new MarketVisualizer();
-
+    private DevelopmentCardVisualizer developmentCardView = new DevelopmentCardVisualizer();
     public LightModel(){
         nickname = new String();
         phase = TurnState.BEFORESTART;
@@ -95,7 +99,15 @@ public class LightModel {
         cardCost.put(Resource.STONE, 0);
         cardCost.put(Resource.SERVANT, 0);
         cardCost.put(Resource.SHIELD, 0);
+
     }
+
+    //mi serve per provare la DevelView
+    public DevelopmentCard getDevelopmentCard() {
+        return developmentCardsToBuy.get(1);
+    }
+
+
 
     public TurnState getPhase(){
         return phase;
@@ -136,6 +148,7 @@ public class LightModel {
 
     public void setMarket(Marble[][] market) {
         this.market = market;
+
     }
 
     public Marble[][] getMarket() {
@@ -256,5 +269,9 @@ public class LightModel {
 
     public MarketVisualizer getMarketView() {
         return marketView;
+    }
+
+    public DevelopmentCardVisualizer getDevelopmentCardView() {
+        return developmentCardView;
     }
 }

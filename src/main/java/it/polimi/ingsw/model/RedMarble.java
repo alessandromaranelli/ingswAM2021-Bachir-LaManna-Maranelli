@@ -15,5 +15,7 @@ public class RedMarble implements Marble {
     public void whenDrawn(PersonalBoard personalBoard) {
         personalBoard.getFaithTrack().movePositionForward();
     }
-
+    public String toString(){
+        return "red";
+    }
 }

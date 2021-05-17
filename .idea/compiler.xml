@@ -9,5 +9,8 @@
         <module name="AM66" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="gui" target="15" />
+    </bytecodeTargetLevel>
   </component>
 </project>

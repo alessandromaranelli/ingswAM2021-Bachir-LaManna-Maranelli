@@ -16,5 +16,8 @@ public class BlueMarble implements Marble {
         personalBoard.getWareHouse().addResource(Resource.SHIELD,1);
 
     }
+    public String toString(){
+        return "blue";
+    }
 
 }

@@ -54,7 +54,7 @@ public class OutputView implements Runnable{
             }
             else {
                 CommandMsg commandMessage = createCommandMessage(parts);
-                if(type != TypeOfCommand.VIEWMARKET) {
+                if(type != TypeOfCommand.VIEWMARKET && type != TypeOfCommand.VIEWDEVELOPMENTCARD) {
                     sendCommandMessage(commandMessage);
                 }
                 type = TypeOfCommand.FOLD;
@@ -180,6 +180,11 @@ public class OutputView implements Runnable{
         if(type == TypeOfCommand.VIEWMARKET){
             client.getLightModel().getMarketView().showMarbles(client.getLightModel().getMarket());
             client.getLightModel().getMarketView().plot();
+            return null;
+        }
+        if(type ==TypeOfCommand.VIEWDEVELOPMENTCARD){
+            client.getLightModel().getDevelopmentCardView().showDevelData(client.getLightModel().getDevelopmentCard());
+            client.getLightModel().getDevelopmentCardView().plot();
             return null;
         }
         else return null;
@@ -338,6 +343,10 @@ public class OutputView implements Runnable{
 
         if (parts[0].toLowerCase().equals("viewmarket")) {
             this.type = TypeOfCommand.VIEWMARKET;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("viewdevelopmentcard")){
+            this.type = TypeOfCommand.VIEWDEVELOPMENTCARD;
             return true;
         }
         else return false;

@@ -15,5 +15,7 @@ public class PurpleMarble implements Marble {
     public void whenDrawn(PersonalBoard personalBoard) {
         personalBoard.getWareHouse().addResource(Resource.SERVANT,1);
     }
-
+    public String toString(){
+        return "purple";
+    }
 }

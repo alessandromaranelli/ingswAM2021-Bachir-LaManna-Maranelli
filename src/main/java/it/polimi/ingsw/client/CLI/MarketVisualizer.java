@@ -50,22 +50,22 @@ public class MarketVisualizer {
             for (int i = 0; i < MARKET_VERT_TILES; i++) {
                 for (int j =0; j < MARKET_HORIZ_TILES; j++) {
                     if (marbles[i][j] instanceof WhiteMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_WHITE.escape() + "w" + greenEscape;
+                        tiles[i+1][j+3] = ColorVisualizer.ANSI_WHITE.escape() +  "●" + greenEscape;
                     }
                     if (marbles[i][j] instanceof RedMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_RED.escape() + "r" + greenEscape;
+                        tiles[i+1][j+3] = ColorVisualizer.ANSI_RED.escape() + "●" + greenEscape;
                     }
                     if (marbles[i][j] instanceof YellowMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_YELLOW.escape() + "y" + greenEscape;
+                        tiles[i+1][j+3] = ColorVisualizer.ANSI_YELLOW.escape() + "●" + greenEscape;
                     }
                     if (marbles[i][j] instanceof PurpleMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_PURPLE.escape() + "p" + greenEscape;
+                        tiles[i+1][j+3] = ColorVisualizer.ANSI_PURPLE.escape() + "●" + greenEscape;
                     }
                     if (marbles[i][j] instanceof GreyMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_GREY.escape() + "g" + greenEscape;
+                        tiles[i+1][j+3] = ColorVisualizer.ANSI_GREY.escape() + "●" + greenEscape;
                     }
                     if (marbles[i][j] instanceof BlueMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_BLUE.escape() + "b" + greenEscape;
+                        tiles[i+1][j+3] = ColorVisualizer.ANSI_BLUE.escape() + "●" + greenEscape;
                     }
                 }
             }
