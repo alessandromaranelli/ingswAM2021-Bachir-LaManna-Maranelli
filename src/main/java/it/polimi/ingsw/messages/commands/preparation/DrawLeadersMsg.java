@@ -18,7 +18,10 @@ public class DrawLeadersMsg extends CommandMsg {
         try {
             controller.getGame().getCurrentPlayer().drawLeaderCards();
 
-            UpdateLeaderCardsMsg updateLeaderCardsMsg = new UpdateLeaderCardsMsg(TurnState.CHOOSELEADERCARDS, controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsInHand(), controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsPlayed(), "You drew 4 leader cards");
+            UpdateLeaderCardsMsg updateLeaderCardsMsg = new UpdateLeaderCardsMsg(TurnState.CHOOSELEADERCARDS,
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsInHand(),
+                    controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsPlayed(),
+                    "\nYou drew 4 leader cards");
             clientHandler.sendAnswerMessage(updateLeaderCardsMsg);
 
             StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " drew 4 leader cards");

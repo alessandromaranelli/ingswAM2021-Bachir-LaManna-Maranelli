@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.messages.PingMsg;
 import it.polimi.ingsw.messages.answers.AnswerMsg;
 import it.polimi.ingsw.messages.answers.WinMsg;
 

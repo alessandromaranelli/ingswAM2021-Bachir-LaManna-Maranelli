@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.CLI.DevelopmentCardVisualizer;
+import it.polimi.ingsw.client.CLI.LeaderCardVisualizer;
 import it.polimi.ingsw.client.CLI.MarketVisualizer;
 import it.polimi.ingsw.model.*;
 import java.util.*;
@@ -42,6 +43,9 @@ public class LightModel {
 
     private MarketVisualizer marketView=new MarketVisualizer();
     private DevelopmentCardVisualizer developmentCardView = new DevelopmentCardVisualizer();
+    private LeaderCardVisualizer leaderCardVisualizer=new LeaderCardVisualizer();
+
+
     public LightModel(){
         nickname = new String();
         phase = TurnState.BEFORESTART;
@@ -146,6 +150,14 @@ public class LightModel {
         this.popeFavours = popeFavours;
     }
 
+    public List<LeaderCard> getLeaderCardsInHand() {
+        return leaderCardsInHand;
+    }
+
+    public List<LeaderCard> getLeaderCardsPlayed() {
+        return leaderCardsPlayed;
+    }
+
     public void setMarket(Marble[][] market) {
         this.market = market;
 
@@ -239,7 +251,8 @@ public class LightModel {
     }
 
     public void setDevelopmentCard(DevelopmentCard card, int slot) {
-        developmentCard.set(slot-1, card);
+        if(developmentCard.size()>=slot)developmentCard.set(slot-1, card);
+        else developmentCard.add(card);
     }
 
     public void setCardCost(Map<Resource, Integer> cardCost) {
@@ -273,5 +286,9 @@ public class LightModel {
 
     public DevelopmentCardVisualizer getDevelopmentCardView() {
         return developmentCardView;
+    }
+
+    public LeaderCardVisualizer getLeaderCardVisualizer() {
+        return leaderCardVisualizer;
     }
 }
