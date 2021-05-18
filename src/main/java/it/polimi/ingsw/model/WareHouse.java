@@ -124,7 +124,7 @@ public class WareHouse {
         if (i < 1 || i > storages.size()) throw new ModelException("Not existing storage");
         if (resourcesToAdd.get(type) == null)
             throw new ModelException("All resources of this type are already added to the storages");
-        if (n > resourcesToAdd.get(type)) throw new ModelException("Not enough" + type);
+        if (n > resourcesToAdd.get(type)) throw new ModelException("Not enough " + type);
         storages.get(i - 1).addToStorage(type, n);
         resourcesToAdd.put(type, resourcesToAdd.get(type) - n);
         if (resourcesToAdd.get(type) == 0) resourcesToAdd.remove(type);

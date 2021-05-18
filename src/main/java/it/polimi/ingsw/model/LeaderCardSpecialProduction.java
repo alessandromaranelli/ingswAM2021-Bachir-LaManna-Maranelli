@@ -44,4 +44,11 @@ public class LeaderCardSpecialProduction extends LeaderCard {
         return personalBoard.getCardSlot().controlForSpecialProduction(color,2);
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public Resource getCost() {
+        return cost;
+    }
 }

@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.*;
 
 public class MarketVisualizer {
     private static final int MAX_VERT_TILES = 5; //rows.
-    private static final int MAX_HORIZ_TILES = 10; //cols.
+    private static final int MAX_HORIZ_TILES = 11; //cols.
     private static final int MARKET_VERT_TILES = 3; //rows.
     private static final int MARKET_HORIZ_TILES = 4; //cols.
 
@@ -23,14 +23,14 @@ public class MarketVisualizer {
             tiles[0][c] = "═";
         }
 
-        tiles[0][MAX_HORIZ_TILES - 1] = "╗";
+        tiles[0][MAX_HORIZ_TILES -1] = "╗";
 
         for (int r = 1; r < MAX_VERT_TILES - 1; r++) {
-            tiles[r][0] = "║";
+            tiles[r][0] = " ";
             for (int c = 1; c < MAX_HORIZ_TILES - 1; c++) {
                 tiles[r][c] = " ";
             }
-            tiles[r][MAX_HORIZ_TILES-1] = "║";
+            tiles[r][MAX_HORIZ_TILES-1] = " ";
         }
 
         tiles[MAX_VERT_TILES - 1][0] = "╚";
@@ -38,7 +38,7 @@ public class MarketVisualizer {
             tiles[MAX_VERT_TILES - 1][c] = "═";
         }
 
-        tiles[MAX_VERT_TILES - 1][MAX_HORIZ_TILES - 1] = "╝";
+        tiles[MAX_VERT_TILES - 1][MAX_HORIZ_TILES-1 ] = "╝";
 
     }
 

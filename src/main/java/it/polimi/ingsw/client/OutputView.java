@@ -238,35 +238,55 @@ public class OutputView implements Runnable{
             this.type = TypeOfCommand.STARTMARKETPHASE;
             return true;
         }
-        if (parts[0].toLowerCase().equals("managewhitemarbles") && client.getLightModel().getPhase() == TurnState.WHITEMARBLES){
+        if (parts[0].toLowerCase().equals("managewhitemarbles") && parts.length==1 && client.getLightModel().getPhase() == TurnState.WHITEMARBLES){
             this.type = TypeOfCommand.WHITEMARBLES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("startorganizeresources") && client.getLightModel().getPhase() == TurnState.CHOICE){
+        if (parts[0].toLowerCase().equals("startorganizeresources") && parts.length==1 && client.getLightModel().getPhase() == TurnState.CHOICE){
             this.type = TypeOfCommand.ORGANIZERESOURCES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("setstoragetypes") && client.getLightModel().getPhase() == TurnState.ORGANIZERESOURCES){
+        if (parts[0].toLowerCase().equals("setstoragetypes") && parts.length==4 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("COIN") || parts[2].equals("SERVANT") || parts[2].equals("SHIELD") || parts[2].equals("STONE")) &&
+                (parts[3].equals("COIN") || parts[3].equals("SERVANT") || parts[3].equals("SHIELD") || parts[3].equals("STONE")) &&
+                client.getLightModel().getPhase() == TurnState.ORGANIZERESOURCES){
             this.type = TypeOfCommand.SETSTORAGETYPES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("defaultmanageresourcestoorganize") && client.getLightModel().getPhase() == TurnState.MANAGERESOURCES){
+        if (parts[0].toLowerCase().equals("defaultmanageresourcestoorganize") && parts.length==1 && client.getLightModel().getPhase() == TurnState.MANAGERESOURCES){
             this.type = TypeOfCommand.MANAGERESOURCESBYDEFAULT;
             return true;
         }
-        if (parts[0].toLowerCase().equals("manageresourcestoorganize") && client.getLightModel().getPhase() == TurnState.MANAGERESOURCES){
+        if (parts[0].toLowerCase().equals("manageresourcestoorganize") && parts.length==4 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                (parts[3].equals("0") || parts[3].equals("1") || parts[3].equals("2") || parts[3].equals("3") || parts[3].equals("4") ||
+                        parts[3].equals("5") || parts[3].equals("6") || parts[3].equals("7") || parts[3].equals("8") || parts[3].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.MANAGERESOURCES){
             this.type = TypeOfCommand.MANAGERESOURCES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("startaddresources") && client.getLightModel().getPhase() == TurnState.CHOICE){
+        if (parts[0].toLowerCase().equals("startaddresources") && parts.length==1 && client.getLightModel().getPhase() == TurnState.CHOICE){
             this.type = TypeOfCommand.STARTADDRESOURCES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("addresources") && client.getLightModel().getPhase() == TurnState.ADDRESOURCES){
+        if (parts[0].toLowerCase().equals("addresources") && parts.length==4 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                (parts[3].equals("0") || parts[3].equals("1") || parts[3].equals("2") || parts[3].equals("3") || parts[3].equals("4") ||
+                        parts[3].equals("5") || parts[3].equals("6") || parts[3].equals("7") || parts[3].equals("8") || parts[3].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.ADDRESOURCES){
             this.type = TypeOfCommand.ADDRESOURCES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("discardresources") && client.getLightModel().getPhase() == TurnState.ADDRESOURCES) {
+        if (parts[0].toLowerCase().equals("discardresources") && parts.length==3 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.ADDRESOURCES) {
             this.type = TypeOfCommand.DISCARDRESOURCES;
             return true;
         }

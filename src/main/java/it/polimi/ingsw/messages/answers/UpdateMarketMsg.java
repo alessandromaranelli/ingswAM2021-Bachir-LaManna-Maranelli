@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class UpdateMarketMsg extends AnswerMsg {
     private Market market;
-    private String message="Market updated";
+    private String message="\nMarket updated";
 
     public UpdateMarketMsg(Market market) {
         this.market = market;

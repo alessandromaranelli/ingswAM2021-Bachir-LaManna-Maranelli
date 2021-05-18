@@ -7,7 +7,7 @@ import java.util.Map;
 public class DevelopmentCardVisualizer {
     //private int start;
     private static final int MAX_VERT_TILES = 7; //rows.
-    private static final int MAX_HORIZ_TILES = 25; //cols.
+    private static final int MAX_HORIZ_TILES = 15; //cols.
 
     String tiles[][] = new String[MAX_VERT_TILES][MAX_HORIZ_TILES];
 
@@ -47,7 +47,7 @@ public class DevelopmentCardVisualizer {
             for (int c = 1; c < MAX_HORIZ_TILES - 1; c++) {
                 tiles[r][c] = color +" " + greenEscape;
             }
-            tiles[r][MAX_HORIZ_TILES- 1] = color + "│" + greenEscape;
+            tiles[r][MAX_HORIZ_TILES- 1] = color + " " + greenEscape;
         }
 
         tiles[MAX_VERT_TILES - 1][0] = color + "└" + greenEscape;

@@ -3,6 +3,7 @@ package it.polimi.ingsw.messages.commands.marketphase;
 import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
 import it.polimi.ingsw.messages.answers.StringMsg;
+import it.polimi.ingsw.messages.answers.UpdateMarketMsg;
 import it.polimi.ingsw.messages.answers.UpdatePhaseMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.model.TurnState;
@@ -19,6 +20,9 @@ public class SelectMarketPhaseMsg extends CommandMsg {
 
             UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.MARKETPHASE, "You can select a row or column from the market");
             clientHandler.sendAnswerMessage(updatePhaseMsg);
+
+            clientHandler.sendAnswerMessage(new StringMsg("Here is the market!"));
+            clientHandler.sendAnswerMessage(new UpdateMarketMsg(controller.getGame().getTable().getMarket()));
 
             StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " started Market phase");
             controller.sendAllExcept(stringMsg, clientHandler);
