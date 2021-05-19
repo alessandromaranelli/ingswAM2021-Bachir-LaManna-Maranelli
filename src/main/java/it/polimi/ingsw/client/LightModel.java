@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.CLI.DevelopmentCardVisualizer;
+import it.polimi.ingsw.client.CLI.FaithTrackVisualizer;
 import it.polimi.ingsw.client.CLI.LeaderCardVisualizer;
 import it.polimi.ingsw.client.CLI.MarketVisualizer;
 import it.polimi.ingsw.model.*;
@@ -44,6 +45,7 @@ public class LightModel {
     private MarketVisualizer marketView=new MarketVisualizer();
     private DevelopmentCardVisualizer developmentCardView = new DevelopmentCardVisualizer();
     private LeaderCardVisualizer leaderCardVisualizer=new LeaderCardVisualizer();
+    private FaithTrackVisualizer faithTrackVisualizer=new FaithTrackVisualizer();
 
 
     public LightModel(){
@@ -148,6 +150,14 @@ public class LightModel {
 
     public void setPopeFavours(Boolean[] popeFavours) {
         this.popeFavours = popeFavours;
+    }
+
+    public Boolean[] getPopeFavours() {
+        return popeFavours;
+    }
+
+    public int getPosition() {
+        return position;
     }
 
     public List<LeaderCard> getLeaderCardsInHand() {
@@ -290,5 +300,9 @@ public class LightModel {
 
     public LeaderCardVisualizer getLeaderCardVisualizer() {
         return leaderCardVisualizer;
+    }
+
+    public FaithTrackVisualizer getFaithTrackVisualizer() {
+        return faithTrackVisualizer;
     }
 }
