@@ -1,5 +1,8 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.CLI.DevelopmentCardVisualizer;
+import it.polimi.ingsw.client.CLI.LeaderCardVisualizer;
+import it.polimi.ingsw.client.CLI.MarketVisualizer;
 import it.polimi.ingsw.model.*;
 import java.util.*;
 
@@ -26,6 +29,9 @@ public class LightModel {
     private Map<Resource, Integer> resourcesToAdd;
     private Map<Resource, Integer> totalCost;
     private Map<Resource, Integer> totalGain;
+
+
+
     private List<DevelopmentCard> developmentCard;
     private Map<Resource, Integer> cardCost;
 
@@ -33,6 +39,12 @@ public class LightModel {
     private List<Resource> whiteMarble;
     private List<Resource> reduction;
     private List<Resource> specialProduction;
+
+
+    private MarketVisualizer marketView=new MarketVisualizer();
+    private DevelopmentCardVisualizer developmentCardView = new DevelopmentCardVisualizer();
+    private LeaderCardVisualizer leaderCardVisualizer=new LeaderCardVisualizer();
+
 
     public LightModel(){
         nickname = new String();
@@ -47,6 +59,8 @@ public class LightModel {
         developmentCard = new ArrayList<>();
         storageType = new ArrayList<>(3);
         storageQuantity = new ArrayList<>(3);
+        storageType.add(Resource.COIN);storageType.add(Resource.COIN);storageType.add(Resource.COIN);
+        storageQuantity.add(2);storageQuantity.add(2);storageQuantity.add(2);
         chest = new HashMap<>();
         resourcesToOrganize = new HashMap<>();
         resourcesToAdd = new HashMap<>();
@@ -89,7 +103,15 @@ public class LightModel {
         cardCost.put(Resource.STONE, 0);
         cardCost.put(Resource.SERVANT, 0);
         cardCost.put(Resource.SHIELD, 0);
+
     }
+
+    //mi serve per provare la DevelView
+    public DevelopmentCard getDevelopmentCard() {
+        return developmentCardsToBuy.get(1);
+    }
+
+
 
     public TurnState getPhase(){
         return phase;
@@ -128,8 +150,21 @@ public class LightModel {
         this.popeFavours = popeFavours;
     }
 
+    public List<LeaderCard> getLeaderCardsInHand() {
+        return leaderCardsInHand;
+    }
+
+    public List<LeaderCard> getLeaderCardsPlayed() {
+        return leaderCardsPlayed;
+    }
+
     public void setMarket(Marble[][] market) {
         this.market = market;
+
+    }
+
+    public Marble[][] getMarket() {
+        return market;
     }
 
     public void setMarbleInExcess(Marble marbleInExcess) {
@@ -216,7 +251,8 @@ public class LightModel {
     }
 
     public void setDevelopmentCard(DevelopmentCard card, int slot) {
-        developmentCard.set(slot-1, card);
+        if(developmentCard.size()>=slot)developmentCard.set(slot-1, card);
+        else developmentCard.add(card);
     }
 
     public void setCardCost(Map<Resource, Integer> cardCost) {
@@ -242,5 +278,17 @@ public class LightModel {
 
     public void addSpecialProduction(Resource resource){
         specialProduction.add(resource);
+    }
+
+    public MarketVisualizer getMarketView() {
+        return marketView;
+    }
+
+    public DevelopmentCardVisualizer getDevelopmentCardView() {
+        return developmentCardView;
+    }
+
+    public LeaderCardVisualizer getLeaderCardVisualizer() {
+        return leaderCardVisualizer;
     }
 }

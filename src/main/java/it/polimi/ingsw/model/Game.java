@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +68,8 @@ public class Game {
 
     public Object nextPlayer() {
         if (soloMatch){
+            currentPlayerID = (currentPlayerID == players.size()) ? 1 : currentPlayerID+1;
+            setCurrentPlayer(players.get(currentPlayerID-1));
             return cpu.actionCpu();
         }
         currentPlayerID = (currentPlayerID == players.size()) ? 1 : currentPlayerID+1;

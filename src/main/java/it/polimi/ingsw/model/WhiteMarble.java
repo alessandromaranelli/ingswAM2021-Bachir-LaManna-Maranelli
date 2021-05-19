@@ -24,5 +24,7 @@ public class WhiteMarble implements Marble {
        }
        else personalBoard.addWhiteMarbleToManage();
     }
-
+    public String toString(){
+        return "white";
+    }
 }

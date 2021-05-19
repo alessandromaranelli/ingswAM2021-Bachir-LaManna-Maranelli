@@ -45,4 +45,15 @@ public class LeaderCardReduction extends LeaderCard {
         return personalBoard.getCardSlot().controlForReduction(color1,color2);
     }
 
+    public Color getColor1() {
+        return color1;
+    }
+
+    public Color getColor2() {
+        return color2;
+    }
+
+    public Resource getReduction() {
+        return reduction;
+    }
 }

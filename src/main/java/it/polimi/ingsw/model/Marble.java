@@ -1,10 +1,12 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
+
 /**
  * Marble is an interface that declares the method whenDrawn, called whenever a marble is taken from the market.
  */
 
-public interface Marble {
+public interface Marble extends Serializable {
 
     /**
      * method whenDrawn specifies an action for every color of the marbles

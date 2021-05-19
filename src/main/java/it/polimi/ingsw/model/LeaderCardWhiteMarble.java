@@ -36,4 +36,12 @@ public class LeaderCardWhiteMarble extends LeaderCard {
     public boolean verifyRequirements(PersonalBoard personalBoard) {
         return personalBoard.getCardSlot().controlForWhiteMarble(requirement);
     }
+
+    public Map<Color, Integer> getRequirement() {
+        return requirement;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
 }

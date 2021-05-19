@@ -42,4 +42,12 @@ public class LeaderCardStorage extends LeaderCard {
     public boolean verifyRequirements(PersonalBoard personalBoard) {
         return personalBoard.getWareHouse().controlForStorage(requirement,5);
     }
+
+    public Resource getRequirement() {
+        return requirement;
+    }
+
+    public Resource getType() {
+        return type;
+    }
 }

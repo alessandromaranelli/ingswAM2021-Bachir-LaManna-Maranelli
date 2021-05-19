@@ -15,7 +15,7 @@ import it.polimi.ingsw.server.Controller;
 public class EndTurnMsg extends CommandMsg{
 
     public void processMessage(ClientHandler clientHandler, Controller controller) throws ModelException {
-        if(controller.getGame().getCurrentPlayer().getPhase() != TurnState.ENDTURN || controller.getGame().getCurrentPlayer().getPhase() != TurnState.ENDPREPARATION){
+        if(controller.getGame().getCurrentPlayer().getPhase() != TurnState.ENDTURN && controller.getGame().getCurrentPlayer().getPhase() != TurnState.ENDPREPARATION){
             StringMsg stringMsg = new StringMsg("You can't end the turn now");
             clientHandler.sendAnswerMessage(stringMsg);
         }
@@ -43,10 +43,10 @@ public class EndTurnMsg extends CommandMsg{
             }
             else controller.getGame().nextPlayer();
 
-            if(controller.getTurnsToPlay()<0 && controller.getGame().isGameAboutToFinish()){
+            if(!controller.isLastTurn() && controller.getGame().isGameAboutToFinish()){
                 controller.startLastTurn();
             }
-            if(controller.getTurnsToPlay()>0){
+            if(controller.isLastTurn() && controller.getTurnsToPlay()>0){
                 controller.setTurnsToPlay(controller.getTurnsToPlay()-1);
                 if(controller.getTurnsToPlay()==0){
                     controller.endGame(false);

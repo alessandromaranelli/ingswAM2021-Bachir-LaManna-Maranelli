@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class UpdateMarketMsg extends AnswerMsg {
     private Market market;
-    private String message="Market updated";
+    private String message="\nMarket updated";
 
     public UpdateMarketMsg(Market market) {
         this.market = market;
@@ -17,10 +17,12 @@ public class UpdateMarketMsg extends AnswerMsg {
     public void processMessage(LightModel lightModel) {
         lightModel.setMarket(market.getMarketTable());
         lightModel.setMarbleInExcess(market.getMarbleInExcess());
+        lightModel.getMarketView().showMarbles(market.getMarketTable());
+        lightModel.getMarketView().plot();
     }
 
     @Override
-    public void printMessage() {
-        System.out.println(message);
+    public void printMessage() { System.out.println(message);
+
     }
 }

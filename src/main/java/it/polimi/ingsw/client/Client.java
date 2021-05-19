@@ -13,6 +13,7 @@ public class Client {
     private final String hostname;
     private LightModel lightModel;
 
+
     public Client(int port, String hostname){
         this.PORT = port;
         this.hostname = hostname;
@@ -62,4 +63,5 @@ public class Client {
     public LightModel getLightModel(){
         return lightModel;
     }
+
 }

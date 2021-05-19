@@ -25,6 +25,16 @@ public class UpdateLeaderCardsMsg extends AnswerMsg{
         lightModel.setLeaderCardsInHand(leaderCardInHand);
         lightModel.setLeaderCardsPlayed(leaderCardsPlayed);
         lightModel.setPhase(phase);
+        if(lightModel.getLeaderCardsInHand().size()>0){
+            System.out.println("\nHere are your LeadersInHand: ");
+            for(LeaderCard leaderCard:lightModel.getLeaderCardsInHand())lightModel.getLeaderCardVisualizer().showLeaderData(leaderCard);
+        }
+
+        if(lightModel.getLeaderCardsPlayed().size()>0){
+            System.out.println("\nHere are your LeadersPlayed: ");
+            for(LeaderCard leaderCard:lightModel.getLeaderCardsPlayed())lightModel.getLeaderCardVisualizer().showLeaderData(leaderCard);
+        }
+
     }
 
     @Override

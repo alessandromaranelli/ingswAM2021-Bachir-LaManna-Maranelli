@@ -16,5 +16,7 @@ public class GreyMarble implements Marble {
         personalBoard.getWareHouse().addResource(Resource.STONE,1);
 
     }
-
+    public String toString(){
+        return "grey";
+    }
 }

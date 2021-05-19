@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.messages.answers.UpdateLeaderCardsMsg;
 import it.polimi.ingsw.messages.commands.*;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.BuyCardMsg;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.BuyDevelopmentPhaseMsg;
@@ -31,32 +30,35 @@ public class OutputView implements Runnable{
         this.socket = socket;
         this.scanner = scanner;
         this.client = client;
-    }
-
-    public void run(){
-        //ObjectOutputStream output= null;
         try {
             output = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void run(){
+        //ObjectOutputStream output= null;
 
         while (true){
             String s = scanner.nextLine();
-            String parts[] = s.split(":");
+            String[] parts = s.split(":");
             if(client.getLightModel().getPhase() == TurnState.WAIT){
                 System.out.println("Waiting for other players to join the game");
             }
-            if(!client.getLightModel().getNickname().equals(client.getLightModel().getCurrentPlayer())){
+            if((client.getLightModel().getCurrentPlayer()!=null&&(!client.getLightModel().getNickname().equals(client.getLightModel().getCurrentPlayer())))){
                 System.out.println("It's not your turn! It's player " + client.getLightModel().getCurrentPlayer() + "'s turn");
             }
             else if(!parseEnum(parts)){
-                System.out.println("Wrong syntax!");
+                System.out.println("Wrong syntax!  You wrote: "+s+" your phase is "+client.getLightModel().getPhase());
             }
             else {
                 CommandMsg commandMessage = createCommandMessage(parts);
-                sendCommandMessage(commandMessage);
+                if(type != TypeOfCommand.VIEWMARKET && type != TypeOfCommand.VIEWDEVELOPMENTCARD) {
+                    sendCommandMessage(commandMessage);
+                }
                 type = TypeOfCommand.FOLD;
+
             }
         }
     }
@@ -69,10 +71,9 @@ public class OutputView implements Runnable{
         }
     }
 
-    public CommandMsg createCommandMessage(String parts[]){
+    public CommandMsg createCommandMessage(String[] parts){
         if(type == TypeOfCommand.NICKNAME) {
-            NickNameMsg nickNameMessage = new NickNameMsg(parts[1], Integer.parseInt(parts[3]));
-            return nickNameMessage;
+            return new NickNameMsg(parts[1], Integer.parseInt(parts[3]));
         }
         if(type == TypeOfCommand.DRAWLEADERCARDS){
             return new DrawLeadersMsg();
@@ -94,7 +95,7 @@ public class OutputView implements Runnable{
             return new SelectMarketPhaseMsg();
         }
         if(type == TypeOfCommand.STARTMARKETPHASE){
-            return new StartMarketPhaseMsg(Integer.parseInt(parts[1]),Boolean.getBoolean(parts[2]));
+            return new StartMarketPhaseMsg(Integer.parseInt(parts[1]),Boolean.valueOf(parts[2]));
         }
         if(type == TypeOfCommand.WHITEMARBLES){
             return new ManageWhiteMarbleMsg(Resource.valueOf(parts[1]));
@@ -175,70 +176,117 @@ public class OutputView implements Runnable{
         if(type == TypeOfCommand.ENDTURN){
             return new EndTurnMsg();
         }
+
+        if(type == TypeOfCommand.VIEWMARKET){
+            client.getLightModel().getMarketView().showMarbles(client.getLightModel().getMarket());
+            client.getLightModel().getMarketView().plot();
+            return null;
+        }
+        if(type ==TypeOfCommand.VIEWDEVELOPMENTCARD){
+            client.getLightModel().getDevelopmentCardView().showDevelData(client.getLightModel().getDevelopmentCard());
+            client.getLightModel().getDevelopmentCardView().plot();
+            return null;
+        }
         else return null;
     }
 
 
     public boolean parseEnum(String parts[]){
-        if(parts[0].toLowerCase().equals("nickname") && parts[2].toLowerCase().equals("numberofplayers") && client.getLightModel().getPhase() == TurnState.BEFORESTART){
+        if(parts[0].toLowerCase().equals("nickname") && parts[2].toLowerCase().equals("numberofplayers") && parts.length==4 && client.getLightModel().getPhase() == TurnState.BEFORESTART){
             this.type = TypeOfCommand.NICKNAME;
             return true;
         }
-        if (parts[0].toLowerCase().equals("drawleadercards") && client.getLightModel().getPhase() == TurnState.PREPARATION){
+        if (parts[0].toLowerCase().equals("drawleadercards") && parts.length==1 && client.getLightModel().getPhase() == TurnState.PREPARATION){
             this.type = TypeOfCommand.DRAWLEADERCARDS;
             return true;
         }
-        if (parts[0].toLowerCase().equals("discardleadercards") && client.getLightModel().getPhase() == TurnState.CHOOSELEADERCARDS){
+        if (parts[0].toLowerCase().equals("discardleadercards") && parts.length==3 &&
+                (parts[1].equals("0") || parts[1].equals("1") || parts[1].equals("2") || parts[1].equals("3") || parts[1].equals("4") ||
+                        parts[1].equals("5") || parts[1].equals("6") || parts[1].equals("7") || parts[1].equals("8") || parts[1].equals("9")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.CHOOSELEADERCARDS){
             this.type = TypeOfCommand.DISCARDLEADERCARDS;
             return true;
         }
-        if (parts[0].toLowerCase().equals("setinitialstoragetypes") && client.getLightModel().getPhase() == TurnState.CHOOSERESOURCES){
+        if (parts[0].toLowerCase().equals("setinitialstoragetypes") && parts.length==4 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("COIN") || parts[2].equals("SERVANT") || parts[2].equals("SHIELD") || parts[2].equals("STONE")) &&
+                (parts[3].equals("COIN") || parts[3].equals("SERVANT") || parts[3].equals("SHIELD") || parts[3].equals("STONE")) &&
+                client.getLightModel().getPhase() == TurnState.CHOOSERESOURCES){
             this.type = TypeOfCommand.SETINITSTORAGETYPES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("addinitialresources") && client.getLightModel().getPhase() == TurnState.CHOOSERESOURCES){
+        if (parts[0].toLowerCase().equals("addinitialresources") &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts.length==2 || (parts.length==3 && (parts[2].equals("COIN") || parts[2].equals("SERVANT") || parts[2].equals("SHIELD") || parts[2]=="STONE"))) &&
+                client.getLightModel().getPhase() == TurnState.CHOOSERESOURCES){
             this.type = TypeOfCommand.ADDINITRESOURCES;
             return true;
         }
 
 
-        if (parts[0].toLowerCase().equals("selectmarketphase") && client.getLightModel().getPhase() == TurnState.START){
+        if (parts[0].toLowerCase().equals("selectmarketphase") && parts.length==1 && client.getLightModel().getPhase() == TurnState.START){
             this.type = TypeOfCommand.SELECTMARKETPHASE;
             return true;
         }
-        if (parts[0].toLowerCase().equals("startmarketphase") && client.getLightModel().getPhase() == TurnState.MARKETPHASE){
+        if (parts[0].toLowerCase().equals("startmarketphase") && parts.length==3 &&
+                (parts[1].equals("0") || parts[1].equals("1") || parts[1].equals("2") || parts[1].equals("3") || parts[1].equals("4") ||
+                        parts[1].equals("5") || parts[1].equals("6") || parts[1].equals("7") || parts[1].equals("8") || parts[1].equals("9")) &&
+                (parts[2].equals("true")||parts[2].equals("false")) &&
+                client.getLightModel().getPhase() == TurnState.MARKETPHASE){
             this.type = TypeOfCommand.STARTMARKETPHASE;
             return true;
         }
-        if (parts[0].toLowerCase().equals("managewhitemarbles") && client.getLightModel().getPhase() == TurnState.WHITEMARBLES){
+        if (parts[0].toLowerCase().equals("managewhitemarbles") && parts.length==1 && client.getLightModel().getPhase() == TurnState.WHITEMARBLES){
             this.type = TypeOfCommand.WHITEMARBLES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("startorganizeresources") && client.getLightModel().getPhase() == TurnState.CHOICE){
+        if (parts[0].toLowerCase().equals("startorganizeresources") && parts.length==1 && client.getLightModel().getPhase() == TurnState.CHOICE){
             this.type = TypeOfCommand.ORGANIZERESOURCES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("setstoragetypes") && client.getLightModel().getPhase() == TurnState.ORGANIZERESOURCES){
+        if (parts[0].toLowerCase().equals("setstoragetypes") && parts.length==4 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("COIN") || parts[2].equals("SERVANT") || parts[2].equals("SHIELD") || parts[2].equals("STONE")) &&
+                (parts[3].equals("COIN") || parts[3].equals("SERVANT") || parts[3].equals("SHIELD") || parts[3].equals("STONE")) &&
+                client.getLightModel().getPhase() == TurnState.ORGANIZERESOURCES){
             this.type = TypeOfCommand.SETSTORAGETYPES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("defaultmanageresourcestoorganize") && client.getLightModel().getPhase() == TurnState.MANAGERESOURCES){
+        if (parts[0].toLowerCase().equals("defaultmanageresourcestoorganize") && parts.length==1 && client.getLightModel().getPhase() == TurnState.MANAGERESOURCES){
             this.type = TypeOfCommand.MANAGERESOURCESBYDEFAULT;
             return true;
         }
-        if (parts[0].toLowerCase().equals("manageresourcestoorganize") && client.getLightModel().getPhase() == TurnState.MANAGERESOURCES){
+        if (parts[0].toLowerCase().equals("manageresourcestoorganize") && parts.length==4 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                (parts[3].equals("0") || parts[3].equals("1") || parts[3].equals("2") || parts[3].equals("3") || parts[3].equals("4") ||
+                        parts[3].equals("5") || parts[3].equals("6") || parts[3].equals("7") || parts[3].equals("8") || parts[3].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.MANAGERESOURCES){
             this.type = TypeOfCommand.MANAGERESOURCES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("startaddresources") && client.getLightModel().getPhase() == TurnState.CHOICE){
+        if (parts[0].toLowerCase().equals("startaddresources") && parts.length==1 && client.getLightModel().getPhase() == TurnState.CHOICE){
             this.type = TypeOfCommand.STARTADDRESOURCES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("addresources") && client.getLightModel().getPhase() == TurnState.ADDRESOURCES){
+        if (parts[0].toLowerCase().equals("addresources") && parts.length==4 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                (parts[3].equals("0") || parts[3].equals("1") || parts[3].equals("2") || parts[3].equals("3") || parts[3].equals("4") ||
+                        parts[3].equals("5") || parts[3].equals("6") || parts[3].equals("7") || parts[3].equals("8") || parts[3].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.ADDRESOURCES){
             this.type = TypeOfCommand.ADDRESOURCES;
             return true;
         }
-        if (parts[0].toLowerCase().equals("discardresources") && client.getLightModel().getPhase() == TurnState.ADDRESOURCES) {
+        if (parts[0].toLowerCase().equals("discardresources") && parts.length==3 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.ADDRESOURCES) {
             this.type = TypeOfCommand.DISCARDRESOURCES;
             return true;
         }
@@ -250,66 +298,119 @@ public class OutputView implements Runnable{
         }
 
 
-        if (parts[0].toLowerCase().equals("selectbuydevelopmentcardphase") && client.getLightModel().getPhase() == TurnState.START){
+        if (parts[0].toLowerCase().equals("selectbuydevelopmentcardphase") && parts.length==1 &&client.getLightModel().getPhase() == TurnState.START){
             this.type = TypeOfCommand.SELECTBUYDEVELOPMENTCARDPHASE;
             return true;
         }
-        if (parts[0].toLowerCase().equals("buydevelopmentcard") && client.getLightModel().getPhase() == TurnState.BUYDEVELOPMENTCARDPHASE){
+        if (parts[0].toLowerCase().equals("buydevelopmentcard") && parts.length==4 &&
+                (parts[1].equals("GREEN") || parts[1].equals("BLUE") || parts[1].equals("PURPLE") || parts[1].equals("YELLOW")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                (parts[3].equals("0") || parts[3].equals("1") || parts[3].equals("2") || parts[3].equals("3") || parts[3].equals("4") ||
+                        parts[3].equals("5") || parts[3].equals("6") || parts[3].equals("7") || parts[3].equals("8") || parts[3].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.BUYDEVELOPMENTCARDPHASE){
             this.type = TypeOfCommand.BUYDEVELOPMENTCARD;
             return true;
         }
-        if (parts[0].toLowerCase().equals("paycardfromchest") && client.getLightModel().getPhase() == TurnState.PAYDEVELOPMENTCARD){
+        if (parts[0].toLowerCase().equals("paycardfromchest") && parts.length==3 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.PAYDEVELOPMENTCARD){
             this.type = TypeOfCommand.PAYCARDFROMCHEST;
             return true;
         }
-        if (parts[0].toLowerCase().equals("paycardfromstorage") && client.getLightModel().getPhase() == TurnState.PAYDEVELOPMENTCARD){
+        if (parts[0].toLowerCase().equals("paycardfromstorage") && parts.length==4 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                (parts[3].equals("0") || parts[3].equals("1") || parts[3].equals("2") || parts[3].equals("3") || parts[3].equals("4") ||
+                        parts[3].equals("5") || parts[3].equals("6") || parts[3].equals("7") || parts[3].equals("8") || parts[3].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.PAYDEVELOPMENTCARD){
             this.type = TypeOfCommand.PAYCARDFROMSTORAGE;
             return true;
         }
 
 
-        if (parts[0].toLowerCase().equals("selectproductionphase") && client.getLightModel().getPhase() == TurnState.START){
+        if (parts[0].toLowerCase().equals("selectproductionphase") && parts.length==1 && client.getLightModel().getPhase() == TurnState.START){
             this.type = TypeOfCommand.SELECTPRODUCTIONPHASE;
             return true;
         }
-        if (parts[0].toLowerCase().equals("activatepersonalproduction") && client.getLightModel().getPhase() == TurnState.PRODUCTIONPHASE){
+        if (parts[0].toLowerCase().equals("activatepersonalproduction") && parts.length==4 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("COIN") || parts[2].equals("SERVANT") || parts[2].equals("SHIELD") || parts[2].equals("STONE")) &&
+                (parts[3].equals("COIN") || parts[3].equals("SERVANT") || parts[3].equals("SHIELD") || parts[3].equals("STONE")) &&
+                client.getLightModel().getPhase() == TurnState.PRODUCTIONPHASE){
             this.type = TypeOfCommand.ACTIVATEPERSONALPRODUCTION;
             return true;
         }
-        if (parts[0].toLowerCase().equals("activateproduction") && client.getLightModel().getPhase() == TurnState.PRODUCTIONPHASE){
+        if (parts[0].toLowerCase().equals("activateproduction") && parts.length==2 &&
+                (parts[1].equals("0") || parts[1].equals("1") || parts[1].equals("2") || parts[1].equals("3") || parts[1].equals("4") ||
+                        parts[1].equals("5") || parts[1].equals("6") || parts[1].equals("7") || parts[1].equals("8") || parts[1].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.PRODUCTIONPHASE){
             this.type = TypeOfCommand.ACTIVATEPRODUCTION;
             return true;
         }
-        if (parts[0].toLowerCase().equals("activatespecialproduction") && client.getLightModel().getPhase() == TurnState.PRODUCTIONPHASE){
+        if (parts[0].toLowerCase().equals("activatespecialproduction") && parts.length==3 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.PRODUCTIONPHASE){
             this.type = TypeOfCommand.ACTIVATESPECIALPRODUCTION;
             return true;
         }
-        if (parts[0].toLowerCase().equals("startpayproduction") && client.getLightModel().getPhase() == TurnState.PRODUCTIONPHASE){
+        if (parts[0].toLowerCase().equals("startpayproduction") && parts.length==1 &&client.getLightModel().getPhase() == TurnState.PRODUCTIONPHASE){
             this.type = TypeOfCommand.STARTPAYPRODUCTION;
             return true;
         }
-        if (parts[0].toLowerCase().equals("payproductionfromchest") && client.getLightModel().getPhase() == TurnState.PAYPRODUCTIONS){
+        if (parts[0].toLowerCase().equals("payproductionfromchest") && parts.length==3 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.PAYPRODUCTIONS){
             this.type = TypeOfCommand.PAYPRODUCTIONFROMCHEST;
             return true;
         }
-        if (parts[0].toLowerCase().equals("payproductionfromstorage") && client.getLightModel().getPhase() == TurnState.PAYPRODUCTIONS){
+        if (parts[0].toLowerCase().equals("payproductionfromstorage") && parts.length==4 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
+                (parts[2].equals("0") || parts[2].equals("1") || parts[2].equals("2") || parts[2].equals("3") || parts[2].equals("4") ||
+                        parts[2].equals("5") || parts[2].equals("6") || parts[2].equals("7") || parts[2].equals("8") || parts[2].equals("9")) &&
+                (parts[3].equals("0") || parts[3].equals("1") || parts[3].equals("2") || parts[3].equals("3") || parts[3].equals("4") ||
+                        parts[3].equals("5") || parts[3].equals("6") || parts[3].equals("7") || parts[3].equals("8") || parts[3].equals("9")) &&
+                client.getLightModel().getPhase() == TurnState.PAYPRODUCTIONS){
             this.type = TypeOfCommand.PAYPRODUCTIONFROMSTORAGE;
             return true;
         }
 
 
-        if (parts[0].toLowerCase().equals("activateleadercard") && (client.getLightModel().getPhase() == TurnState.START || client.getLightModel().getPhase() == TurnState.ENDTURN)){
+        if (parts[0].toLowerCase().equals("activateleadercard") && parts.length==2 &&
+                (parts[1].equals("0") || parts[1].equals("1") || parts[1].equals("2") || parts[1].equals("3") || parts[1].equals("4") ||
+                        parts[1].equals("5") || parts[1].equals("6") || parts[1].equals("7") || parts[1].equals("8") || parts[1].equals("9")) &&
+                (client.getLightModel().getPhase() == TurnState.START || client.getLightModel().getPhase() == TurnState.ENDTURN)){
             this.type = TypeOfCommand.ACTIVATELEADERCARD;
             return true;
         }
-        if (parts[0].toLowerCase().equals("discardleadercard") && (client.getLightModel().getPhase() == TurnState.START || client.getLightModel().getPhase() == TurnState.ENDTURN)){
+        if (parts[0].toLowerCase().equals("discardleadercard") && parts.length==2 &&
+                (parts[1].equals("0") || parts[1].equals("1") || parts[1].equals("2") || parts[1].equals("3") || parts[1].equals("4") ||
+                        parts[1].equals("5") || parts[1].equals("6") || parts[1].equals("7") || parts[1].equals("8") || parts[1].equals("9")) &&
+                (client.getLightModel().getPhase() == TurnState.START || client.getLightModel().getPhase() == TurnState.ENDTURN)){
             this.type = TypeOfCommand.DISCARDLEADERCARD;
             return true;
         }
 
 
-        if (parts[0].toLowerCase().equals("endturn") && (client.getLightModel().getPhase() == TurnState.ENDTURN || client.getLightModel().getPhase() == TurnState.ENDPREPARATION)){
+        if (parts[0].toLowerCase().equals("endturn") && parts.length==1 &&(client.getLightModel().getPhase() == TurnState.ENDTURN || client.getLightModel().getPhase() == TurnState.ENDPREPARATION)){
+            client.getLightModel().setPhase(TurnState.START);
             this.type = TypeOfCommand.ENDTURN;
+            return true;
+        }
+
+        if (parts[0].toLowerCase().equals("viewmarket")) {
+            this.type = TypeOfCommand.VIEWMARKET;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("viewdevelopmentcard")){
+            this.type = TypeOfCommand.VIEWDEVELOPMENTCARD;
             return true;
         }
         else return false;
