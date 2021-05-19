@@ -14,7 +14,9 @@ public class FaithTrackTest {
     @Test
     public void view() throws FileNotFoundException {
         FaithTrackVisualizer f = new FaithTrackVisualizer();
-        f.plot(13);
+        Boolean[] popefavours= new Boolean[3];
+        popefavours[0]=true;popefavours[1]=true;popefavours[2]=false;
+        f.plot(13,popefavours);
         assert(true);
     }
 }

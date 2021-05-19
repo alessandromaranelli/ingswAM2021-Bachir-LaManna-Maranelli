@@ -22,6 +22,7 @@ public class UpdateFaithMarkerPositionMsg extends AnswerMsg{
         lightModel.setPhase(phase);
         lightModel.setPosition(position);
         lightModel.setPopeFavours(popeFavours);
+        lightModel.getFaithTrackVisualizer().plot(position,popeFavours);
     }
 
     @Override

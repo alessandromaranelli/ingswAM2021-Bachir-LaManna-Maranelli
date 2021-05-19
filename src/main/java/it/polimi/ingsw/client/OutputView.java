@@ -11,6 +11,7 @@ import it.polimi.ingsw.messages.commands.marketphase.*;
 import it.polimi.ingsw.messages.commands.preparation.*;
 import it.polimi.ingsw.messages.commands.productionphase.*;
 import it.polimi.ingsw.model.Color;
+import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.TurnState;
 
@@ -54,7 +55,7 @@ public class OutputView implements Runnable{
             }
             else {
                 CommandMsg commandMessage = createCommandMessage(parts);
-                if(type != TypeOfCommand.VIEWMARKET && type != TypeOfCommand.VIEWDEVELOPMENTCARD) {
+                if(type != TypeOfCommand.VIEWMARKET && type != TypeOfCommand.VIEWDEVELOPMENTCARD && type != TypeOfCommand.VIEWLEADERS) {
                     sendCommandMessage(commandMessage);
                 }
                 type = TypeOfCommand.FOLD;
@@ -185,6 +186,22 @@ public class OutputView implements Runnable{
         if(type ==TypeOfCommand.VIEWDEVELOPMENTCARD){
             client.getLightModel().getDevelopmentCardView().showDevelData(client.getLightModel().getDevelopmentCard());
             client.getLightModel().getDevelopmentCardView().plot();
+            return null;
+        }
+        if(type == TypeOfCommand.VIEWLEADERS){
+            if(client.getLightModel().getLeaderCardsInHand().size()>0){
+                System.out.println("\nHere are your LeadersInHand: ");
+                for(LeaderCard leaderCard:client.getLightModel().getLeaderCardsInHand())client.getLightModel().getLeaderCardVisualizer().showLeaderData(leaderCard);
+            }
+
+            if(client.getLightModel().getLeaderCardsPlayed().size()>0){
+                System.out.println("\nHere are your LeadersPlayed: ");
+                for(LeaderCard leaderCard:client.getLightModel().getLeaderCardsPlayed())client.getLightModel().getLeaderCardVisualizer().showLeaderData(leaderCard);
+            }
+            return null;
+        }
+        if(type == TypeOfCommand.VIEWFAITHTRACK){
+            client.getLightModel().getFaithTrackVisualizer().plot(client.getLightModel().getPosition(),client.getLightModel().getPopeFavours());
             return null;
         }
         else return null;
@@ -411,6 +428,14 @@ public class OutputView implements Runnable{
         }
         if (parts[0].toLowerCase().equals("viewdevelopmentcard")){
             this.type = TypeOfCommand.VIEWDEVELOPMENTCARD;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("viewleaders")) {
+            this.type = TypeOfCommand.VIEWLEADERS;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("viewfaithtrack")) {
+            this.type = TypeOfCommand.VIEWFAITHTRACK;
             return true;
         }
         else return false;
