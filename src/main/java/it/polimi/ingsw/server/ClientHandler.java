@@ -111,6 +111,8 @@ public class ClientHandler extends Thread {
     public synchronized void sendAnswerMessage(AnswerMsg answerMessage){
         try {
             output.writeObject(answerMessage);
+            output.flush();
+            output.reset();
             //System.out.println("Answer send");
         } catch (IOException e) {
             e.printStackTrace();
