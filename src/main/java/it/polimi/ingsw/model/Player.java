@@ -105,6 +105,10 @@ public class Player {
 
     public void addInitResources(Resource i) throws ModelException{
         if(phase != TurnState.CHOOSERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
+        if(playerID == 1) {
+            phase = TurnState.ENDPREPARATION;
+            initPhaseDone = true;
+        }
         if(playerID == 2){
             personalBoard.getWareHouse().addInitResources(i);
             phase = TurnState.ENDPREPARATION;

@@ -1,9 +1,6 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.client.CLI.DevelopmentCardVisualizer;
-import it.polimi.ingsw.client.CLI.FaithTrackVisualizer;
-import it.polimi.ingsw.client.CLI.LeaderCardVisualizer;
-import it.polimi.ingsw.client.CLI.MarketVisualizer;
+import it.polimi.ingsw.client.CLI.*;
 import it.polimi.ingsw.model.*;
 import java.util.*;
 
@@ -46,6 +43,8 @@ public class LightModel {
     private DevelopmentCardVisualizer developmentCardView = new DevelopmentCardVisualizer();
     private LeaderCardVisualizer leaderCardVisualizer=new LeaderCardVisualizer();
     private FaithTrackVisualizer faithTrackVisualizer=new FaithTrackVisualizer();
+    private DevelopmentCardToBuyVisualizer developmentCardToBuyVisualizer = new DevelopmentCardToBuyVisualizer();
+    private ProductionVisualizer productionVisualizer = new ProductionVisualizer();
 
 
     public LightModel(){
@@ -113,7 +112,21 @@ public class LightModel {
         return developmentCardsToBuy.get(1);
     }
 
+    public List<DevelopmentCard> getDevelopmentCardsToBuy(){
+        return developmentCardsToBuy;
+    }
 
+    public int getFaithPoints() {
+        return faithPoints;
+    }
+
+    public Map<Resource, Integer> getTotalGain() {
+        return totalGain;
+    }
+
+    public Map<Resource, Integer> getTotalCost() {
+        return totalCost;
+    }
 
     public TurnState getPhase(){
         return phase;
@@ -304,5 +317,13 @@ public class LightModel {
 
     public FaithTrackVisualizer getFaithTrackVisualizer() {
         return faithTrackVisualizer;
+    }
+
+    public DevelopmentCardToBuyVisualizer getDevelopmentCardToBuyVisualizer(){
+        return developmentCardToBuyVisualizer;
+    }
+
+    public ProductionVisualizer getProductionVisualizer() {
+        return productionVisualizer;
     }
 }

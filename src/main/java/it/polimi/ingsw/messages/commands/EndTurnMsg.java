@@ -57,10 +57,11 @@ public class EndTurnMsg extends CommandMsg{
                     StartTurnMsg startTurnMsg = new StartTurnMsg(controller.getGame().getCurrentPlayer().getPhase(), controller.getGame().getCurrentPlayer().getNickname());
                     c.sendAnswerMessage(startTurnMsg);
                 }
+                /*
                 else{
                     StartTurnMsg startTurnMsg = new StartTurnMsg(TurnState.ENDTURN, controller.getGame().getCurrentPlayer().getNickname());
                     c.sendAnswerMessage(startTurnMsg);
-                }
+                }*/
             }
         }
     }

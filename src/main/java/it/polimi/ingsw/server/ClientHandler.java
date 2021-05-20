@@ -84,7 +84,7 @@ public class ClientHandler extends Thread {
             while (true) {
                 /* read commands from the client, process them, and send replies */
                 socket.setSoTimeout(20000);
-                System.out.println("input");
+                //System.out.println("input");
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg) next;
                 if (controller.isCurrentPlayer(this, command)) {
@@ -95,7 +95,8 @@ public class ClientHandler extends Thread {
                 }
             }
         } catch (SocketTimeoutException e){
-            e.printStackTrace();     //gestire la disconnessione del client
+            System.out.println("Client died");
+            System.exit(0);     //gestire la disconnessione del client
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             System.out.println("invalid stream from client");
         } catch (ModelException e) {

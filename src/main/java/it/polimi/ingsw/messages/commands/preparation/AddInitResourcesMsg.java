@@ -41,9 +41,11 @@ public class AddInitResourcesMsg extends CommandMsg {
                 clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
             }
         }
+        /*
         if (controller.getGame().getPlayers().stream().allMatch(Player::isInitPhaseDone)) {
             controller.getGame().setCurrentPlayer(controller.getGame().getPlayers().get(0));
-        }
+        } */
+
         clientHandler.sendAnswerMessage(new UpdateStorageMsg(TurnState.ENDPREPARATION,
                 controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
                         stream().map(Storage::getQuantity).toArray(Integer[]::new)));

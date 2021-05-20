@@ -204,6 +204,16 @@ public class OutputView implements Runnable{
             client.getLightModel().getFaithTrackVisualizer().plot(client.getLightModel().getPosition(),client.getLightModel().getPopeFavours());
             return null;
         }
+
+        if(type == TypeOfCommand.VIEWDEVELOPMENTCARDSTOBUY){
+            client.getLightModel().getDevelopmentCardToBuyVisualizer().plot(client.getLightModel().getDevelopmentCardsToBuy());
+            return null;
+        }
+
+        if(type == TypeOfCommand.VIEWPRODUCTIONS){
+            client.getLightModel().getProductionVisualizer().plot(client.getLightModel().getTotalCost(), client.getLightModel().getTotalGain(), client.getLightModel().getFaithPoints());
+            return null;
+        }
         else return null;
     }
 
@@ -436,6 +446,14 @@ public class OutputView implements Runnable{
         }
         if (parts[0].toLowerCase().equals("viewfaithtrack")) {
             this.type = TypeOfCommand.VIEWFAITHTRACK;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("viewdevelopmentcardstobuy")) {
+            this.type = TypeOfCommand.VIEWDEVELOPMENTCARDSTOBUY;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("viewproduction")) {
+            this.type = TypeOfCommand.VIEWPRODUCTIONS;
             return true;
         }
         else return false;
