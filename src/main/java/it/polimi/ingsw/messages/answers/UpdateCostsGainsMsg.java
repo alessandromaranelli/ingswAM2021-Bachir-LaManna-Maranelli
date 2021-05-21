@@ -20,9 +20,13 @@ public class UpdateCostsGainsMsg extends AnswerMsg{
 
     @Override
     public void processMessage(LightModel lightModel) {
+        lightModel.update(productionInput, productionOutput, faithPoint);
+        /*
         lightModel.setTotalCost(productionInput);
         lightModel.setTotalGain(productionOutput);
         lightModel.setFaithPoints(faithPoint);
+
+         */
     }
 
     @Override

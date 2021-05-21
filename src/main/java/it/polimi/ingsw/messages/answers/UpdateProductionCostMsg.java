@@ -15,7 +15,11 @@ public class UpdateProductionCostMsg extends AnswerMsg{
 
     @Override
     public void processMessage(LightModel lightModel) {
+        lightModel.update(totalCost);
+        /*
         lightModel.setTotalCost(totalCost);
+
+         */
     }
 
     @Override

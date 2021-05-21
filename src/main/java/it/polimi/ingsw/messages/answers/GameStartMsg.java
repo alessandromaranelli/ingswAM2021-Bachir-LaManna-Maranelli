@@ -25,6 +25,8 @@ public class GameStartMsg extends AnswerMsg {
 
 
     public void processMessage(LightModel lightModel){
+        lightModel.update(market, marbleInExcess, developmentCards, currentPlayer, phase);
+        /*
         lightModel.setMarket(market);
         lightModel.setMarbleInExcess(marbleInExcess);
         lightModel.setDevelopmentCardsToBuy(developmentCards);
@@ -36,6 +38,7 @@ public class GameStartMsg extends AnswerMsg {
         //lightModel.setChest(personalBoard.getWareHouse().getMapfromChest());
         //lightModel.setResourcesToOrganize(personalBoard.getWareHouse().getResourcesToOrganize());
         //lightModel.setResourcesToAdd(personalBoard.getWareHouse().getResourcesToAdd());
+        */
     }
 
     public void printMessage() {

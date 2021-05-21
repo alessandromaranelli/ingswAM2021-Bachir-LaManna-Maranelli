@@ -22,8 +22,11 @@ public class UpdateStorageTypesMsg extends AnswerMsg{
 
     @Override
     public void processMessage(LightModel lightModel) {
+        lightModel.update(phase, r1, r2, r3);
+        /*
         lightModel.setStorageType(r1, r2, r3);
         lightModel.setPhase(phase);
+         */
     }
 
     @Override

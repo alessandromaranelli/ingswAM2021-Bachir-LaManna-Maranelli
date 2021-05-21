@@ -3,6 +3,7 @@ package it.polimi.ingsw.server;
 
 import Exceptions.ModelException;
 import it.polimi.ingsw.client.OutputView;
+import it.polimi.ingsw.messages.PongMsg;
 import it.polimi.ingsw.messages.answers.AnswerMsg;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
@@ -89,14 +90,19 @@ public class ClientHandler extends Thread {
                 CommandMsg command = (CommandMsg) next;
                 if (controller.isCurrentPlayer(this, command)) {
                     command.processMessage(this, controller);
-                } else {
+                }
+                else if(command instanceof PongMsg){
+                    //do nothing
+                }
+                else {
                     ErrorMsg errorMsg = new ErrorMsg("You are not the current player");
                     sendAnswerMessage(errorMsg);
                 }
             }
-        } catch (SocketTimeoutException e){
+        } catch (SocketException e){
             System.out.println("Client died");
-            System.exit(0);     //gestire la disconnessione del client
+            System.exit(0);
+
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             System.out.println("invalid stream from client");
         } catch (ModelException e) {
@@ -118,4 +124,16 @@ public class ClientHandler extends Thread {
             e.printStackTrace();
         }
     }
+
+    /*
+    public synchronized void closeSocketStreams(){
+        try {
+            output.flush();
+            output.close();
+            input.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+     */
 }

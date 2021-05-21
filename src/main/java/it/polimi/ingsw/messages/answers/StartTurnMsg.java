@@ -16,8 +16,12 @@ public class StartTurnMsg extends AnswerMsg{
     }
 
     public void processMessage(LightModel lightModel) {
+        lightModel.update(phase, currentPlayer);
+        /*
         lightModel.setPhase(phase);
         lightModel.setCurrentPlayer(currentPlayer);
+
+         */
     }
 
     @Override

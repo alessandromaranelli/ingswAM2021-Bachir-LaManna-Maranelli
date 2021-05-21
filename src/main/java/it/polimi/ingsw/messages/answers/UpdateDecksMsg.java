@@ -16,8 +16,12 @@ public class UpdateDecksMsg extends AnswerMsg{
 
     @Override
     public void processMessage(LightModel lightModel) {
+        lightModel.update(developmentCards);
+        /*
         lightModel.setDevelopmentCardsToBuy(developmentCards);
         lightModel.getDevelopmentCardToBuyVisualizer().plot(developmentCards);
+
+         */
     }
 
     @Override

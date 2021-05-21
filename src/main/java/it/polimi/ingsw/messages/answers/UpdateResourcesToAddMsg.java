@@ -11,16 +11,20 @@ public class UpdateResourcesToAddMsg extends AnswerMsg{
     private String message;
     private TurnState phase;
 
-    public UpdateResourcesToAddMsg(TurnState phase,Map<Resource, Integer> map) {
-        this.phase=phase;
+    public UpdateResourcesToAddMsg(TurnState phase, Map<Resource, Integer> map) {
+        this.phase = phase;
         this.map = map;
         this.message="Resources to add to storages from the market: "+map.toString();
     }
 
     @Override
     public void processMessage(LightModel lightModel) {
+        lightModel.update(phase, map);
+        /*
         lightModel.setResourcesToAdd(map);
         lightModel.setPhase(phase);
+
+         */
     }
 
     @Override

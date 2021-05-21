@@ -24,6 +24,8 @@ public class EndProductionMsg extends AnswerMsg {
 
     @Override
     public void processMessage(LightModel lightModel) {
+        lightModel.update(phase, chest, position, popeFavours);
+        /*
         lightModel.setPhase(phase);
         lightModel.setChest(chest);
         lightModel.setPosition(position);
@@ -36,6 +38,8 @@ public class EndProductionMsg extends AnswerMsg {
         totalGain.put(Resource.SHIELD, 0);
         totalGain.put(Resource.STONE, 0);
         lightModel.setTotalGain(totalGain);
+
+         */
     }
 
     @Override

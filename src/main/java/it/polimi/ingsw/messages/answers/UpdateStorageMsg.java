@@ -14,6 +14,8 @@ public class UpdateStorageMsg extends AnswerMsg{
 
     @Override
     public void processMessage(LightModel lightModel) {
+        lightModel.update(phase, storages);
+        /*
         lightModel.setPhase(phase);
         if(storages.length == 3){
             lightModel.setStorageQuantity(storages[0], storages[1], storages[2]);
@@ -22,6 +24,7 @@ public class UpdateStorageMsg extends AnswerMsg{
             lightModel.setStorageQuantity(storages[0], storages[1], storages[2], storages[3]);
         }
         else lightModel.setStorageQuantity(storages[0], storages[1], storages[2], storages[3], storages[4]);
+         */
     }
 
     @Override

@@ -18,8 +18,12 @@ public class ChestMsg extends AnswerMsg{
 
     @Override
     public void processMessage(LightModel lightModel) {
+        lightModel.updateChest(phase, m);
+        /*
         lightModel.setChest(m);
         lightModel.setPhase(phase);
+
+         */
     }
 
     @Override

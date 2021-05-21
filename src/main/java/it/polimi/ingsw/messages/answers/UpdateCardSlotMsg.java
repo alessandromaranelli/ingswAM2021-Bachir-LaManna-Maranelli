@@ -16,7 +16,11 @@ public class UpdateCardSlotMsg extends AnswerMsg{
 
     @Override
     public void processMessage(LightModel lightModel) {
+        lightModel.update(card, slot);
+        /*
         lightModel.setDevelopmentCard(card, slot);
+
+         */
     }
 
     @Override

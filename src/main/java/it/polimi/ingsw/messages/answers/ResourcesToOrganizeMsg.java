@@ -19,8 +19,12 @@ public class ResourcesToOrganizeMsg extends AnswerMsg{
 
     @Override
     public void processMessage(LightModel lightModel) {
+        lightModel.update(map, phase);
+        /*
         lightModel.setResourcesToOrganize(map);
         lightModel.setPhase(phase);
+
+         */
     }
 
     @Override

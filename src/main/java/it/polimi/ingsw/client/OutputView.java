@@ -178,14 +178,14 @@ public class OutputView implements Runnable{
             return new EndTurnMsg();
         }
 
+
         if(type == TypeOfCommand.VIEWMARKET){
             client.getLightModel().getMarketView().showMarbles(client.getLightModel().getMarket());
             client.getLightModel().getMarketView().plot();
             return null;
         }
         if(type ==TypeOfCommand.VIEWDEVELOPMENTCARD){
-            client.getLightModel().getDevelopmentCardView().showDevelData(client.getLightModel().getDevelopmentCard());
-            client.getLightModel().getDevelopmentCardView().plot();
+            client.getLightModel().getDevelCardsOfPlayerVisualizer().plot(client.getLightModel().getDevelopmentCard());
             return null;
         }
         if(type == TypeOfCommand.VIEWLEADERS){
@@ -214,8 +214,15 @@ public class OutputView implements Runnable{
             client.getLightModel().getProductionVisualizer().plot(client.getLightModel().getTotalCost(), client.getLightModel().getTotalGain(), client.getLightModel().getFaithPoints());
             return null;
         }
+
+        if(type == TypeOfCommand.VIEWRESOURCES){
+            client.getLightModel().getChestVisualizer().plot(client.getLightModel().getChest());
+            client.getLightModel().getStoragesVisualizer().plot(client.getLightModel().getStorageType(), client.getLightModel().getStorageQuantity());
+            return null;
+        }
         else return null;
     }
+
 
 
     public boolean parseEnum(String parts[]){
@@ -454,6 +461,10 @@ public class OutputView implements Runnable{
         }
         if (parts[0].toLowerCase().equals("viewproduction")) {
             this.type = TypeOfCommand.VIEWPRODUCTIONS;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("viewresources")) {
+            this.type = TypeOfCommand.VIEWRESOURCES;
             return true;
         }
         else return false;

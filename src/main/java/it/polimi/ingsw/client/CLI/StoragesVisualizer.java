@@ -9,7 +9,7 @@ public class StoragesVisualizer {
     public void plot(List<Resource> storageType, List<Integer> storageQuantity){
         for(int i=0;i<storageType.size(); i++){
             String res  = getResource(storageType.get(i));
-            for(int j=0;i<storageQuantity.get(i);j++)
+            for(int j=0; j<storageQuantity.get(i); j++)
                 System.out.print(" " + res + " ");
             System.out.println();
         }

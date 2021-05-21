@@ -19,10 +19,14 @@ public class UpdateFaithMarkerPositionMsg extends AnswerMsg{
 
     @Override
     public void processMessage(LightModel lightModel) {
+        lightModel.update(phase, position, popeFavours);
+        /*
         lightModel.setPhase(phase);
         lightModel.setPosition(position);
         lightModel.setPopeFavours(popeFavours);
         lightModel.getFaithTrackVisualizer().plot(position,popeFavours);
+
+         */
     }
 
     @Override

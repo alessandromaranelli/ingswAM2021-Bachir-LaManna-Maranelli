@@ -22,7 +22,8 @@ public class UpdateLeaderCardsMsg extends AnswerMsg{
 
     @Override
     public void processMessage(LightModel lightModel) {
-        lightModel.setLeaderCardsInHand(leaderCardInHand);
+        lightModel.update(leaderCardInHand, leaderCardsPlayed, phase);
+        /*
         lightModel.setLeaderCardsPlayed(leaderCardsPlayed);
         lightModel.setPhase(phase);
         if(lightModel.getLeaderCardsInHand().size()>0){
@@ -34,7 +35,7 @@ public class UpdateLeaderCardsMsg extends AnswerMsg{
             System.out.println("\nHere are your LeadersPlayed: ");
             for(LeaderCard leaderCard:lightModel.getLeaderCardsPlayed())lightModel.getLeaderCardVisualizer().showLeaderData(leaderCard);
         }
-
+        */
     }
 
     @Override
