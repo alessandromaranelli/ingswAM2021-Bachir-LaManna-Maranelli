@@ -1,12 +1,16 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.CLI.*;
+import it.polimi.ingsw.client.GUI.Gui;
 import it.polimi.ingsw.model.*;
+
+import javax.swing.*;
 import java.util.*;
 
 public class LightModel {
-    public boolean CLI;
-    public boolean GUI;                     //true se viene scelta la GUI
+    private Client client;
+    private boolean CLI;
+    private boolean GUI;                     //true se viene scelta la GUI
 
     private String nickname;
     private int playerID;
@@ -53,9 +57,10 @@ public class LightModel {
     private StoragesVisualizer storagesVisualizer;
 
 
-    public LightModel(){
-        CLI = true;                                 //deve essere messa a true solo se il player sceglie di giocare con la CLI
-        GUI = false;
+    public LightModel(Client client){
+        this.client = client;
+        CLI = false;                                 //deve essere messa a true solo se il player sceglie di giocare con la CLI
+        GUI = true;
 
         nickname = new String();
         phase = TurnState.BEFORESTART;
@@ -376,6 +381,19 @@ public class LightModel {
 
 
 
+    public void update(String nickname, int playerID, int numberOfPlayers, TurnState phase){            //UpdateNicknameMsg
+        this.setNickname(nickname);
+        this.setPhase(phase);
+        this.setPlayerID(playerID);
+        this.setNumberOfPlayers(numberOfPlayers);
+
+        if(CLI == true){
+
+        }
+        else if(GUI == true){
+            client.getGui().waitScene();
+        }
+    }
 
     public void update(Marble[][] market, Marble marbleInExcess, List<DevelopmentCard> developmentCards, String currentPlayer, TurnState phase){    //GameStartMsg
         this.setMarket(market);
@@ -391,6 +409,9 @@ public class LightModel {
             faithTrackVisualizer.plot(position, popeFavours);
             chestVisualizer.plot(chest);
             storagesVisualizer.plot(storageType, storageQuantity);
+        }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
         }
     }
 

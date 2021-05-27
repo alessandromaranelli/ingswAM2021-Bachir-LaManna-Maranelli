@@ -1,23 +1,28 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.GUI.CustomFrame;
+import it.polimi.ingsw.client.GUI.Gui;
 import it.polimi.ingsw.server.PingThread;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
+import javax.swing.*;
+
 public class Client {
     private final int PORT;
     private final String hostname;
     private LightModel lightModel;
-
+    private static Gui gui;
 
     public Client(int port, String hostname){
         this.PORT = port;
         this.hostname = hostname;
-        lightModel = new LightModel();
+        lightModel = new LightModel(this);
     }
 
     public static void main(String[] args) {
@@ -47,21 +52,28 @@ public class Client {
         }
         System.out.println("Connected with server");
 
-        InputView inputView = new InputView(socket, client);
-        Thread input = new Thread(inputView);
-        input.start();
-
         Scanner scanner = new Scanner(System.in);
         OutputView outputView = new OutputView(socket, scanner, client);
         Thread output = new Thread(outputView);
         output.start();
 
+        InputView inputView = new InputView(socket, client);
+        Thread input = new Thread(inputView);
+        input.start();
+
         PongThread pongThread = new PongThread(outputView);
         pongThread.start();
+
+        gui = new Gui(outputView);
+        Thread g = new Thread(gui);
+        SwingUtilities.invokeLater(g);
     }
 
     public LightModel getLightModel(){
         return lightModel;
     }
 
+    public Gui getGui(){
+        return gui;
+    }
 }

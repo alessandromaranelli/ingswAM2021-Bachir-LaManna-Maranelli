@@ -19,10 +19,13 @@ public class UpdateNicknameMsg extends AnswerMsg {
     }
 
     public void processMessage(LightModel lightModel){
+        lightModel.update(nickname, playerID, numberOfPlayers, phase);
+        /*
         lightModel.setNickname(nickname);
         lightModel.setPhase(phase);
         lightModel.setPlayerID(playerID);
         lightModel.setNumberOfPlayers(numberOfPlayers);
+         */
     }
 
     public void printMessage(){
