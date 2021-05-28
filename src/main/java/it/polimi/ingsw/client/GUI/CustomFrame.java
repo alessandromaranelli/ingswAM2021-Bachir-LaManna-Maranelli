@@ -81,6 +81,7 @@ public class CustomFrame extends JFrame implements ActionListener {
         JPanel jPanel1 = new WareHousePanel(lightModel);
         JPanel jPanel2 = new FaithTrackPanel(lightModel);
         JPanel jPanel3 = new ButtonPanel(lightModel, gui);
+        JPanel jPanel4 = new DevelCardsSlotsPanel(lightModel);
 
         add(jPanel1);
         add(jPanel2);

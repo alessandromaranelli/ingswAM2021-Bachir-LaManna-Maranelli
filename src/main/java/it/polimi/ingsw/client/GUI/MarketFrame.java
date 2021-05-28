@@ -38,46 +38,63 @@ public class MarketFrame extends JFrame {
                     if (market[i][j] instanceof RedMarble) {
                         labels.add(new JLabel());
                         labels.get(z).setForeground(Color.RED);
-                        labels.get(z).setBackground(Color.RED);
+                        labels.get(z).setBackground(Color.LIGHT_GRAY);
                         labels.get(z).setText("R");
+                        labels.get(z).setHorizontalAlignment(JLabel.CENTER);
+                        labels.get(z).setVerticalAlignment(JLabel.CENTER);
                         labels.get(z).setFont(new Font("Comic Sans", Font.BOLD, 50));
                         labels.get(z).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-
+                        labels.get(z).setOpaque(true);
                     } else if (market[i][j] instanceof WhiteMarble) {
                         labels.add(new JLabel());
                         labels.get(z).setForeground(Color.WHITE);
-                        labels.get(z).setBackground(Color.WHITE);
+                        labels.get(z).setBackground(Color.LIGHT_GRAY);
                         labels.get(z).setText("W");
+                        labels.get(z).setHorizontalAlignment(JLabel.CENTER);
+                        labels.get(z).setVerticalAlignment(JLabel.CENTER);
                         labels.get(z).setFont(new Font("Comic Sans", Font.BOLD, 50));
                         labels.get(z).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+                        labels.get(z).setOpaque(true);
                     } else if (market[i][j] instanceof BlueMarble) {
                         labels.add(new JLabel());
                         labels.get(z).setForeground(Color.BLUE);
-                        labels.get(z).setBackground(Color.BLUE);
+                        labels.get(z).setBackground(Color.LIGHT_GRAY);
                         labels.get(z).setText("B");
+                        labels.get(z).setHorizontalAlignment(JLabel.CENTER);
+                        labels.get(z).setVerticalAlignment(JLabel.CENTER);
                         labels.get(z).setFont(new Font("Comic Sans", Font.BOLD, 50));
                         labels.get(z).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+                        labels.get(z).setOpaque(true);
                     } else if (market[i][j] instanceof GreyMarble) {
                         labels.add(new JLabel());
                         labels.get(z).setForeground(Color.GRAY);
-                        labels.get(z).setBackground(Color.GRAY);
+                        labels.get(z).setBackground(Color.LIGHT_GRAY);
                         labels.get(z).setText("G");
+                        labels.get(z).setHorizontalAlignment(JLabel.CENTER);
+                        labels.get(z).setVerticalAlignment(JLabel.CENTER);
                         labels.get(z).setFont(new Font("Comic Sans", Font.BOLD, 50));
                         labels.get(z).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+                        labels.get(z).setOpaque(true);
                     } else if (market[i][j] instanceof YellowMarble) {
                         labels.add(new JLabel());
                         labels.get(z).setForeground(Color.YELLOW);
-                        labels.get(z).setBackground(Color.YELLOW);
+                        labels.get(z).setBackground(Color.LIGHT_GRAY);
                         labels.get(z).setText("Y");
+                        labels.get(z).setHorizontalAlignment(JLabel.CENTER);
+                        labels.get(z).setVerticalAlignment(JLabel.CENTER);
                         labels.get(z).setFont(new Font("Comic Sans", Font.BOLD, 50));
                         labels.get(z).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+                        labels.get(z).setOpaque(true);
                     } else if (market[i][j] instanceof PurpleMarble) {
                         labels.add(new JLabel());
                         labels.get(z).setForeground(Color.MAGENTA);
-                        labels.get(z).setBackground(Color.MAGENTA);
+                        labels.get(z).setBackground(Color.LIGHT_GRAY);
                         labels.get(z).setText("M");
+                        labels.get(z).setHorizontalAlignment(JLabel.CENTER);
+                        labels.get(z).setVerticalAlignment(JLabel.CENTER);
                         labels.get(z).setFont(new Font("Comic Sans", Font.BOLD, 50));
                         labels.get(z).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+                        labels.get(z).setOpaque(true);
                     }
 
                     add(labels.get(z));

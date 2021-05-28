@@ -18,7 +18,6 @@ public class WareHousePanel extends JPanel {
     public WareHousePanel(LightModel lightModel){
         setBackground(Color.ORANGE);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
         storageLabels = new ArrayList<>();
         for(int i=0; i < lightModel.getStorageType().size(); i++){
             storageLabels.add(new JLabel());

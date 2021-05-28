@@ -61,7 +61,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
         }
         else if(e.getSource().equals(viewLeaderCards)){
             JFrame jFrame = new LeaderCardsFrame(lightModel);
-            //jFrame.paint(jFrame.getGraphics());
+            jFrame.paint(jFrame.getGraphics());
         }
         else if(e.getSource().equals(drawLeaderCards)){
             DrawLeadersMsg drawLeadersMsg = new DrawLeadersMsg();
