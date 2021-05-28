@@ -12,7 +12,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LeaderCardStorageTest {
-    LeaderCardStorage leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.STONE);
+    LeaderCardStorage leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.STONE, "hello");
     @Test
     public void getDescription() {
         assertEquals("This is a Storage Leader 1",leaderCardStorage.getDescription());

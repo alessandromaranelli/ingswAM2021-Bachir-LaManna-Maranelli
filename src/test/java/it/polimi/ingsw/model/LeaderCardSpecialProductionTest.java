@@ -12,7 +12,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LeaderCardSpecialProductionTest {
-    LeaderCardSpecialProduction leaderCardSpecialProduction = new LeaderCardSpecialProduction(4,"This is a SpecialProduction Leader 2",Color.PURPLE,Resource.STONE);
+    LeaderCardSpecialProduction leaderCardSpecialProduction = new LeaderCardSpecialProduction(4,"This is a SpecialProduction Leader 2",Color.PURPLE,Resource.STONE, "hello");
     @Test
     public void getDescription() {
         assertEquals("This is a SpecialProduction Leader 2",leaderCardSpecialProduction.getDescription());

@@ -19,8 +19,8 @@ public class LeaderCardReduction extends LeaderCard {
      * @param color2 the color of one development card needed for activation
      * @param reduction the resource to be subtracted from the development card cost
      */
-    public LeaderCardReduction(int victoryPoints, String description, Color color1, Color color2, Resource reduction) {
-        super(victoryPoints, description);
+    public LeaderCardReduction(int victoryPoints, String description, Color color1, Color color2, Resource reduction, String path) {
+        super(victoryPoints, description, path);
         this.color1 = color1;
         this.color2 = color2;
         this.reduction = reduction;

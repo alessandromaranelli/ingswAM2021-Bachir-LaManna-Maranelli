@@ -6,7 +6,8 @@
       "PURPLE" : 2,
       "GREEN" : 1
     },
-    "resource": "COIN"
+    "resource": "COIN",
+    "path": "Masters of Renaissance_Cards_FRONT_3mmBleed_1-60-1.png"
   },
   {
     "victoryPoints": 5,
@@ -15,7 +16,8 @@
       "BLUE" : 2,
       "YELLOW" : 1
     },
-    "resource": "STONE"
+    "resource": "STONE",
+    "path": "Masters of Renaissance_Cards_FRONT_3mmBleed_1-59-1.png"
   },
   {
     "victoryPoints": 5,
@@ -24,7 +26,8 @@
       "GREEN" : 2,
       "PURPLE" : 1
     },
-    "resource": "SHIELD"
+    "resource": "SHIELD",
+    "path": "Masters of Renaissance_Cards_FRONT_3mmBleed_1-58-1.png"
   },
   {
     "victoryPoints": 5,
@@ -33,6 +36,7 @@
       "YELLOW" : 2,
       "BLUE" : 1
     },
-    "resource": "SERVANT"
+    "resource": "SERVANT",
+    "path": "Masters of Renaissance_Cards_FRONT_3mmBleed_1-57-1.png"
   }
 ]

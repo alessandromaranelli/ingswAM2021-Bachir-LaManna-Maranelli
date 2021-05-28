@@ -12,7 +12,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LeaderCardReductionTest {
-    LeaderCardReduction cardReduction = new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN);
+    LeaderCardReduction cardReduction = new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN, "hello");
     @Test
     public void getDescription() {
         assertEquals("leader red 1",cardReduction.getDescription());

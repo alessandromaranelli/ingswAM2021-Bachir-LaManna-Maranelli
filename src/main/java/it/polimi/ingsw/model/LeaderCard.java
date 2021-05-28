@@ -9,15 +9,17 @@ import java.io.Serializable;
 public abstract class LeaderCard implements Serializable {
     private final int victoryPoints;
     private final String description;
+    private final String path;
 
     /**
      * When creating a new LeaderCard assigns victoryPoints and description
      * @param victoryPoints points given by the leaderCard for the final points count
      * @param description Brief sentence about leaderCad's requirements (resources or developmentCards) to be activated and its special power.
      */
-    public LeaderCard(int victoryPoints, String description) {
+    public LeaderCard(int victoryPoints, String description, String path) {
         this.victoryPoints = victoryPoints;
         this.description = description;
+        this.path = path;
     }
 
     /**
@@ -41,6 +43,10 @@ public abstract class LeaderCard implements Serializable {
      */
     public int getVictoryPoints() {
         return victoryPoints;
+    }
+
+    public String getPath(){
+        return path;
     }
 
     /**

@@ -79,7 +79,7 @@ public class WareHouseTest {
     public void testcontrolStoragesType3() throws FileNotFoundException, ModelException {
         Game game= new Game();
         PersonalBoard personalBoard= new PersonalBoard(game.getVaticanReportSections());
-        LeaderCardStorage leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.STONE);
+        LeaderCardStorage leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.STONE, "hello");
         leaderCardStorage.activateEffect(personalBoard);
         personalBoard.getWareHouse().getStorages().get(0).setType(Resource.SERVANT);
         personalBoard.getWareHouse().getStorages().get(1).setType(Resource.STONE);
@@ -93,7 +93,7 @@ public class WareHouseTest {
     public void testcontrolStoragesType4() throws FileNotFoundException, ModelException {
         Game game= new Game();
         PersonalBoard personalBoard= new PersonalBoard(game.getVaticanReportSections());
-        LeaderCardStorage leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.STONE);
+        LeaderCardStorage leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.STONE, "hello");
         leaderCardStorage.activateEffect(personalBoard);
         personalBoard.getWareHouse().getStorages().get(0).setType(Resource.SERVANT);
         personalBoard.getWareHouse().getStorages().get(1).setType(Resource.COIN);
@@ -107,9 +107,9 @@ public class WareHouseTest {
     public void testcontrolStoragesType5() throws FileNotFoundException, ModelException {
         Game game= new Game();
         PersonalBoard personalBoard= new PersonalBoard(game.getVaticanReportSections());
-        LeaderCardStorage leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.STONE);
+        LeaderCardStorage leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.STONE, "hello");
         leaderCardStorage.activateEffect(personalBoard);
-        leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 2",Resource.SERVANT,Resource.COIN);
+        leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 2",Resource.SERVANT,Resource.COIN, "hello");
         leaderCardStorage.activateEffect(personalBoard);
         personalBoard.getWareHouse().getStorages().get(0).setType(Resource.SERVANT);
         personalBoard.getWareHouse().getStorages().get(1).setType(Resource.STONE);
@@ -123,9 +123,9 @@ public class WareHouseTest {
     public void testcontrolStoragesType6() throws FileNotFoundException, ModelException {
         Game game= new Game();
         PersonalBoard personalBoard= new PersonalBoard(game.getVaticanReportSections());
-        LeaderCardStorage leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.STONE);
+        LeaderCardStorage leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.STONE, "hello");
         leaderCardStorage.activateEffect(personalBoard);
-        leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 2",Resource.SERVANT,Resource.COIN);
+        leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 2",Resource.SERVANT,Resource.COIN, "hello");
         leaderCardStorage.activateEffect(personalBoard);
         personalBoard.getWareHouse().getStorages().get(0).setType(Resource.SERVANT);
         personalBoard.getWareHouse().getStorages().get(1).setType(Resource.COIN);
@@ -410,7 +410,7 @@ public class WareHouseTest {
     public void testgetMapfromAllStorages2() throws ModelException, FileNotFoundException {
         Game game= new Game();
         PersonalBoard personalBoard= new PersonalBoard(game.getVaticanReportSections());
-        LeaderCardStorage leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.COIN);
+        LeaderCardStorage leaderCardStorage = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.COIN, "hello");
         leaderCardStorage.activateEffect(personalBoard);
         Map<Resource, Integer> m = new HashMap<>();
         personalBoard.getWareHouse().getStorages().get(0).setType(Resource.SERVANT);

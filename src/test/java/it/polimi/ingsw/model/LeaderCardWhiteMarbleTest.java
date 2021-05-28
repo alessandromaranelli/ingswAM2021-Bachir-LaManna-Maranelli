@@ -18,7 +18,7 @@ public class LeaderCardWhiteMarbleTest {
         Map<Color, Integer> req = new HashMap<>();
         req.put(Color.PURPLE,2);
         req.put(Color.GREEN,1);
-        LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN);
+        LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN, "hello");
 
         assertEquals("This is a WhiteMarble Leader 1",leaderCardWhiteMarble.getDescription());
     }
@@ -28,7 +28,7 @@ public class LeaderCardWhiteMarbleTest {
         Map<Color, Integer> req = new HashMap<>();
         req.put(Color.PURPLE,2);
         req.put(Color.GREEN,1);
-        LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN);
+        LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN, "hello");
         assertEquals(3,leaderCardWhiteMarble.getVictoryPoints());
     }
 
@@ -37,7 +37,7 @@ public class LeaderCardWhiteMarbleTest {
         Map<Color, Integer> req = new HashMap<>();
         req.put(Color.PURPLE,2);
         req.put(Color.GREEN,1);
-        LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN);
+        LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN, "hello");
         Game game= new Game();
         ArrayList<Player> players= new ArrayList<>();
         Player player= new Player("Aldo",1, game);
@@ -55,7 +55,7 @@ public class LeaderCardWhiteMarbleTest {
         Map<Color, Integer> req = new HashMap<>();
         req.put(Color.PURPLE,2);
         req.put(Color.GREEN,1);
-        LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN);
+        LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN, "hello");
         Game game= new Game();
         ArrayList<Player> players= new ArrayList<>();
         Player player= new Player("Aldo",1, game);
@@ -78,7 +78,7 @@ public class LeaderCardWhiteMarbleTest {
         Map<Color, Integer> req = new HashMap<>();
         req.put(Color.PURPLE,2);
         req.put(Color.GREEN,1);
-        LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN);
+        LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN, "hello");
         Game game= new Game();
         ArrayList<Player> players= new ArrayList<>();
         Player player= new Player("Aldo",1, game);

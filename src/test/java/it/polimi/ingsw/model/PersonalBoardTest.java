@@ -84,7 +84,7 @@ public class PersonalBoardTest {
         Map<Color, Integer> req = new HashMap<>();
         req.put(Color.PURPLE,2);
         req.put(Color.GREEN,1);
-        LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN);
+        LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN, "hello");
         player.getPersonalBoard().getLeaderCardsInHand().add(leaderCardWhiteMarble);
         player.getPersonalBoard().getLeaderCardsInHand().get(0).activateEffect(player.getPersonalBoard());
         player.getPersonalBoard().addWhiteMarbleToManage();
@@ -95,38 +95,38 @@ public class PersonalBoardTest {
 
     @Test
     public void getLeaderCardsInHand() {
-        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN);
+        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN, "hello");
         player.getPersonalBoard().getLeaderCardsInHand().add(leaderCard);
         assertEquals(leaderCard,player.getPersonalBoard().getLeaderCardsInHand().get(0));
     }
 
     @Test
     public void getLeaderCardsPlayed() {
-        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN);
+        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN, "hello");
         player.getPersonalBoard().getLeaderCardsPlayed().add(leaderCard);
         assertEquals(leaderCard,player.getPersonalBoard().getLeaderCardsPlayed().get(0));
     }
 
     @Test
     public void getDescLeaderCardinHand() throws ModelException {
-        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN);
+        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN, "hello");
         player.getPersonalBoard().getLeaderCardsInHand().add(leaderCard);
         assertEquals("leader red 1",player.getPersonalBoard().getDescLeaderCardinHand(1));
     }
 
     @Test
     public void getDescLeaderCardPlayed() throws ModelException {
-        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN);
+        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN, "hello");
         player.getPersonalBoard().getLeaderCardsPlayed().add(leaderCard);
         assertEquals("leader red 1",player.getPersonalBoard().getDescLeaderCardPlayed(1));
     }
 
     @Test
     public void verifyRequirementsLeaderCard() throws ModelException {
-        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN);
+        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN, "hello");
         player.getPersonalBoard().getLeaderCardsInHand().add(leaderCard);
         Map<Resource, Integer> m = new HashMap<>();
-        leaderCard = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.STONE);
+        leaderCard = new LeaderCardStorage(3,"This is a Storage Leader 1",Resource.COIN,Resource.STONE, "hello");
         player.getPersonalBoard().getLeaderCardsInHand().add(leaderCard);
         try {
             player.getPersonalBoard().getCardSlot().addCardToSlot(new DevelopmentCard(Color.BLUE, 1, 1, m, m, m, 0), 1);
@@ -141,7 +141,7 @@ public class PersonalBoardTest {
 
     @Test
     public void activateLeaderCard() throws ModelException {
-        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN);
+        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN, "hello");
         player.getPersonalBoard().getLeaderCardsInHand().add(leaderCard);
         Map<Resource, Integer> m = new HashMap<>();
         try {
@@ -159,7 +159,7 @@ public class PersonalBoardTest {
 
     @Test
     public void discardLeaderCard() throws ModelException {
-        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN);
+        LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN, "hello");
         player.getPersonalBoard().getLeaderCardsInHand().add(leaderCard);
         player.getPersonalBoard().discardLeaderCard(1);
         assertEquals(1,player.getPersonalBoard().getFaithTrack().getTrack().indexOf(player.getPersonalBoard().getFaithTrack().checkPlayerPosition()));
@@ -170,8 +170,8 @@ public class PersonalBoardTest {
     @Test
     public void countVictoryPoints() throws ModelException {
         Map<Resource,Integer> map=new HashMap<>();
-        player.getPersonalBoard().getLeaderCardsPlayed().add(new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN));
-        player.getPersonalBoard().getLeaderCardsPlayed().add(new LeaderCardSpecialProduction(4,"This is a SpecialProduction Leader 2",Color.PURPLE,Resource.STONE));
+        player.getPersonalBoard().getLeaderCardsPlayed().add(new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN, "hello"));
+        player.getPersonalBoard().getLeaderCardsPlayed().add(new LeaderCardSpecialProduction(4,"This is a SpecialProduction Leader 2",Color.PURPLE,Resource.STONE, "hello"));
         player.getPersonalBoard().getCardSlot().getSlot(1).add(new DevelopmentCard(Color.GREEN,1,1,map,map,map,0));
         player.getPersonalBoard().getCardSlot().getSlot(1).add(new DevelopmentCard(Color.GREEN,2,6,map,map,map,0));
         player.getPersonalBoard().getCardSlot().getSlot(2).add(new DevelopmentCard(Color.YELLOW,1,4,map,map,map,0));

@@ -237,6 +237,7 @@ public class Player {
     }
 
     public void manageResourcesInStorages() throws ModelException{
+        if(phase != TurnState.START && phase != TurnState.ENDTURN) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         lastState = phase;
         phase = TurnState.CHOICE;
         manageResources = true;

@@ -10,8 +10,8 @@ public class LeaderCardWhiteMarble extends LeaderCard {
     private final Map<Color, Integer> requirement;
     private final Resource resource;
 
-    public LeaderCardWhiteMarble(int victoryPoints, String description, Map<Color, Integer> requirement, Resource resource) {
-        super(victoryPoints, description);
+    public LeaderCardWhiteMarble(int victoryPoints, String description, Map<Color, Integer> requirement, Resource resource, String path) {
+        super(victoryPoints, description, path);
         this.requirement = requirement;
         this.resource = resource;
     }

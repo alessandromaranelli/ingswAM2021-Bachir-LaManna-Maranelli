@@ -435,6 +435,9 @@ public class LightModel {
                 for(LeaderCard leaderCard:getLeaderCardsPlayed()) getLeaderCardVisualizer().showLeaderData(leaderCard);
             }
         }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
+        }
     }
 
     public void update(TurnState phase, Resource r1, Resource r2, Resource r3){     //UpdateStorageTypesMsg

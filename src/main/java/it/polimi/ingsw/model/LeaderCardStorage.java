@@ -17,8 +17,8 @@ public class LeaderCardStorage extends LeaderCard {
      * @param requirement the type of resource needed for activation
      * @param type the type of resource that can be put inside the additional storage
      */
-    public LeaderCardStorage(int victoryPoints, String description, Resource requirement, Resource type) {
-        super(victoryPoints, description);
+    public LeaderCardStorage(int victoryPoints, String description, Resource requirement, Resource type, String path) {
+        super(victoryPoints, description, path);
         this.requirement = requirement;
         this.type = type;
     }

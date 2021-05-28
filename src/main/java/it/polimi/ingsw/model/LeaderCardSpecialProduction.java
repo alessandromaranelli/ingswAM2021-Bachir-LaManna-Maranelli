@@ -16,8 +16,8 @@ public class LeaderCardSpecialProduction extends LeaderCard {
      * @param color color of requested development card
      * @param cost cost of the special production
      */
-    public LeaderCardSpecialProduction(int victoryPoints, String description,Color color, Resource cost) {
-        super(victoryPoints, description);
+    public LeaderCardSpecialProduction(int victoryPoints, String description,Color color, Resource cost, String path) {
+        super(victoryPoints, description, path);
         this.color = color;
         this.cost = cost;
     }

@@ -52,7 +52,7 @@ public class CustomFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == button){
+        if(e.getSource().equals(button)){
             if(textField1.getText() == null){
                 JOptionPane.showMessageDialog(null, "Insert nickname", "error", JOptionPane.ERROR_MESSAGE);
             }
@@ -80,9 +80,11 @@ public class CustomFrame extends JFrame implements ActionListener {
         //setSize(2000, 2000);
         JPanel jPanel1 = new WareHousePanel(lightModel);
         JPanel jPanel2 = new FaithTrackPanel(lightModel);
+        JPanel jPanel3 = new ButtonPanel(lightModel, gui);
 
         add(jPanel1);
         add(jPanel2);
+        add(jPanel3);
         pack();
         setVisible(true);
     }
