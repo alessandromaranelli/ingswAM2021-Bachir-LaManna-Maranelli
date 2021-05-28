@@ -77,7 +77,6 @@ public class CustomFrame extends JFrame implements ActionListener {
     public void updatePersonalBoard(LightModel lightModel){
         getContentPane().removeAll();
         setLayout(new GridLayout());
-        //setSize(2000, 2000);
         JPanel jPanel1 = new WareHousePanel(lightModel);
         JPanel jPanel2 = new FaithTrackPanel(lightModel);
         JPanel jPanel3 = new ButtonPanel(lightModel, gui);
