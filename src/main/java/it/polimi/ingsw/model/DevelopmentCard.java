@@ -16,7 +16,7 @@ public class DevelopmentCard implements Serializable {
     private Map<Resource, Integer> productionInput;
     private Map<Resource, Integer> productionOutput;
     private int faithPoint;                                 //faithPoints prodotti dalla carta
-
+    private String path;
     /**
      * Instantiates a new Development card.
      */
@@ -104,6 +104,9 @@ public class DevelopmentCard implements Serializable {
      */
     public int getVictoryPoints() {
         return victoryPoints;
+    }
+    public String getPath(){
+        return path;
     }
 
 }
