@@ -16,7 +16,7 @@ public class WareHousePanel extends JPanel {
     JLabel stoneChest;
 
     public WareHousePanel(LightModel lightModel){
-        setBackground(Color.GREEN);
+        setBackground(Color.ORANGE);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         storageLabels = new ArrayList<>();
@@ -29,8 +29,8 @@ public class WareHousePanel extends JPanel {
         stoneChest = new JLabel();
 
         for(int i=1; i <= storageLabels.size(); i++){
-            storageLabels.get(i).setText("Storage " + i + " : " + lightModel.getStorageQuantity().get(i) + " " + lightModel.getStorageType().get(i).toString());
-            storageLabels.get(i).setFont(new Font("Comic Sans", Font.PLAIN, 25));
+            storageLabels.get(i-1).setText("Storage " + i + " : " + lightModel.getStorageQuantity().get(i-1) + " " + lightModel.getStorageType().get(i-1).toString());
+            storageLabels.get(i-1).setFont(new Font("Comic Sans", Font.PLAIN, 25));
         }
         coinChest.setText("Chest coins: " + lightModel.getChest().get(Resource.COIN));
         coinChest.setFont(new Font("Comic Sans", Font.PLAIN, 25));

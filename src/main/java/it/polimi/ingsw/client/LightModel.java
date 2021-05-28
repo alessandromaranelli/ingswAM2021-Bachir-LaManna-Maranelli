@@ -229,6 +229,10 @@ public class LightModel {
         return market;
     }
 
+    public Marble getMarbleInExcess(){
+        return marbleInExcess;
+    }
+
     public void setMarbleInExcess(Marble marbleInExcess) {
         this.marbleInExcess = marbleInExcess;
     }

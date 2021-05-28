@@ -75,12 +75,14 @@ public class CustomFrame extends JFrame implements ActionListener {
     }
 
     public void updatePersonalBoard(LightModel lightModel){
-        //Frame frame = new MarketFrame(lightModel);
         getContentPane().removeAll();
         setLayout(new GridLayout());
+        //setSize(2000, 2000);
         JPanel jPanel1 = new WareHousePanel(lightModel);
+        JPanel jPanel2 = new FaithTrackPanel(lightModel);
 
         add(jPanel1);
+        add(jPanel2);
         pack();
         setVisible(true);
     }
