@@ -21,35 +21,37 @@ public class ButtonPanel extends JPanel implements ActionListener {
         this.lightModel = lightModel;
         this.gui = gui;
         setBackground(Color.CYAN);
-        setLayout(new FlowLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         viewMarket = new JButton("View Market");
         viewMarket.addActionListener(this);
-        viewMarket.setFont(new Font("Comic Sans", Font.BOLD, 10));
+        viewMarket.setFont(new Font("Comic Sans", Font.BOLD, 20));
         viewMarket.setForeground(Color.BLUE);
         viewMarket.setBackground(Color.ORANGE);
         viewMarket.setBorder(BorderFactory.createEtchedBorder());
 
         viewLeaderCards = new JButton("View Leader Cards");
         viewLeaderCards.addActionListener(this);
-        viewLeaderCards.setFont(new Font("Comic Sans", Font.BOLD, 10));
+        viewLeaderCards.setFont(new Font("Comic Sans", Font.BOLD, 20));
         viewLeaderCards.setForeground(Color.BLUE);
         viewLeaderCards.setBackground(Color.ORANGE);
         viewLeaderCards.setBorder(BorderFactory.createEtchedBorder());
 
         drawLeaderCards = new JButton("Draw Leader Cards");
         drawLeaderCards.addActionListener(this);
-        drawLeaderCards.setFont(new Font("Comic Sans", Font.BOLD, 10));
+        drawLeaderCards.setFont(new Font("Comic Sans", Font.BOLD, 20));
         drawLeaderCards.setForeground(Color.BLUE);
         drawLeaderCards.setBackground(Color.ORANGE);
         drawLeaderCards.setBorder(BorderFactory.createEtchedBorder());
 
         discardLeaderCards = new JTextField();
-        discardLeaderCards.setPreferredSize(new Dimension(250, 40));
-        discardLeaderCards.setFont(new Font("Comic Sans", Font.PLAIN, 25));
+        //discardLeaderCards.setSize(new Dimension(5, 5));
+        discardLeaderCards.setFont(new Font("Comic Sans", Font.PLAIN, 20));
         discardLeaderCards.setForeground(Color.BLUE);
         discardLeaderCards.setBackground(Color.ORANGE);
         discardLeaderCards.setText("Choose leader cards to discard");
+        //drawLeaderCards.setBorder(BorderFactory.createEtchedBorder());
+
 
         setVisibleButtons(lightModel.getPhase());
     }
@@ -60,8 +62,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
             JFrame jFrame = new MarketFrame(lightModel);
         }
         else if(e.getSource().equals(viewLeaderCards)){
-            JFrame jFrame = new LeaderCardsFrame(lightModel);
-            jFrame.paint(jFrame.getGraphics());
+            LeaderCardsFrame jFrame = new LeaderCardsFrame(lightModel);
         }
         else if(e.getSource().equals(drawLeaderCards)){
             DrawLeadersMsg drawLeadersMsg = new DrawLeadersMsg();

@@ -421,7 +421,7 @@ public class LightModel {
 
     public void update(List<LeaderCard> leaderCardInHand, List<LeaderCard> leaderCardsPlayed, TurnState phase){     //UpdateLeaderCardsMsg
         this.setLeaderCardsInHand(leaderCardInHand);
-        this.setLeaderCardsPlayed(leaderCardsPlayed);
+        this.setLeaderCardsPlayed(leaderCardsInHand);
         this.setPhase(phase);
 
         if(CLI == true){
