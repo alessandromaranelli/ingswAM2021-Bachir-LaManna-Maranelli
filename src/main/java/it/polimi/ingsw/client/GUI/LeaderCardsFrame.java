@@ -25,7 +25,7 @@ public class LeaderCardsFrame extends JFrame {
         leaderCardsInHand = new ArrayList<>();
         leaderCardsPlayed = new ArrayList<>();
         setTitle("Leader cards");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //setPreferredSize(new Dimension(2000, 2000));
         setResizable(true);
         setBackground(Color.CYAN);
