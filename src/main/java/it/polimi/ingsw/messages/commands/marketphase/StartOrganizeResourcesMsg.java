@@ -14,14 +14,8 @@ public class StartOrganizeResourcesMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().startOrganizeResources();
+            controller.getGame().getCurrentPlayer().startOrganizeResources(controller);
 
-            clientHandler.sendAnswerMessage(new ResourcesToOrganizeMsg(
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToOrganize(),
-                    controller.getGame().getCurrentPlayer().getPhase()));
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " started organizing his resources");
-            controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

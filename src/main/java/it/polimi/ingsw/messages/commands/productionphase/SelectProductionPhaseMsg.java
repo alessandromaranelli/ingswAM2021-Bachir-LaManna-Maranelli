@@ -15,13 +15,8 @@ public class SelectProductionPhaseMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().selectProductionPhase();
+            controller.getGame().getCurrentPlayer().selectProductionPhase(controller);
 
-            UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.PRODUCTIONPHASE, "You can activate productions");
-            clientHandler.sendAnswerMessage(updatePhaseMsg);
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " started Production phase");
-            controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

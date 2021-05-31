@@ -23,15 +23,8 @@ public class DiscardResourceMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().discardResources(r,quantity);
+            controller.getGame().getCurrentPlayer().discardResources(controller,r,quantity);
 
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " discarded a resource, your position increases by 1 box!");
-            controller.sendAllExcept(stringMsg, clientHandler);
-            controller.sendAllPos(clientHandler);
-
-            clientHandler.sendAnswerMessage(new UpdateResourcesToAddMsg(
-                    controller.getGame().getCurrentPlayer().getPhase(),
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

@@ -30,13 +30,13 @@ public class AddInitResourcesMsg extends CommandMsg {
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         if(r2 == null){
             try{
-                controller.getGame().getCurrentPlayer().addInitResources(r1);
+                controller.getGame().getCurrentPlayer().addInitResources(controller,r1);
             }catch (ModelException e){
                 clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
             }
         } else {
             try{
-                controller.getGame().getCurrentPlayer().addInitResources(r1, r2);
+                controller.getGame().getCurrentPlayer().addInitResources(controller,r1, r2);
             }catch (ModelException e){
                 clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
             }
@@ -46,16 +46,6 @@ public class AddInitResourcesMsg extends CommandMsg {
             controller.getGame().setCurrentPlayer(controller.getGame().getPlayers().get(0));
         } */
 
-        clientHandler.sendAnswerMessage(new UpdateStorageMsg(TurnState.ENDPREPARATION,
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
-                        stream().map(Storage::getQuantity).toArray(Integer[]::new)));
-        clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(TurnState.ENDPREPARATION,
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                        controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
-                        stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
 
-        StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " added initial resources");
-        controller.sendAllExcept(stringMsg, clientHandler);
     }
 }

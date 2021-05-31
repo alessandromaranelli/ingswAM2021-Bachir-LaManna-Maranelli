@@ -13,14 +13,8 @@ public class ManageResourcesInStorageMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().manageResourcesInStorages();
+            controller.getGame().getCurrentPlayer().manageResourcesInStorages(controller);
 
-            clientHandler.sendAnswerMessage(new ResourcesToOrganizeMsg(
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToOrganize(),
-                    controller.getGame().getCurrentPlayer().getPhase()));
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " started to reorganize resources in storages");
-            controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

@@ -25,29 +25,8 @@ public class PayProductionFromChest extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().payProductionFromChest(r, i);
+            controller.getGame().getCurrentPlayer().payProductionFromChest(controller,r, i);
 
-            UpdateProductionCostMsg updateProductionCostMsg = new UpdateProductionCostMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().getTotalCost());
-            clientHandler.sendAnswerMessage(updateProductionCostMsg);
-
-            if(controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().totalCostIsEmpty()){
-                EndProductionMsg endProductionMsg = new EndProductionMsg(TurnState.ENDTURN, controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromChest(),
-                        controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                        controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
-                                stream().map(PopeFavour::isActivated).toArray(Boolean[]::new));
-                clientHandler.sendAnswerMessage(endProductionMsg);
-
-                StringMsg stringMsg1 = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " ended production phase");
-                controller.sendAllExcept(stringMsg1, clientHandler);
-            }
-            else{
-                ChestMsg chestMsg = new ChestMsg(TurnState.PAYPRODUCTIONS, controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromChest());
-                clientHandler.sendAnswerMessage(chestMsg);
-
-                StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " paid productions from chest");
-                controller.sendAllExcept(stringMsg, clientHandler);
-            }
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import Exceptions.ModelException;
+import it.polimi.ingsw.server.Controller;
 
 import java.util.*;
 
@@ -66,23 +67,25 @@ public class Player {
         return leaderAction;
     }
 
-    public void drawLeaderCards() throws ModelException{
+    public void drawLeaderCards(Controller controller) throws ModelException{
         if(phase != TurnState.PREPARATION) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         for(int i = 0; i < 4; i++) {
             personalBoard.getLeaderCardsInHand().add(game.getTable().getLeaderCardDeck().draw());
         }
         phase = TurnState.CHOOSELEADERCARDS;
+        controller.sendUpdateDrawLeaders(this);
     }
 
-    public void chooseLeaderCardsToDiscard(int i1, int i2) throws ModelException{
+    public void chooseLeaderCardsToDiscard(int i1, int i2, Controller controller) throws ModelException{
         if(phase != TurnState.CHOOSELEADERCARDS) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         if(i1<1||i1>4||i2<0||i2>4) throw new ModelException("Invalid position of the leadercard");
         personalBoard.getLeaderCardsInHand().remove(i1-1);
         personalBoard.getLeaderCardsInHand().remove(i2-2);
         phase = TurnState.CHOOSERESOURCES;
+        controller.sendUpdateDiscardLeaders(this);
     }
 
-    public void setInitStorageTypes(Resource i1, Resource i2, Resource i3) throws ModelException{
+    public void setInitStorageTypes(Controller controller,Resource i1, Resource i2, Resource i3) throws ModelException{
         if(phase != TurnState.CHOOSERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         Resource resource1 = personalBoard.getWareHouse().getTypeStorage(1);
         Resource resource2 = personalBoard.getWareHouse().getTypeStorage(2);
@@ -101,9 +104,10 @@ public class Player {
             phase = TurnState.ENDPREPARATION;
             initPhaseDone = true;
         }
+        controller.sendUpdateInitStorageTypes(this,i1,i2,i3);
     }
 
-    public void addInitResources(Resource i) throws ModelException{
+    public void addInitResources(Controller controller, Resource i) throws ModelException{
         if(phase != TurnState.CHOOSERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         if(playerID == 1) {
             phase = TurnState.ENDPREPARATION;
@@ -121,9 +125,10 @@ public class Player {
             initPhaseDone = true;
         }
         if(playerID == 4) throw new ModelException("Player 4 must choose 2 resources to start");
+        controller.sendUpdateAddInitResources(this);
     }
 
-    public void addInitResources(Resource i1, Resource i2) throws ModelException{
+    public void addInitResources(Controller controller, Resource i1, Resource i2) throws ModelException{
         if(phase != TurnState.CHOOSERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         if(playerID != 3) throw new ModelException("Player " + playerID + " must choose only 1 resource");
         personalBoard.getWareHouse().addInitResources(i1, i2);
@@ -131,15 +136,17 @@ public class Player {
         personalBoard.getFaithTrack().movePositionForward();
         phase = TurnState.ENDPREPARATION;
         initPhaseDone = true;
+        controller.sendUpdateAddInitResources(this);
     }
 
 
-    public void selectMarketPhase() throws ModelException{
+    public void selectMarketPhase(Controller controller) throws ModelException{
         if(phase != TurnState.START) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         phase = TurnState.MARKETPHASE;
+        controller.sendUpdateSelectMarketPhase(this);
     }
 
-    public ArrayList<Marble> startMarketPhase(int dim, boolean row) throws ModelException{
+    public void startMarketPhase(Controller controller, int dim, boolean row) throws ModelException{
         if(phase != TurnState.MARKETPHASE) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         ArrayList<Marble> marbles;
         if(row){
@@ -153,22 +160,24 @@ public class Player {
         game.getTable().getMarket().reorganize(marbles, dim-1);
         if(personalBoard.getWhiteMarble().size() == 2 && personalBoard.getManageWhiteMarbles() > 0) phase = TurnState.WHITEMARBLES;
         else phase = TurnState.CHOICE;
-        return marbles;
+        controller.sendUpdateStartMarketPhase(this,marbles);
     }
 
-    public void manageWhiteMarbles(Resource type) throws ModelException{
+    public void manageWhiteMarbles(Controller controller,Resource type) throws ModelException{
         if(phase != TurnState.WHITEMARBLES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.manageWhiteMarbles(type);
         if(personalBoard.getManageWhiteMarbles() == 0) phase = TurnState.CHOICE;
+        controller.sendUpdateManageWhiteMarble(this);
     }
 
-    public void startOrganizeResources() throws ModelException{
+    public void startOrganizeResources(Controller controller) throws ModelException{
         if(phase != TurnState.CHOICE) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         phase = TurnState.ORGANIZERESOURCES;
         personalBoard.getWareHouse().getFromStorages();
+        controller.sendUpdateStartOrganizeResources(this);
     }
 
-    public void setStoragesTypes(Resource i1, Resource i2, Resource i3) throws ModelException{
+    public void setStoragesTypes(Controller controller,Resource i1, Resource i2, Resource i3) throws ModelException{
         if(phase != TurnState.ORGANIZERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         Resource resource1 = personalBoard.getWareHouse().getTypeStorage(1);
         Resource resource2 = personalBoard.getWareHouse().getTypeStorage(2);
@@ -187,9 +196,10 @@ public class Player {
         else if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty() && personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
         else if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty()) phase = TurnState.ADDRESOURCES;
         else phase = TurnState.MANAGERESOURCES;
+        controller.sendUpdateSetStorageTypes(this);
     }
 
-    public void defaultManageResourcesToOrganize() throws ModelException{
+    public void defaultManageResourcesToOrganize(Controller controller) throws ModelException{
         if(phase != TurnState.MANAGERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getWareHouse().defaultAddResourcesToOrganize();
         if(manageResources){
@@ -198,9 +208,10 @@ public class Player {
         }
         else if(personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
         else phase = TurnState.ADDRESOURCES;
+        controller.sendUpdateDefaultManageResourcesToOrganize(this);
     }
 
-    public void manageResourcesToOrganize(Resource type, int i, int n) throws ModelException{
+    public void manageResourcesToOrganize(Controller controller, Resource type, int i, int n) throws ModelException{
         if(phase != TurnState.MANAGERESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getWareHouse().addResourcestoOrganize(type, i, n);
         if(manageResources && personalBoard.getWareHouse().resourcesToOrganizeIsEmpty()){
@@ -209,21 +220,24 @@ public class Player {
         }
         else if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty() && personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
         else if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty()) phase = TurnState.ADDRESOURCES;
+        controller.sendUpdateManageResourcesToOrganize(this);
     }
 
-    public void startAddResources() throws ModelException{
+    public void startAddResources(Controller controller) throws ModelException{
         if(phase != TurnState.CHOICE) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         if(personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
         phase = TurnState.ADDRESOURCES;
+        controller.sendUpdateStartAddResources(this);
     }
 
-    public void addResources(Resource type, int i, int n) throws ModelException{
+    public void addResources(Controller controller,Resource type, int i, int n) throws ModelException{
         if(phase != TurnState.ADDRESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getWareHouse().addResourcestoAdd(type, i, n);
         if(personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
+        controller.sendUpdateStartAddResources(this);
     }
 
-    public void discardResources(Resource type, int n) throws ModelException{
+    public void discardResources(Controller controller,Resource type, int n) throws ModelException{
         if(phase != TurnState.ADDRESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getWareHouse().discardResourcesToAdd(type, n);
         for(int i = 0; i < n; i++){
@@ -234,28 +248,31 @@ public class Player {
             }
         }
         if(personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
+        controller.sendUpdateDiscardResources(this);
     }
 
-    public void manageResourcesInStorages() throws ModelException{
+    public void manageResourcesInStorages(Controller controller) throws ModelException{
         if(phase != TurnState.START && phase != TurnState.ENDTURN) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         lastState = phase;
         phase = TurnState.CHOICE;
         manageResources = true;
-        startOrganizeResources();
+        startOrganizeResources(controller);
     }
 
 
-    public void selectBuyDevelopmentCardPhase() throws ModelException{
+    public void selectBuyDevelopmentCardPhase(Controller controller) throws ModelException{
         if(phase != TurnState.START) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         phase = TurnState.BUYDEVELOPMENTCARDPHASE;
+        controller.sendUpdateBuydevelopmentPhase(this);
     }
 
-    public void chooseDevelopmentCard(Color color, int level, int slot) throws ModelException{
+    public void chooseDevelopmentCard(Controller controller,Color color, int level, int slot) throws ModelException{
         if(phase != TurnState.BUYDEVELOPMENTCARDPHASE) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         DevelopmentCard card = game.getTable().viewDevelopmentCard(color, level);
         personalBoard.chooseCardToBuy(card, slot);
         game.getTable().removeDevelopmentCard(color, level);
         phase = TurnState.PAYDEVELOPMENTCARD;
+        controller.sendUpdateBuyCard(this,slot);
     }
 
     public void payCardAllFromChest() throws ModelException{
@@ -264,43 +281,50 @@ public class Player {
         phase = TurnState.ENDTURN;
     }
 
-    public void payCardFromChest(Resource type, int n) throws ModelException{
+    public void payCardFromChest(Controller controller,Resource type, int n) throws ModelException{
         if(phase != TurnState.PAYDEVELOPMENTCARD) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.payCardfromChest(type, n);
         if(personalBoard.isCardPayed()) phase = TurnState.ENDTURN;
+        controller.sendUpdatePayCardFromChest(this);
     }
 
-    public void payCardFromStorage(Resource type, int n, int i) throws ModelException{
+    public void payCardFromStorage(Controller controller,Resource type, int n, int i) throws ModelException{
         if(phase != TurnState.PAYDEVELOPMENTCARD) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.payCardfromStorage(type, n, i);
         if(personalBoard.isCardPayed()) phase = TurnState.ENDTURN;
+        controller.sendUpdatePayCardFromStorage(this);
     }
 
 
-    public void selectProductionPhase() throws ModelException{
+    public void selectProductionPhase(Controller controller) throws ModelException{
         if(phase != TurnState.START) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         phase = TurnState.PRODUCTIONPHASE;
+        controller.sendUpdateSelectProductionPhase(this);
     }
 
-    public void activateProductionOfSlot(int i) throws ModelException{
+    public void activateProductionOfSlot(Controller controller,int i) throws ModelException{
         if(phase != TurnState.PRODUCTIONPHASE) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getProduction().activateProductionOfSlot(i);
+        controller.sendUpdateActivateProduction(this);
     }
 
-    public void activatePersonalProduction(Resource input1, Resource input2, Resource output) throws ModelException{
+    public void activatePersonalProduction(Controller controller,Resource input1, Resource input2, Resource output) throws ModelException{
         if(phase != TurnState.PRODUCTIONPHASE) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getProduction().activatePersonalProduction(input1, input2, output);
+        controller.sendUpdateActivatePersonalProduction(this);
     }
 
-    public void activateSpecialProduction(Resource output, int i) throws ModelException{
+    public void activateSpecialProduction(Controller controller,Resource output, int i) throws ModelException{
         if(phase != TurnState.PRODUCTIONPHASE) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getProduction().activateSpecialProduction(output, i);
+        controller.sendUpdateActivateSpecialProduction(this);
     }
 
-    public void startPayProduction() throws ModelException{
+    public void startPayProduction(Controller controller) throws ModelException{
         if(phase != TurnState.PRODUCTIONPHASE) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         if(getPersonalBoard().getProduction().totalCostIsEmpty()) phase = TurnState.ENDTURN;
         else phase = TurnState.PAYPRODUCTIONS;
+        controller.sendUpdateStartPayProduction(this);
     }
 
     public void payProductionAllFromChest() throws ModelException{
@@ -310,26 +334,28 @@ public class Player {
         phase = TurnState.ENDTURN;
     }
 
-    public void payProductionFromChest(Resource type, int n) throws ModelException{
+    public void payProductionFromChest(Controller controller,Resource type, int n) throws ModelException{
         if(phase != TurnState.PAYPRODUCTIONS) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getProduction().payCostfromChest(type, n);
         if(personalBoard.getProduction().totalCostIsEmpty()){
             personalBoard.getProduction().gainResourcesAndEndProduction();
             phase = TurnState.ENDTURN;
         }
+        controller.sendUpdatePayProductionFromChest(this);
     }
 
-    public void payProductionFromStorage(Resource type, int n, int i) throws ModelException{
+    public void payProductionFromStorage(Controller controller,Resource type, int n, int i) throws ModelException{
         if(phase != TurnState.PAYPRODUCTIONS) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getProduction().payCostfromStorage(type, n, i);
         if(personalBoard.getProduction().totalCostIsEmpty()){
             personalBoard.getProduction().gainResourcesAndEndProduction();
             phase = TurnState.ENDTURN;
         }
+        controller.sendUpdatePayProductionFromStorage(this);
     }
 
 
-    public char activateLeaderCard(int i) throws ModelException{
+    public void activateLeaderCard(Controller controller,int i) throws ModelException{
         if(phase != TurnState.START && phase != TurnState.ENDTURN) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         int storageLeader=personalBoard.getWareHouse().getStorages().size();
         int reduction=personalBoard.getReduction().size();
@@ -337,15 +363,18 @@ public class Player {
         int specialProd=personalBoard.getProduction().numOfSpecialProduction();
         personalBoard.activateLeaderCard(i);
         leaderAction = true;
-        if (storageLeader<personalBoard.getWareHouse().getStorages().size()) return 's';
-        if (reduction<personalBoard.getReduction().size()) return 'r';
-        if (whiteMarbles<personalBoard.getWhiteMarble().size()) return 'w';
-        else return 'p';
+        char leaderAct;
+        if (storageLeader<personalBoard.getWareHouse().getStorages().size()) leaderAct='s';
+        if (reduction<personalBoard.getReduction().size()) leaderAct='r';
+        if (whiteMarbles<personalBoard.getWhiteMarble().size()) leaderAct='w';
+        else leaderAct='p';
+        controller.sendUpdateActivateLeader(this,leaderAct);
     }
 
-    public void discardLeaderCard(int i) throws ModelException{
+    public void discardLeaderCard(Controller controller,int i) throws ModelException{
         if(phase != TurnState.START && phase != TurnState.ENDTURN) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.discardLeaderCard(i);
         leaderAction = true;
+        controller.sendUpdateDiscardLeader(this);
     }
 }

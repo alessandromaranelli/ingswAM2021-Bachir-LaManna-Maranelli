@@ -16,16 +16,7 @@ public class SelectMarketPhaseMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try{
-            controller.getGame().getCurrentPlayer().selectMarketPhase();
-
-            UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.MARKETPHASE, "You can select a row or column from the market");
-            clientHandler.sendAnswerMessage(updatePhaseMsg);
-
-            clientHandler.sendAnswerMessage(new StringMsg("Here is the market!"));
-            clientHandler.sendAnswerMessage(new UpdateMarketMsg(controller.getGame().getTable().getMarket()));
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " started Market phase");
-            controller.sendAllExcept(stringMsg, clientHandler);
+            controller.getGame().getCurrentPlayer().selectMarketPhase(controller);
 
         }catch (ModelException e){
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));

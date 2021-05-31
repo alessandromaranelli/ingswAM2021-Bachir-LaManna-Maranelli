@@ -15,13 +15,8 @@ public class StartAddResourcesMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().startAddResources();
+            controller.getGame().getCurrentPlayer().startAddResources(controller);
 
-            UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.ADDRESOURCES, "You can add resources");
-            clientHandler.sendAnswerMessage(updatePhaseMsg);
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " started adding resources to storages");
-            controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

@@ -25,15 +25,7 @@ public class SetStorageTypesMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try{
-            controller.getGame().getCurrentPlayer().setStoragesTypes(r1,r2,r3);
-
-            clientHandler.sendAnswerMessage(new UpdateStorageTypesMsg(controller.getGame().getCurrentPlayer().getPhase(),
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getTypeStorage(1),
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getTypeStorage(2),
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getTypeStorage(3)));
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " set his storages types");
-            controller.sendAllExcept(stringMsg, clientHandler);
+            controller.getGame().getCurrentPlayer().setStoragesTypes(controller,r1,r2,r3);
 
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
