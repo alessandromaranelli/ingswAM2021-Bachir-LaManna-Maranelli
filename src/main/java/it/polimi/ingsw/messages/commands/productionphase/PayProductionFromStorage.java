@@ -27,29 +27,8 @@ public class PayProductionFromStorage extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().payProductionFromStorage(r, n, i);
+            controller.getGame().getCurrentPlayer().payProductionFromStorage(controller,r, n, i);
 
-            UpdateProductionCostMsg updateProductionCostMsg = new UpdateProductionCostMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().getTotalCost());
-            clientHandler.sendAnswerMessage(updateProductionCostMsg);
-
-            UpdateStorageMsg updateStorageMsg = new UpdateStorageMsg(controller.getGame().getCurrentPlayer().getPhase(), controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromAllStorages().values().toArray(new Integer[3]));
-            clientHandler.sendAnswerMessage(updateStorageMsg);
-
-            if(controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().totalCostIsEmpty()){
-                EndProductionMsg endProductionMsg = new EndProductionMsg(TurnState.ENDTURN, controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromChest(),
-                        controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                        controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
-                                stream().map(PopeFavour::isActivated).toArray(Boolean[]::new));
-                clientHandler.sendAnswerMessage(endProductionMsg);
-
-                StringMsg stringMsg1 = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " ended production phase");
-                controller.sendAllExcept(stringMsg1, clientHandler);
-            }
-            else{
-                StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " paid productions from storages");
-                controller.sendAllExcept(stringMsg, clientHandler);
-            }
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

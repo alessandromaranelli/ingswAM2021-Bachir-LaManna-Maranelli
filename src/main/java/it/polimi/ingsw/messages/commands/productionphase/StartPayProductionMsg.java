@@ -16,13 +16,8 @@ public class StartPayProductionMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().startPayProduction();
+            controller.getGame().getCurrentPlayer().startPayProduction(controller);
 
-            UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(controller.getGame().getCurrentPlayer().getPhase(), "You can pay productions");
-            clientHandler.sendAnswerMessage(updatePhaseMsg);
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " started to pay productions");
-            controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

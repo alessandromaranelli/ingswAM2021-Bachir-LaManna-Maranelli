@@ -26,14 +26,8 @@ public class AddResourceMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().addResources(r,storageNumber,quantity);
+            controller.getGame().getCurrentPlayer().addResources(controller,r,storageNumber,quantity);
 
-            clientHandler.sendAnswerMessage(new UpdateStorageMsg(controller.getGame().getCurrentPlayer().getPhase(),
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getStorages().
-                            stream().map(Storage::getQuantity).toArray(Integer[]::new)));
-            clientHandler.sendAnswerMessage(new UpdateResourcesToAddMsg(
-                    controller.getGame().getCurrentPlayer().getPhase(),
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

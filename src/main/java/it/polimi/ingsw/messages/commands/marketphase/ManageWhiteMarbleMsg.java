@@ -24,14 +24,7 @@ public class ManageWhiteMarbleMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try{
-            controller.getGame().getCurrentPlayer().manageWhiteMarbles(resource);
-
-            clientHandler.sendAnswerMessage(new UpdateResourcesToAddMsg(
-                    controller.getGame().getCurrentPlayer().getPhase(),
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getResourcesToAdd()));
-
-            clientHandler.sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
-                        controller.getGame().getCurrentPlayer().getPersonalBoard().getManageWhiteMarbles()));
+            controller.getGame().getCurrentPlayer().manageWhiteMarbles(controller,resource);
 
             }catch (ModelException e){
                 clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));

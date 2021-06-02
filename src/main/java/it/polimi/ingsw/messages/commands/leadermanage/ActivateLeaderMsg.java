@@ -20,20 +20,7 @@ public class ActivateLeaderMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            char leaderAct = controller.getGame().getCurrentPlayer().activateLeaderCard(i);
-
-            if (leaderAct=='s') clientHandler.sendAnswerMessage(new UpdateStorageLeaderMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getTypeStorage(4)));
-            else if (leaderAct=='r') clientHandler.sendAnswerMessage(new UpdateReductionLeaderMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getLastReduction()));
-            else if (leaderAct=='w') clientHandler.sendAnswerMessage(new UpdateWhiteMarbleLeaderMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getLastWhiteMarble()));
-            else if (leaderAct=='p') clientHandler.sendAnswerMessage(new UpdateSpecialProductionLeaderMsg(controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().getTypeOfSpecialProduction(controller.getGame().getCurrentPlayer().getPersonalBoard().getProduction().numOfSpecialProduction())));
-
-            clientHandler.sendAnswerMessage(new UpdateLeaderCardsMsg(controller.getGame().getCurrentPlayer().getPhase(),
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsInHand(),
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsPlayed(),
-                "LeaderCard successfully activated"));
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " activated a leader card");
-            controller.sendAllExcept(stringMsg, clientHandler);
+            controller.getGame().getCurrentPlayer().activateLeaderCard(controller,i);
 
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));

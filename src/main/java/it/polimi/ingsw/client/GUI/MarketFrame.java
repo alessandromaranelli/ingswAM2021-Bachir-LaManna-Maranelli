@@ -15,7 +15,7 @@ public class MarketFrame extends JFrame {
 
     public MarketFrame(LightModel lightModel){
         setTitle("Marble in excess: " + lightModel.getMarbleInExcess().toString());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(2000, 500);
         getContentPane().setBackground(Color.CYAN);
         setLayout(new GridLayout(3, 4, 20, 20));

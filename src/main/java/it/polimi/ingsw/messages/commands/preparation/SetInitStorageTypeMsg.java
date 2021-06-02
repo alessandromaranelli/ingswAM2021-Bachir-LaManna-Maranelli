@@ -27,17 +27,12 @@ public class SetInitStorageTypeMsg extends CommandMsg {
 
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().setInitStorageTypes(r1, r2, r3);
+            controller.getGame().getCurrentPlayer().setInitStorageTypes(controller, r1, r2, r3);
 
             if (controller.getGame().getPlayers().stream().allMatch(Player::isInitPhaseDone)) {
                 controller.getGame().setCurrentPlayer(controller.getGame().getPlayers().get(0));
             }
 
-            UpdateStorageTypesMsg updateStorageTypesMsg = new UpdateStorageTypesMsg(controller.getGame().getCurrentPlayer().getPhase(), r1, r2, r3);
-            clientHandler.sendAnswerMessage(updateStorageTypesMsg);
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " changed his storages type");
-            controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
             ErrorMsg errorMsg = new ErrorMsg(e.getMessage());
             clientHandler.sendAnswerMessage(errorMsg);

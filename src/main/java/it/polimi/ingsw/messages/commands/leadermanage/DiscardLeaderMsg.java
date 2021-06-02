@@ -22,21 +22,7 @@ public class DiscardLeaderMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().discardLeaderCard(i);
-
-            clientHandler.sendAnswerMessage(new UpdateFaithMarkerPositionMsg(controller.getGame().getCurrentPlayer().getPhase(),
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                        controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                controller.getGame().getCurrentPlayer().getPersonalBoard().getFaithTrack().getPopeFavours().
-                        stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
-
-            clientHandler.sendAnswerMessage(new UpdateLeaderCardsMsg(controller.getGame().getCurrentPlayer().getPhase(),
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsInHand(),
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsPlayed(),
-                    "LeaderCard successfully discarded"));
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " discarded a leader card");
-            controller.sendAllExcept(stringMsg, clientHandler);
+            controller.getGame().getCurrentPlayer().discardLeaderCard(controller,i);
 
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));

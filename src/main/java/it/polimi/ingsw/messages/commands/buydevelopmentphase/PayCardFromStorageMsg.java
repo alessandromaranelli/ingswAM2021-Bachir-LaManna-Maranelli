@@ -23,16 +23,8 @@ public class PayCardFromStorageMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().payCardFromStorage(r, n, i);
+            controller.getGame().getCurrentPlayer().payCardFromStorage(controller,r, n, i);
 
-            CardPriceMsg cardPriceMsg = new CardPriceMsg(controller.getGame().getCurrentPlayer().getPhase(), controller.getGame().getCurrentPlayer().getPersonalBoard().getCardCost());
-            clientHandler.sendAnswerMessage(cardPriceMsg);
-
-            UpdateStorageMsg updateStorageMsg = new UpdateStorageMsg(controller.getGame().getCurrentPlayer().getPhase(), controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromAllStorages().values().toArray(new Integer[3]));
-            clientHandler.sendAnswerMessage(updateStorageMsg);
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " paid card from storage");
-            controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

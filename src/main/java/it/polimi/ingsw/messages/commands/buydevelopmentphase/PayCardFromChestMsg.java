@@ -22,16 +22,8 @@ public class PayCardFromChestMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {
         try {
-            controller.getGame().getCurrentPlayer().payCardFromChest(r, i);
+            controller.getGame().getCurrentPlayer().payCardFromChest(controller,r, i);
 
-            CardPriceMsg cardPriceMsg = new CardPriceMsg(controller.getGame().getCurrentPlayer().getPhase(), controller.getGame().getCurrentPlayer().getPersonalBoard().getCardCost());
-            clientHandler.sendAnswerMessage(cardPriceMsg);
-
-            ChestMsg chestMsg = new ChestMsg(controller.getGame().getCurrentPlayer().getPhase(), controller.getGame().getCurrentPlayer().getPersonalBoard().getWareHouse().getMapfromChest());
-            clientHandler.sendAnswerMessage(chestMsg);
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " paid card from chest");
-            controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }

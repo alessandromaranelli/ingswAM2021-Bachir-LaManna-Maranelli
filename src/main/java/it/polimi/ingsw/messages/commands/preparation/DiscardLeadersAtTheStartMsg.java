@@ -20,14 +20,7 @@ public class DiscardLeadersAtTheStartMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller){
         try {
-            controller.getGame().getCurrentPlayer().chooseLeaderCardsToDiscard(leader1, leader2);
-            clientHandler.sendAnswerMessage(new UpdateLeaderCardsMsg(controller.getGame().getCurrentPlayer().getPhase(),
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsInHand(),
-                    controller.getGame().getCurrentPlayer().getPersonalBoard().getLeaderCardsPlayed(),
-                    "\nYou discarded 2 leader cards"));
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " discarded 2 leader cards");
-            controller.sendAllExcept(stringMsg, clientHandler);
+            controller.getGame().getCurrentPlayer().chooseLeaderCardsToDiscard(leader1, leader2, controller);
         } catch (ModelException e) {
             ErrorMsg errorMsg = new ErrorMsg(e.getMessage());
             clientHandler.sendAnswerMessage(errorMsg);

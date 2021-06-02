@@ -16,13 +16,8 @@ public class BuyDevelopmentPhaseMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller){
         try {
-            controller.getGame().getCurrentPlayer().selectBuyDevelopmentCardPhase();
+            controller.getGame().getCurrentPlayer().selectBuyDevelopmentCardPhase(controller);
 
-            UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.BUYDEVELOPMENTCARDPHASE, "You can select a card");
-            clientHandler.sendAnswerMessage(updatePhaseMsg);
-
-            StringMsg stringMsg = new StringMsg(controller.getGame().getCurrentPlayer().getNickname() + " started BuyDevelopmentCard phase");
-            controller.sendAllExcept(stringMsg, clientHandler);
         } catch (ModelException e) {
             clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
         }
