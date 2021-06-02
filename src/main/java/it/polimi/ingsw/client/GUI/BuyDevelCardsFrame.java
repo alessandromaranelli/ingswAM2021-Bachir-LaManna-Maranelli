@@ -29,16 +29,7 @@ public class BuyDevelCardsFrame extends JFrame implements ActionListener, MouseL
     List<JLabel> jl;
     DevelopmentCard cardSelected = null;
     Map<JLabel,DevelopmentCard> labelMap;
-
-
-
     JPanel contentPane;
-
-
-
-
-
-
 
     public BuyDevelCardsFrame(Gui gui, LightModel lightModel) {
         this.gui = gui;
@@ -113,6 +104,7 @@ public class BuyDevelCardsFrame extends JFrame implements ActionListener, MouseL
            System.out.println("Sei un babbo");
             //gui.sendMessage(new BuyCardMsg(cardSelected.getColor(),cardSelected.getLevel(),slot.getItemAt(slot.getSelectedIndex())));
             dispose();
+
         }
         //else{
         //       messaggio di errore

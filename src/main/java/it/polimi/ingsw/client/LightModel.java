@@ -593,4 +593,8 @@ public class LightModel {
             storagesVisualizer.plot(storageType, storageQuantity);
         }
     }
+
+    public Map<Resource, Integer> getCardCost() {
+        return cardCost;
+    }
 }

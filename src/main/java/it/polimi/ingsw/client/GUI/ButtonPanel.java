@@ -18,6 +18,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
     JButton viewAvailableDevelCards;
     JButton drawLeaderCards;
     JButton buyDevelopmentCard;
+    JButton payDevelCard;
     JTextField discardLeaderCards;
 
     public ButtonPanel(LightModel lightModel, Gui gui){
@@ -69,6 +70,13 @@ public class ButtonPanel extends JPanel implements ActionListener {
         buyDevelopmentCard.setBackground(Color.ORANGE);
         buyDevelopmentCard.setBorder(BorderFactory.createEtchedBorder());
 
+        payDevelCard = new JButton("Pay Card");
+        payDevelCard.addActionListener(this);
+        payDevelCard.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        payDevelCard.setForeground(Color.BLUE);
+        payDevelCard.setBackground(Color.ORANGE);
+        payDevelCard.setBorder(BorderFactory.createEtchedBorder());
+
         setVisibleButtons(lightModel.getPhase());
     }
 
@@ -91,9 +99,14 @@ public class ButtonPanel extends JPanel implements ActionListener {
             new ViewAvailableDevelCardsFrame(lightModel,gui);
         }
         else if(e.getSource().equals(buyDevelopmentCard)){
-            System.out.println("Sei stra babbo");
+            System.out.println("Buy Card");
             //gui.sendMessage(new BuyDevelopmentPhaseMsg());
             new BuyDevelCardsFrame(gui,lightModel);
+        }
+        else if(e.getSource().equals((payDevelCard))){
+            System.out.println("Pay Card");
+            //gui.sendMessage(new BuyDevelopmentPhaseMsg());
+            new PayDevelCardFrame(gui,lightModel);
         }
     }
 
@@ -102,7 +115,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
         add(viewLeaderCards);
         add(viewAvailableDevelCards);
         add(buyDevelopmentCard);
-
+        add(payDevelCard);
         //add(viewDevelopmentCardsToBuy)
         if(phase == TurnState.ENDTURN || phase == TurnState.ENDPREPARATION){
             //comando per terminare il turno e riorganizzare le risorse negli storage
