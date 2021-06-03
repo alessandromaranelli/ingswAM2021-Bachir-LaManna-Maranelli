@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.GUI;
 
 import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.BuyDevelopmentPhaseMsg;
+import it.polimi.ingsw.messages.commands.marketphase.SelectMarketPhaseMsg;
 import it.polimi.ingsw.messages.commands.preparation.DrawLeadersMsg;
 import it.polimi.ingsw.model.TurnState;
 
@@ -19,6 +20,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
     JButton drawLeaderCards;
     JButton buyDevelopmentCard;
     JButton payDevelCard;
+    JButton marketPhase;
     JTextField discardLeaderCards;
 
     public ButtonPanel(LightModel lightModel, Gui gui){
@@ -77,13 +79,20 @@ public class ButtonPanel extends JPanel implements ActionListener {
         payDevelCard.setBackground(Color.ORANGE);
         payDevelCard.setBorder(BorderFactory.createEtchedBorder());
 
+        marketPhase = new JButton("Start Market Phase");
+        marketPhase.addActionListener(this);
+        marketPhase.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        marketPhase.setForeground(Color.BLUE);
+        marketPhase.setBackground(Color.ORANGE);
+        marketPhase.setBorder(BorderFactory.createEtchedBorder());
+
         setVisibleButtons(lightModel.getPhase());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(viewMarket)){
-            JFrame jFrame = new MarketFrame(lightModel);
+            JFrame jFrame = new MarketFrame(gui,lightModel,false);
         }
         else if(e.getSource().equals(viewLeaderCards)){
             LeaderCardsFrame jFrame = new LeaderCardsFrame(lightModel);
@@ -108,6 +117,10 @@ public class ButtonPanel extends JPanel implements ActionListener {
             //gui.sendMessage(new BuyDevelopmentPhaseMsg());
             new PayDevelCardFrame(gui,lightModel);
         }
+        else if(e.getSource().equals(marketPhase)){
+            gui.sendMessage(new SelectMarketPhaseMsg());
+            JFrame jFrame = new MarketFrame(gui,lightModel,true);
+        }
     }
 
     private void setVisibleButtons(TurnState phase){
@@ -116,6 +129,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
         add(viewAvailableDevelCards);
         add(buyDevelopmentCard);
         add(payDevelCard);
+        add(marketPhase);
         //add(viewDevelopmentCardsToBuy)
         if(phase == TurnState.ENDTURN || phase == TurnState.ENDPREPARATION){
             //comando per terminare il turno e riorganizzare le risorse negli storage
