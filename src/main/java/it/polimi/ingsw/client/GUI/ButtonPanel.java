@@ -23,13 +23,15 @@ public class ButtonPanel extends JPanel implements ActionListener {
     JButton viewMarket;
     JButton viewLeaderCards;
     JButton viewAvailableDevelCards;
+    JButton viewProductions;
     JButton drawLeaderCards;
-    JButton buyDevelopmentCard;
-    JButton payDevelCard;
-    JButton marketPhase;
     JButton discardLeaderCards;
     JButton setStorageType;
     JButton addInitResources;
+    JButton marketPhase;
+    JButton developmentCardPhase;
+    JButton buyDevelopmentCard;
+    JButton payDevelCard;
     JButton productionPhase;
     JButton activateSlotProduction;
     JButton activatePersonalProduction;
@@ -65,6 +67,13 @@ public class ButtonPanel extends JPanel implements ActionListener {
         viewLeaderCards.setBackground(Color.ORANGE);
         viewLeaderCards.setBorder(BorderFactory.createEtchedBorder());
 
+        viewProductions = new JButton("View State of Productions");
+        viewProductions.addActionListener(this);
+        viewProductions.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        viewProductions.setForeground(Color.BLUE);
+        viewProductions.setBackground(Color.ORANGE);
+        viewProductions.setBorder(BorderFactory.createEtchedBorder());
+
         drawLeaderCards = new JButton("Draw Leader Cards");
         drawLeaderCards.addActionListener(this);
         drawLeaderCards.setFont(new Font("Comic Sans", Font.BOLD, 20));
@@ -93,12 +102,26 @@ public class ButtonPanel extends JPanel implements ActionListener {
         addInitResources.setBackground(Color.ORANGE);
         addInitResources.setBorder(BorderFactory.createEtchedBorder());
 
+        marketPhase = new JButton("Start Market Phase");
+        marketPhase.addActionListener(this);
+        marketPhase.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        marketPhase.setForeground(Color.BLUE);
+        marketPhase.setBackground(Color.ORANGE);
+        marketPhase.setBorder(BorderFactory.createEtchedBorder());
+
         viewAvailableDevelCards = new JButton("View available Development Cards");
         viewAvailableDevelCards.addActionListener(this);
         viewAvailableDevelCards.setFont(new Font("Comic Sans", Font.BOLD, 20));
         viewAvailableDevelCards.setForeground(Color.BLUE);
         viewAvailableDevelCards.setBackground(Color.ORANGE);
         viewAvailableDevelCards.setBorder(BorderFactory.createEtchedBorder());
+
+        developmentCardPhase = new JButton("Start Buy Development Card Phase");
+        developmentCardPhase.addActionListener(this);
+        developmentCardPhase.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        developmentCardPhase.setForeground(Color.BLUE);
+        developmentCardPhase.setBackground(Color.ORANGE);
+        developmentCardPhase.setBorder(BorderFactory.createEtchedBorder());
 
         buyDevelopmentCard = new JButton("Buy Card");
         buyDevelopmentCard.addActionListener(this);
@@ -113,13 +136,6 @@ public class ButtonPanel extends JPanel implements ActionListener {
         payDevelCard.setForeground(Color.BLUE);
         payDevelCard.setBackground(Color.ORANGE);
         payDevelCard.setBorder(BorderFactory.createEtchedBorder());
-
-        marketPhase = new JButton("Start Market Phase");
-        marketPhase.addActionListener(this);
-        marketPhase.setFont(new Font("Comic Sans", Font.BOLD, 20));
-        marketPhase.setForeground(Color.BLUE);
-        marketPhase.setBackground(Color.ORANGE);
-        marketPhase.setBorder(BorderFactory.createEtchedBorder());
 
         productionPhase = new JButton("Start Production Phase");
         productionPhase.addActionListener(this);
@@ -189,6 +205,9 @@ public class ButtonPanel extends JPanel implements ActionListener {
         else if(e.getSource().equals(viewLeaderCards)){
             LeaderCardsFrame jFrame = new LeaderCardsFrame(lightModel);
         }
+        else if(e.getSource().equals(viewProductions)){
+            new ProductionFrame(lightModel);
+        }
 
         else if(e.getSource().equals(drawLeaderCards)){
             DrawLeadersMsg drawLeadersMsg = new DrawLeadersMsg();
@@ -204,6 +223,13 @@ public class ButtonPanel extends JPanel implements ActionListener {
             new AddInitResourcesFrame(gui, lightModel);
         }
 
+        else if(e.getSource().equals(marketPhase)){
+            gui.sendMessage(new SelectMarketPhaseMsg());
+        }
+
+        else if(e.getSource().equals(developmentCardPhase)){
+            gui.sendMessage(new BuyDevelopmentPhaseMsg());
+        }
         else if(e.getSource().equals(buyDevelopmentCard)){
             //System.out.println("Buy Card");
             //gui.sendMessage(new BuyDevelopmentPhaseMsg());
@@ -213,9 +239,6 @@ public class ButtonPanel extends JPanel implements ActionListener {
             //System.out.println("Pay Card");
             //gui.sendMessage(new BuyDevelopmentPhaseMsg());
             new PayDevelCardFrame(gui,lightModel);
-        }
-        else if(e.getSource().equals(marketPhase)){
-            gui.sendMessage(new SelectMarketPhaseMsg());
         }
 
         else if(e.getSource().equals(productionPhase)){
@@ -246,7 +269,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
         add(viewMarket);
         add(viewLeaderCards);
         add(viewAvailableDevelCards);
-        //add(buyDevelopmentCard);
+        add(viewProductions);
 
         if((phase == TurnState.ENDTURN || phase == TurnState.ENDPREPARATION)){
             add(endTurn);
@@ -267,16 +290,27 @@ public class ButtonPanel extends JPanel implements ActionListener {
         }
 
         if(phase == TurnState.START){
-            add(buyDevelopmentCard);
+            add(developmentCardPhase);
             add(marketPhase);
             add(productionPhase);
         }
+        if(phase == TurnState.MARKETPHASE){
+            MarketFrame marketFrame=new MarketFrame(gui, lightModel, true);
+        }
+
+
+        if(phase == TurnState.BUYDEVELOPMENTCARDPHASE){
+            add(buyDevelopmentCard);
+        }
+        if(phase == TurnState.PAYDEVELOPMENTCARD){
+            add(payDevelCard);
+        }
         if(phase == TurnState.PRODUCTIONPHASE){
-            add(activateSlotProduction);
+            add(activateSlotProduction);            //attiva la produzione di una carta in uno dei 3 slot
             add(activatePersonalProduction);
-            add(activateSpecialProduction1);
+            add(activateSpecialProduction1);        //attiva una delle due produzioni speciali
             add(activateSpecialProduction2);
-            add(startPayProduction);
+            add(startPayProduction);                //finisce la fase di attivazione e inizia il pagamento
         }
         if(phase == TurnState.PAYPRODUCTIONS){
             add(payProduction);

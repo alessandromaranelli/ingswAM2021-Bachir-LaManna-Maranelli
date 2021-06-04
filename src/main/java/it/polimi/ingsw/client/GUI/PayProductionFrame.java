@@ -172,7 +172,7 @@ public class PayProductionFrame extends JFrame implements ActionListener {
             if(Integer.parseInt(quantity.getText())>0)
                 if(warehouseType.getSelectedItem().equals("Storage")) {
                     //System.out.println("Storage" + resourceType.getSelectedItem() + storageN.getSelectedItem().toString() + quantity.getText());
-                    CommandMsg msg = new PayProductionFromStorage((Resource) resourceType.getSelectedItem(), (Integer)storageN.getSelectedItem(), Integer.parseInt(quantity.getText()));
+                    CommandMsg msg = new PayProductionFromStorage((Resource) resourceType.getSelectedItem(), Integer.parseInt(quantity.getText()), (Integer)storageN.getSelectedItem());
                     gui.sendMessage(msg);
                     dispose();
                 }

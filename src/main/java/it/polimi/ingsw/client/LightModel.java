@@ -206,6 +206,7 @@ public class LightModel {
 
     public void setPhase(TurnState phase) {
         this.phase = phase;
+        /*
         if(GUI){
             if(phase==TurnState.BUYDEVELOPMENTCARDPHASE) {
                 BuyDevelCardsFrame buyDevelCardsFrame = new BuyDevelCardsFrame(client.getGui(), this);
@@ -220,6 +221,8 @@ public class LightModel {
                 return;
             }
         }
+
+         */
     }
 
     public void setCurrentPlayer(String currentPlayer){
@@ -527,6 +530,9 @@ public class LightModel {
             marketView.showMarbles(market.getMarketTable());
             marketView.plot();
         }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
+        }
     }
 
     public void update(TurnState phase, Map<Resource, Integer> map){     //UpdateResourcesToAddMsg
@@ -561,6 +567,9 @@ public class LightModel {
         if(CLI == true){
             develCardsOfPlayerVisualizer.plot(developmentCard);
         }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
+        }
     }
 
     public void update(List<DevelopmentCard> cards){                //UpdateDecksMsg
@@ -568,6 +577,9 @@ public class LightModel {
 
         if(CLI == true){
             developmentCardToBuyVisualizer.plot(developmentCardsToBuy);
+        }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
         }
     }
 
@@ -577,6 +589,9 @@ public class LightModel {
 
         if(CLI == true){
             chestVisualizer.plot(cardCost);
+        }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
         }
     }
 

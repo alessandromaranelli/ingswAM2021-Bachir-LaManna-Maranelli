@@ -117,7 +117,7 @@ public class PayDevelCardFrame extends JFrame implements ActionListener {
             storageN.addItem("" + i);
         }
         storageN.setBorder(BorderFactory.createLineBorder(Color.yellow, 3));
-        storageN.setVisible(false);
+        storageN.setVisible(true);
 
         quantity.setBorder(BorderFactory.createLineBorder(Color.green,3));
         //quantity.setVisible(true);
@@ -171,13 +171,14 @@ public class PayDevelCardFrame extends JFrame implements ActionListener {
         }else if (e.getSource().equals(submit)){
             if(Integer.parseInt(quantity.getText())>0)
                 if(warehouseType.getSelectedItem().equals("Storage")) {
-                    System.out.println("Storage" + resourceType.getSelectedItem() + storageN.getSelectedItem().toString() + quantity.getText());
-                    gui.sendMessage(new PayCardFromStorageMsg((Resource) resourceType.getSelectedItem(), Integer.parseInt((String) storageN.getSelectedItem()), Integer.parseInt(quantity.getText())));
+                    //System.out.println("Storage" + resourceType.getSelectedItem() + storageN.getSelectedItem().toString() + quantity.getText());
+                    gui.sendMessage(new PayCardFromStorageMsg((Resource) resourceType.getSelectedItem(), Integer.parseInt(quantity.getText()), Integer.parseInt((String) storageN.getSelectedItem())));
                 }
                 else {
-                    System.out.println("Chest" + resourceType.getSelectedItem() + quantity.getText());
+                    //System.out.println("Chest" + resourceType.getSelectedItem() + quantity.getText());
                     gui.sendMessage(new PayCardFromChestMsg((Resource) resourceType.getSelectedItem(), Integer.parseInt(quantity.getText())));
                 }
+                dispose();
         }
     }
 }
