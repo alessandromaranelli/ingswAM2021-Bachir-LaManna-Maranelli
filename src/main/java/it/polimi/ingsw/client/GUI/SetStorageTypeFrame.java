@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.GUI;
 
 import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.messages.commands.CommandMsg;
+import it.polimi.ingsw.messages.commands.marketphase.SetStorageTypesMsg;
 import it.polimi.ingsw.messages.commands.preparation.SetInitStorageTypeMsg;
 import it.polimi.ingsw.model.Resource;
 
@@ -20,7 +21,7 @@ public class SetStorageTypeFrame extends JFrame implements ActionListener {
     private JButton button;
     private JPanel panel;
 
-    public SetStorageTypeFrame(Gui gui, LightModel lightModel){
+    public SetStorageTypeFrame(Gui gui, LightModel lightModel, boolean init){
         this.gui = gui;
         this.lightModel = lightModel;
         types = new ArrayList<>();
@@ -45,7 +46,13 @@ public class SetStorageTypeFrame extends JFrame implements ActionListener {
         }
 
         button = new JButton("Submit");
-        button.addActionListener(this);
+        button.addActionListener(e -> {
+            CommandMsg msg = null;
+            if(init)msg=new SetInitStorageTypeMsg((Resource) types.get(0).getSelectedItem(), (Resource) types.get(1).getSelectedItem(), (Resource) types.get(2).getSelectedItem());
+            else msg=new SetStorageTypesMsg((Resource) types.get(0).getSelectedItem(), (Resource) types.get(1).getSelectedItem(), (Resource) types.get(2).getSelectedItem());
+            gui.sendMessage(msg);
+            dispose();
+        });
         button.setBorder(BorderFactory.createEtchedBorder());
         button.setFont(new Font("Comic Sans", Font.PLAIN, 20));
         button.setBackground(Color.RED);
@@ -60,10 +67,5 @@ public class SetStorageTypeFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource().equals(button)){
-            CommandMsg msg = new SetInitStorageTypeMsg((Resource) types.get(0).getSelectedItem(), (Resource) types.get(1).getSelectedItem(), (Resource) types.get(2).getSelectedItem());
-            gui.sendMessage(msg);
-            dispose();
-        }
     }
 }

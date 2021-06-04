@@ -219,6 +219,15 @@ public class LightModel {
                 MarketFrame marketFrame=new MarketFrame(client.getGui(), this, true);
                 return;
             }
+            if(phase == TurnState.CHOICE){
+                MarketBuyFrame marketBuyFrameFrame=new MarketBuyFrame(client.getGui(), this);
+                return;
+            }
+            if(phase == TurnState.ORGANIZERESOURCES){
+                new MarketOrganizeChoiceFrame(client.getGui(), this);
+                //SetStorageTypeFrame setStorageTypeFrame=new SetStorageTypeFrame(client.getGui(), this, false);
+                return;
+            }
         }
     }
 
@@ -324,6 +333,22 @@ public class LightModel {
             resourcesToAdd.put(Resource.SHIELD, 0);
         }
         else this.resourcesToAdd = resourcesToAdd;
+    }
+
+    public Map<Resource, Integer> getResourcesToOrganize() {
+        return resourcesToOrganize;
+    }
+
+    public Map<Resource, Integer> getResourcesToAdd() {
+        return resourcesToAdd;
+    }
+
+    public int getWhiteMarblesToManage() {
+        return whiteMarblesToManage;
+    }
+
+    public List<Resource> getWhiteMarble() {
+        return whiteMarble;
     }
 
     public void setTotalCost(Map<Resource, Integer> totalCost) {

@@ -33,7 +33,7 @@ public class MarbleLabel extends JLabel {
         setIcon(img);
         setText(text);
         setVerticalTextPosition(JLabel.CENTER);
-        setHorizontalTextPosition(JLabel.CENTER);
+        setHorizontalTextPosition(JLabel.LEFT);
         setVisible(true);
     }
 }

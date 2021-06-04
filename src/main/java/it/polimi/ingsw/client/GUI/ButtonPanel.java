@@ -5,6 +5,7 @@ import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.messages.commands.EndTurnMsg;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.BuyDevelopmentPhaseMsg;
 import it.polimi.ingsw.messages.commands.marketphase.SelectMarketPhaseMsg;
+import it.polimi.ingsw.messages.commands.marketphase.StartOrganizeResourcesMsg;
 import it.polimi.ingsw.messages.commands.preparation.DrawLeadersMsg;
 import it.polimi.ingsw.messages.commands.productionphase.SelectProductionPhaseMsg;
 import it.polimi.ingsw.messages.commands.productionphase.StartPayProductionMsg;
@@ -27,6 +28,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
     JButton buyDevelopmentCard;
     JButton payDevelCard;
     JButton marketPhase;
+    JButton manageWhiteMarbles;
     JButton discardLeaderCards;
     JButton setStorageType;
     JButton addInitResources;
@@ -121,6 +123,13 @@ public class ButtonPanel extends JPanel implements ActionListener {
         marketPhase.setBackground(Color.ORANGE);
         marketPhase.setBorder(BorderFactory.createEtchedBorder());
 
+        manageWhiteMarbles = new JButton("Manage White Marbles");
+        manageWhiteMarbles.addActionListener(this);
+        manageWhiteMarbles.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        manageWhiteMarbles.setForeground(Color.BLUE);
+        manageWhiteMarbles.setBackground(Color.ORANGE);
+        manageWhiteMarbles.setBorder(BorderFactory.createEtchedBorder());
+
         productionPhase = new JButton("Start Production Phase");
         productionPhase.addActionListener(this);
         productionPhase.setFont(new Font("Comic Sans", Font.BOLD, 20));
@@ -198,7 +207,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
             DiscardLeaderCardFrame jFrame = new DiscardLeaderCardFrame(gui, lightModel);
         }
         else if(e.getSource().equals(setStorageType)){
-            new SetStorageTypeFrame(gui, lightModel);
+            new SetStorageTypeFrame(gui, lightModel, true);
         }
         else if(e.getSource().equals(addInitResources)){
             new AddInitResourcesFrame(gui, lightModel);
@@ -216,6 +225,9 @@ public class ButtonPanel extends JPanel implements ActionListener {
         }
         else if(e.getSource().equals(marketPhase)){
             gui.sendMessage(new SelectMarketPhaseMsg());
+        }
+        else if(e.getSource().equals(marketPhase)){
+            gui.sendMessage(new StartOrganizeResourcesMsg());
         }
 
         else if(e.getSource().equals(productionPhase)){

@@ -105,6 +105,10 @@ public class Player {
             phase = TurnState.ENDPREPARATION;
             initPhaseDone = true;
         }
+        if(playerID == 1&&game.isSoloMatch()) {
+            phase = TurnState.START;
+            initPhaseDone = true;
+        }
         controller.sendUpdateInitStorageTypes(this, personalBoard.getWareHouse().getTypeStorage(1), personalBoard.getWareHouse().getTypeStorage(2), personalBoard.getWareHouse().getTypeStorage(3));
     }
 
