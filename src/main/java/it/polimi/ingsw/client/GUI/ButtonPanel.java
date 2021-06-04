@@ -216,7 +216,6 @@ public class ButtonPanel extends JPanel implements ActionListener {
         }
         else if(e.getSource().equals(marketPhase)){
             gui.sendMessage(new SelectMarketPhaseMsg());
-            JFrame jFrame = new MarketFrame(gui,lightModel,true);
         }
 
         else if(e.getSource().equals(productionPhase)){
@@ -247,7 +246,6 @@ public class ButtonPanel extends JPanel implements ActionListener {
         add(viewMarket);
         add(viewLeaderCards);
         add(viewAvailableDevelCards);
-        add(marketPhase);
         //add(buyDevelopmentCard);
 
         if((phase == TurnState.ENDTURN || phase == TurnState.ENDPREPARATION)){
@@ -269,8 +267,8 @@ public class ButtonPanel extends JPanel implements ActionListener {
         }
 
         if(phase == TurnState.START){
-            //add(buyDevelopmentCard);
-            //add(marketPhase);
+            add(buyDevelopmentCard);
+            add(marketPhase);
             add(productionPhase);
         }
         if(phase == TurnState.PRODUCTIONPHASE){

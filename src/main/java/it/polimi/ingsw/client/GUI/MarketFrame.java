@@ -60,6 +60,7 @@ public class MarketFrame extends JFrame {
                 int finalI = i;
                 jButton.addActionListener(e -> {
                     gui.sendMessage(new StartMarketPhaseMsg(finalI+1,true));
+                    dispose();
                     System.out.println("Hai preso la"+(finalI +1)+"riga");});
                 body.add(jButton);
                 if(!buyMarbles)jButton.setVisible(false);
@@ -70,11 +71,11 @@ public class MarketFrame extends JFrame {
                 int finalI = k;
                 jButton.addActionListener(e -> {
                     gui.sendMessage(new StartMarketPhaseMsg(finalI+1,false));
+                    dispose();
                     System.out.println("Hai preso la"+(finalI +1)+"colonna");});
                 body.add(jButton);
                 if(!buyMarbles)jButton.setVisible(false);
             }
-
     }
 
 }

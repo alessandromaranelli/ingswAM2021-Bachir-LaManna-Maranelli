@@ -17,7 +17,7 @@ public class Gui implements Runnable{
 
     public void run(){
         frame = new CustomFrame(this);
-        frame.setTitle("Masters of Reneissance");
+        frame.setTitle("Masters of Renaissance");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300, 200);
         frame.setVisible(true);
