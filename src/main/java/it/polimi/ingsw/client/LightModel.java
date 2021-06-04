@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.CLI.*;
-import it.polimi.ingsw.client.GUI.Gui;
+import it.polimi.ingsw.client.GUI.*;
 import it.polimi.ingsw.model.*;
 
 import javax.swing.*;
@@ -206,6 +206,20 @@ public class LightModel {
 
     public void setPhase(TurnState phase) {
         this.phase = phase;
+        if(GUI){
+            if(phase==TurnState.BUYDEVELOPMENTCARDPHASE) {
+                BuyDevelCardsFrame buyDevelCardsFrame = new BuyDevelCardsFrame(client.getGui(), this);
+                return;
+            }
+            if(phase==TurnState.PAYDEVELOPMENTCARD){
+                PayDevelCardFrame payDevelCardFrame = new PayDevelCardFrame(client.getGui(), this);
+                return;
+            }
+            if(phase == TurnState.MARKETPHASE){
+                MarketFrame marketFrame=new MarketFrame(client.getGui(), this, true);
+                return;
+            }
+        }
     }
 
     public void setCurrentPlayer(String currentPlayer){
@@ -332,7 +346,7 @@ public class LightModel {
        developmentCard.set(slot-1, card);
     }
 
-    public void setCardCost(Map<Resource, Integer> cardCost) {
+    public void setCardCost(Map<Resource,Integer> cardCost) {
         this.cardCost = cardCost;
     }
 

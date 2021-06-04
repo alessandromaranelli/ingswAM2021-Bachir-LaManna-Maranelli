@@ -101,8 +101,8 @@ public class BuyDevelCardsFrame extends JFrame implements ActionListener, MouseL
     @Override
     public void actionPerformed(ActionEvent e) {
         if(cardSelected!=null){
-           System.out.println("Sei un babbo");
-            //gui.sendMessage(new BuyCardMsg(cardSelected.getColor(),cardSelected.getLevel(),slot.getItemAt(slot.getSelectedIndex())));
+           System.out.println("");
+            gui.sendMessage(new BuyCardMsg(cardSelected.getColor(),cardSelected.getLevel(),slot.getItemAt(slot.getSelectedIndex())));
             dispose();
 
         }

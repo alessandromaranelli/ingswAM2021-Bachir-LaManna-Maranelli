@@ -18,12 +18,10 @@ public class CardPriceMsg extends AnswerMsg {
 
     @Override
     public void processMessage(LightModel lightModel){
-        lightModel.updateCardPrice(phase, price);
-        /*
+
         lightModel.setPhase(phase);
         lightModel.setCardCost(price);
 
-         */
     }
 
     @Override
