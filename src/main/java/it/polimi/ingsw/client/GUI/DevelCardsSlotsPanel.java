@@ -27,7 +27,7 @@ public class DevelCardsSlotsPanel extends JPanel {
         d.add("src/main/resources/DevelopmentCards/Masters of Renaissance_Cards_FRONT_3mmBleed_1-3-1.png");
         for(String s:d){*/
         for(DevelopmentCard dc: lightModel.getDevelopmentCard()){
-            slotN = slotN + 1;
+            slotN = lightModel.getDevelopmentCard().indexOf(dc);
             //ImageIcon img = new ImageIcon((new ImageIcon(s).getImage().getScaledInstance(130, 300, Image.SCALE_SMOOTH)));
 
             //immagine ridimensionata

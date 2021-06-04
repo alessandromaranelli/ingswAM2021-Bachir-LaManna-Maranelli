@@ -262,12 +262,14 @@ public class WareHouse {
 
 
     public void addInitResources(Resource type) throws ModelException{
+        resourcesToOrganize.clear();
         resourcesToOrganize.put(type, 1);
         defaultAddResourcesToOrganize();
         resourcesToOrganize.remove(type);
     }
 
     public void addInitResources(Resource type1, Resource type2) throws ModelException{
+        resourcesToOrganize.clear();
         if(type1 == type2) resourcesToOrganize.put(type1, 2);
         else {
             resourcesToOrganize.put(type1, 1);

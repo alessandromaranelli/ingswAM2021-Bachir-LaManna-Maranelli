@@ -12,7 +12,9 @@ public class ErrorMsg extends AnswerMsg{
     }
 
     @Override
-    public void processMessage(LightModel lightModel) { }
+    public void processMessage(LightModel lightModel) {
+        lightModel.update(error);
+    }
 
     @Override
     public void printMessage() {

@@ -14,7 +14,7 @@ public class UpdatePhaseMsg extends AnswerMsg{
 
     @Override
     public void processMessage(LightModel lightModel) {
-        lightModel.setPhase(phase);
+        lightModel.update(phase);
     }
 
     @Override

@@ -78,7 +78,8 @@ public class Player {
 
     public void chooseLeaderCardsToDiscard(int i1, int i2, Controller controller) throws ModelException{
         if(phase != TurnState.CHOOSELEADERCARDS) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
-        if(i1<1||i1>4||i2<0||i2>4) throw new ModelException("Invalid position of the leadercard");
+        if(i1<1||i1>4||i2<1||i2>4) throw new ModelException("Invalid position of the leadercard");
+        if(i1 == 12) throw new ModelException("You must choose two different leader cards");
         personalBoard.getLeaderCardsInHand().remove(i1-1);
         personalBoard.getLeaderCardsInHand().remove(i2-2);
         phase = TurnState.CHOOSERESOURCES;
@@ -104,7 +105,7 @@ public class Player {
             phase = TurnState.ENDPREPARATION;
             initPhaseDone = true;
         }
-        controller.sendUpdateInitStorageTypes(this,i1,i2,i3);
+        controller.sendUpdateInitStorageTypes(this, personalBoard.getWareHouse().getTypeStorage(1), personalBoard.getWareHouse().getTypeStorage(2), personalBoard.getWareHouse().getTypeStorage(3));
     }
 
     public void addInitResources(Controller controller, Resource i) throws ModelException{

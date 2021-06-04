@@ -1,21 +1,20 @@
 package it.polimi.ingsw.client.GUI;
 
 import it.polimi.ingsw.client.LightModel;
-import it.polimi.ingsw.messages.commands.buydevelopmentphase.PayCardFromChestMsg;
-import it.polimi.ingsw.messages.commands.buydevelopmentphase.PayCardFromStorageMsg;
+import it.polimi.ingsw.messages.commands.CommandMsg;
+import it.polimi.ingsw.messages.commands.productionphase.PayProductionFromChest;
+import it.polimi.ingsw.messages.commands.productionphase.PayProductionFromStorage;
 import it.polimi.ingsw.model.Resource;
-import it.polimi.ingsw.model.Storage;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.Visibility;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class PayDevelCardFrame extends JFrame implements ActionListener {
+public class PayProductionFrame extends JFrame implements ActionListener {
     LightModel lightModel;
     Gui gui;
     JPanel main, subMain, cost, availableResources;
@@ -24,12 +23,13 @@ public class PayDevelCardFrame extends JFrame implements ActionListener {
 
     //payment components
     JPanel paymentPanel, storageResources, chestResources;
-    JComboBox<String> warehouseType, storageN;
+    JComboBox<String> warehouseType;
+    JComboBox<Integer> storageN;
     JTextField quantity;
     JComboBox<Resource> resourceType;
 
 
-    public PayDevelCardFrame(Gui gui, LightModel lightModel){
+    public PayProductionFrame(Gui gui, LightModel lightModel){
         this.lightModel = lightModel;
         this.gui = gui;
 
@@ -56,8 +56,8 @@ public class PayDevelCardFrame extends JFrame implements ActionListener {
 
         //build cost header panel with labels for each resource
         cost.setBorder(BorderFactory.createLineBorder(Color.red,3));
-        Map<Resource,Integer> costMap = lightModel.getCardCost();
-        cost.add(new JLabel("Remaining card cost: "));
+        Map<Resource,Integer> costMap = lightModel.getTotalCost();
+        cost.add(new JLabel("Remaining production cost: "));
         ArrayList<ResourceLabel> rl = new ArrayList<>();
         for(Resource r: costMap.keySet()){
             ResourceLabel j = new ResourceLabel(r);
@@ -114,7 +114,7 @@ public class PayDevelCardFrame extends JFrame implements ActionListener {
         warehouseType.setBorder(BorderFactory.createLineBorder(Color.blue,3));
 
         for(int i=1; i <= lightModel.getStorageQuantity().size(); i++) {
-            storageN.addItem("" + i);
+            storageN.addItem(i);
         }
         storageN.setBorder(BorderFactory.createLineBorder(Color.yellow, 3));
         //storageN.setVisible(false);
@@ -170,12 +170,18 @@ public class PayDevelCardFrame extends JFrame implements ActionListener {
             }
         }else if (e.getSource().equals(submit)){
             if(Integer.parseInt(quantity.getText())>0)
-                if(warehouseType.getSelectedItem().equals("Storage"))
-                    System.out.println("Storage" + resourceType.getSelectedItem() + storageN.getSelectedItem().toString() + quantity.getText());
-                    //gui.sendMessage(new PayCardFromStorageMsg((Resource)resourceType.getSelectedItem(),Integer.parseInt((String)storageN.getSelectedItem()),Integer.parseInt(quantity.getText())));
-                else
-                    System.out.println("Chest" + resourceType.getSelectedItem() + quantity.getText());
-                    //gui.sendMessage(new PayCardFromChestMsg((Resource)resourceType.getSelectedItem(),Integer.parseInt(quantity.getText())));
+                if(warehouseType.getSelectedItem().equals("Storage")) {
+                    //System.out.println("Storage" + resourceType.getSelectedItem() + storageN.getSelectedItem().toString() + quantity.getText());
+                    CommandMsg msg = new PayProductionFromStorage((Resource) resourceType.getSelectedItem(), (Integer)storageN.getSelectedItem(), Integer.parseInt(quantity.getText()));
+                    gui.sendMessage(msg);
+                    dispose();
+                }
+                else {
+                    //System.out.println("Chest" + resourceType.getSelectedItem() + quantity.getText());
+                    CommandMsg msg = new PayProductionFromChest((Resource) resourceType.getSelectedItem(), Integer.parseInt(quantity.getText()));
+                    gui.sendMessage(msg);
+                    dispose();
+                }
         }
     }
 }

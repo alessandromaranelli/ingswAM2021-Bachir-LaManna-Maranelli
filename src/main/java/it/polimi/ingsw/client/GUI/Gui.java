@@ -36,4 +36,8 @@ public class Gui implements Runnable{
     public void updatePersonalBoard(LightModel lightModel){
         frame.updatePersonalBoard(lightModel);
     }
+
+    public void errorMessage(String message){
+        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }

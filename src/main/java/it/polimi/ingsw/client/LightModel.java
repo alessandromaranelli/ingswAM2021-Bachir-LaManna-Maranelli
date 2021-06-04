@@ -74,7 +74,7 @@ public class LightModel {
         developmentCardsToBuy = new ArrayList<>();
         position = 0;
         faithPoints = 0;
-        developmentCard = new ArrayList<>();
+        developmentCard = new ArrayList<>(3);
         storageType = new ArrayList<>(3);
         storageQuantity = new ArrayList<>(3);
         storageType.add(Resource.COIN);storageType.add(Resource.COIN);storageType.add(Resource.COIN);
@@ -135,6 +135,10 @@ public class LightModel {
 
     }
 
+    public int getPlayerID(){
+        return playerID;
+    }
+
     public List<Resource> getStorageType() {
         return storageType;
     }
@@ -155,6 +159,10 @@ public class LightModel {
         return developmentCardsToBuy;
     }
 
+    public Map<Resource, Integer> getCardCost() {
+        return cardCost;
+    }
+
     public int getFaithPoints() {
         return faithPoints;
     }
@@ -165,6 +173,10 @@ public class LightModel {
 
     public Map<Resource, Integer> getTotalCost() {
         return totalCost;
+    }
+
+    public List<Resource> getSpecialProduction(){
+        return specialProduction;
     }
 
     public TurnState getPhase(){
@@ -317,8 +329,7 @@ public class LightModel {
     }
 
     public void setDevelopmentCard(DevelopmentCard card, int slot) {
-        if(developmentCard.size()>=slot)developmentCard.set(slot-1, card);
-        else developmentCard.add(card);
+       developmentCard.set(slot-1, card);
     }
 
     public void setCardCost(Map<Resource, Integer> cardCost) {
@@ -421,7 +432,7 @@ public class LightModel {
 
     public void update(List<LeaderCard> leaderCardInHand, List<LeaderCard> leaderCardsPlayed, TurnState phase){     //UpdateLeaderCardsMsg
         this.setLeaderCardsInHand(leaderCardInHand);
-        this.setLeaderCardsPlayed(leaderCardsInHand);
+        this.setLeaderCardsPlayed(leaderCardsPlayed);
         this.setPhase(phase);
 
         if(CLI == true){
@@ -447,6 +458,9 @@ public class LightModel {
         if(CLI == true){
             storagesVisualizer.plot(storageType, storageQuantity);
         }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
+        }
     }
 
     public void update(TurnState phase, Integer[] storages){                        //UpdateStorageMsg
@@ -462,6 +476,9 @@ public class LightModel {
         if(CLI == true){
             storagesVisualizer.plot(storageType, storageQuantity);
         }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
+        }
     }
 
     public void update(TurnState phase, int position, Boolean[] popeFavours){       //UpdateFaithMarkerPositionMsg
@@ -471,6 +488,20 @@ public class LightModel {
 
         if(CLI == true){
             faithTrackVisualizer.plot(position,popeFavours);
+        }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
+        }
+    }
+
+    public void update(TurnState phase){                            //UpdatePhaseMsg
+        this.setPhase(phase);
+
+        if(CLI == true){
+
+        }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
         }
     }
 
@@ -542,6 +573,9 @@ public class LightModel {
         if(CLI == true){
             chestVisualizer.plot(cardCost);
         }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
+        }
     }
 
     public void update(Map<Resource, Integer> productionInput, Map<Resource, Integer> productionOutput, int faithPoint){        //UpdateCostGainsMsg
@@ -552,6 +586,9 @@ public class LightModel {
         if(CLI == true){
             productionVisualizer.plot(totalCost, totalGain, faithPoints);
         }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
+        }
     }
 
     public void update(Map<Resource, Integer> totalCost){       //UpdateProductionCostMsg
@@ -559,6 +596,9 @@ public class LightModel {
 
         if(CLI == true){
             productionVisualizer.plot(this.totalCost, this.totalGain, faithPoints);
+        }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
         }
     }
 
@@ -581,6 +621,9 @@ public class LightModel {
             chestVisualizer.plot(chest);
             storagesVisualizer.plot(storageType, storageQuantity);
         }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
+        }
     }
 
     public void update(TurnState phase, String currentPlayer){          //StartTurnMsg
@@ -592,9 +635,17 @@ public class LightModel {
             chestVisualizer.plot(chest);
             storagesVisualizer.plot(storageType, storageQuantity);
         }
+        else if(GUI == true){
+            client.getGui().updatePersonalBoard(this);
+        }
     }
 
-    public Map<Resource, Integer> getCardCost() {
-        return cardCost;
+    public void update(String message){                                //ErrorMsg
+        if(CLI == true){
+
+        }
+        else if(GUI == true){
+            client.getGui().errorMessage(message);
+        }
     }
 }
