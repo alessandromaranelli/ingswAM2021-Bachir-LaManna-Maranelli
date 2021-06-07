@@ -5,10 +5,7 @@ import it.polimi.ingsw.messages.answers.StartTurnMsg;
 import it.polimi.ingsw.messages.answers.StringMsg;
 import it.polimi.ingsw.messages.answers.UpdateDecksMsg;
 import it.polimi.ingsw.messages.answers.WinMsg;
-import it.polimi.ingsw.model.CpuAction;
-import it.polimi.ingsw.model.CpuActionDiscard;
-import it.polimi.ingsw.model.CpuActionShuffle;
-import it.polimi.ingsw.model.TurnState;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
@@ -25,17 +22,17 @@ public class EndTurnMsg extends CommandMsg{
             if(controller.getGame().isSoloMatch()){
                 CpuAction cpuAction= (CpuAction) controller.getGame().nextPlayer();
                 if (cpuAction instanceof CpuActionDiscard){
-                    UpdateDecksMsg updateDecksMsg = new UpdateDecksMsg("Lorenzo discarded two "+cpuAction.getcolor().toString()+" cards", controller.getGame().getTable().getTopDevelopmentcards());
+                    UpdateDecksMsg updateDecksMsg = new UpdateDecksMsg("\n\nLorenzo discarded two "+cpuAction.getcolor().toString()+" cards", controller.getGame().getTable().getTopDevelopmentcards());
                     clientHandler.sendAnswerMessage(updateDecksMsg);
                 }
                 if (cpuAction instanceof CpuActionShuffle){
-                    clientHandler.sendAnswerMessage(new StringMsg("Lorenzo moved his faith marker 1 box forward"));
+                    clientHandler.sendAnswerMessage(new StringMsg("\nLorenzo moved his faith marker 1 box forward"));
                 }
-                if (cpuAction instanceof CpuActionDiscard){
-                    clientHandler.sendAnswerMessage(new StringMsg("Lorenzo moved his faith marker 2 boxes forward"));
+                if (cpuAction instanceof CpuActionMoveOn){
+                    clientHandler.sendAnswerMessage(new StringMsg("\nLorenzo moved his faith marker 2 boxes forward"));
                 }
                 if (controller.getGame().hasLorenzoWon()){
-                    clientHandler.sendAnswerMessage(new WinMsg("Lorenzo Won"));
+                    clientHandler.sendAnswerMessage(new WinMsg("\nLorenzo Won"));
                     controller.endGame(true);
                     return;
                 }

@@ -239,16 +239,20 @@ public class Player {
         if(phase != TurnState.ADDRESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getWareHouse().addResourcestoAdd(type, i, n);
         if(personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
-        controller.sendUpdateStartAddResources(this);
+        controller.sendUpdateAddResources(this);
     }
 
     public void discardResources(Controller controller,Resource type, int n) throws ModelException{
         if(phase != TurnState.ADDRESOURCES) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         personalBoard.getWareHouse().discardResourcesToAdd(type, n);
         for(int i = 0; i < n; i++){
-            for(Player x : game.getPlayers()){
-                if(!x.equals(game.getCurrentPlayer())) {
-                    x.personalBoard.getFaithTrack().movePositionForward();
+            if(game.isSoloMatch()) {
+                game.getCpu().getFaithTrack().movePositionForward();
+            }else{
+                for(Player x : game.getPlayers()){
+                    if(!x.equals(game.getCurrentPlayer())) {
+                        x.personalBoard.getFaithTrack().movePositionForward();
+                    }
                 }
             }
         }

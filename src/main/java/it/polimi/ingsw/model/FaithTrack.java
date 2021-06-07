@@ -111,7 +111,9 @@ public class FaithTrack {
      */
     public void movePositionForward(){
         int playerPos= track.indexOf(playerPosition);
-        playerPosition= track.get(playerPos+1);
-        playerPosition.report();
+        if(playerPos<24) {
+            playerPosition = track.get(playerPos + 1);
+            playerPosition.report();
+        }
     }
 }

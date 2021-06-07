@@ -135,7 +135,7 @@ public class WareHouse {
         if (resourcesToAdd.isEmpty() == true)
             throw new ModelException("All resources are already organized in the storages");
         if (resourcesToAdd.get(type) == null) throw new ModelException("No resources of this type");
-        if (n > resourcesToAdd.get(type)) throw new ModelException("Not enough" + type);
+        if (n > resourcesToAdd.get(type)) throw new ModelException("Not enough " + type);
         resourcesToAdd.put(type, resourcesToAdd.get(type) - n);
         if (resourcesToAdd.get(type) == 0) resourcesToAdd.remove(type);
     }

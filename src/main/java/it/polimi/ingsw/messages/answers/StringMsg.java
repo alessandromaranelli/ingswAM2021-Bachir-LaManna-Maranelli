@@ -9,7 +9,8 @@ public class StringMsg extends AnswerMsg {
         this.message = message;
     }
 
-    public void processMessage(LightModel lightModel){}
+    public void processMessage(LightModel lightModel){
+    }
 
     public void printMessage(){
         System.out.println(message);

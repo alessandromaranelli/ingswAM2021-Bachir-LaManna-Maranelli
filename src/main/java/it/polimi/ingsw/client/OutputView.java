@@ -55,7 +55,7 @@ public class OutputView implements Runnable{
             }
             else {
                 CommandMsg commandMessage = createCommandMessage(parts);
-                if(type != TypeOfCommand.VIEWMARKET && type != TypeOfCommand.VIEWDEVELOPMENTCARD && type != TypeOfCommand.VIEWLEADERS) {
+                if(type != TypeOfCommand.VIEWMARKET && type != TypeOfCommand.VIEWDEVELOPMENTCARD && type != TypeOfCommand.VIEWLEADERS && type!=TypeOfCommand.VIEWDEVELOPMENTCARDSTOBUY && type!=TypeOfCommand.VIEWFAITHTRACK && type!=TypeOfCommand.VIEWPRODUCTIONS && type!=TypeOfCommand.VIEWRESOURCES) {
                     sendCommandMessage(commandMessage);
                 }
                 type = TypeOfCommand.FOLD;
@@ -226,7 +226,10 @@ public class OutputView implements Runnable{
 
 
     public boolean parseEnum(String parts[]){
-        if(parts[0].toLowerCase().equals("nickname") && parts[2].toLowerCase().equals("numberofplayers") && parts.length==4 && client.getLightModel().getPhase() == TurnState.BEFORESTART){
+        if(parts[0].toLowerCase().equals("nickname") && parts[2].toLowerCase().equals("numberofplayers") &&
+                (parts[3].equals("0") || parts[3].equals("1") || parts[3].equals("2") || parts[3].equals("3") || parts[3].equals("4") ||
+                        parts[3].equals("5") || parts[3].equals("6") || parts[3].equals("7") || parts[3].equals("8") || parts[3].equals("9")) &&
+                parts.length==4 && client.getLightModel().getPhase() == TurnState.BEFORESTART){
             this.type = TypeOfCommand.NICKNAME;
             return true;
         }

@@ -11,6 +11,7 @@ public class StoragesVisualizer {
             String res  = getResource(storageType.get(i));
             for(int j=0; j<storageQuantity.get(i); j++)
                 System.out.print(" " + res + " ");
+            if(storageQuantity.get(i)==0) System.out.print(" " + 0 + " ");
             System.out.println();
         }
     }

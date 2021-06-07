@@ -59,8 +59,8 @@ public class LightModel {
 
     public LightModel(Client client){
         this.client = client;
-        CLI = false;                                 //deve essere messa a true solo se il player sceglie di giocare con la CLI
-        GUI = true;
+        CLI = true;                                 //deve essere messa a true solo se il player sceglie di giocare con la CLI
+        GUI = false;
 
         nickname = new String();
         phase = TurnState.BEFORESTART;

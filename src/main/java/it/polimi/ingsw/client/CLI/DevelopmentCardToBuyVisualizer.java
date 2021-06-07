@@ -9,7 +9,8 @@ public class DevelopmentCardToBuyVisualizer {
 
     public void plot(List<DevelopmentCard> developmentCards){
         DevelopmentCardVisualizer developmentCardVisualizer = new DevelopmentCardVisualizer();
-        for(int i=1; i <= developmentCards.size(); i++){
+        System.out.print( "\nCards you are able to buy from the table:  \n");
+        for(int i=0; i < developmentCards.size(); i++){
             developmentCardVisualizer.showDevelData(developmentCards.get(i));
             developmentCardVisualizer.plot();
         }

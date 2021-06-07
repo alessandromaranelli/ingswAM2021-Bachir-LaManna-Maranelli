@@ -50,6 +50,10 @@ public class Game {
         return players;
     }
 
+    public CPU getCpu() {
+        return cpu;
+    }
+
     public Table getTable() {
         return table;
     }
