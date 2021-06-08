@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.CLI;
 
 public class FaithTrackVisualizer {
     public void plot(int position, Boolean[] popeFavours){
-        System.out.println("This is your faith track!");
+        System.out.println("This the faith track!");
         for(int i=0;i<25;i++){
             if(i!=position)
                 System.out.print("["+i+"]");

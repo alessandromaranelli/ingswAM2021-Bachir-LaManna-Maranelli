@@ -49,6 +49,12 @@ public class EndTurnMsg extends CommandMsg{
                     controller.endGame(false);
                 }
             }
+            String x=new String("\nThis is the current situation: ");
+            for (Player p: controller.getGame().getPlayers()){
+                x=x+"\nPlayer "+p.getPlayerID()+": "+p.getNickname()+" is in position "+p.getPersonalBoard().getFaithTrack().getTrack().indexOf(p.getPersonalBoard().getFaithTrack().checkPlayerPosition());
+            }
+            if (controller.getGame().isSoloMatch()) x=x+"\nCPU Lorenzo is in position "+controller.getGame().getCpu().getCpuPosition();
+            controller.sendAll(new StringMsg(x));
             for(ClientHandler c : controller.getClientConnectionThreads()){
                 if(c.getPlayerID() == controller.getGame().getCurrentPlayer().getPlayerID()){
                     StartTurnMsg startTurnMsg = new StartTurnMsg(controller.getGame().getCurrentPlayer().getPhase(), controller.getGame().getCurrentPlayer().getNickname());

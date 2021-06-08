@@ -20,6 +20,7 @@ public class Controller {
     private int numberOfPlayers;
     private boolean lastTurn;
     private int turnsToPlay;
+    private ArrayList<Integer> availableChoices=new ArrayList<>();
 
     public Controller(Set<ClientHandler> clientConnectionThreads) throws FileNotFoundException {
         game = new Game();
@@ -31,6 +32,10 @@ public class Controller {
 
     public Game getGame() {
         return game;
+    }
+
+    public ArrayList<Integer> getAvailableChoices() {
+        return availableChoices;
     }
 
     public void startGame(){

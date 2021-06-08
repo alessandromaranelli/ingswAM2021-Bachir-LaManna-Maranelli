@@ -460,6 +460,7 @@ public class LightModel {
         this.setStorageQuantity(0, 0, 0);
 
         if(CLI == true){
+            System.out.println("Your Situation: ->");
             faithTrackVisualizer.plot(position, popeFavours);
             chestVisualizer.plot(chest);
             storagesVisualizer.plot(storageType, storageQuantity);
@@ -686,5 +687,21 @@ public class LightModel {
         else if(GUI == true){
             client.getGui().errorMessage(message);
         }
+    }
+
+    public void show(TurnState phase, String nickname, Map<Resource, Integer> mapFromChest, Integer[] storages, List<Resource> resourceList, int position, Boolean[] popeFavours, List<LeaderCard> leaderCardsPlayed){
+        setPhase(phase);
+        if(CLI){
+            System.out.println("\nThis is player "+nickname);
+            faithTrackVisualizer.plot(position, popeFavours);
+            chestVisualizer.plot(mapFromChest);
+            storagesVisualizer.plot(resourceList, Arrays.asList(storages.clone()));
+            if(leaderCardsPlayed.size()>0){
+                System.out.println("\nHere are his LeadersPlayed: ");
+                for(LeaderCard leaderCard:getLeaderCardsPlayed()) getLeaderCardVisualizer().showLeaderData(leaderCard);
+            }
+
+        }
+
     }
 }

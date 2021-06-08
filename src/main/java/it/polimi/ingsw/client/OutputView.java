@@ -178,6 +178,12 @@ public class OutputView implements Runnable{
             return new EndTurnMsg();
         }
 
+        if(type == TypeOfCommand.VIEWOTHERPLAYERS){
+            return new ViewOtherPlayersMsg();
+        }
+        if(type == TypeOfCommand.VIEWOTHERPLAYERNUMBER){
+            return new ViewOtherPlayerNumberMsg(Integer.parseInt(parts[0]));
+        }
 
         if(type == TypeOfCommand.VIEWMARKET){
             client.getLightModel().getMarketView().showMarbles(client.getLightModel().getMarket());
@@ -468,6 +474,14 @@ public class OutputView implements Runnable{
         }
         if (parts[0].toLowerCase().equals("viewresources")) {
             this.type = TypeOfCommand.VIEWRESOURCES;
+            return true;
+        }
+        if (parts[0].toLowerCase().equals("viewotherplayers")) {
+            this.type = TypeOfCommand.VIEWOTHERPLAYERS;
+            return true;
+        }
+        if ((parts[0].equals("0") || parts[0].equals("1") || parts[0].equals("2") || parts[0].equals("3") || parts[0].equals("4"))  && parts.length==1 &&(client.getLightModel().getPhase() == TurnState.VIEWOTHERPLAYERS )) {
+            this.type = TypeOfCommand.VIEWOTHERPLAYERNUMBER;
             return true;
         }
         else return false;

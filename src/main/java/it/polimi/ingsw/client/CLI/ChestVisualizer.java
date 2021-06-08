@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class ChestVisualizer {
     public void plot(Map<Resource, Integer> chest) {
+        System.out.println("This is the chest");
         for(Resource s: chest.keySet()){
             String res = getResource(s);
             System.out.println("--" + res + ":" + chest.get(s));

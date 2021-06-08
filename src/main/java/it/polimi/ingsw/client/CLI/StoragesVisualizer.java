@@ -7,6 +7,7 @@ import java.util.List;
 
 public class StoragesVisualizer {
     public void plot(List<Resource> storageType, List<Integer> storageQuantity){
+        System.out.println("These are the storages");
         for(int i=0;i<storageType.size(); i++){
             String res  = getResource(storageType.get(i));
             for(int j=0; j<storageQuantity.get(i); j++)

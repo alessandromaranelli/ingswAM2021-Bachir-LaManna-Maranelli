@@ -20,7 +20,7 @@ public class GameStartMsg extends AnswerMsg {
         developmentCards = d;
         currentPlayer = c;
         this.phase = phase;
-        message = "Game started. Current player is: " + currentPlayer;
+        message = "\n\nGame started. Current player is: " + currentPlayer;
     }
 
 

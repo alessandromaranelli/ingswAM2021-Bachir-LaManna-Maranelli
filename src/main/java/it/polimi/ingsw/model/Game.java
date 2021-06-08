@@ -84,7 +84,7 @@ public class Game {
     }
 
     public boolean isGameAboutToFinish(){
-        if (vaticanReportSections.get(2).isPassed()) return true;
+        if (vaticanReportSections.get(0).isPassed()) return true;
         for (Player p : players){
             if (p.getPersonalBoard().getCardSlot().countCards()>=7) return true;
         }
@@ -92,7 +92,7 @@ public class Game {
     }
 
     public boolean hasLorenzoWon(){
-        if (vaticanReportSections.get(2).isPassed()) return true;
+        if (vaticanReportSections.get(0).isPassed()) return true;
         int counter;
         for (Color c : Color.values()){
             counter=0;
