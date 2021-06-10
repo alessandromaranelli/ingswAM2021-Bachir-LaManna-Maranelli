@@ -492,10 +492,12 @@ public class Controller {
 
     public void endGame(boolean Lorenzo) throws ModelException {
         if(Lorenzo){
-            //end connection
+            for (ClientHandler clientHandler : clientConnectionThreads){
+                clientHandler.closeSocketStreams();
+            }
             return;
         }
-        Player player=game.getPlayerById(0);
+        Player player=game.getPlayerById(1);
         int winPoints=player.getPersonalBoard().countVictoryPoints();
         for(Player p: game.getPlayers()){
             if(p.getPersonalBoard().countVictoryPoints()>winPoints){
@@ -503,8 +505,10 @@ public class Controller {
                 winPoints=p.getPersonalBoard().countVictoryPoints();
             }
         }
-        sendAll(new WinMsg("Player "+ player.getNickname()+" won the game with "+winPoints+" victoryPoints"));
-        //end connections
+        sendAll(new WinMsg("\nPlayer "+ player.getNickname()+" won the game with "+winPoints+" victoryPoints"));
+        for (ClientHandler clientHandler : clientConnectionThreads){
+            clientHandler.closeSocketStreams();
+        }
     }
 
 }

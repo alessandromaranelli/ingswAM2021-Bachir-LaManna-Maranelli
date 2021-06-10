@@ -222,7 +222,7 @@ public class OutputView implements Runnable{
         }
 
         if(type == TypeOfCommand.VIEWRESOURCES){
-            client.getLightModel().getChestVisualizer().plot(client.getLightModel().getChest());
+            client.getLightModel().getChestVisualizer().plot(client.getLightModel().getChest(),"This is the chest");
             client.getLightModel().getStoragesVisualizer().plot(client.getLightModel().getStorageType(), client.getLightModel().getStorageQuantity());
             return null;
         }

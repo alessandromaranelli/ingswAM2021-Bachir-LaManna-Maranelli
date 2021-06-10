@@ -7,14 +7,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Server {
-    private final Set<ClientHandler> clientConnectionThreads = new LinkedHashSet<>();
-    private Controller controller= new Controller(clientConnectionThreads);
     public static final int PORT = 1235;
     private boolean listening = true;
+    public ArrayList<LobbyServer> serverList = new ArrayList<>();
 
     public Server() throws FileNotFoundException {
     }
@@ -22,21 +22,29 @@ public class Server {
     public static void main(String[] args) throws IOException {
 
         Server s = new Server();
-        s.createLobby();
+        s.runServer();
     }
 
-    public void createLobby() {
-        new Thread(this::waitReady).start();
-        runServer();
-    }
 
-    public void runServer(){
+    public void runServer() {
+        LobbyServer lobbyServer = null;
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Server waiting for connections...");
-            while(listening){
+            while (listening) {
+                if (serverList.isEmpty() || serverList.stream().filter(p -> !p.isFull()).count() == 0) {
+                    lobbyServer = new LobbyServer();
+                    lobbyServer.createLobby();
+                    serverList.add(lobbyServer);
+                } else {
+                    for (LobbyServer l : serverList) {
+                        if (!l.isFull()) {
+                            lobbyServer = l;
+                            break;
+                        }
+                    }
+                }
                 Socket client = serverSocket.accept();
-                new ClientHandler(client, controller);
-                if (controller.getNumberOfPlayers()>0 && clientConnectionThreads.size()==controller.getNumberOfPlayers()) listening=false;
+                new ClientHandler(client, lobbyServer.getController());
             }
         } catch (IOException e) {
             System.err.println("Could not listen on port " + PORT);
@@ -44,35 +52,4 @@ public class Server {
         }
     }
 
-    public void waitReady(){
-        while (true) {
-            try {
-                if (areAllReady() && controller.getNumberOfPlayers()>0 && this.clientConnectionThreads.size() == controller.getNumberOfPlayers()) {     //vedi controller
-                    System.out.println("Starting game...");
-                    listening=false;
-                    controller.startGame();   //non so se serve
-                    controller.getGame().getPlayers().get(0).setAsCurrentPlayer();
-                    for (ClientHandler c: clientConnectionThreads) {
-                        if (c.getPlayerID() == 1) {
-                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.PREPARATION);
-                            c.sendAnswerMessage(gameStartMsg);
-                        }
-                        else{
-                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.ENDTURN);
-                            c.sendAnswerMessage(gameStartMsg);
-                        }
-                    }
-                    return;
-
-                }
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public boolean areAllReady() {
-        return clientConnectionThreads.stream().allMatch(ClientHandler::isReady);
-    }
 }

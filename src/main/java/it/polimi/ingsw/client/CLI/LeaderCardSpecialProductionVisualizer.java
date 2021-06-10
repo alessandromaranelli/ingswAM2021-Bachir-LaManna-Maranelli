@@ -120,12 +120,14 @@ public class LeaderCardSpecialProductionVisualizer {
 
     }
     public final void plot() {
-        System.out.print( ColorVisualizer.ANSI_GREEN.escape());
+        String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
+        System.out.print( whiteEscape);
         for (int r = 0; r < MAX_VERT_TILES; r++) {
             System.out.println();
             for (int c = 0; c < MAX_HORIZ_TILES; c++) {
                 System.out.print(tiles[r][c]);
             }
         }
+        System.out.print( whiteEscape);
     }
 }

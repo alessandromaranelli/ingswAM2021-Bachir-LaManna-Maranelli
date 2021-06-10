@@ -6,6 +6,8 @@ import java.util.Map;
 
 public class ProductionVisualizer {
     public void plot(Map<Resource, Integer> totalCost, Map<Resource, Integer> totalGain, int faithPoiints) {
+        String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
+        System.out.print( whiteEscape);
         System.out.println("Total cost of production:");
         for(Resource s: totalCost.keySet()){
             String res = getResource(s);
@@ -19,6 +21,7 @@ public class ProductionVisualizer {
         }
 
         System.out.println("Faithpoints gained: " + faithPoiints);
+        System.out.print( whiteEscape);
     }
 
     private String getResource(Resource res) {

@@ -36,31 +36,31 @@ public class DevelopmentCardVisualizer {
                 color = ColorVisualizer.ANSI_PURPLE.escape();;
 
         }
-        tiles[0][0] = color + "┌"+ greenEscape;
+        tiles[0][0] = color + "┌";
         for (int c = 1; c < MAX_HORIZ_TILES - 1; c++) {
-            tiles[0][c] = color + "─" + greenEscape;
+            tiles[0][c] = color + "─" ;
         }
-        tiles[0][MAX_HORIZ_TILES - 1] = color + "┐" + greenEscape;
+        tiles[0][MAX_HORIZ_TILES - 1] = color + "┐" ;
 
         for (int r = 1; r < MAX_VERT_TILES - 1; r++) {
-            tiles[r][0] = color + "│" + greenEscape;
+            tiles[r][0] = color + "│" ;
             for (int c = 1; c < MAX_HORIZ_TILES - 1; c++) {
-                tiles[r][c] = color +" " + greenEscape;
+                tiles[r][c] = color +" " ;
             }
-            tiles[r][MAX_HORIZ_TILES- 1] = color + " " + greenEscape;
+            tiles[r][MAX_HORIZ_TILES- 1] = color + " " ;
         }
 
-        tiles[MAX_VERT_TILES - 1][0] = color + "└" + greenEscape;
+        tiles[MAX_VERT_TILES - 1][0] = color + "└" ;
         for (int c = 1; c < MAX_HORIZ_TILES - 1; c++) {
-            tiles[MAX_VERT_TILES - 1][c] = color + "─" + greenEscape;
+            tiles[MAX_VERT_TILES - 1][c] = color + "─" ;
         }
 
-        tiles[MAX_VERT_TILES - 1][MAX_HORIZ_TILES - 1] = color + "┘" + greenEscape;
+        tiles[MAX_VERT_TILES - 1][MAX_HORIZ_TILES - 1] = color + "┘" ;
 
     }
     public String[][] showDevelData(DevelopmentCard developmentCard){
         fillEmpty(developmentCard.getColor());
-        String greenEscape = ColorVisualizer.ANSI_GREEN.escape();
+        String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
         //requirements
         tiles[1][1] = "R";
         tiles[1][2] = "E";
@@ -72,16 +72,16 @@ public class DevelopmentCardVisualizer {
                 tiles[1][i + 1] = developmentCard.getRequirements().get(r).toString();
                 switch (r) {
                     case SERVANT:
-                        tiles[1][i + 2] = ColorVisualizer.ANSI_PURPLE.escape() + "⚒" + greenEscape;
+                        tiles[1][i + 2] = ColorVisualizer.ANSI_PURPLE.escape() + "⚒" ;
                         break;
                     case SHIELD:
-                        tiles[1][i + 2] = ColorVisualizer.ANSI_BLUE.escape() + "⛊" + greenEscape;
+                        tiles[1][i + 2] = ColorVisualizer.ANSI_BLUE.escape() + "⛊" ;
                         break;
                     case COIN:
-                        tiles[1][i + 2] = ColorVisualizer.ANSI_YELLOW.escape() + "⛀" + greenEscape;
+                        tiles[1][i + 2] = ColorVisualizer.ANSI_YELLOW.escape() + "⛀" ;
                         break;
                     default:
-                        tiles[1][i + 2] = ColorVisualizer.ANSI_GREY.escape() + "⛰" + greenEscape;
+                        tiles[1][i + 2] = ColorVisualizer.ANSI_GREY.escape() + "⛰" ;
                         break;
                 }
                 tiles[1][i + 3] = " ";
@@ -106,16 +106,16 @@ public class DevelopmentCardVisualizer {
                 tiles[4][i + 1] = developmentCard.getProductionInput().get(r).toString();
                 switch (r) {
                     case SERVANT:
-                        tiles[4][i + 2] = ColorVisualizer.ANSI_PURPLE.escape() + "⚒" + greenEscape;
+                        tiles[4][i + 2] = ColorVisualizer.ANSI_PURPLE.escape() + "⚒";
                         break;
                     case SHIELD:
-                        tiles[4][i + 2] = ColorVisualizer.ANSI_BLUE.escape() + "⛊" + greenEscape;
+                        tiles[4][i + 2] = ColorVisualizer.ANSI_BLUE.escape() + "⛊";
                         break;
                     case COIN:
-                        tiles[4][i + 2] = ColorVisualizer.ANSI_YELLOW.escape() + "⛀" + greenEscape;
+                        tiles[4][i + 2] = ColorVisualizer.ANSI_YELLOW.escape() + "⛀";
                         break;
                     default:
-                        tiles[4][i + 2] = ColorVisualizer.ANSI_GREY.escape() + "⛰" + greenEscape;
+                        tiles[4][i + 2] = ColorVisualizer.ANSI_GREY.escape() + "⛰";
                         break;
 
                 }
@@ -130,16 +130,16 @@ public class DevelopmentCardVisualizer {
                 tiles[4][i + 1] = developmentCard.getProductionOutput().get(r).toString();
                 switch (r) {
                     case SERVANT:
-                        tiles[4][i + 2] = ColorVisualizer.ANSI_PURPLE.escape() + "⚒" + greenEscape;
+                        tiles[4][i + 2] = ColorVisualizer.ANSI_PURPLE.escape() + "⚒" ;
                         break;
                     case SHIELD:
-                        tiles[4][i + 2] = ColorVisualizer.ANSI_BLUE.escape() + "⛊" + greenEscape;
+                        tiles[4][i + 2] = ColorVisualizer.ANSI_BLUE.escape() + "⛊";
                         break;
                     case COIN:
-                        tiles[4][i + 2] = ColorVisualizer.ANSI_YELLOW.escape() + "⛀" + greenEscape;
+                        tiles[4][i + 2] = ColorVisualizer.ANSI_YELLOW.escape() + "⛀";
                         break;
                     default:
-                        tiles[4][i + 2] = ColorVisualizer.ANSI_GREY.escape() + "⛰" + greenEscape;
+                        tiles[4][i + 2] = ColorVisualizer.ANSI_GREY.escape() + "⛰";
                         break;
 
                 }
@@ -150,6 +150,7 @@ public class DevelopmentCardVisualizer {
         //faithpoints ma non credo vada messo
         tiles[5][1]="F";tiles[5][2]="P";tiles[5][3]=":";
         tiles[5][4]=""+developmentCard.getFaithPoint();
+
 
         return tiles;
     }
@@ -189,22 +190,26 @@ public class DevelopmentCardVisualizer {
 */
 
     public final void plot() {
-        System.out.print( ColorVisualizer.ANSI_GREEN.escape());
+        String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
+        System.out.print( whiteEscape);
         for (int r = 0; r < MAX_VERT_TILES; r++) {
             System.out.println();
             for (int c = 0; c < MAX_HORIZ_TILES; c++) {
                 System.out.print(tiles[r][c]);
             }
         }
+        System.out.print( whiteEscape);
     }
 
     public final void plot(int size,String[][] tiles) {
-        System.out.print( ColorVisualizer.ANSI_GREEN.escape());
+        String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
+        System.out.print( whiteEscape);
         for (int r = 0; r < MAX_VERT_TILES; r++) {
             System.out.println();
             for (int c = 0; c < size*MAX_HORIZ_TILES; c++) {
                 System.out.print(tiles[r][c]);
             }
         }
+        System.out.print( whiteEscape);
     }
 }

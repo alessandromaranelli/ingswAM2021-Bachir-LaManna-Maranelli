@@ -7,6 +7,8 @@ import java.util.List;
 
 public class StoragesVisualizer {
     public void plot(List<Resource> storageType, List<Integer> storageQuantity){
+        String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
+        System.out.print( whiteEscape);
         System.out.println("These are the storages");
         for(int i=0;i<storageType.size(); i++){
             String res  = getResource(storageType.get(i));
@@ -15,6 +17,7 @@ public class StoragesVisualizer {
             if(storageQuantity.get(i)==0) System.out.print(" " + 0 + " ");
             System.out.println();
         }
+        System.out.print( whiteEscape);
     }
 
     private String getResource(Resource res){

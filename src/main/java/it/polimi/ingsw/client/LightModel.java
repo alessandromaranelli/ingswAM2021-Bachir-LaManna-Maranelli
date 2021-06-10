@@ -316,23 +316,11 @@ public class LightModel {
     }
 
     public void setResourcesToOrganize(Map<Resource, Integer> resourcesToOrganize) {
-        if(resourcesToOrganize.isEmpty()){
-            resourcesToOrganize.put(Resource.COIN, 0);
-            resourcesToOrganize.put(Resource.STONE, 0);
-            resourcesToOrganize.put(Resource.SERVANT, 0);
-            resourcesToOrganize.put(Resource.SHIELD, 0);
-        }
-        else this.resourcesToOrganize = resourcesToOrganize;
+        this.resourcesToOrganize = resourcesToOrganize;
     }
 
     public void setResourcesToAdd(Map<Resource, Integer> resourcesToAdd) {
-        if(resourcesToAdd.isEmpty()){
-            resourcesToAdd.put(Resource.COIN, 0);
-            resourcesToAdd.put(Resource.STONE, 0);
-            resourcesToAdd.put(Resource.SERVANT, 0);
-            resourcesToAdd.put(Resource.SHIELD, 0);
-        }
-        else this.resourcesToAdd = resourcesToAdd;
+         this.resourcesToAdd = resourcesToAdd;
     }
 
     public Map<Resource, Integer> getResourcesToOrganize() {
@@ -462,7 +450,7 @@ public class LightModel {
         if(CLI == true){
             System.out.println("Your Situation: ->");
             faithTrackVisualizer.plot(position, popeFavours);
-            chestVisualizer.plot(chest);
+            chestVisualizer.plot(chest,"This is the chest");
             storagesVisualizer.plot(storageType, storageQuantity);
         }
         else if(GUI == true){
@@ -560,7 +548,7 @@ public class LightModel {
         this.setPhase(phase);
 
         if(CLI == true){
-            chestVisualizer.plot(resourcesToAdd);
+            chestVisualizer.plot(resourcesToAdd,"These are the resources to add");
         }
     }
 
@@ -577,7 +565,7 @@ public class LightModel {
         this.setPhase(phase);
 
         if(CLI == true){
-            chestVisualizer.plot(resourcesToOrganize);
+            chestVisualizer.plot(resourcesToOrganize,"These are the resources to organize");
         }
     }
 
@@ -602,7 +590,7 @@ public class LightModel {
         this.setCardCost(price);
 
         if(CLI == true){
-            chestVisualizer.plot(cardCost);
+            chestVisualizer.plot(cardCost,"This is the card cost");
         }
     }
 
@@ -611,7 +599,7 @@ public class LightModel {
         this.setPhase(phase);
 
         if(CLI == true){
-            chestVisualizer.plot(cardCost);
+            chestVisualizer.plot(cardCost,"This is the card cost");
         }
         else if(GUI == true){
             client.getGui().updatePersonalBoard(this);
@@ -658,7 +646,7 @@ public class LightModel {
 
         if(CLI == true){
             faithTrackVisualizer.plot(position, popeFavours);
-            chestVisualizer.plot(chest);
+            chestVisualizer.plot(chest,"This is the chest");
             storagesVisualizer.plot(storageType, storageQuantity);
         }
         else if(GUI == true){
@@ -672,7 +660,7 @@ public class LightModel {
 
         if(CLI == true){
             faithTrackVisualizer.plot(position, popeFavours);
-            chestVisualizer.plot(chest);
+            chestVisualizer.plot(chest, "This is the chest");
             storagesVisualizer.plot(storageType, storageQuantity);
         }
         else if(GUI == true){
@@ -694,7 +682,7 @@ public class LightModel {
         if(CLI){
             System.out.println("\nThis is player "+nickname);
             faithTrackVisualizer.plot(position, popeFavours);
-            chestVisualizer.plot(mapFromChest);
+            chestVisualizer.plot(mapFromChest,"This is the chest");
             storagesVisualizer.plot(resourceList, Arrays.asList(storages.clone()));
             if(leaderCardsPlayed.size()>0){
                 System.out.println("\nHere are his LeadersPlayed: ");

@@ -39,15 +39,14 @@ public class EndTurnMsg extends CommandMsg{
 
             }
             else controller.getGame().nextPlayer();
-
-            if(!controller.isLastTurn() && controller.getGame().isGameAboutToFinish()){
-                controller.startLastTurn();
-            }
             if(controller.isLastTurn() && controller.getTurnsToPlay()>0){
                 controller.setTurnsToPlay(controller.getTurnsToPlay()-1);
-                if(controller.getTurnsToPlay()==0){
-                    controller.endGame(false);
-                }
+            }
+            if(controller.isLastTurn() && controller.getTurnsToPlay()==0){
+                controller.endGame(false);
+            }
+            if(!controller.isLastTurn() && controller.getGame().isGameAboutToFinish()){
+                controller.startLastTurn();
             }
             String x=new String("\nThis is the current situation: ");
             for (Player p: controller.getGame().getPlayers()){
