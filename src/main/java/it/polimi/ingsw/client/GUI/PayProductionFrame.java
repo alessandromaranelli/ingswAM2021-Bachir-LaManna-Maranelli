@@ -15,18 +15,19 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class PayProductionFrame extends JFrame implements ActionListener {
-    LightModel lightModel;
-    Gui gui;
-    JPanel main, subMain, cost, availableResources;
-    JPanel storagePanel, chestPanel;
-    JButton submit;
+    private LightModel lightModel;
+    private Gui gui;
+    private JPanel main, subMain, cost, availableResources;
+    private JPanel storagePanel, chestPanel;
+    private JButton submit;
 
     //payment components
-    JPanel paymentPanel, storageResources, chestResources;
-    JComboBox<String> warehouseType;
-    JComboBox<Integer> storageN;
-    JTextField quantity;
-    JComboBox<Resource> resourceType;
+    private JPanel paymentPanel, storageResources, chestResources;
+    private JComboBox<String> warehouseType;
+    private JComboBox<Integer> storageN, quantity;
+    private JComboBox<Resource> resourceType;
+    private JLabel label1;
+    private JLabel label2;
 
 
     public PayProductionFrame(Gui gui, LightModel lightModel){
@@ -46,7 +47,7 @@ public class PayProductionFrame extends JFrame implements ActionListener {
         warehouseType =new JComboBox<>();
         storageN = new JComboBox<>();
         resourceType = new JComboBox<Resource>();
-        quantity = new JTextField("Quantity");
+        quantity = new JComboBox<>();
         submit = new JButton("SUBMIT");
 
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
@@ -106,19 +107,23 @@ public class PayProductionFrame extends JFrame implements ActionListener {
 
         //build paymentPanel
 
-
-        warehouseType.addItem("Chest");
         warehouseType.addItem("Storage");
+        warehouseType.addItem("Chest");
         warehouseType.addActionListener(this);
         //warehouseType.setVisible(true);
         warehouseType.setBorder(BorderFactory.createLineBorder(Color.blue,3));
 
+        label1 = new JLabel("Select storage");
         for(int i=1; i <= lightModel.getStorageQuantity().size(); i++) {
             storageN.addItem(i);
         }
         storageN.setBorder(BorderFactory.createLineBorder(Color.yellow, 3));
         //storageN.setVisible(false);
 
+        label2 = new JLabel("Select quantity");
+        for(int i=1; i <= 10; i++) {
+            quantity.addItem(i);
+        }
         quantity.setBorder(BorderFactory.createLineBorder(Color.green,3));
         //quantity.setVisible(true);
 
@@ -135,8 +140,10 @@ public class PayProductionFrame extends JFrame implements ActionListener {
         //submit.setVisible(true);
 
         paymentPanel.add(warehouseType);
-        paymentPanel.add(storageN);
         paymentPanel.add(resourceType);
+        paymentPanel.add(label1);
+        paymentPanel.add(storageN);
+        paymentPanel.add(label2);
         paymentPanel.add(quantity);
         paymentPanel.add(submit);
         paymentPanel.setLayout(new BoxLayout(paymentPanel,BoxLayout.Y_AXIS));
@@ -165,23 +172,24 @@ public class PayProductionFrame extends JFrame implements ActionListener {
         if(e.getSource().equals(warehouseType)){
             if(warehouseType.getSelectedItem().equals("Storage")){
                 storageN.setVisible(true);
+                label1.setVisible(true);
             }else{
                 storageN.setVisible(false);
+                label1.setVisible(false);
             }
         }else if (e.getSource().equals(submit)){
-            if(Integer.parseInt(quantity.getText())>0)
-                if(warehouseType.getSelectedItem().equals("Storage")) {
-                    //System.out.println("Storage" + resourceType.getSelectedItem() + storageN.getSelectedItem().toString() + quantity.getText());
-                    CommandMsg msg = new PayProductionFromStorage((Resource) resourceType.getSelectedItem(), (Integer)storageN.getSelectedItem(), Integer.parseInt(quantity.getText()));
-                    gui.sendMessage(msg);
-                    dispose();
-                }
-                else {
-                    //System.out.println("Chest" + resourceType.getSelectedItem() + quantity.getText());
-                    CommandMsg msg = new PayProductionFromChest((Resource) resourceType.getSelectedItem(), Integer.parseInt(quantity.getText()));
-                    gui.sendMessage(msg);
-                    dispose();
-                }
+            if(warehouseType.getSelectedItem().equals("Storage")) {
+                //System.out.println("Storage" + resourceType.getSelectedItem() + storageN.getSelectedItem().toString() + quantity.getText());
+                CommandMsg msg = new PayProductionFromStorage((Resource) resourceType.getSelectedItem(), (Integer) storageN.getSelectedItem(), (Integer) quantity.getSelectedItem());
+                gui.sendMessage(msg);
+                dispose();
+            }
+            else {
+                //System.out.println("Chest" + resourceType.getSelectedItem() + quantity.getText());
+                CommandMsg msg = new PayProductionFromChest((Resource) resourceType.getSelectedItem(), (Integer) quantity.getSelectedItem());
+                gui.sendMessage(msg);
+                dispose();
+            }
         }
     }
 }

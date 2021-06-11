@@ -12,11 +12,11 @@ import java.util.*;
 import java.util.List;
 
 public class MarketFrame extends JFrame {
-    List<JLabel> labels;
-    JLabel label;
-    JPanel head;
-    JPanel body;
-    JPanel excess;
+    private List<JLabel> labels;
+    private JLabel label;
+    private JPanel head;
+    private JPanel body;
+    private JPanel excess;
 
     public MarketFrame(Gui gui,LightModel lightModel,boolean buyMarbles){
         setTitle("MarketTray");
@@ -61,7 +61,8 @@ public class MarketFrame extends JFrame {
                 jButton.addActionListener(e -> {
                     gui.sendMessage(new StartMarketPhaseMsg(finalI+1,true));
                     dispose();
-                    System.out.println("Hai preso la"+(finalI +1)+"riga");});
+                    //System.out.println("Hai preso la"+(finalI +1)+"riga");
+                    });
                 body.add(jButton);
                 if(!buyMarbles)jButton.setVisible(false);
             }
@@ -72,7 +73,8 @@ public class MarketFrame extends JFrame {
                 jButton.addActionListener(e -> {
                     gui.sendMessage(new StartMarketPhaseMsg(finalI+1,false));
                     dispose();
-                    System.out.println("Hai preso la"+(finalI +1)+"colonna");});
+                    //System.out.println("Hai preso la"+(finalI +1)+"colonna");
+                    });
                 body.add(jButton);
                 if(!buyMarbles)jButton.setVisible(false);
             }

@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WareHousePanel extends JPanel {
-    List<JLabel> storageLabels;
-    JLabel coinChest;
-    JLabel servantChest;
-    JLabel shieldChest;
-    JLabel stoneChest;
+    private List<JLabel> storageLabels;
+    private JLabel coinChest;
+    private JLabel servantChest;
+    private JLabel shieldChest;
+    private JLabel stoneChest;
 
     public WareHousePanel(LightModel lightModel){
         setBackground(Color.ORANGE);

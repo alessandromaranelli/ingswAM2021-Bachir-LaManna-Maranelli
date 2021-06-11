@@ -14,9 +14,9 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 public class ViewAvailableDevelCardsFrame extends JFrame{
-    List<JLabel> jl;
-    LightModel lightModel;
-    Gui gui;
+    private List<JLabel> jl;
+    private LightModel lightModel;
+    private Gui gui;
 
     public ViewAvailableDevelCardsFrame(LightModel lightModel, Gui gui){
         jl = new ArrayList<>();

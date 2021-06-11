@@ -19,17 +19,17 @@ import java.util.List;
 import java.util.Map;
 
 public class DiscardLeaderCardFrame extends JFrame implements ActionListener, MouseListener {
-    Gui gui;
-    LightModel lightModel;
-    JPanel head;
-    JPanel body;
-    JLabel text;
-    JButton submit;
-    List<JLabel> jl;
-    int card1;
-    int card2;
-    JPanel contentPane;
-    int i;
+    private Gui gui;
+    private LightModel lightModel;
+    private JPanel head;
+    private JPanel body;
+    private JLabel text;
+    private JButton submit;
+    private List<JLabel> jl;
+    private int card1;
+    private int card2;
+    private JPanel contentPane;
+    private int i;
 
     public DiscardLeaderCardFrame(Gui gui, LightModel lightModel) {
         this.gui = gui;

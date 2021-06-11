@@ -36,7 +36,7 @@ public class Chest {
     }
 
     public void subFromChest(Resource type, int n) throws ModelException {
-        if(resources.get(type) - n < 0) throw new ModelException("Not enough" + type);
+        if(resources.get(type) - n < 0) throw new ModelException("Not enough " + type);
         resources.put(type, resources.get(type) - n);
     }
 }

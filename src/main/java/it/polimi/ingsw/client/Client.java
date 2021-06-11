@@ -64,9 +64,9 @@ public class Client {
         PongThread pongThread = new PongThread(outputView);
         pongThread.start();
 
-        //gui = new Gui(outputView);
-        //Thread g = new Thread(gui);
-        //SwingUtilities.invokeLater(g);
+        gui = new Gui(outputView);
+        Thread g = new Thread(gui);
+        SwingUtilities.invokeLater(g);
     }
 
     public LightModel getLightModel(){

@@ -70,7 +70,7 @@ public class Market implements Serializable {
 
     public ArrayList<Marble> chooseColumn(int column) throws ModelException {
         ArrayList<Marble> marbles= new ArrayList<>();
-        if(column>2||column<0) throw new ModelException("Wrong dimension");
+        if(column>4||column<0) throw new ModelException("Wrong dimension");
         for (int i=0;i<3;i++){
             marbles.add(marketTable[i][column]);
         }

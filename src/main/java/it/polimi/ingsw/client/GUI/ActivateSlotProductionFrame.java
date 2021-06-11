@@ -17,15 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActivateSlotProductionFrame extends JFrame implements ActionListener, MouseListener {
-    Gui gui;
-    LightModel lightModel;
-    JPanel head;
-    JPanel body;
-    JLabel text;
-    JButton submit;
-    List<JLabel> jl;
-    int slot;
-    JPanel contentPane;
+    private Gui gui;
+    private LightModel lightModel;
+    private JPanel head;
+    private JPanel body;
+    private JLabel text;
+    private JButton submit;
+    private List<JLabel> jl;
+    private int slot;
+    private JPanel contentPane;
 
     public ActivateSlotProductionFrame(Gui gui, LightModel lightModel) {
         this.gui = gui;
@@ -51,24 +51,31 @@ public class ActivateSlotProductionFrame extends JFrame implements ActionListene
         head.add(submit);
 
         jl = new ArrayList<>();
-        for(int i = 0; i < lightModel.getDevelopmentCard().size(); i++){
-            if(lightModel.getDevelopmentCard().get(i) == null){
-                JLabel slotLabel = new JLabel();
+        for(int i = 1; i <= 3; i++){
+            if(lightModel.getDevelopmentCard2().get(i) == null){
+                ImageIcon image = new ImageIcon(getClass().getResource("/DevelopmentCards/slot.png"));
+                Image img = image.getImage().getScaledInstance(200, 300, Image.SCALE_SMOOTH);
+
+                JLabel slotLabel = new JLabel(new ImageIcon(img));
+                slotLabel.setHorizontalTextPosition(JLabel.CENTER);
+                slotLabel.setVerticalTextPosition(JLabel.BOTTOM);
+                slotLabel.setHorizontalAlignment(JLabel.CENTER);
+                slotLabel.setVerticalAlignment(JLabel.CENTER);
                 slotLabel.setBorder(BorderFactory.createLineBorder(Color.green,3));
                 slotLabel.setVisible(true);
-                slotLabel.setText("Slot " + i + " empty");
                 jl.add(slotLabel);
             }
             else {
-                ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/DevelopmentCards/" + lightModel.getDevelopmentCard().get(i).getPath()).getImage().getScaledInstance(130, 200, Image.SCALE_SMOOTH));
-
+                DevelopmentCard card = lightModel.getDevelopmentCard2().get(i);
+                ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/DevelopmentCards/" + card.getPath()).getImage().getScaledInstance(130, 300, Image.SCALE_SMOOTH));
                 JLabel slotLabel = new JLabel();
                 slotLabel.setIcon(img);
+                slotLabel.setHorizontalTextPosition(JLabel.CENTER);
+                slotLabel.setVerticalTextPosition(JLabel.BOTTOM);
                 slotLabel.setHorizontalAlignment(JLabel.CENTER);
                 slotLabel.setVerticalAlignment(JLabel.CENTER);
                 slotLabel.setBorder(BorderFactory.createLineBorder(Color.green, 3));
                 slotLabel.setVisible(true);
-                slotLabel.setText("Slot " + i);
                 jl.add(slotLabel);
             }
         }

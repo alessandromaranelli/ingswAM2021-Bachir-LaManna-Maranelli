@@ -94,7 +94,7 @@ public class Storage {
      * @throws ModelException the model exception
      */
     public void addToStorage(Resource type, int n) throws ModelException {
-        if(this.type != type) throw new ModelException("Storage contains" + type);
+        if(this.type != type) throw new ModelException("Storage contains " + this.type);
         if(quantity + n > maxNumber) throw new ModelException("Exceeding limit for storage");
         quantity = quantity + n;
     }
@@ -107,8 +107,8 @@ public class Storage {
      * @throws ModelException the model exception
      */
     public void subFromStorage(Resource type, int n) throws ModelException{
-        if(this.type != type) throw new ModelException("Storage contains" + type);
-        if(quantity - n < 0) throw new ModelException("Not enough" + type);
+        if(this.type != type) throw new ModelException("Storage contains " + this.type);
+        if(quantity - n < 0) throw new ModelException("Not enough " + type);
         quantity = quantity - n;
     }
 

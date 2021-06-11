@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FaithTrackPanel extends JPanel{
-    List<JLabel> jLabelList;
+    private List<JLabel> jLabelList;
 
     public FaithTrackPanel(LightModel lightModel){
         setBackground(Color.RED);

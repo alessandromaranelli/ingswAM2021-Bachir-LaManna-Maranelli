@@ -9,16 +9,14 @@ import java.util.*;
 import java.util.List;
 
 public class DevelCardsSlotsPanel extends JPanel {
-    LightModel lightModel;
+    private LightModel lightModel;
 
     public DevelCardsSlotsPanel(LightModel lightModel) {
-
         this.lightModel = lightModel;
         setBackground(new Color(206,119,42, 51));
-        setBorder(BorderFactory.createLineBorder(Color.green,3));
-        int slotN = 0;
+        //setBorder(BorderFactory.createLineBorder(Color.green,3));
+        //int slotN = 0;
         List<JLabel> jl = new ArrayList<>();
-
 
         //---------------per provare-----------------
         /*ArrayList<String> d = new ArrayList<>();
@@ -26,29 +24,46 @@ public class DevelCardsSlotsPanel extends JPanel {
         d.add("src/main/resources/DevelopmentCards/Masters of Renaissance_Cards_FRONT_3mmBleed_1-30-1.png");
         d.add("src/main/resources/DevelopmentCards/Masters of Renaissance_Cards_FRONT_3mmBleed_1-3-1.png");
         for(String s:d){*/
-        for(DevelopmentCard dc: lightModel.getDevelopmentCard()){
-            slotN = lightModel.getDevelopmentCard().indexOf(dc);
-            //ImageIcon img = new ImageIcon((new ImageIcon(s).getImage().getScaledInstance(130, 300, Image.SCALE_SMOOTH)));
 
-            //immagine ridimensionata
-            ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/DevelopmentCards/"+ dc.getPath()).getImage().getScaledInstance(130, 300, Image.SCALE_SMOOTH));
-            //System.out.println(dc.getPath());
-            JLabel slotLabel = new JLabel();
-            slotLabel.setText("Slot " + slotN);
-            slotLabel.setIcon(img);
-            slotLabel.setHorizontalTextPosition(JLabel.CENTER);
-            slotLabel.setVerticalTextPosition(JLabel.BOTTOM);
-            slotLabel.setHorizontalAlignment(JLabel.CENTER);
-            slotLabel.setVerticalAlignment(JLabel.CENTER);
-            slotLabel.setBorder(BorderFactory.createLineBorder(Color.green,3));
-            slotLabel.setVisible(true);
-            jl.add(slotLabel);
+
+        for(int i=1; i <= 3; i++){
+            if(lightModel.getDevelopmentCard2().get(i) == null){
+                ImageIcon image = new ImageIcon(getClass().getResource("/DevelopmentCards/slot.png"));
+                Image img = image.getImage().getScaledInstance(200, 300, Image.SCALE_SMOOTH);
+
+                JLabel slotLabel = new JLabel(new ImageIcon(img));
+                //slotLabel.setText("Slot " + slotN);
+                //slotLabel.setIcon(img);
+                slotLabel.setHorizontalTextPosition(JLabel.CENTER);
+                slotLabel.setVerticalTextPosition(JLabel.BOTTOM);
+                slotLabel.setHorizontalAlignment(JLabel.CENTER);
+                slotLabel.setVerticalAlignment(JLabel.CENTER);
+                slotLabel.setBorder(BorderFactory.createLineBorder(Color.green,3));
+                slotLabel.setVisible(true);
+                jl.add(slotLabel);
+            }
+
+            else {
+                DevelopmentCard card = lightModel.getDevelopmentCard2().get(i);
+                ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/DevelopmentCards/" + card.getPath()).getImage().getScaledInstance(130, 300, Image.SCALE_SMOOTH));
+                JLabel slotLabel = new JLabel();
+                //slotLabel.setText("Slot " + slotN);
+                slotLabel.setIcon(img);
+                slotLabel.setHorizontalTextPosition(JLabel.CENTER);
+                slotLabel.setVerticalTextPosition(JLabel.BOTTOM);
+                slotLabel.setHorizontalAlignment(JLabel.CENTER);
+                slotLabel.setVerticalAlignment(JLabel.CENTER);
+                slotLabel.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+                slotLabel.setVisible(true);
+                jl.add(slotLabel);
+            }
         }
 
         for(JLabel j: jl){
             add(j);
         }
         setVisible(true);
+        setLayout(new GridLayout(1, 3));
     }
 
 }

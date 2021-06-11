@@ -223,16 +223,15 @@ public class Controller {
                 break;
             }
         }
-        if (player.getPhase()== TurnState.WHITEMARBLES){
+        if (player.getPhase() == TurnState.WHITEMARBLES){
             playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
                     player.getPersonalBoard().getManageWhiteMarbles()
-            ));
+            ));}
 
             StringMsg stringMsg = new StringMsg(player.getNickname() + " picked "+marbles.size()+" from the market");
             this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
 
             this.sendAll(new UpdateMarketMsg(this.getGame().getTable().getMarket()));
-        }
     }
 
     public void sendUpdateManageWhiteMarble(Player player){
@@ -281,6 +280,9 @@ public class Controller {
         playerClientHandlerMap.get(player).sendAnswerMessage(new ResourcesToOrganizeMsg(
                 player.getPersonalBoard().getWareHouse().getResourcesToOrganize(),
                 player.getPhase()));
+
+        StringMsg stringMsg = new StringMsg(player.getNickname() + " started to reorganize resources in storages");
+        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
     public void sendUpdateStartAddResources(Player player){

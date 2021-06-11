@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LeaderCardsFrame extends JFrame {
-    JPanel hand;
-    JPanel board;
-    List<LeaderCard> leaderCardsInHand;
-    List<LeaderCard> leaderCardsPlayed;
-    List<JLabel> cardsInHand;
-    List<JLabel> cardsPlayed;
+    private JPanel hand;
+    private JPanel board;
+    private List<LeaderCard> leaderCardsInHand;
+    private List<LeaderCard> leaderCardsPlayed;
+    private List<JLabel> cardsInHand;
+    private List<JLabel> cardsPlayed;
 
     public LeaderCardsFrame(LightModel lightModel) {
         leaderCardsInHand = new ArrayList<>();
