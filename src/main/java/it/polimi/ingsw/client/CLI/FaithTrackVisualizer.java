@@ -2,6 +2,8 @@ package it.polimi.ingsw.client.CLI;
 
 public class FaithTrackVisualizer {
     public void plot(int position, Boolean[] popeFavours){
+        String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
+        System.out.print( whiteEscape);
         System.out.println("This the faith track!");
         for(int i=0;i<25;i++){
             if(i!=position)
@@ -41,6 +43,7 @@ public class FaithTrackVisualizer {
             else System.out.print("["+"T"+"]");
         }
         System.out.println("  Actual state of your PopeFavours");
+        System.out.print( whiteEscape);
     }
 
 }

@@ -34,26 +34,26 @@ public class LeaderCardReductionVisualizer {
                 ;
 
         }
-        tiles[0][0] = color + "┌" + blueEscape;
+        tiles[0][0] = color + "┌" ;
         for (int c = 1; c < MAX_HORIZ_TILES - 1; c++) {
-            tiles[0][c] = color + "─" + blueEscape;
+            tiles[0][c] = color + "─" ;
         }
-        tiles[0][MAX_HORIZ_TILES - 1] = color + "┐" + blueEscape;
+        tiles[0][MAX_HORIZ_TILES - 1] = color + "┐" ;
 
         for (int r = 1; r < MAX_VERT_TILES - 1; r++) {
-            tiles[r][0] = color + "│" + blueEscape;
+            tiles[r][0] = color + "│" ;
             for (int c = 1; c < MAX_HORIZ_TILES - 1; c++) {
-                tiles[r][c] = color + " " + blueEscape;
+                tiles[r][c] = color + " " ;
             }
-            tiles[r][MAX_HORIZ_TILES - 1] = color + " " + blueEscape;
+            tiles[r][MAX_HORIZ_TILES - 1] = color + " " ;
         }
 
         tiles[MAX_VERT_TILES - 1][0] = color + "└" + blueEscape;
         for (int c = 1; c < MAX_HORIZ_TILES - 1; c++) {
-            tiles[MAX_VERT_TILES - 1][c] = color + "─" + blueEscape;
+            tiles[MAX_VERT_TILES - 1][c] = color + "─" ;
         }
 
-        tiles[MAX_VERT_TILES - 1][MAX_HORIZ_TILES - 1] = color + "┘" + blueEscape;
+        tiles[MAX_VERT_TILES - 1][MAX_HORIZ_TILES - 1] = color + "┘" ;
 
     }
 
@@ -82,16 +82,16 @@ public class LeaderCardReductionVisualizer {
         tiles[3][5] = ":";
         switch (leaderCard.getColor1()) {
             case GREEN:
-                tiles[3][6] = ColorVisualizer.ANSI_GREEN.escape() + "●" + greenEscape;
+                tiles[3][6] = ColorVisualizer.ANSI_GREEN.escape() + "●" ;
                 break;
             case PURPLE:
-                tiles[3][6] = ColorVisualizer.ANSI_PURPLE.escape() + "●" + greenEscape;
+                tiles[3][6] = ColorVisualizer.ANSI_PURPLE.escape() + "●" ;
                 break;
             case YELLOW:
-                tiles[3][6] = ColorVisualizer.ANSI_YELLOW.escape() + "●" + greenEscape;
+                tiles[3][6] = ColorVisualizer.ANSI_YELLOW.escape() + "●" ;
                 break;
             case BLUE:
-                tiles[3][6] = ColorVisualizer.ANSI_BLUE.escape() + "●" + greenEscape;
+                tiles[3][6] = ColorVisualizer.ANSI_BLUE.escape() + "●" ;
                 break;
         }
 
@@ -103,16 +103,16 @@ public class LeaderCardReductionVisualizer {
         tiles[4][5] = ":";
         switch (leaderCard.getColor2()) {
             case GREEN:
-                tiles[4][6] = ColorVisualizer.ANSI_GREEN.escape() + "●" + greenEscape;
+                tiles[4][6] = ColorVisualizer.ANSI_GREEN.escape() + "●" ;
                 break;
             case PURPLE:
-                tiles[4][6] = ColorVisualizer.ANSI_PURPLE.escape() + "●" + greenEscape;
+                tiles[4][6] = ColorVisualizer.ANSI_PURPLE.escape() + "●" ;
                 break;
             case YELLOW:
-                tiles[4][6] = ColorVisualizer.ANSI_YELLOW.escape() + "●" + greenEscape;
+                tiles[4][6] = ColorVisualizer.ANSI_YELLOW.escape() + "●" ;
                 break;
             case BLUE:
-                tiles[4][6] = ColorVisualizer.ANSI_BLUE.escape() + "●" + greenEscape;
+                tiles[4][6] = ColorVisualizer.ANSI_BLUE.escape() + "●" ;
                 break;
         }
 
@@ -124,27 +124,29 @@ public class LeaderCardReductionVisualizer {
         tiles[5][5] = ":";
         switch (leaderCard.getReduction()) {
             case SERVANT:
-                tiles[5][6] = ColorVisualizer.ANSI_PURPLE.escape() + "⚒" + greenEscape;
+                tiles[5][6] = ColorVisualizer.ANSI_PURPLE.escape() + "⚒" ;
                 break;
             case SHIELD:
-                tiles[5][6] = ColorVisualizer.ANSI_BLUE.escape() + "⛊" + greenEscape;
+                tiles[5][6] = ColorVisualizer.ANSI_BLUE.escape() + "⛊" ;
                 break;
             case COIN:
-                tiles[5][6] = ColorVisualizer.ANSI_YELLOW.escape() + "⛀" + greenEscape;
+                tiles[5][6] = ColorVisualizer.ANSI_YELLOW.escape() + "⛀" ;
                 break;
             default:
-                tiles[5][6] = ColorVisualizer.ANSI_GREY.escape() + "⛰" + greenEscape;
+                tiles[5][6] = ColorVisualizer.ANSI_GREY.escape() + "⛰" ;
                 break;
         }
     }
     public final void plot() {
-        System.out.print( ColorVisualizer.ANSI_GREEN.escape());
+        String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
+        System.out.print( whiteEscape);
         for (int r = 0; r < MAX_VERT_TILES; r++) {
             System.out.println();
             for (int c = 0; c < MAX_HORIZ_TILES; c++) {
                 System.out.print(tiles[r][c]);
             }
         }
+        System.out.print( whiteEscape);
     }
 }
 

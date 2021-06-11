@@ -125,7 +125,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    /*
+
     public synchronized void closeSocketStreams(){
         try {
             output.flush();
@@ -135,5 +135,4 @@ public class ClientHandler extends Thread {
             e.printStackTrace();
         }
     }
-     */
 }

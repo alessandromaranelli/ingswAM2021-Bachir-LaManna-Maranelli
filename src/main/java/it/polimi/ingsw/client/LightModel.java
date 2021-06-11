@@ -35,8 +35,9 @@ public class LightModel {
     private Map<Resource, Integer> totalCost;
     private Map<Resource, Integer> totalGain;
 
+
+
     private List<DevelopmentCard> developmentCard;
-    private Map<Integer, DevelopmentCard> developmentCard2;     //per adesso la uso solo nella GUI, ma mi sembra più comodo avere una mappa carta-slot piuttosto che una lista
     private Map<Resource, Integer> cardCost;
 
     private int whiteMarblesToManage;
@@ -58,8 +59,8 @@ public class LightModel {
 
     public LightModel(Client client){
         this.client = client;
-        CLI = false;                                 //deve essere messa a true solo se il player sceglie di giocare con la CLI
-        GUI = true;
+        CLI = true;                                 //deve essere messa a true solo se il player sceglie di giocare con la CLI
+        GUI = false;
 
         nickname = new String();
         phase = TurnState.BEFORESTART;
@@ -74,8 +75,6 @@ public class LightModel {
         position = 0;
         faithPoints = 0;
         developmentCard = new ArrayList<>(3);
-        developmentCard2 = new HashMap<>();
-
         storageType = new ArrayList<>(3);
         storageQuantity = new ArrayList<>(3);
         storageType.add(Resource.COIN);storageType.add(Resource.COIN);storageType.add(Resource.COIN);
@@ -156,10 +155,6 @@ public class LightModel {
         return developmentCard;
     }
 
-    public Map<Integer, DevelopmentCard> getDevelopmentCard2(){
-        return developmentCard2;
-    }
-
     public List<DevelopmentCard> getDevelopmentCardsToBuy(){
         return developmentCardsToBuy;
     }
@@ -211,7 +206,6 @@ public class LightModel {
 
     public void setPhase(TurnState phase) {
         this.phase = phase;
-        /*
         if(GUI){
             if(phase==TurnState.BUYDEVELOPMENTCARDPHASE) {
                 BuyDevelCardsFrame buyDevelCardsFrame = new BuyDevelCardsFrame(client.getGui(), this);
@@ -235,7 +229,6 @@ public class LightModel {
                 return;
             }
         }
-         */
     }
 
     public void setCurrentPlayer(String currentPlayer){
@@ -264,6 +257,7 @@ public class LightModel {
 
     public void setMarket(Marble[][] market) {
         this.market = market;
+
     }
 
     public Marble[][] getMarket() {
@@ -322,27 +316,11 @@ public class LightModel {
     }
 
     public void setResourcesToOrganize(Map<Resource, Integer> resourcesToOrganize) {
-        /*
-        if(resourcesToOrganize.isEmpty()){
-            resourcesToOrganize.put(Resource.COIN, 0);
-            resourcesToOrganize.put(Resource.STONE, 0);
-            resourcesToOrganize.put(Resource.SERVANT, 0);
-            resourcesToOrganize.put(Resource.SHIELD, 0);
-        }
-        else */
         this.resourcesToOrganize = resourcesToOrganize;
     }
 
     public void setResourcesToAdd(Map<Resource, Integer> resourcesToAdd) {
-        /*
-        if(resourcesToAdd.isEmpty()){
-            resourcesToAdd.put(Resource.COIN, 0);
-            resourcesToAdd.put(Resource.STONE, 0);
-            resourcesToAdd.put(Resource.SERVANT, 0);
-            resourcesToAdd.put(Resource.SHIELD, 0);
-        }
-        else */
-        this.resourcesToAdd = resourcesToAdd;
+         this.resourcesToAdd = resourcesToAdd;
     }
 
     public Map<Resource, Integer> getResourcesToOrganize() {
@@ -378,11 +356,7 @@ public class LightModel {
     }
 
     public void setDevelopmentCard(DevelopmentCard card, int slot) {
-       developmentCard.set(slot-1, card);                                   //set lancia eccezione perchè all'inizio la lista è vuota
-    }
-
-    public void setDevelopmentCard2(DevelopmentCard card, int slot) {
-        developmentCard2.put(slot, card);                                   //così non ho mai problemi
+       developmentCard.set(slot-1, card);
     }
 
     public void setCardCost(Map<Resource,Integer> cardCost) {
@@ -476,7 +450,7 @@ public class LightModel {
         if(CLI == true){
             System.out.println("Your Situation: ->");
             faithTrackVisualizer.plot(position, popeFavours);
-            chestVisualizer.plot(chest);
+            chestVisualizer.plot(chest,"This is the chest");
             storagesVisualizer.plot(storageType, storageQuantity);
         }
         else if(GUI == true){
@@ -567,9 +541,6 @@ public class LightModel {
             marketView.showMarbles(market.getMarketTable());
             marketView.plot();
         }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(TurnState phase, Map<Resource, Integer> map){     //UpdateResourcesToAddMsg
@@ -577,10 +548,7 @@ public class LightModel {
         this.setPhase(phase);
 
         if(CLI == true){
-            chestVisualizer.plot(resourcesToAdd);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
+            chestVisualizer.plot(resourcesToAdd,"These are the resources to add");
         }
     }
 
@@ -590,9 +558,6 @@ public class LightModel {
         if(CLI == true){
 
         }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(Map<Resource, Integer> map, TurnState phase){     //ResourcesToOrganizeMsg
@@ -600,22 +565,15 @@ public class LightModel {
         this.setPhase(phase);
 
         if(CLI == true){
-            chestVisualizer.plot(resourcesToOrganize);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
+            chestVisualizer.plot(resourcesToOrganize,"These are the resources to organize");
         }
     }
 
     public void update(DevelopmentCard card, int slot){             //Update CardSlotMsg
-        //this.setDevelopmentCard(card, slot);                      //lancia un'eccezione perchè all'inizio la lista è vuota
-        this.setDevelopmentCard2(card, slot);
+        this.setDevelopmentCard(card, slot);
 
         if(CLI == true){
             develCardsOfPlayerVisualizer.plot(developmentCard);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
         }
     }
 
@@ -625,9 +583,6 @@ public class LightModel {
         if(CLI == true){
             developmentCardToBuyVisualizer.plot(developmentCardsToBuy);
         }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void updateCardPrice(TurnState phase, Map<Resource, Integer> price){     //CardPriceMsg
@@ -635,10 +590,7 @@ public class LightModel {
         this.setCardCost(price);
 
         if(CLI == true){
-            chestVisualizer.plot(cardCost);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
+            chestVisualizer.plot(cardCost,"This is the card cost");
         }
     }
 
@@ -647,7 +599,7 @@ public class LightModel {
         this.setPhase(phase);
 
         if(CLI == true){
-            chestVisualizer.plot(cardCost);
+            chestVisualizer.plot(cardCost,"This is the card cost");
         }
         else if(GUI == true){
             client.getGui().updatePersonalBoard(this);
@@ -694,7 +646,7 @@ public class LightModel {
 
         if(CLI == true){
             faithTrackVisualizer.plot(position, popeFavours);
-            chestVisualizer.plot(chest);
+            chestVisualizer.plot(chest,"This is the chest");
             storagesVisualizer.plot(storageType, storageQuantity);
         }
         else if(GUI == true){
@@ -708,7 +660,7 @@ public class LightModel {
 
         if(CLI == true){
             faithTrackVisualizer.plot(position, popeFavours);
-            chestVisualizer.plot(chest);
+            chestVisualizer.plot(chest, "This is the chest");
             storagesVisualizer.plot(storageType, storageQuantity);
         }
         else if(GUI == true){
@@ -730,7 +682,7 @@ public class LightModel {
         if(CLI){
             System.out.println("\nThis is player "+nickname);
             faithTrackVisualizer.plot(position, popeFavours);
-            chestVisualizer.plot(mapFromChest);
+            chestVisualizer.plot(mapFromChest,"This is the chest");
             storagesVisualizer.plot(resourceList, Arrays.asList(storages.clone()));
             if(leaderCardsPlayed.size()>0){
                 System.out.println("\nHere are his LeadersPlayed: ");
