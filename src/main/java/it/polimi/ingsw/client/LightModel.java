@@ -60,8 +60,8 @@ public class LightModel {
 
     public LightModel(Client client){
         this.client = client;
-        CLI = false;                                 //deve essere messa a true solo se il player sceglie di giocare con la CLI
-        GUI = true;
+        CLI = true;                                 //deve essere messa a true solo se il player sceglie di giocare con la CLI
+        GUI = false;
 
         nickname = new String();
         phase = TurnState.BEFORESTART;
@@ -496,7 +496,7 @@ public class LightModel {
         this.setPhase(phase);
 
         if(CLI == true){
-            storagesVisualizer.plot(storageType, storageQuantity);
+            //storagesVisualizer.plot(storageType, storageQuantity);
         }
         else if(GUI == true){
             client.getGui().updatePersonalBoard(this);
@@ -598,7 +598,7 @@ public class LightModel {
         this.setDevelopmentCard2(card, slot);
 
         if(CLI == true){
-            develCardsOfPlayerVisualizer.plot(developmentCard);
+            develCardsOfPlayerVisualizer.plot(developmentCard2);
         }
         else if(GUI == true){
             client.getGui().updatePersonalBoard(this);

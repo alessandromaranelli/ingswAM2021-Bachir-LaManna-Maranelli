@@ -2,6 +2,9 @@ package it.polimi.ingsw.client;
 
 public enum TypeOfCommand {
     FOLD,
+
+    QUICKSTART,
+    NEWMATCH,
     NICKNAME,
     DRAWLEADERCARDS,
     DISCARDLEADERCARDS,

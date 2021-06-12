@@ -2,12 +2,11 @@ package it.polimi.ingsw.server;
 
 
 import Exceptions.ModelException;
-import it.polimi.ingsw.client.OutputView;
 import it.polimi.ingsw.messages.PongMsg;
 import it.polimi.ingsw.messages.answers.AnswerMsg;
 import it.polimi.ingsw.messages.answers.ErrorMsg;
+import it.polimi.ingsw.messages.commands.beforestart.BeforeStartMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
-import it.polimi.ingsw.messages.commands.preparation.NickNameMsg;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -24,10 +23,12 @@ public class ClientHandler extends Thread {
     private int playerID;
     private boolean ready;
     private Controller controller;
+    private Lobby lobby;
 
-    public ClientHandler(Socket socket, Controller controller) throws IOException {
+    public ClientHandler(Socket socket, Lobby lobby) throws IOException {
         this.socket = socket;
-        this.controller = controller;
+        this.lobby=lobby;
+        controller=null;
         output = new ObjectOutputStream(socket.getOutputStream());
         input = new ObjectInputStream(socket.getInputStream());
         ready = false;
@@ -40,6 +41,10 @@ public class ClientHandler extends Thread {
 
     public int getPlayerID() {
         return playerID;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
     public boolean isReady() {
@@ -60,7 +65,11 @@ public class ClientHandler extends Thread {
                 socket.setSoTimeout(20000);
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg) next;
-                command.processMessage(this, controller);
+                if (controller==null&&command instanceof BeforeStartMsg){
+                    BeforeStartMsg beforeStartMsg=(BeforeStartMsg) command;
+                    beforeStartMsg.processMessage(this,lobby);
+                }
+                else command.processMessage(this, controller);
             }
 
         } catch (SocketTimeoutException e) {
@@ -88,8 +97,13 @@ public class ClientHandler extends Thread {
                 //System.out.println("input");
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg) next;
-                if (controller.isCurrentPlayer(this, command)) {
-                    command.processMessage(this, controller);
+                if (controller==null&&command instanceof BeforeStartMsg){
+                    BeforeStartMsg beforeStartMsg=(BeforeStartMsg) command;
+                    beforeStartMsg.processMessage(this,lobby);
+                }
+                else if (controller.isCurrentPlayer(this, (CommandMsg)command)) {
+                    CommandMsg commandMsg=(CommandMsg) command;
+                    commandMsg.processMessage(this, controller);
                 }
                 else if(command instanceof PongMsg){
                     //do nothing

@@ -11,7 +11,7 @@ public class UpdateCardSlotMsg extends AnswerMsg{
     public UpdateCardSlotMsg(DevelopmentCard card, int slot){
         this.card = card;
         this.slot = slot;
-        message = "Added card to slot: " + slot;
+        message = "\nAdded card to slot: " + slot;
     }
 
     @Override

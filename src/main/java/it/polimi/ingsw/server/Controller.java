@@ -330,7 +330,7 @@ public class Controller {
     }
 
     public void sendUpdateBuyCard(Player player,int slot) throws ModelException {
-        UpdateDecksMsg updateDecksMsg = new UpdateDecksMsg("You bought the card", this.getGame().getTable().getTopDevelopmentcards());
+        UpdateDecksMsg updateDecksMsg = new UpdateDecksMsg("\nYou bought the card", this.getGame().getTable().getTopDevelopmentcards());
         playerClientHandlerMap.get(player).sendAnswerMessage(updateDecksMsg);
 
         UpdateCardSlotMsg updateCardSlotMsg = new UpdateCardSlotMsg(player.getPersonalBoard().getCardSlot().getTopCardofSlot(slot), slot);
@@ -358,7 +358,8 @@ public class Controller {
         CardPriceMsg cardPriceMsg = new CardPriceMsg(player.getPhase(), player.getPersonalBoard().getCardCost());
         playerClientHandlerMap.get(player).sendAnswerMessage(cardPriceMsg);
 
-        UpdateStorageMsg updateStorageMsg = new UpdateStorageMsg(player.getPhase(), player.getPersonalBoard().getWareHouse().getMapfromAllStorages().values().toArray(new Integer[3]));
+        UpdateStorageMsg updateStorageMsg = new UpdateStorageMsg(player.getPhase(), player.getPersonalBoard().getWareHouse().getStorages().
+                stream().map(Storage::getQuantity).toArray(Integer[]::new));
         playerClientHandlerMap.get(player).sendAnswerMessage(updateStorageMsg);
 
         StringMsg stringMsg = new StringMsg(player.getNickname() + " paid card from storage");
@@ -436,7 +437,8 @@ public class Controller {
         UpdateProductionCostMsg updateProductionCostMsg = new UpdateProductionCostMsg(player.getPersonalBoard().getProduction().getTotalCost());
         playerClientHandlerMap.get(player).sendAnswerMessage(updateProductionCostMsg);
 
-        UpdateStorageMsg updateStorageMsg = new UpdateStorageMsg(player.getPhase(), player.getPersonalBoard().getWareHouse().getMapfromAllStorages().values().toArray(new Integer[3]));
+        UpdateStorageMsg updateStorageMsg = new UpdateStorageMsg(player.getPhase(), player.getPersonalBoard().getWareHouse().getStorages().
+                stream().map(Storage::getQuantity).toArray(Integer[]::new));
         playerClientHandlerMap.get(player).sendAnswerMessage(updateStorageMsg);
 
         if(player.getPersonalBoard().getProduction().totalCostIsEmpty()){
