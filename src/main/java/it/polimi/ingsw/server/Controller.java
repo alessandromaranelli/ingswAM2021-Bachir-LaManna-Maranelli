@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Controller {
+    private Match match;
     private Game game;
     private final Set<ClientHandler> clientConnectionThreads;   //magari è meglio usare una mappa che associa ad ogni ID il relativo clientHandler così da evitare ogni volte di scorrere tutto il set alla ricerca del player giusto
     private Map<Player,ClientHandler> playerClientHandlerMap=new HashMap<>();
@@ -22,9 +23,10 @@ public class Controller {
     private int turnsToPlay;
     private ArrayList<Integer> availableChoices=new ArrayList<>();
 
-    public Controller(Set<ClientHandler> clientConnectionThreads) throws FileNotFoundException {
+    public Controller(Set<ClientHandler> clientConnectionThreads, Match match) throws FileNotFoundException {
         game = new Game();
         this.clientConnectionThreads = clientConnectionThreads;
+        this.match=match;
         gameStarted = false;
         numberOfPlayers = 0;
         lastTurn=false;
@@ -75,7 +77,7 @@ public class Controller {
         return clientConnectionThreads;
     }
 
-    public boolean isCurrentPlayer(ClientHandler clientHandler, CommandMsg commandMsg){
+    public boolean isCurrentPlayer(ClientHandler clientHandler){
         if(!gameStarted)return true;
         if(clientHandler.getPlayerID()!=game.getCurrentPlayer().getPlayerID()){
             //Wrong player
@@ -513,6 +515,7 @@ public class Controller {
         for (ClientHandler clientHandler : clientConnectionThreads){
             clientHandler.closeSocketStreams();
         }
+        match.closeMatch();
     }
 
 }

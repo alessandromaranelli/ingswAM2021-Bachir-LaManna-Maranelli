@@ -11,7 +11,7 @@ public class Lobby {
     private final Set<ClientHandler> clientConnectionThreads = new LinkedHashSet<>();
     private Set<Match> matches;
 
-
+    //TODO handle end game with the connections
     public Lobby(Server server,Set<Match> matches) throws FileNotFoundException {
         this.server=server;
         this.matches=matches;
@@ -23,7 +23,7 @@ public class Lobby {
     }
 
     public synchronized void createMatch(ClientHandler clientHandler) throws FileNotFoundException {
-        Match match=new Match();
+        Match match=new Match(server);
         matches.add(match);
         match.createMatch();
         match.getClientConnectionThreads().add(clientHandler);
@@ -40,7 +40,7 @@ public class Lobby {
                 return;
             }
         }
-        Match match=new Match();
+        Match match=new Match(server);
         matches.add(match);
         match.createMatch();
         match.getClientConnectionThreads().add(clientHandler);

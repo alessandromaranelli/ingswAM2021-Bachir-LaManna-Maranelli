@@ -7,6 +7,8 @@ import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
+import it.polimi.ingsw.server.Match;
+import it.polimi.ingsw.server.Server;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -17,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LeaderCardVisualizerTest {
     Set<ClientHandler> clientHandlers=new LinkedHashSet<>();
-    Controller controller=new Controller(clientHandlers);
+    Controller controller=new Controller(clientHandlers,new Match(new Server()));
 
     public LeaderCardVisualizerTest() throws FileNotFoundException {
     }

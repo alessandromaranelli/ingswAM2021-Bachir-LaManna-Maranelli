@@ -24,6 +24,7 @@ public class ClientHandler extends Thread {
     private boolean ready;
     private Controller controller;
     private Lobby lobby;
+    private boolean connected;
 
     public ClientHandler(Socket socket, Lobby lobby) throws IOException {
         this.socket = socket;
@@ -32,6 +33,7 @@ public class ClientHandler extends Thread {
         output = new ObjectOutputStream(socket.getOutputStream());
         input = new ObjectInputStream(socket.getInputStream());
         ready = false;
+        connected=true;
         this.start();
     }
 
@@ -55,6 +57,14 @@ public class ClientHandler extends Thread {
         this.ready = true;
     }
 
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
+
     public void run() {
         PingThread pingThread = new PingThread(this);
         Thread ping = new Thread(pingThread);
@@ -72,7 +82,19 @@ public class ClientHandler extends Thread {
                 else command.processMessage(this, controller);
             }
 
-        } catch (SocketTimeoutException e) {
+        } catch (SocketException e){
+            try {
+                socket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            this.setConnected(false);
+
+            //System.exit(0);
+
+        }
+
+        catch (SocketTimeoutException e) {
             e.printStackTrace();    //gestire la disconnessione del client
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -81,7 +103,6 @@ public class ClientHandler extends Thread {
         } catch (ModelException e) {
             e.printStackTrace();
         }
-
         try {
             handleClientConnection();
         } catch (IOException e) {
@@ -101,9 +122,8 @@ public class ClientHandler extends Thread {
                     BeforeStartMsg beforeStartMsg=(BeforeStartMsg) command;
                     beforeStartMsg.processMessage(this,lobby);
                 }
-                else if (controller.isCurrentPlayer(this, (CommandMsg)command)) {
-                    CommandMsg commandMsg=(CommandMsg) command;
-                    commandMsg.processMessage(this, controller);
+                else if (controller.isCurrentPlayer(this)) {
+                    command.processMessage(this, controller);
                 }
                 else if(command instanceof PongMsg){
                     //do nothing
@@ -115,7 +135,10 @@ public class ClientHandler extends Thread {
             }
         } catch (SocketException e){
             System.out.println("Client died");
-            System.exit(0);
+            socket.close();
+            this.setConnected(false);
+
+            //System.exit(0);
 
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             System.out.println("invalid stream from client");

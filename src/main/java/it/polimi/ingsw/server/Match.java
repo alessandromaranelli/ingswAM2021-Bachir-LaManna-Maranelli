@@ -9,12 +9,14 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Match {
+    private Server server;
     private final Set<ClientHandler> clientConnectionThreads = new LinkedHashSet<>();
-    private Controller controller = new Controller(clientConnectionThreads);
+    private Controller controller = new Controller(clientConnectionThreads,this);
     private boolean isFull=false;
 
 
-    public Match() throws FileNotFoundException {
+    public Match(Server server) throws FileNotFoundException {
+        this.server=server;
     }
 
 
@@ -72,5 +74,9 @@ public class Match {
 
     public boolean areAllReady() {
         return clientConnectionThreads.stream().allMatch(ClientHandler::isReady);
+    }
+
+    public void closeMatch(){
+        server.removeGame(this);
     }
 }

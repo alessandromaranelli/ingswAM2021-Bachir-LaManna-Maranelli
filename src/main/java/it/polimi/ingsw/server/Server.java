@@ -29,18 +29,6 @@ public class Server {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Server waiting for connections...");
             while (listening) {
-                /*if (serverList.isEmpty() || serverList.stream().filter(p -> !p.isFull()).count() == 0) {
-                    lobbyServer = new Lobby();
-                    lobbyServer.createLobby();
-                    serverList.add(lobbyServer);
-                } else {
-                    for (Lobby l : serverList) {
-                        if (!l.isFull()) {
-                            lobbyServer = l;
-                            break;
-                        }
-                    }
-                }*/
                 Socket client = serverSocket.accept();
                 lobby.add(new ClientHandler(client,lobby));
             }
@@ -48,6 +36,10 @@ public class Server {
             System.err.println("Could not listen on port " + PORT);
             System.exit(-1);
         }
+    }
+
+    public void removeGame(Match match){
+        matches.remove(match);
     }
 
 }
