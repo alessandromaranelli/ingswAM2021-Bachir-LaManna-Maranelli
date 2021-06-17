@@ -155,11 +155,11 @@ public class Production {
     }
 
     public void activatePersonalProduction(Resource input1, Resource input2, Resource output) throws ModelException{
-        Map<Resource, Integer> warehouse = wareHouse.totalResources();
-        if(input1 == input2 && totalCost.get(input1) + 2 > warehouse.get(input1)) throw new ModelException("Not enough resources");
+        Map<Resource, Integer> ware = wareHouse.totalResources();
+        if(input1 == input2 && totalCost.get(input1) + 2 > ware.get(input1)) throw new ModelException("Not enough resources");
         else {
-            if (totalCost.get(input1) + 1 > warehouse.get(input1)) throw new ModelException("Not enough resources");
-            if (totalCost.get(input2) + 1 > warehouse.get(input2)) throw new ModelException("Not enough resources");
+            if (totalCost.get(input1) + 1 > ware.get(input1)) throw new ModelException("Not enough resources");
+            if (totalCost.get(input2) + 1 > ware.get(input2)) throw new ModelException("Not enough resources");
         }
         if(personalProductionActivated == true) throw new ModelException("Personal production already activated");
 
