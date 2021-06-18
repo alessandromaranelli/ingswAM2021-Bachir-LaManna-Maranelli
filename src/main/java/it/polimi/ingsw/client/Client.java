@@ -19,30 +19,38 @@ public class Client {
     private LightModel lightModel;
     private static Gui gui;
 
-    public Client(int port, String hostname){
+    public Client(int port, String hostname,boolean gui){
         this.PORT = port;
         this.hostname = hostname;
-        lightModel = new LightModel(this);
+        if(gui){
+            this.lightModel=new LightModelGUI(this);
+        }
+        else this.lightModel=new LightModelCLI(this);
     }
 
     public static void main(String[] args) {
-        /*Scanner scanner = new Scanner(System.in);
-        System.out.println("Insert server address: ");
-        String hostname = scanner.nextLine();
-        System.out.println("Insert server port: ");
-        int port = scanner.nextInt();*/
-        if (args.length != 2) {
+
+        if (args.length != 3) {
             System.err.println(
-                    "Usage: java EchoClient <host name> <port number>");
+                    "Usage: java EchoClient <host name> <port number> <CLI/GUI>");
             System.exit(1);
         }
         String hostName = args[0];
         int portNumber = Integer.parseInt(args[1]);
+
         System.out.println("Connected" + " " + hostName + " " + portNumber);
         Socket socket;
+        Client client=null;
+        if (args[2].equals("GUI")){
+            client = new Client(portNumber, hostName,true);
 
-        Client client = new Client(portNumber, hostName);
-
+        }else if (args[2].equals("CLI")){
+            client = new Client(portNumber, hostName,false);
+        }else{
+            System.err.println(
+                    "Usage: java EchoClient <host name> <port number> <CLI/GUI>");
+            System.exit(1);
+        }
 
         try {
             socket = new Socket(hostName, portNumber);
@@ -63,10 +71,11 @@ public class Client {
 
         PongThread pongThread = new PongThread(outputView);
         pongThread.start();
-
-        /*gui = new Gui(outputView);
-        Thread g = new Thread(gui);
-        SwingUtilities.invokeLater(g);*/
+        if (args[2].equals("GUI")) {
+            gui = new Gui(outputView);
+            Thread g = new Thread(gui);
+            SwingUtilities.invokeLater(g);
+        }
     }
 
     public LightModel getLightModel(){
