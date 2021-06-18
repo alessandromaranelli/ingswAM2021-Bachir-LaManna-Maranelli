@@ -479,6 +479,8 @@ public class WareHouseTest {
     @Test
     public void testcontrolRequirements1() throws ModelException {
         Map<Resource, Integer> m = new HashMap<>();
+        m.put(Resource.SHIELD, 0);
+        m.put(Resource.STONE, 0);
         m.put(Resource.COIN, 2);
         m.put(Resource.SERVANT, 2);
         WareHouse wareHouse = new WareHouse();

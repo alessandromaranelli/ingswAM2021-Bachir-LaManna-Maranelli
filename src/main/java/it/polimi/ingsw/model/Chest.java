@@ -16,7 +16,11 @@ public class Chest {
 
     //return map of all the Resource types
     public Map<Resource, Integer> getResources(){
-        return this.resources;
+        Map<Resource,Integer> map=new HashMap<>();
+        for(Resource r:resources.keySet()){
+            map.put(r,resources.get(r));
+        }
+        return map;
     }
 
     //return quantity of a Resource type
