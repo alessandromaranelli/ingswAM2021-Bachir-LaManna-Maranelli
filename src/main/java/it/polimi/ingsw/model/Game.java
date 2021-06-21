@@ -80,7 +80,7 @@ public class Game {
         }
         currentPlayerID = (currentPlayerID == players.size()) ? 1 : currentPlayerID+1;
         setCurrentPlayer(players.get(currentPlayerID-1));
-        return currentPlayerID;
+        return currentPlayer;
     }
 
     public boolean isGameAboutToFinish(){

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.messages.commands.*;
+import it.polimi.ingsw.messages.commands.beforestart.JoinGameMsg;
 import it.polimi.ingsw.messages.commands.beforestart.NewGameMsg;
 import it.polimi.ingsw.messages.commands.beforestart.QuickStartMsg;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.BuyCardMsg;
@@ -80,6 +81,9 @@ public class OutputView implements Runnable{
         }
         if(type == TypeOfCommand.NEWMATCH) {
             return new NewGameMsg();
+        }
+        if(type == TypeOfCommand.REJOIN) {
+            return new JoinGameMsg(client.getLightModel().getUnicode());
         }
         if(type == TypeOfCommand.NICKNAME) {
             return new NickNameMsg(parts[1], Integer.parseInt(parts[3]));
@@ -246,6 +250,10 @@ public class OutputView implements Runnable{
         }
         if(parts[0].equals("NEW GAME")&& parts.length==1 && client.getLightModel().getPhase() == TurnState.BEFORESTART){
             this.type =TypeOfCommand.NEWMATCH;
+            return true;
+        }
+        if(parts[0].equals("REJOIN")&& parts.length==1 && client.getLightModel().getPhase() == TurnState.BEFORESTART){
+            this.type =TypeOfCommand.REJOIN;
             return true;
         }
         if(parts[0].toLowerCase().equals("nickname") && parts[2].toLowerCase().equals("numberofplayers") &&

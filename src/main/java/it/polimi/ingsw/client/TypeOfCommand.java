@@ -5,6 +5,8 @@ public enum TypeOfCommand {
 
     QUICKSTART,
     NEWMATCH,
+    REJOIN,
+
     NICKNAME,
     DRAWLEADERCARDS,
     DISCARDLEADERCARDS,

@@ -36,6 +36,21 @@ public class Controller {
         return game;
     }
 
+    public Object nextPlayer(){
+        Object o=game.nextPlayer();
+        if (o instanceof Player){
+            for(Player player: playerClientHandlerMap.keySet()){
+                if (player.equals(o)) {
+                    if (!playerClientHandlerMap.get(player).isConnected()) {
+                        nextPlayer();
+                        break;
+                    }
+                }
+            }
+        }
+        return o;
+    }
+
     public ArrayList<Integer> getAvailableChoices() {
         return availableChoices;
     }
@@ -75,6 +90,10 @@ public class Controller {
 
     public Set<ClientHandler> getClientConnectionThreads() {
         return clientConnectionThreads;
+    }
+
+    public Map<Player, ClientHandler> getPlayerClientHandlerMap() {
+        return playerClientHandlerMap;
     }
 
     public boolean isCurrentPlayer(ClientHandler clientHandler){

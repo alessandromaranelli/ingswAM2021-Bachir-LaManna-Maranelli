@@ -6,9 +6,15 @@ import it.polimi.ingsw.model.*;
 
 import javax.swing.*;
 import java.util.*;
+import java.util.prefs.Preferences;
 
 public abstract class LightModel {
     private Client client;
+
+
+    private final String PREF_CODE="Unicode";
+    private String unicode=null;
+    Preferences prefs = Preferences.userNodeForPackage(it.polimi.ingsw.client.LightModel.class);
 
     private String nickname;
     private int playerID;
@@ -136,6 +142,20 @@ public abstract class LightModel {
 
     public Client getClient() {
         return client;
+    }
+
+    public void setUnicode(String unicode) {
+        this.unicode = unicode;
+        prefs.put(PREF_CODE, this.unicode);
+    }
+
+    public String getUnicode() {
+        if (unicode==null){
+            String defaultValue = "default string";
+            String propertyValue = prefs.get(PREF_CODE, defaultValue); // "a string"
+            return propertyValue;
+        }
+        return unicode;
     }
 
     public int getPlayerID(){

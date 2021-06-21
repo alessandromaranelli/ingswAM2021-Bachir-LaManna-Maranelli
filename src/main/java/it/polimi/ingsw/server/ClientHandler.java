@@ -24,6 +24,7 @@ public class ClientHandler extends Thread {
     private boolean ready;
     private Controller controller;
     private Lobby lobby;
+    private String unicode;
     private boolean connected;
 
     public ClientHandler(Socket socket, Lobby lobby) throws IOException {
@@ -49,6 +50,14 @@ public class ClientHandler extends Thread {
         this.controller = controller;
     }
 
+    public String getUnicode() {
+        return unicode;
+    }
+
+    public void setUnicode(String unicode) {
+        this.unicode = unicode;
+    }
+
     public boolean isReady() {
         return ready;
     }
@@ -72,7 +81,7 @@ public class ClientHandler extends Thread {
 
         try {
             while (!ready) {
-                socket.setSoTimeout(20000);
+                //socket.setSoTimeout(20000);
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg) next;
                 if (controller==null&&command instanceof BeforeStartMsg){
@@ -114,7 +123,7 @@ public class ClientHandler extends Thread {
         try {
             while (true) {
                 /* read commands from the client, process them, and send replies */
-                socket.setSoTimeout(20000);
+                //socket.setSoTimeout(20000);
                 //System.out.println("input");
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg) next;
@@ -153,10 +162,11 @@ public class ClientHandler extends Thread {
 
     public synchronized void sendAnswerMessage(AnswerMsg answerMessage){
         try {
-            output.writeObject(answerMessage);
-            output.flush();
-            output.reset();
-            //System.out.println("Answer send");
+            if (this.isConnected()) {
+                output.writeObject(answerMessage);
+                output.flush();
+                output.reset();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -38,6 +38,10 @@ public class Server {
         }
     }
 
+    public Lobby getLobby() {
+        return lobby;
+    }
+
     public void removeGame(Match match){
         matches.remove(match);
     }
