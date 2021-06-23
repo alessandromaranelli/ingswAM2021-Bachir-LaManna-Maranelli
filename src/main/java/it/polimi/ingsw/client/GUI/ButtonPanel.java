@@ -49,6 +49,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
     JButton activateSpecialProduction2;
     JButton startPayProduction;
     JButton payProduction;
+    JButton activateLeadercard;
 
     public ButtonPanel(LightModel lightModel, Gui gui){
         this.lightModel = lightModel;
@@ -245,6 +246,13 @@ public class ButtonPanel extends JPanel implements ActionListener {
         payProduction.setBackground(Color.ORANGE);
         payProduction.setBorder(BorderFactory.createEtchedBorder());
 
+        activateLeadercard = new JButton("Activate Leadercard");
+        activateLeadercard.addActionListener(this);
+        activateLeadercard.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        activateLeadercard.setForeground(Color.BLUE);
+        activateLeadercard.setBackground(Color.ORANGE);
+        activateLeadercard.setBorder(BorderFactory.createEtchedBorder());
+
         setVisibleButtons(lightModel.getPhase());
     }
 
@@ -344,6 +352,8 @@ public class ButtonPanel extends JPanel implements ActionListener {
         }
         else if(e.getSource().equals(payProduction)){
             new PayProductionFrame(gui, lightModel);
+        }else if(e.getSource().equals(activateLeadercard)) {
+            new ActivateLeaderCardsFrame(gui, lightModel);
         }
     }
 
@@ -375,6 +385,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
             add(marketPhase);
             add(developmentCardPhase);
             add(productionPhase);
+            add(activateLeadercard);
         }
 
         if(phase == TurnState.MARKETPHASE){

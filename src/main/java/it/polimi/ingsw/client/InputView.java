@@ -31,7 +31,7 @@ public class InputView implements Runnable{
         while (true) {
             Object next = null;
             try {
-                socket.setSoTimeout(20000);
+                //socket.setSoTimeout(20000);
                 next = input.readObject();
             } catch (SocketException e){
                 System.out.println("Server died");
@@ -41,7 +41,6 @@ public class InputView implements Runnable{
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-
             AnswerMsg message = (AnswerMsg) next;
             message.processMessage(client.getLightModel());
             message.printMessage();

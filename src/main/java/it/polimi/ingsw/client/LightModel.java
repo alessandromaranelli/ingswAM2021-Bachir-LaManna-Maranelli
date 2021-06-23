@@ -6,11 +6,15 @@ import it.polimi.ingsw.model.*;
 
 import javax.swing.*;
 import java.util.*;
+import java.util.prefs.Preferences;
 
-public class LightModel {
+public abstract class LightModel {
     private Client client;
-    private boolean CLI;
-    private boolean GUI;                     //true se viene scelta la GUI
+
+
+    private final String PREF_CODE="Unicode";
+    private String unicode=null;
+    Preferences prefs = Preferences.userNodeForPackage(it.polimi.ingsw.client.LightModel.class);
 
     private String nickname;
     private int playerID;
@@ -60,8 +64,6 @@ public class LightModel {
 
     public LightModel(Client client){
         this.client = client;
-        CLI = false;                                 //deve essere messa a true solo se il player sceglie di giocare con la CLI
-        GUI = true;
 
         nickname = new String();
         phase = TurnState.BEFORESTART;
@@ -94,16 +96,6 @@ public class LightModel {
         specialProduction = new ArrayList<>();
 
 
-        marketView = new MarketVisualizer();
-        developmentCardView = new DevelopmentCardVisualizer();
-        leaderCardVisualizer = new LeaderCardVisualizer();
-        faithTrackVisualizer = new FaithTrackVisualizer();
-        developmentCardToBuyVisualizer = new DevelopmentCardToBuyVisualizer();
-        productionVisualizer = new ProductionVisualizer();
-        chestVisualizer = new ChestVisualizer();
-        storagesVisualizer = new StoragesVisualizer();
-        develCardsOfPlayerVisualizer = new DevelCardsOfPlayerVisualizer();
-
 
         chest.put(Resource.COIN, 0);
         chest.put(Resource.SHIELD, 0);
@@ -135,6 +127,35 @@ public class LightModel {
         cardCost.put(Resource.SERVANT, 0);
         cardCost.put(Resource.SHIELD, 0);
 
+        marketView = new MarketVisualizer();
+        developmentCardView = new DevelopmentCardVisualizer();
+        leaderCardVisualizer = new LeaderCardVisualizer();
+        faithTrackVisualizer = new FaithTrackVisualizer();
+        developmentCardToBuyVisualizer = new DevelopmentCardToBuyVisualizer();
+        productionVisualizer = new ProductionVisualizer();
+        chestVisualizer = new ChestVisualizer();
+        storagesVisualizer = new StoragesVisualizer();
+        develCardsOfPlayerVisualizer = new DevelCardsOfPlayerVisualizer();
+
+    }
+
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setUnicode(String unicode) {
+        this.unicode = unicode;
+        prefs.put(PREF_CODE, this.unicode);
+    }
+
+    public String getUnicode() {
+        if (unicode==null){
+            String defaultValue = "default string";
+            String propertyValue = prefs.get(PREF_CODE, defaultValue); // "a string"
+            return propertyValue;
+        }
+        return unicode;
     }
 
     public int getPlayerID(){
@@ -212,31 +233,6 @@ public class LightModel {
 
     public void setPhase(TurnState phase) {
         this.phase = phase;
-        /*
-        if(GUI){
-            if(phase==TurnState.BUYDEVELOPMENTCARDPHASE) {
-                BuyDevelCardsFrame buyDevelCardsFrame = new BuyDevelCardsFrame(client.getGui(), this);
-                return;
-            }
-            if(phase==TurnState.PAYDEVELOPMENTCARD){
-                PayDevelCardFrame payDevelCardFrame = new PayDevelCardFrame(client.getGui(), this);
-                return;
-            }
-            if(phase == TurnState.MARKETPHASE){
-                MarketFrame marketFrame=new MarketFrame(client.getGui(), this, true);
-                return;
-            }
-            if(phase == TurnState.CHOICE){
-                MarketBuyFrame marketBuyFrameFrame=new MarketBuyFrame(client.getGui(), this);
-                return;
-            }
-            if(phase == TurnState.ORGANIZERESOURCES){
-                new MarketOrganizeChoiceFrame(client.getGui(), this);
-                //SetStorageTypeFrame setStorageTypeFrame=new SetStorageTypeFrame(client.getGui(), this, false);
-                return;
-            }
-        }
-         */
     }
 
     public void setCurrentPlayer(String currentPlayer){
@@ -396,6 +392,7 @@ public class LightModel {
         specialProduction.add(resource);
     }
 
+
     public MarketVisualizer getMarketView() {
         return marketView;
     }
@@ -432,298 +429,86 @@ public class LightModel {
         return storagesVisualizer;
     }
 
-
-
-
     public void update(String nickname, int playerID, int numberOfPlayers, TurnState phase){            //UpdateNicknameMsg
-        this.setNickname(nickname);
-        this.setPhase(phase);
-        this.setPlayerID(playerID);
-        this.setNumberOfPlayers(numberOfPlayers);
 
-        if(CLI == true){
-
-        }
-        else if(GUI == true){
-            client.getGui().waitScene();
-        }
     }
 
     public void update(Marble[][] market, Marble marbleInExcess, List<DevelopmentCard> developmentCards, String currentPlayer, TurnState phase){    //GameStartMsg
-        this.setMarket(market);
-        this.setMarbleInExcess(marbleInExcess);
-        this.setDevelopmentCardsToBuy(developmentCards);
-        this.setCurrentPlayer(currentPlayer);
-        this.setPhase(phase);
 
-        this.setStorageType(Resource.COIN, Resource.SHIELD, Resource.SERVANT);
-        this.setStorageQuantity(0, 0, 0);
-
-        if(CLI == true){
-            System.out.println("Your Situation: ->");
-            faithTrackVisualizer.plot(position, popeFavours);
-            chestVisualizer.plot(chest,"This is the chest");
-            storagesVisualizer.plot(storageType, storageQuantity);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(List<LeaderCard> leaderCardInHand, List<LeaderCard> leaderCardsPlayed, TurnState phase){     //UpdateLeaderCardsMsg
-        this.setLeaderCardsInHand(leaderCardInHand);
-        this.setLeaderCardsPlayed(leaderCardsPlayed);
-        this.setPhase(phase);
 
-        if(CLI == true){
-            if(getLeaderCardsInHand().size()>0){
-                System.out.println("\nHere are your LeadersInHand: ");
-                for(LeaderCard leaderCard:getLeaderCardsInHand()) getLeaderCardVisualizer().showLeaderData(leaderCard);
-            }
-
-            if(getLeaderCardsPlayed().size()>0){
-                System.out.println("\nHere are your LeadersPlayed: ");
-                for(LeaderCard leaderCard:getLeaderCardsPlayed()) getLeaderCardVisualizer().showLeaderData(leaderCard);
-            }
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(TurnState phase, Resource r1, Resource r2, Resource r3){     //UpdateStorageTypesMsg
-        this.setStorageType(r1, r2, r3);
-        this.setPhase(phase);
 
-        if(CLI == true){
-            storagesVisualizer.plot(storageType, storageQuantity);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(TurnState phase, Integer[] storages){                        //UpdateStorageMsg
-        this.setPhase(phase);
-        if(storages.length == 3){
-            this.setStorageQuantity(storages[0], storages[1], storages[2]);
-        }
-        else if(storages.length == 4){
-            this.setStorageQuantity(storages[0], storages[1], storages[2], storages[3]);
-        }
-        else this.setStorageQuantity(storages[0], storages[1], storages[2], storages[3], storages[4]);
 
-        if(CLI == true){
-            storagesVisualizer.plot(storageType, storageQuantity);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(TurnState phase, int position, Boolean[] popeFavours){       //UpdateFaithMarkerPositionMsg
-        this.setPhase(phase);
-        this.setPosition(position);
-        this.setPopeFavours(popeFavours);
 
-        if(CLI == true){
-            faithTrackVisualizer.plot(position,popeFavours);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(TurnState phase){                            //UpdatePhaseMsg
-        this.setPhase(phase);
 
-        if(CLI == true){
-
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(Market market){                          //UpdateMarketMsg
-        this.setMarket(market.getMarketTable());
-        this.setMarbleInExcess(market.getMarbleInExcess());
 
-        if(CLI == true){
-            marketView.showMarbles(market.getMarketTable());
-            marketView.plot();
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(TurnState phase, Map<Resource, Integer> map){     //UpdateResourcesToAddMsg
-        this.setResourcesToAdd(map);
-        this.setPhase(phase);
 
-        if(CLI == true){
-            chestVisualizer.plot(resourcesToAdd,"These are the resources to add");
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(int whiteMarbles){               //UpdateWhiteMarblesToManageMsg
-        this.setWhiteMarblesToManage(whiteMarbles);
-
-        if(CLI == true){
-
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(Map<Resource, Integer> map, TurnState phase){     //ResourcesToOrganizeMsg
-        this.setResourcesToOrganize(map);
-        this.setPhase(phase);
 
-        if(CLI == true){
-            chestVisualizer.plot(resourcesToOrganize,"These are the resources to organize");
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(DevelopmentCard card, int slot){             //Update CardSlotMsg
-        //this.setDevelopmentCard(card, slot);                  //dà eccezione
-        this.setDevelopmentCard2(card, slot);
 
-        if(CLI == true){
-            develCardsOfPlayerVisualizer.plot(developmentCard);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(List<DevelopmentCard> cards){                //UpdateDecksMsg
-        this.setDevelopmentCardsToBuy(cards);
 
-        if(CLI == true){
-            developmentCardToBuyVisualizer.plot(developmentCardsToBuy);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void updateCardPrice(TurnState phase, Map<Resource, Integer> price){     //CardPriceMsg
-        this.setPhase(phase);
-        this.setCardCost(price);
 
-        if(CLI == true){
-            chestVisualizer.plot(cardCost,"This is the card cost");
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void updateChest(TurnState phase, Map<Resource, Integer> mapFromChest){      //ChestMsg
-        this.setChest(mapFromChest);
-        this.setPhase(phase);
 
-        if(CLI == true){
-            chestVisualizer.plot(cardCost,"This is the card cost");
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(Map<Resource, Integer> productionInput, Map<Resource, Integer> productionOutput, int faithPoint){        //UpdateCostGainsMsg
-        this.setTotalCost(productionInput);
-        this.setTotalGain(productionOutput);
-        this.setFaithPoints(faithPoint);
 
-        if(CLI == true){
-            productionVisualizer.plot(totalCost, totalGain, faithPoints);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(Map<Resource, Integer> totalCost){       //UpdateProductionCostMsg
-        this.setTotalCost(totalCost);
 
-        if(CLI == true){
-            productionVisualizer.plot(this.totalCost, this.totalGain, faithPoints);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(TurnState phase, Map<Resource, Integer> chest, int position, Boolean[] popeFavours){     //EndProductionMsg
-        this.setPhase(phase);
-        this.setChest(chest);
-        this.setPosition(position);
-        this.setPopeFavours(popeFavours);
-        this.setFaithPoints(0);
 
-        Map<Resource, Integer> totalGains = new HashMap<>();
-        totalGains.put(Resource.SERVANT, 0);
-        totalGains.put(Resource.COIN, 0);
-        totalGains.put(Resource.SHIELD, 0);
-        totalGains.put(Resource.STONE, 0);
-        this.setTotalGain(totalGains);
-
-        if(CLI == true){
-            faithTrackVisualizer.plot(position, popeFavours);
-            chestVisualizer.plot(chest,"This is the chest");
-            storagesVisualizer.plot(storageType, storageQuantity);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(TurnState phase, String currentPlayer){          //StartTurnMsg
-        this.setPhase(phase);
-        this.setCurrentPlayer(currentPlayer);
 
-        if(CLI == true){
-            faithTrackVisualizer.plot(position, popeFavours);
-            chestVisualizer.plot(chest, "This is the chest");
-            storagesVisualizer.plot(storageType, storageQuantity);
-        }
-        else if(GUI == true){
-            client.getGui().updatePersonalBoard(this);
-        }
     }
 
     public void update(String message){                                //ErrorMsg
-        if(CLI == true){
 
-        }
-        else if(GUI == true){
-            client.getGui().errorMessage(message);
-        }
     }
 
     public void show(TurnState phase, String nickname, Map<Resource, Integer> mapFromChest, Integer[] storages, List<Resource> resourceList, int position, Boolean[] popeFavours, List<LeaderCard> leaderCardsPlayed){
-        setPhase(phase);
-        if(CLI){
-            System.out.println("\nThis is player "+nickname);
-            faithTrackVisualizer.plot(position, popeFavours);
-            chestVisualizer.plot(mapFromChest,"This is the chest");
-            storagesVisualizer.plot(resourceList, Arrays.asList(storages.clone()));
-            if(leaderCardsPlayed.size()>0){
-                System.out.println("\nHere are his LeadersPlayed: ");
-                for(LeaderCard leaderCard:getLeaderCardsPlayed()) getLeaderCardVisualizer().showLeaderData(leaderCard);
-            }
-
-        }
 
     }
 }

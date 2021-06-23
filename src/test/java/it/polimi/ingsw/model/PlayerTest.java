@@ -2,6 +2,8 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
+import it.polimi.ingsw.server.Match;
+import it.polimi.ingsw.server.Server;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -17,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
     Set<ClientHandler> clientHandlers=new LinkedHashSet<>();
-    Controller controller=new Controller(clientHandlers);
+    Controller controller=new Controller(clientHandlers,new Match(new Server()));
 
     public PlayerTest() throws FileNotFoundException {
     }

@@ -20,7 +20,7 @@ public class EndTurnMsg extends CommandMsg{
             StringMsg stringMsg = new StringMsg("You ended your turn");
             clientHandler.sendAnswerMessage(stringMsg);
             if(controller.getGame().isSoloMatch()){
-                CpuAction cpuAction= (CpuAction) controller.getGame().nextPlayer();
+                CpuAction cpuAction= (CpuAction) controller.nextPlayer();
                 if (cpuAction instanceof CpuActionDiscard){
                     UpdateDecksMsg updateDecksMsg = new UpdateDecksMsg("\n\nLorenzo discarded two "+cpuAction.getcolor().toString()+" cards", controller.getGame().getTable().getTopDevelopmentcards());
                     clientHandler.sendAnswerMessage(updateDecksMsg);
@@ -38,7 +38,7 @@ public class EndTurnMsg extends CommandMsg{
                 }
 
             }
-            else controller.getGame().nextPlayer();
+            else controller.nextPlayer();
             if(controller.isLastTurn() && controller.getTurnsToPlay()>0){
                 controller.setTurnsToPlay(controller.getTurnsToPlay()-1);
             }

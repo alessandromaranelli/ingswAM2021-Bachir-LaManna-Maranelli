@@ -476,7 +476,24 @@ public class WareHouseTest {
 
         assertTrue(wareHouse.controlRequirements(card));
     }
-
+    @Test
+    public void testcontrolRequirements1() throws ModelException {
+        Map<Resource, Integer> m = new HashMap<>();
+        m.put(Resource.SHIELD, 0);
+        m.put(Resource.STONE, 0);
+        m.put(Resource.COIN, 2);
+        m.put(Resource.SERVANT, 2);
+        WareHouse wareHouse = new WareHouse();
+        wareHouse.setTypeOfStorage(1,Resource.SERVANT);
+        wareHouse.setTypeOfStorage(2,Resource.SHIELD);
+        wareHouse.setTypeOfStorage(3,Resource.COIN);
+        wareHouse.getStorages().get(0).addToStorage(Resource.SERVANT,1);
+        wareHouse.getStorages().get(1).addToStorage(Resource.SHIELD,2);
+        wareHouse.getStorages().get(2).addToStorage(Resource.COIN,2);
+        DevelopmentCard card = new DevelopmentCard(Color.BLUE, 1, 1, m, m, m, 0);
+        boolean b=wareHouse.controlRequirements(card);
+        assertFalse(wareHouse.controlRequirements(card));
+    }
     @Test
     public void testcontrolForStorage(){
         WareHouse wareHouse = new WareHouse();

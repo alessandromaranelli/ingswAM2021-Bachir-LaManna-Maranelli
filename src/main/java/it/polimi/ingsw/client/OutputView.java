@@ -1,6 +1,9 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.messages.commands.*;
+import it.polimi.ingsw.messages.commands.beforestart.JoinGameMsg;
+import it.polimi.ingsw.messages.commands.beforestart.NewGameMsg;
+import it.polimi.ingsw.messages.commands.beforestart.QuickStartMsg;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.BuyCardMsg;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.BuyDevelopmentPhaseMsg;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.PayCardFromChestMsg;
@@ -73,6 +76,15 @@ public class OutputView implements Runnable{
     }
 
     public CommandMsg createCommandMessage(String[] parts){
+        if(type == TypeOfCommand.QUICKSTART) {
+            return new QuickStartMsg();
+        }
+        if(type == TypeOfCommand.NEWMATCH) {
+            return new NewGameMsg();
+        }
+        if(type == TypeOfCommand.REJOIN) {
+            return new JoinGameMsg(client.getLightModel().getUnicode());
+        }
         if(type == TypeOfCommand.NICKNAME) {
             return new NickNameMsg(parts[1], Integer.parseInt(parts[3]));
         }
@@ -191,7 +203,7 @@ public class OutputView implements Runnable{
             return null;
         }
         if(type ==TypeOfCommand.VIEWDEVELOPMENTCARD){
-            client.getLightModel().getDevelCardsOfPlayerVisualizer().plot(client.getLightModel().getDevelopmentCard());
+            client.getLightModel().getDevelCardsOfPlayerVisualizer().plot(client.getLightModel().getDevelopmentCard2());
             return null;
         }
         if(type == TypeOfCommand.VIEWLEADERS){
@@ -232,6 +244,18 @@ public class OutputView implements Runnable{
 
 
     public boolean parseEnum(String parts[]){
+        if(parts[0].equals("QUICKSTART")&& parts.length==1 && client.getLightModel().getPhase() == TurnState.BEFORESTART){
+            this.type =TypeOfCommand.QUICKSTART;
+            return true;
+        }
+        if(parts[0].equals("NEW GAME")&& parts.length==1 && client.getLightModel().getPhase() == TurnState.BEFORESTART){
+            this.type =TypeOfCommand.NEWMATCH;
+            return true;
+        }
+        if(parts[0].equals("REJOIN")&& parts.length==1 && client.getLightModel().getPhase() == TurnState.BEFORESTART){
+            this.type =TypeOfCommand.REJOIN;
+            return true;
+        }
         if(parts[0].toLowerCase().equals("nickname") && parts[2].toLowerCase().equals("numberofplayers") &&
                 (parts[3].equals("0") || parts[3].equals("1") || parts[3].equals("2") || parts[3].equals("3") || parts[3].equals("4") ||
                         parts[3].equals("5") || parts[3].equals("6") || parts[3].equals("7") || parts[3].equals("8") || parts[3].equals("9")) &&
