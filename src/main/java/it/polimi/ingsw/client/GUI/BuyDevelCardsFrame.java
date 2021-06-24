@@ -71,7 +71,7 @@ public class BuyDevelCardsFrame extends JFrame implements ActionListener, MouseL
             //immagine ridimensionata
             //ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/DevelopmentCards/"+ dc.getPath()).getImage().getScaledInstance(130, 200, Image.SCALE_SMOOTH));
 
-            InputStream resourceAsStream = BuyDevelCardsFrame.class.getResourceAsStream("src/main/resources/DevelopmentCards/"+ dc.getPath());
+            InputStream resourceAsStream = BuyDevelCardsFrame.class.getResourceAsStream("/DevelopmentCards/"+ dc.getPath());
             Image img = null;
             try {
                 img = ImageIO.read(resourceAsStream);

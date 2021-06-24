@@ -2,28 +2,58 @@ package it.polimi.ingsw.client.GUI;
 
 import it.polimi.ingsw.model.Resource;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class ResourceLabel extends JLabel {
-    public ResourceLabel(Resource r){
-        ImageIcon img;
+    public ResourceLabel(Resource r) {
+        InputStream resourceAsStream;
+        Image img = null;
+        ImageIcon imgIcon = null;
         switch(r){
             case SERVANT:
-                img = new ImageIcon(new ImageIcon("src/main/resources/Resources/servant.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+                resourceAsStream = ResourceLabel.class.getResourceAsStream("/Resources/servant.png");
+                try {
+                    img = ImageIO.read(resourceAsStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                imgIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
                 break;
             case SHIELD:
-                img = new ImageIcon(new ImageIcon("src/main/resources/Resources/shield.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+                resourceAsStream = ResourceLabel.class.getResourceAsStream("/Resources/shield.png");
+                try {
+                    img = ImageIO.read(resourceAsStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                imgIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
                 break;
             case STONE:
-                img = new ImageIcon(new ImageIcon("src/main/resources/Resources/stone.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+                resourceAsStream = ResourceLabel.class.getResourceAsStream("/Resources/stone.png");
+                try {
+                    img =
+                            ImageIO.read(resourceAsStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                imgIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
                 break;
             default:
-                img = new ImageIcon(new ImageIcon("src/main/resources/Resources/coin.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+                resourceAsStream = ResourceLabel.class.getResourceAsStream("/Resources/coin.png");
+                try {
+                    img = ImageIO.read(resourceAsStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                imgIcon = new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         }
         setHorizontalAlignment(CENTER);
         setVerticalAlignment(TOP);
-        setIcon(img);
+        setIcon(imgIcon);
         setVisible(true);
     }
     public void setQuantity(int i){
