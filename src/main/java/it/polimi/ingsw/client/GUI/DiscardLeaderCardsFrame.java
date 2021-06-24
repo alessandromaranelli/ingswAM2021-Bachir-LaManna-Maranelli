@@ -64,7 +64,7 @@ public class DiscardLeaderCardsFrame extends JFrame implements ActionListener, M
         int i=0;
         for(LeaderCard ld : lightModel.getLeaderCardsInHand()){
             //ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/LeaderCards/"+ ld.getPath()).getImage().getScaledInstance(130, 200, Image.SCALE_SMOOTH));
-            InputStream resourceAsStream = DiscardLeaderCardsFrame.class.getResourceAsStream("src/main/resources/LeaderCards/"+ ld.getPath());
+            InputStream resourceAsStream = DiscardLeaderCardsFrame.class.getResourceAsStream("/LeaderCards/"+ ld.getPath());
             Image img = null;
             try {
                 img = ImageIO.read(resourceAsStream);

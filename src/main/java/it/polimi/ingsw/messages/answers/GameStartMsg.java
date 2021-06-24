@@ -13,19 +13,21 @@ public class GameStartMsg extends AnswerMsg {
     private PersonalBoard personalBoard;
     private String currentPlayer;
     private TurnState phase;
+    private Boolean isSoloGame;
 
-    public GameStartMsg(Marble[][] m, Marble mx, List<DevelopmentCard> d, String c, TurnState phase){
+    public GameStartMsg(Marble[][] m, Marble mx, List<DevelopmentCard> d, String c, TurnState phase, Boolean isSoloGAme){
         market = m;
         marbleInExcess = mx;
         developmentCards = d;
         currentPlayer = c;
         this.phase = phase;
+        this.isSoloGame = isSoloGAme;
         message = "\n\nGame started. Current player is: " + currentPlayer;
     }
 
 
     public void processMessage(LightModel lightModel){
-        lightModel.update(market, marbleInExcess, developmentCards, currentPlayer, phase);
+        lightModel.update(market, marbleInExcess, developmentCards, currentPlayer, phase, isSoloGame);
         /*
         lightModel.setMarket(market);
         lightModel.setMarbleInExcess(marbleInExcess);

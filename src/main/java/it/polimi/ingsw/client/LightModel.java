@@ -25,6 +25,7 @@ public abstract class LightModel {
     private Boolean[] popeFavours;
     private int position;                   //posizione sul faithTrack
     private int faithPoints;                //faithPoints guadagnati in fase di produzione
+    private boolean isSoloGame;
 
     private Marble[][] market;
     private Marble marbleInExcess;
@@ -166,6 +167,14 @@ public abstract class LightModel {
 
     public void setPlayers(List<Player> players) {
         this.players = players;
+    }
+
+    public boolean isSoloGame() {
+        return isSoloGame;
+    }
+
+    public void setSoloGame(boolean soloGame) {
+        isSoloGame = soloGame;
     }
 
     public int getPlayerID(){
@@ -445,7 +454,7 @@ public abstract class LightModel {
 
     }
 
-    public void update(Marble[][] market, Marble marbleInExcess, List<DevelopmentCard> developmentCards, String currentPlayer, TurnState phase){    //GameStartMsg
+    public void update(Marble[][] market, Marble marbleInExcess, List<DevelopmentCard> developmentCards, String currentPlayer, TurnState phase, Boolean isSoloGame){    //GameStartMsg
 
     }
 
@@ -517,6 +526,10 @@ public abstract class LightModel {
     }
 
     public void update(String message){                                //ErrorMsg
+
+    }
+
+    public void update(String message, Boolean bool){
 
     }
 

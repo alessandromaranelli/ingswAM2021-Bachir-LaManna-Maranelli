@@ -60,7 +60,7 @@ public class DevelCardsSlotsPanel extends JPanel {
 
                 //slotLabel.setText("Slot " + slotN);
 
-                InputStream resourceAsStream = DevelCardsSlotsPanel.class.getResourceAsStream("src/main/resources/DevelopmentCards/" + card.getPath());
+                InputStream resourceAsStream = DevelCardsSlotsPanel.class.getResourceAsStream("/DevelopmentCards/" + card.getPath());
                 Image img = null;
                 try {
                     img = ImageIO.read(resourceAsStream);

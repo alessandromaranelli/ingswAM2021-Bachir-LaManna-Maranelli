@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.Stack;
 /**
  * The type Development card deck consists of a stack of developmentCards of the same level and color.
  */
-public class DevelopmentCardDeck {
+public class DevelopmentCardDeck implements Serializable {
     private Stack<DevelopmentCard> developmentCards;
     private Color color;
     private int level;

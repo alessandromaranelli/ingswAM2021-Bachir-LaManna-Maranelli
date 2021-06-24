@@ -19,6 +19,6 @@ public class ViewOtherPlayersMsg extends CommandMsg{
                 controller.getAvailableChoices().add(p.getPlayerID());
             }
         }
-        clientHandler.sendAnswerMessage(new AskWhichPlayerMsg(x, TurnState.VIEWOTHERPLAYERS, controller.getGame().getPlayers()));
+        clientHandler.sendAnswerMessage(new AskWhichPlayerMsg(x, TurnState.VIEWOTHERPLAYERS));
     }
 }

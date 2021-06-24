@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -8,7 +9,7 @@ import java.util.Collections;
  * It is linked with the game, and it has a FaithTrack and a list of all the
  * possible actions that it can do.
  */
-public class CPU {
+public class CPU implements Serializable {
     private ArrayList<CpuAction> cpuActions;
     private FaithTrack faithTrack;
     private Game game;

@@ -24,12 +24,13 @@ public class LightModelGUI extends LightModel{
 
     }
 
-    public void update(Marble[][] market, Marble marbleInExcess, List<DevelopmentCard> developmentCards, String currentPlayer, TurnState phase){    //GameStartMsg
+    public void update(Marble[][] market, Marble marbleInExcess, List<DevelopmentCard> developmentCards, String currentPlayer, TurnState phase, boolean isSologame){    //GameStartMsg
         this.setMarket(market);
         this.setMarbleInExcess(marbleInExcess);
         this.setDevelopmentCardsToBuy(developmentCards);
         this.setCurrentPlayer(currentPlayer);
         this.setPhase(phase);
+        this.setSoloGame(isSologame);
 
         this.setStorageType(Resource.COIN, Resource.SHIELD, Resource.SERVANT);
         this.setStorageQuantity(0, 0, 0);
@@ -192,12 +193,17 @@ public class LightModelGUI extends LightModel{
         getClient().getGui().errorMessage(message);
     }
 
+    public void update(String message, Boolean bool){               //LorenzoAction
+        getClient().getGui().lorenzoAction(message);
+    }
+
     public void update(ArrayList<Player> players) {
         this.setPlayers(players);
     }
 
     public void show(TurnState phase, String nickname, Map<Resource, Integer> mapFromChest, Integer[] storages, List<Resource> resourceList, int position, Boolean[] popeFavours, List<LeaderCard> leaderCardsPlayed){
         setPhase(phase);
+        getClient().getGui().updatePersonalBoard(this);
         getClient().getGui().otherPlayerScene(nickname, mapFromChest, storages, resourceList, position, popeFavours, leaderCardsPlayed);
     }
 }

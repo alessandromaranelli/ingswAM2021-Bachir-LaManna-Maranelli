@@ -5,9 +5,12 @@ import it.polimi.ingsw.messages.commands.marketphase.SelectMarketPhaseMsg;
 import it.polimi.ingsw.messages.commands.marketphase.StartMarketPhaseMsg;
 import it.polimi.ingsw.model.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Color;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.List;
 
@@ -56,7 +59,16 @@ public class MarketFrame extends JFrame {
                     z++;
                 }
                 JButton jButton=new JButton();
-                jButton.setIcon(new ImageIcon(new ImageIcon("src/main/resources/Resources/frecciasx.PNG").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+                InputStream resourceAsStream = MarketFrame.class.getResourceAsStream("/Resources/frecciasx.PNG");
+                Image img = null;
+                try {
+                    img = ImageIO.read(resourceAsStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //JLabel slotLabel = new JLabel(new ImageIcon(img.getScaledInstance(200, 300, Image.SCALE_SMOOTH)));
+                jButton.setIcon(new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
                 int finalI = i;
                 jButton.addActionListener(e -> {
                     gui.sendMessage(new StartMarketPhaseMsg(finalI+1,true));
@@ -68,7 +80,17 @@ public class MarketFrame extends JFrame {
             }
             for(int k=0;k<4;k++){
                 JButton jButton=new JButton();
-                jButton.setIcon(new ImageIcon(new ImageIcon("src/main/resources/Resources/frecciasu.PNG").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+                InputStream resourceAsStream = MarketFrame.class.getResourceAsStream("/Resources/frecciasu.PNG");
+                Image img = null;
+                try {
+                    img = ImageIO.read(resourceAsStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //JLabel slotLabel = new JLabel(new ImageIcon(img.getScaledInstance(200, 300, Image.SCALE_SMOOTH)));
+                jButton.setIcon(new ImageIcon(img.getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+                //jButton.setIcon(new ImageIcon(new ImageIcon("src/main/resources/Resources/frecciasu.PNG").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
                 int finalI = k;
                 jButton.addActionListener(e -> {
                     gui.sendMessage(new StartMarketPhaseMsg(finalI+1,false));

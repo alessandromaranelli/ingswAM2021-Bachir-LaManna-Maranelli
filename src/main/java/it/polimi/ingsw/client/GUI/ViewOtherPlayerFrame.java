@@ -10,35 +10,45 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ViewOtherPlayerFrame extends JFrame implements ActionListener {
     private LightModel lightModel;
     private Gui gui;
     private List<JLabel> nicknames;
     private JComboBox<Integer> playerID;
-    private JButton button;
+    private JButton submit;
     private JPanel panel;
+    private JLabel label;
 
     public ViewOtherPlayerFrame(Gui gui, LightModel lightModel){
         this.gui = gui;
         this.lightModel = lightModel;
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        button = new JButton("Submit");
+        submit = new JButton("Submit");
+        label = new JLabel("Select playerID to see");
 
         playerID = new JComboBox<>();
         nicknames = new ArrayList<>();
+        /*
         for(Player p : lightModel.getPlayers()){
             playerID.addItem(p.getPlayerID());
             JLabel label = new JLabel(p.getNickname());
             nicknames.add(label);
         }
-
+         */
+        for(int i=1; i <= 4; i++){
+            playerID.addItem(i);
+        }
+        panel.add(label);
         panel.add(playerID);
-        panel.add(button);
+        panel.add(submit);
+        /*
         for(int i=0; i < nicknames.size(); i++){
             panel.add(nicknames.get(i));
         }
+         */
         setContentPane(panel);
         setVisible(true);
         pack();
@@ -46,7 +56,8 @@ public class ViewOtherPlayerFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource().equals(button)){
+        if(e.getSource().equals(submit)){
+            //System.out.println("AA");
             CommandMsg msg = new ViewOtherPlayerNumberMsg((Integer) playerID.getSelectedItem());
             gui.sendMessage(msg);
             dispose();

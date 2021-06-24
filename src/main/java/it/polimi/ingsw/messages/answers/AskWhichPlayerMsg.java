@@ -10,16 +10,13 @@ import java.util.List;
 public class AskWhichPlayerMsg extends AnswerMsg{
     private TurnState phase;
     private String message;
-    private ArrayList<Player> players;
 
-    public AskWhichPlayerMsg(String message, TurnState phase, ArrayList<Player> player){
+    public AskWhichPlayerMsg(String message, TurnState phase){
         this.phase = phase;
         this.message = message;
-        this.players = player;
     }
     @Override
     public void processMessage(LightModel lightModel) {
-        lightModel.update(players);
         lightModel.update(phase);
     }
 

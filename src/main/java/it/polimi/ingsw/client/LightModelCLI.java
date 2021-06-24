@@ -25,12 +25,13 @@ public class LightModelCLI extends LightModel {
 
     }
 
-    public void update(Marble[][] market, Marble marbleInExcess, List<DevelopmentCard> developmentCards, String currentPlayer, TurnState phase){    //GameStartMsg
+    public void update(Marble[][] market, Marble marbleInExcess, List<DevelopmentCard> developmentCards, String currentPlayer, TurnState phase, boolean isSoloGame){    //GameStartMsg
         this.setMarket(market);
         this.setMarbleInExcess(marbleInExcess);
         this.setDevelopmentCardsToBuy(developmentCards);
         this.setCurrentPlayer(currentPlayer);
         this.setPhase(phase);
+        this.setSoloGame(isSoloGame);
 
         this.setStorageType(Resource.COIN, Resource.SHIELD, Resource.SERVANT);
         this.setStorageQuantity(0, 0, 0);

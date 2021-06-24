@@ -52,10 +52,10 @@ public class Match {
                         c.sendAnswerMessage(new StringMsg("\n======  WELCOME TO MASTER OF RENAISSANCE  ======"));
                         c.sendAnswerMessage(new StringMsg("\n\nGame is starting now\n\n"));
                         if (c.getPlayerID() == 1) {
-                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.PREPARATION);
+                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.PREPARATION, controller.getGame().isSoloMatch());
                             c.sendAnswerMessage(gameStartMsg);
                         } else {
-                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.ENDTURN);
+                            GameStartMsg gameStartMsg = new GameStartMsg(controller.getGame().getTable().getMarket().getMarketTable(), controller.getGame().getTable().getMarket().getMarbleInExcess(), controller.getGame().getTable().getTopDevelopmentcards(), controller.getGame().getCurrentPlayer().getNickname(), TurnState.ENDTURN, controller.getGame().isSoloMatch());
                             c.sendAnswerMessage(gameStartMsg);
                         }
                     }
@@ -107,7 +107,8 @@ public class Match {
                         controller.getGame().getTable().getMarket().getMarbleInExcess(),
                         controller.getGame().getTable().getTopDevelopmentcards(),
                         controller.getGame().getCurrentPlayer().getNickname(),
-                        controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPhase()));
+                        controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPhase(),
+                        controller.getGame().isSoloMatch()));
 
             }
         }

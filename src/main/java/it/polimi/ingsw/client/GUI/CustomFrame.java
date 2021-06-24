@@ -114,12 +114,9 @@ public class CustomFrame extends JFrame implements ActionListener {
         else if(e.getSource().equals(newMatch)){
             gui.sendMessage((new NewGameMsg()));
         }
-        /*
         else if(e.getSource().equals(rejoin)){
-            gui.sendMessage(new JoinGameMsg());
+            gui.sendMessage(new JoinGameMsg(gui.getLightModel().getUnicode()));
         }
-
-         */
     }
 
     public void nicknamePanel(){
