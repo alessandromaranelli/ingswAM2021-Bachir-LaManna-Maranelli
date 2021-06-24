@@ -10,7 +10,7 @@ import Exceptions.ModelException;
  * The type Table contains the marketTable, the LeaderCardDeck and 12 DevelopmentCardDecks. It is visible from
  * all the players.
  */
-public class Table {
+public class Table implements Serializable{
     private Market market;
     private LeaderCardDeck leaderCardDeck;
     private ArrayList<DevelopmentCardDeck> developmentCardDecks;

@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class Game implements Serializable{
     private final ArrayList<Player> players = new ArrayList<>();
     private Player currentPlayer;
     private int currentPlayerID;

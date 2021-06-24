@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import Exceptions.ModelException;
 
 import javax.naming.SizeLimitExceededException;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.Stack;
@@ -11,7 +12,7 @@ import java.util.Stack;
  * A deck that at the beginning has 16 leaderCards from which each player draws 4 of them from the top.
  * It is created at the beginning of the match and the order is random.
  */
-public class LeaderCardDeck {
+public class LeaderCardDeck implements Serializable {
     private Stack<LeaderCard> deck;
 
     /**

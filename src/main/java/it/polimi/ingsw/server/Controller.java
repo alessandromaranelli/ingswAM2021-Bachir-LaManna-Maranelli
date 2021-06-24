@@ -155,7 +155,7 @@ public class Controller {
         if (game.getPlayers().size() < this.numberOfPlayers) {
             for (Player p : game.getPlayers()) {
                 if (p.getNickname().equals(nickname)) {
-                    StringMsg stringMsg = new StringMsg("Nickname already taken, choose another nickname");
+                    ErrorMsg stringMsg = new ErrorMsg("Nickname already taken, choose another nickname");
                     clientHandler.sendAnswerMessage(stringMsg);
                     return;
                 }

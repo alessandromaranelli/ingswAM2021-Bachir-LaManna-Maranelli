@@ -418,7 +418,9 @@ public class ButtonPanel extends JPanel implements ActionListener {
         if((phase == TurnState.ENDTURN || phase == TurnState.ENDPREPARATION)){
             add(endTurn);
             add(manageResources);
-            add(viewOtherPlayers);
+            if(lightModel.isSoloGame() == false){
+                add(viewOtherPlayers);
+            }
             if(!lightModel.getLeaderCardsInHand().isEmpty()) {
                 add(activateLeadercard);
                 add(discardLeadercard);
@@ -443,7 +445,9 @@ public class ButtonPanel extends JPanel implements ActionListener {
             add(developmentCardPhase);
             add(productionPhase);
             add(manageResources);
-            add(viewOtherPlayers);
+            if(lightModel.isSoloGame() == false){
+                add(viewOtherPlayers);
+            }
             if(!lightModel.getLeaderCardsInHand().isEmpty()) {
                 add(activateLeadercard);
                 add(discardLeadercard);

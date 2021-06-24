@@ -14,20 +14,22 @@ public class GameReJoinMsg extends AnswerMsg {
     private PersonalBoard personalBoard;
     private String currentPlayer;
     private TurnState phase;
+    private Boolean isSoloMatch;
 
-    public GameReJoinMsg(String nickname, Marble[][] m, Marble mx, List<DevelopmentCard> d, String c, TurnState phase){
+    public GameReJoinMsg(String nickname, Marble[][] m, Marble mx, List<DevelopmentCard> d, String c, TurnState phase, Boolean isSoloMatch){
         nick = nickname;
         market = m;
         marbleInExcess = mx;
         developmentCards = d;
         currentPlayer = c;
         this.phase = phase;
+        this.isSoloMatch = isSoloMatch;
         message = "\n\nGame is going. Current player is: " + currentPlayer;
     }
 
 
     public void processMessage(LightModel lightModel){
-        lightModel.update(market, marbleInExcess, developmentCards, currentPlayer, phase);
+        lightModel.update(market, marbleInExcess, developmentCards, currentPlayer, phase, isSoloMatch);
         lightModel.setNickname(nick);
         /*
         lightModel.setMarket(market);

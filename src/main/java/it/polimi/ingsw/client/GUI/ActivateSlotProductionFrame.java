@@ -83,7 +83,7 @@ public class ActivateSlotProductionFrame extends JFrame implements ActionListene
                 //ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/DevelopmentCards/" + card.getPath()).getImage().getScaledInstance(130, 300, Image.SCALE_SMOOTH));
                 //JLabel slotLabel = new JLabel();
 
-                InputStream resourceAsStream = ActivateSlotProductionFrame.class.getResourceAsStream("src/main/resources/DevelopmentCards/" + card.getPath());
+                InputStream resourceAsStream = ActivateSlotProductionFrame.class.getResourceAsStream("/DevelopmentCards/" + card.getPath());
                 Image img = null;
                 try {
                     img = ImageIO.read(resourceAsStream);

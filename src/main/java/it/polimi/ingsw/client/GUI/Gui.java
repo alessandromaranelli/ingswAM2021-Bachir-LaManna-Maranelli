@@ -14,8 +14,10 @@ import java.util.Map;
 public class Gui implements Runnable{
     private CustomFrame frame;
     private OutputView outputView;
+    private LightModel lightModel;
 
-    public Gui(OutputView outputView){
+    public Gui(OutputView outputView, LightModel lightModel){
+        this.lightModel = lightModel;
         this.outputView = outputView;
     }
 
@@ -39,6 +41,7 @@ public class Gui implements Runnable{
 
     public void otherPlayerScene(String nickname, Map<Resource, Integer> mapFromChest, Integer[] storages, java.util.List<Resource> resourceList, int position, Boolean[] popeFavours, java.util.List<LeaderCard> leaderCardsPlayed){
         CustomFrame frame2 = new CustomFrame(this);
+        frame2.setVisible(true);
         frame2.otherPlayerBoard(nickname, mapFromChest, storages, resourceList, position, popeFavours, leaderCardsPlayed);
     }
 
@@ -52,5 +55,13 @@ public class Gui implements Runnable{
 
     public void errorMessage(String message){
         JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void lorenzoAction(String message){
+        JOptionPane.showMessageDialog(null, message, "Lorenzo's Action", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public LightModel getLightModel(){
+        return lightModel;
     }
 }

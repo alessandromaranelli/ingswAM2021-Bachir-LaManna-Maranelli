@@ -55,7 +55,7 @@ public class WareHousePanel extends JPanel {
     }
 
 
-    public WareHousePanel(Map<Resource, Integer> mapFromChest, Integer[] storages, java.util.List<Resource> resourceList){
+    public WareHousePanel(Map<Resource, Integer> mapFromChest, Integer[] storages, List<Resource> resourceList){
         setBackground(Color.ORANGE);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         storageLabels = new ArrayList<>();

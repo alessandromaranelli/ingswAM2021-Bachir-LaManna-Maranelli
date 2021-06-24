@@ -1,10 +1,7 @@
 package it.polimi.ingsw.messages.commands;
 
 import Exceptions.ModelException;
-import it.polimi.ingsw.messages.answers.StartTurnMsg;
-import it.polimi.ingsw.messages.answers.StringMsg;
-import it.polimi.ingsw.messages.answers.UpdateDecksMsg;
-import it.polimi.ingsw.messages.answers.WinMsg;
+import it.polimi.ingsw.messages.answers.*;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
@@ -24,15 +21,23 @@ public class EndTurnMsg extends CommandMsg{
                 if (cpuAction instanceof CpuActionDiscard){
                     UpdateDecksMsg updateDecksMsg = new UpdateDecksMsg("\n\nLorenzo discarded two "+cpuAction.getcolor().toString()+" cards", controller.getGame().getTable().getTopDevelopmentcards());
                     clientHandler.sendAnswerMessage(updateDecksMsg);
+                    AnswerMsg msg = new LorenzoAction("Lorenzo discarded two "+cpuAction.getcolor().toString()+" cards");
+                    clientHandler.sendAnswerMessage(msg);
                 }
                 if (cpuAction instanceof CpuActionShuffle){
                     clientHandler.sendAnswerMessage(new StringMsg("\nLorenzo moved his faith marker 1 box forward"));
+                    AnswerMsg msg = new LorenzoAction("Lorenzo moved his faith marker 1 box forward");
+                    clientHandler.sendAnswerMessage(msg);
                 }
                 if (cpuAction instanceof CpuActionMoveOn){
                     clientHandler.sendAnswerMessage(new StringMsg("\nLorenzo moved his faith marker 2 boxes forward"));
+                    AnswerMsg msg = new LorenzoAction("Lorenzo moved his faith marker 2 box forward");
+                    clientHandler.sendAnswerMessage(msg);
                 }
                 if (controller.getGame().hasLorenzoWon()){
                     clientHandler.sendAnswerMessage(new WinMsg("\nLorenzo Won"));
+                    AnswerMsg msg = new LorenzoAction("Lorenzo Won");
+                    clientHandler.sendAnswerMessage(msg);
                     controller.endGame(true);
                     return;
                 }
