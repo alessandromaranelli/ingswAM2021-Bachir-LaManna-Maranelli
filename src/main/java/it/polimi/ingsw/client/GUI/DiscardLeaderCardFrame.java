@@ -30,6 +30,7 @@ public class DiscardLeaderCardFrame extends JFrame implements ActionListener, Mo
     private JButton submit;
     private List<JLabel> jl;
     private int card1;
+
     private int card2;
     private JPanel contentPane;
     private int i;
