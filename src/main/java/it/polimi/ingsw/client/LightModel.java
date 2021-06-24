@@ -17,6 +17,7 @@ public abstract class LightModel {
     Preferences prefs = Preferences.userNodeForPackage(it.polimi.ingsw.client.LightModel.class);
 
     private String nickname;
+    private List<Player> players;
     private int playerID;
     private int numberOfPlayers;
     private TurnState phase;                //ricordarsi che ogni messaggio di update aggiorna la fase del player
@@ -67,6 +68,7 @@ public abstract class LightModel {
 
         nickname = new String();
         phase = TurnState.BEFORESTART;
+        players = new ArrayList<>();
         popeFavours = new Boolean[3];
         popeFavours[0] = false;
         popeFavours[1] = false;
@@ -156,6 +158,14 @@ public abstract class LightModel {
             return propertyValue;
         }
         return unicode;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 
     public int getPlayerID(){
@@ -429,6 +439,8 @@ public abstract class LightModel {
         return storagesVisualizer;
     }
 
+    public void update(){};
+
     public void update(String nickname, int playerID, int numberOfPlayers, TurnState phase){            //UpdateNicknameMsg
 
     }
@@ -505,6 +517,10 @@ public abstract class LightModel {
     }
 
     public void update(String message){                                //ErrorMsg
+
+    }
+
+    public void update(ArrayList<Player> players) {
 
     }
 

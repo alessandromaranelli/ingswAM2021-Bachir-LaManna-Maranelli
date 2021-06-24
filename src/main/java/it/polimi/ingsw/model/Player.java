@@ -3,9 +3,10 @@ package it.polimi.ingsw.model;
 import Exceptions.ModelException;
 import it.polimi.ingsw.server.Controller;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Player {
+public class Player implements Serializable {
     private String nickname;
     private int playerID;
     private PersonalBoard personalBoard;
@@ -271,6 +272,13 @@ public class Player {
 
     public void selectBuyDevelopmentCardPhase(Controller controller) throws ModelException{
         if(phase != TurnState.START) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
+        boolean ok = false;
+        for(DevelopmentCard card : game.getTable().getTopDevelopmentcards()){
+            if(getPersonalBoard().controlCardToBuy(card, 1) == true || getPersonalBoard().controlCardToBuy(card, 2) == true || getPersonalBoard().controlCardToBuy(card, 3) == true){
+                ok = true;
+            }
+        }
+        if(ok == false) throw new ModelException("You can't buy any card from table");
         phase = TurnState.BUYDEVELOPMENTCARDPHASE;
         controller.sendUpdateBuydevelopmentPhase(this);
     }
@@ -366,6 +374,7 @@ public class Player {
 
     public void activateLeaderCard(Controller controller,int i) throws ModelException{
         if(phase != TurnState.START && phase != TurnState.ENDTURN) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
+        if(leaderAction == true) throw new ModelException("Leader action already done for this turn");
         int storageLeader=personalBoard.getWareHouse().getStorages().size();
         int reduction=personalBoard.getReduction().size();
         int whiteMarbles=personalBoard.getWhiteMarble().size();
@@ -382,6 +391,7 @@ public class Player {
 
     public void discardLeaderCard(Controller controller,int i) throws ModelException{
         if(phase != TurnState.START && phase != TurnState.ENDTURN) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
+        if(leaderAction == true) throw new ModelException("Leader action already done for this turn");
         personalBoard.discardLeaderCard(i);
         leaderAction = true;
         controller.sendUpdateDiscardLeader(this);

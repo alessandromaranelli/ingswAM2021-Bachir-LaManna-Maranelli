@@ -8,13 +8,17 @@ import it.polimi.ingsw.messages.commands.preparation.DiscardLeadersAtTheStartMsg
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.LeaderCard;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +41,8 @@ public class ActivateLeaderCardsFrame extends JFrame  implements MouseListener, 
     public ActivateLeaderCardsFrame(Gui gui, LightModel lightModel){
         this.gui = gui;
         this.lightModel = lightModel;
+        labelMap = new HashMap<>();
+        leaderMap = new HashMap<>();
 
         head = new JPanel();
         body = new JPanel();
@@ -60,10 +66,18 @@ public class ActivateLeaderCardsFrame extends JFrame  implements MouseListener, 
         jl = new ArrayList<>();
         int i=0;
         for(LeaderCard ld : lightModel.getLeaderCardsInHand()){
-            ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/LeaderCards/"+ ld.getPath()).getImage().getScaledInstance(130, 200, Image.SCALE_SMOOTH));
+            //ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/LeaderCards/"+ ld.getPath()).getImage().getScaledInstance(130, 200, Image.SCALE_SMOOTH));
+            InputStream resourceAsStream = ActivateLeaderCardsFrame.class.getResourceAsStream("src/main/resources/LeaderCards/"+ ld.getPath());
+            Image img = null;
+            try {
+                img = ImageIO.read(resourceAsStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             i++;
-            JLabel slotLabel = new JLabel();
-            slotLabel.setIcon(img);
+            JLabel slotLabel = new JLabel((new ImageIcon(img.getScaledInstance(200, 300, Image.SCALE_SMOOTH))));
+            //slotLabel.setIcon(img.getScaledInstance(130, 200, Image.SCALE_SMOOTH));
             slotLabel.setHorizontalAlignment(JLabel.CENTER);
             slotLabel.setVerticalAlignment(JLabel.CENTER);
             slotLabel.setBorder(BorderFactory.createLineBorder(Color.green,3));

@@ -3,8 +3,11 @@ package it.polimi.ingsw.client.GUI;
 import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.model.DevelopmentCard;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.List;
 
@@ -28,10 +31,18 @@ public class DevelCardsSlotsPanel extends JPanel {
 
         for(int i=1; i <= 3; i++){
             if(lightModel.getDevelopmentCard2().get(i) == null){
-                ImageIcon image = new ImageIcon(getClass().getResource("/DevelopmentCards/slot.png"));
-                Image img = image.getImage().getScaledInstance(200, 300, Image.SCALE_SMOOTH);
+                //ImageIcon image = new ImageIcon(getClass().getResource("/DevelopmentCards/slot.png"));
+                //Image img = image.getImage().getScaledInstance(200, 300, Image.SCALE_SMOOTH);
 
-                JLabel slotLabel = new JLabel(new ImageIcon(img));
+                InputStream resourceAsStream = DevelCardsSlotsPanel.class.getResourceAsStream("/DevelopmentCards/slot.png");
+                Image img = null;
+                try {
+                    img = ImageIO.read(resourceAsStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                JLabel slotLabel = new JLabel(new ImageIcon(img.getScaledInstance(200, 300, Image.SCALE_SMOOTH)));
                 //slotLabel.setText("Slot " + slotN);
                 //slotLabel.setIcon(img);
                 slotLabel.setHorizontalTextPosition(JLabel.CENTER);
@@ -45,10 +56,19 @@ public class DevelCardsSlotsPanel extends JPanel {
 
             else {
                 DevelopmentCard card = lightModel.getDevelopmentCard2().get(i);
-                ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/DevelopmentCards/" + card.getPath()).getImage().getScaledInstance(130, 300, Image.SCALE_SMOOTH));
-                JLabel slotLabel = new JLabel();
+                //ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/DevelopmentCards/" + card.getPath()).getImage().getScaledInstance(130, 300, Image.SCALE_SMOOTH));
+
                 //slotLabel.setText("Slot " + slotN);
-                slotLabel.setIcon(img);
+
+                InputStream resourceAsStream = DevelCardsSlotsPanel.class.getResourceAsStream("src/main/resources/DevelopmentCards/" + card.getPath());
+                Image img = null;
+                try {
+                    img = ImageIO.read(resourceAsStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                JLabel slotLabel = new JLabel(new ImageIcon(img.getScaledInstance(200, 300, Image.SCALE_SMOOTH)));
                 slotLabel.setHorizontalTextPosition(JLabel.CENTER);
                 slotLabel.setVerticalTextPosition(JLabel.BOTTOM);
                 slotLabel.setHorizontalAlignment(JLabel.CENTER);

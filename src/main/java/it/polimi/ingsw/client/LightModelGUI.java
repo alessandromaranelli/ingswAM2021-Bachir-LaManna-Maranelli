@@ -2,15 +2,16 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.*;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LightModelGUI extends LightModel{
 
     public LightModelGUI(Client client) {
         super(client);
+    }
+
+    public void update(){
+        getClient().getGui().nicknameScene();
     }
 
     public void update(String nickname, int playerID, int numberOfPlayers, TurnState phase){            //UpdateNicknameMsg
@@ -188,14 +189,15 @@ public class LightModelGUI extends LightModel{
     }
 
     public void update(String message){                                //ErrorMsg
-
         getClient().getGui().errorMessage(message);
+    }
 
+    public void update(ArrayList<Player> players) {
+        this.setPlayers(players);
     }
 
     public void show(TurnState phase, String nickname, Map<Resource, Integer> mapFromChest, Integer[] storages, List<Resource> resourceList, int position, Boolean[] popeFavours, List<LeaderCard> leaderCardsPlayed){
         setPhase(phase);
-
-
+        getClient().getGui().otherPlayerScene(nickname, mapFromChest, storages, resourceList, position, popeFavours, leaderCardsPlayed);
     }
 }

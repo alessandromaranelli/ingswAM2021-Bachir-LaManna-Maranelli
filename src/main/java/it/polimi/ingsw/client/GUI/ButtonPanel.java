@@ -4,6 +4,8 @@ import it.polimi.ingsw.client.GUI.*;
 import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.messages.commands.EndTurnMsg;
+import it.polimi.ingsw.messages.commands.ManageResourcesInStorageMsg;
+import it.polimi.ingsw.messages.commands.ViewOtherPlayersMsg;
 import it.polimi.ingsw.messages.commands.buydevelopmentphase.BuyDevelopmentPhaseMsg;
 import it.polimi.ingsw.messages.commands.marketphase.DefaultManageResourcesToOrganizeMsg;
 import it.polimi.ingsw.messages.commands.marketphase.SelectMarketPhaseMsg;
@@ -50,6 +52,10 @@ public class ButtonPanel extends JPanel implements ActionListener {
     JButton startPayProduction;
     JButton payProduction;
     JButton activateLeadercard;
+    JButton discardLeadercard;
+    JButton manageResources;
+    JButton viewOtherPlayers;
+    JButton selectPlayer;
 
     public ButtonPanel(LightModel lightModel, Gui gui){
         this.lightModel = lightModel;
@@ -253,6 +259,34 @@ public class ButtonPanel extends JPanel implements ActionListener {
         activateLeadercard.setBackground(Color.ORANGE);
         activateLeadercard.setBorder(BorderFactory.createEtchedBorder());
 
+        discardLeadercard = new JButton("Discard Leadercard");
+        discardLeadercard.addActionListener(this);
+        discardLeadercard.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        discardLeadercard.setForeground(Color.BLUE);
+        discardLeadercard.setBackground(Color.ORANGE);
+        discardLeadercard.setBorder(BorderFactory.createEtchedBorder());
+
+        manageResources = new JButton("Manage Resources in storages");
+        manageResources.addActionListener(this);
+        manageResources.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        manageResources.setForeground(Color.BLUE);
+        manageResources.setBackground(Color.ORANGE);
+        manageResources.setBorder(BorderFactory.createEtchedBorder());
+
+        viewOtherPlayers = new JButton("View Player situation");
+        viewOtherPlayers.addActionListener(this);
+        viewOtherPlayers.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        viewOtherPlayers.setForeground(Color.BLUE);
+        viewOtherPlayers.setBackground(Color.ORANGE);
+        viewOtherPlayers.setBorder(BorderFactory.createEtchedBorder());
+
+        selectPlayer = new JButton("Select Player");
+        selectPlayer.addActionListener(this);
+        selectPlayer.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        selectPlayer.setForeground(Color.BLUE);
+        selectPlayer.setBackground(Color.ORANGE);
+        selectPlayer.setBorder(BorderFactory.createEtchedBorder());
+
         setVisibleButtons(lightModel.getPhase());
     }
 
@@ -352,8 +386,26 @@ public class ButtonPanel extends JPanel implements ActionListener {
         }
         else if(e.getSource().equals(payProduction)){
             new PayProductionFrame(gui, lightModel);
-        }else if(e.getSource().equals(activateLeadercard)) {
+        }
+
+        else if(e.getSource().equals(activateLeadercard)) {
             new ActivateLeaderCardsFrame(gui, lightModel);
+        }
+        else if(e.getSource().equals(discardLeadercard)) {
+            new DiscardLeaderCardsFrame(gui, lightModel);
+        }
+
+        else if(e.getSource().equals(manageResources)){
+            CommandMsg msg = new ManageResourcesInStorageMsg();
+            gui.sendMessage(msg);
+        }
+
+        else if(e.getSource().equals(viewOtherPlayers)){
+            CommandMsg msg = new ViewOtherPlayersMsg();
+            gui.sendMessage(msg);
+        }
+        else if(e.getSource().equals(selectPlayer)){
+            new ViewOtherPlayerFrame(gui, lightModel);
         }
     }
 
@@ -365,7 +417,12 @@ public class ButtonPanel extends JPanel implements ActionListener {
 
         if((phase == TurnState.ENDTURN || phase == TurnState.ENDPREPARATION)){
             add(endTurn);
-            //+ comando per riorganizzare le risorse
+            add(manageResources);
+            add(viewOtherPlayers);
+            if(!lightModel.getLeaderCardsInHand().isEmpty()) {
+                add(activateLeadercard);
+                add(discardLeadercard);
+            }
         }
         if(phase ==  TurnState.PREPARATION){
             add(drawLeaderCards);
@@ -385,7 +442,12 @@ public class ButtonPanel extends JPanel implements ActionListener {
             add(marketPhase);
             add(developmentCardPhase);
             add(productionPhase);
-            add(activateLeadercard);
+            add(manageResources);
+            add(viewOtherPlayers);
+            if(!lightModel.getLeaderCardsInHand().isEmpty()) {
+                add(activateLeadercard);
+                add(discardLeadercard);
+            }
         }
 
         if(phase == TurnState.MARKETPHASE){
@@ -419,14 +481,18 @@ public class ButtonPanel extends JPanel implements ActionListener {
 
 
         if(phase == TurnState.PRODUCTIONPHASE){
-            add(activateSlotProduction);            //attiva la produzione di una carta in uno dei 3 slot
+            add(activateSlotProduction);
             add(activatePersonalProduction);
-            add(activateSpecialProduction1);        //attiva una delle due produzioni speciali
+            add(activateSpecialProduction1);
             add(activateSpecialProduction2);
-            add(startPayProduction);                //finisce la fase di attivazione e inizia il pagamento
+            add(startPayProduction);
         }
         if(phase == TurnState.PAYPRODUCTIONS){
             add(payProduction);
+        }
+
+        if(phase == TurnState.VIEWOTHERPLAYERS){
+            add(selectPlayer);
         }
 
         setVisible(true);

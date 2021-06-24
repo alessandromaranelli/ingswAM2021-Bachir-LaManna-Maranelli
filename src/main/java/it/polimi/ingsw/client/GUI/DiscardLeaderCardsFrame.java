@@ -1,13 +1,12 @@
 package it.polimi.ingsw.client.GUI;
 
 import it.polimi.ingsw.client.LightModel;
-import it.polimi.ingsw.messages.commands.buydevelopmentphase.BuyCardMsg;
-import it.polimi.ingsw.model.DevelopmentCard;
+import it.polimi.ingsw.messages.commands.leadermanage.ActivateLeaderMsg;
+import it.polimi.ingsw.messages.commands.leadermanage.DiscardLeaderMsg;
+import it.polimi.ingsw.model.LeaderCard;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,40 +19,36 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BuyDevelCardsFrame extends JFrame implements ActionListener, MouseListener {
-    Gui gui;
-    LightModel lightModel;
-    ArrayList<JComponent> components; //clickable develCard + inputTextField for destinstion slot
-    JPanel head;
-    JPanel body;
-    JComboBox<Integer> slot;
-    JLabel text;
-    JButton submit;
-    List<JLabel> jl;
-    DevelopmentCard cardSelected = null;
-    Map<JLabel,DevelopmentCard> labelMap;
-    JPanel contentPane;
+public class DiscardLeaderCardsFrame extends JFrame implements ActionListener, MouseListener {
+    private Gui gui;
+    private LightModel lightModel;
+    private JPanel head;
+    private JPanel body;
+    private JLabel text;
+    private JButton submit;
+    private List<JLabel> jl;
+    private int card1;
+    private int card2;
+    private JPanel contentPane;
+    private int i;
+    private LeaderCard cardSelected = null;
+    Map<JLabel, LeaderCard> labelMap;
+    Map<LeaderCard, Integer> leaderMap;
 
-    public BuyDevelCardsFrame(Gui gui, LightModel lightModel) {
+    public DiscardLeaderCardsFrame(Gui gui, LightModel lightModel){
         this.gui = gui;
         this.lightModel = lightModel;
+        labelMap = new HashMap<>();
+        leaderMap = new HashMap<>();
+
         head = new JPanel();
         body = new JPanel();
-        slot = new JComboBox<Integer>();
         text = new JLabel();
         submit = new JButton("submit");
-        labelMap = new HashMap<>();
         contentPane = new JPanel();
 
-        slot.addItem(1);
-        slot.addItem(2);
-        slot.addItem(3);
-        slot.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
-        slot.setVisible(true);
-
-
         JPanel textPanel = new JPanel();
-        text.setText("Select a Card and the destination Slot");
+        text.setText("Select Leader Card to activate");
         text.setVisible(true);
         textPanel.add(text);
         textPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
@@ -63,15 +58,13 @@ public class BuyDevelCardsFrame extends JFrame implements ActionListener, MouseL
         submit.setVisible(true);
 
         head.add(textPanel);
-        head.add(slot);
         head.add(submit);
 
         jl = new ArrayList<>();
-        for(DevelopmentCard dc : lightModel.getDevelopmentCardsToBuy()){
-            //immagine ridimensionata
-            //ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/DevelopmentCards/"+ dc.getPath()).getImage().getScaledInstance(130, 200, Image.SCALE_SMOOTH));
-
-            InputStream resourceAsStream = BuyDevelCardsFrame.class.getResourceAsStream("src/main/resources/DevelopmentCards/"+ dc.getPath());
+        int i=0;
+        for(LeaderCard ld : lightModel.getLeaderCardsInHand()){
+            //ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/LeaderCards/"+ ld.getPath()).getImage().getScaledInstance(130, 200, Image.SCALE_SMOOTH));
+            InputStream resourceAsStream = DiscardLeaderCardsFrame.class.getResourceAsStream("src/main/resources/LeaderCards/"+ ld.getPath());
             Image img = null;
             try {
                 img = ImageIO.read(resourceAsStream);
@@ -80,15 +73,18 @@ public class BuyDevelCardsFrame extends JFrame implements ActionListener, MouseL
             }
 
             JLabel slotLabel = new JLabel(new ImageIcon(img.getScaledInstance(200, 300, Image.SCALE_SMOOTH)));
+
+            i++;
             slotLabel.setHorizontalAlignment(JLabel.CENTER);
             slotLabel.setVerticalAlignment(JLabel.CENTER);
             slotLabel.setBorder(BorderFactory.createLineBorder(Color.green,3));
             slotLabel.setVisible(true);
-            labelMap.put(slotLabel,dc);
+            labelMap.put(slotLabel,ld);
+            leaderMap.put(ld,i);
             jl.add(slotLabel);
         }
 
-        body.setLayout(new GridLayout(3,4, 2, 2));
+        body.setLayout(new GridLayout(1,jl.size(), 2, 2));
         for(JLabel j: jl){
             j.addMouseListener(this);
             body.add(j);
@@ -105,19 +101,15 @@ public class BuyDevelCardsFrame extends JFrame implements ActionListener, MouseL
         setContentPane(contentPane);
         pack();
         setVisible(true);
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(cardSelected!=null){
             //System.out.println("");
-            gui.sendMessage(new BuyCardMsg(cardSelected.getColor(),cardSelected.getLevel(),slot.getItemAt(slot.getSelectedIndex())));
+            gui.sendMessage(new DiscardLeaderMsg(leaderMap.get(cardSelected)));
             dispose();
         }
-        //else{
-        //       messaggio di errore
-        // }
     }
 
     @Override
@@ -131,10 +123,6 @@ public class BuyDevelCardsFrame extends JFrame implements ActionListener, MouseL
             j.setBorder(BorderFactory.createLineBorder(Color.red, 3));
         }
     }
-
-
-
-
 
 
     @Override

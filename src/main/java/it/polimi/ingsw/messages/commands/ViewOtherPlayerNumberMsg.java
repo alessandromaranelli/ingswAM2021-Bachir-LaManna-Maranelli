@@ -24,9 +24,9 @@ public class ViewOtherPlayerNumberMsg extends CommandMsg{
         else{
             p=controller.getGame().getPlayerById(playerNumb);
             List<Resource> resourceList=new ArrayList<>();
-            resourceList.add(p.getPersonalBoard().getWareHouse().getTypeStorage(1));
-            resourceList.add(p.getPersonalBoard().getWareHouse().getTypeStorage(2));
-            resourceList.add(p.getPersonalBoard().getWareHouse().getTypeStorage(3));
+            for(int i=1; i <= p.getPersonalBoard().getWareHouse().getStorages().size(); i++) {
+                resourceList.add(p.getPersonalBoard().getWareHouse().getTypeStorage(i));
+            }
             clientHandler.sendAnswerMessage(new ShowPlayerSituationMsg(
                     p.getNickname(),
                     p.getPersonalBoard().getWareHouse().getMapfromChest(),

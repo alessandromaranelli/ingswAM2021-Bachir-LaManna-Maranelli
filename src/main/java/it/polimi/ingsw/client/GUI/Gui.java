@@ -3,9 +3,13 @@ package it.polimi.ingsw.client.GUI;
 import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.client.OutputView;
 import it.polimi.ingsw.messages.commands.CommandMsg;
+import it.polimi.ingsw.model.LeaderCard;
+import it.polimi.ingsw.model.Resource;
+import it.polimi.ingsw.model.TurnState;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 public class Gui implements Runnable{
     private CustomFrame frame;
@@ -27,6 +31,15 @@ public class Gui implements Runnable{
 
     public void sendMessage(CommandMsg commandMsg){
         outputView.sendCommandMessage(commandMsg);
+    }
+
+    public void nicknameScene(){
+        frame.nicknamePanel();
+    }
+
+    public void otherPlayerScene(String nickname, Map<Resource, Integer> mapFromChest, Integer[] storages, java.util.List<Resource> resourceList, int position, Boolean[] popeFavours, java.util.List<LeaderCard> leaderCardsPlayed){
+        CustomFrame frame2 = new CustomFrame(this);
+        frame2.otherPlayerBoard(nickname, mapFromChest, storages, resourceList, position, popeFavours, leaderCardsPlayed);
     }
 
     public void waitScene(){

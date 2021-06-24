@@ -6,6 +6,7 @@ import it.polimi.ingsw.messages.commands.preparation.DiscardLeadersAtTheStartMsg
 import it.polimi.ingsw.model.DevelopmentCard;
 import it.polimi.ingsw.model.LeaderCard;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
@@ -13,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,10 +61,17 @@ public class DiscardLeaderCardFrame extends JFrame implements ActionListener, Mo
 
         jl = new ArrayList<>();
         for(LeaderCard dc : lightModel.getLeaderCardsInHand()){
-            ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/LeaderCards/"+ dc.getPath()).getImage().getScaledInstance(130, 200, Image.SCALE_SMOOTH));
+            //ImageIcon img = new ImageIcon(new ImageIcon("src/main/resources/LeaderCards/"+ dc.getPath()).getImage().getScaledInstance(130, 200, Image.SCALE_SMOOTH));
 
-            JLabel slotLabel = new JLabel();
-            slotLabel.setIcon(img);
+            InputStream resourceAsStream = DiscardLeaderCardFrame.class.getResourceAsStream("src/main/resources/LeaderCards/"+ dc.getPath());
+            Image img = null;
+            try {
+                img = ImageIO.read(resourceAsStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            JLabel slotLabel = new JLabel(new ImageIcon(img.getScaledInstance(200, 300, Image.SCALE_SMOOTH)));
             slotLabel.setHorizontalAlignment(JLabel.CENTER);
             slotLabel.setVerticalAlignment(JLabel.CENTER);
             slotLabel.setBorder(BorderFactory.createLineBorder(Color.green,3));

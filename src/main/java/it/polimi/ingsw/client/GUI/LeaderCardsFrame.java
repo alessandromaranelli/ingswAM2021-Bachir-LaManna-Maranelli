@@ -50,69 +50,6 @@ public class LeaderCardsFrame extends JFrame {
         create();
     }
 
-    /*
-    public void paint(Graphics g) {
-        JLabel jLabel1 = new JLabel("Leader Cards in hand");
-        jLabel1.setForeground(Color.ORANGE);
-        jLabel1.setFont(new Font("Comic Sans", Font.BOLD, 10));
-        jLabel1.setBorder(BorderFactory.createEtchedBorder());
-        add(jLabel1);
-
-
-        ClassLoader cl = this.getClass().getClassLoader();
-        int x = 10;
-        int y = 30;
-
-        for (LeaderCard c : leaderCardsInHand) {
-            InputStream url = cl.getResourceAsStream("LeaderCards/" + c.getPath());
-
-            BufferedImage img = null;
-            try {
-                img = ImageIO.read(url);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            int W = img.getWidth();
-            int H = img.getHeight();
-
-            g.drawImage(img, x, y, W / 2, H / 2, null);
-            x += W / 2 + 10;
-        }
-
-
-        JLabel jLabel2 = new JLabel("Leader Cards played:");
-        jLabel2.setForeground(Color.ORANGE);
-        jLabel2.setFont(new Font("Comic Sans", Font.BOLD, 10));
-        jLabel2.setBorder(BorderFactory.createEtchedBorder());
-        add(jLabel2);
-
-
-        ClassLoader cl1 = this.getClass().getClassLoader();
-        x = 10;
-        y = 400;
-
-        for (LeaderCard c : leaderCardsPlayed) {
-            InputStream url = cl.getResourceAsStream("LeaderCards/" + c.getPath());
-
-            BufferedImage img = null;
-            try {
-                img = ImageIO.read(url);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            int W = img.getWidth();
-            int H = img.getHeight();
-
-            g.drawImage(img, x, y, W / 2, H / 2, null);
-            x += W / 2 + 10;
-        }
-    }
-
-
-     */
-
 
     public void create() {
         int i = 0;
@@ -123,10 +60,18 @@ public class LeaderCardsFrame extends JFrame {
         hand.add(jLabel1);
 
         for (LeaderCard c : leaderCardsInHand) {
-            ImageIcon image = new ImageIcon(getClass().getResource("/LeaderCards/" + c.getPath()));
-            Image img = image.getImage().getScaledInstance(200, 300, Image.SCALE_SMOOTH);
+            //ImageIcon image = new ImageIcon(getClass().getResource("/LeaderCards/" + c.getPath()));
+            //Image img = image.getImage().getScaledInstance(200, 300, Image.SCALE_SMOOTH);
 
-            cardsInHand.add(new JLabel(new ImageIcon(img)));
+            InputStream resourceAsStream = LeaderCardsFrame.class.getResourceAsStream("/LeaderCards/" + c.getPath());
+            Image img = null;
+            try {
+                img = ImageIO.read(resourceAsStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            cardsInHand.add(new JLabel(new ImageIcon(img.getScaledInstance(200, 300, Image.SCALE_SMOOTH))));
             cardsInHand.get(i).setHorizontalAlignment(SwingConstants.CENTER);
             cardsInHand.get(i).setVerticalAlignment(SwingConstants.CENTER);
             hand.add(cardsInHand.get(i));
@@ -142,10 +87,18 @@ public class LeaderCardsFrame extends JFrame {
         board.add(jLabel2);
 
         for (LeaderCard c : leaderCardsPlayed) {
-            ImageIcon image = new ImageIcon(getClass().getResource("/LeaderCards/" + c.getPath()));
-            Image img = image.getImage().getScaledInstance(200, 300, Image.SCALE_SMOOTH);
+            //ImageIcon image = new ImageIcon(getClass().getResource("/LeaderCards/" + c.getPath()));
+            //Image img = image.getImage().getScaledInstance(200, 300, Image.SCALE_SMOOTH);
 
-            cardsPlayed.add(new JLabel(new ImageIcon(img)));
+            InputStream resourceAsStream = LeaderCardsFrame.class.getResourceAsStream("/LeaderCards/" + c.getPath());
+            Image img = null;
+            try {
+                img = ImageIO.read(resourceAsStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            cardsPlayed.add(new JLabel(new ImageIcon(img.getScaledInstance(200, 300, Image.SCALE_SMOOTH))));
             cardsPlayed.get(i).setHorizontalAlignment(SwingConstants.CENTER);
             cardsPlayed.get(i).setVerticalAlignment(SwingConstants.CENTER);
             board.add(cardsPlayed.get(i));

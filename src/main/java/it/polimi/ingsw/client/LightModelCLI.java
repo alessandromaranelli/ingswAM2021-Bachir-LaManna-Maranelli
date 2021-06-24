@@ -3,10 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.client.CLI.*;
 import it.polimi.ingsw.model.*;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LightModelCLI extends LightModel {
 
@@ -16,6 +13,9 @@ public class LightModelCLI extends LightModel {
 
     }
 
+    public void update(){
+
+    }
 
     public void update(String nickname, int playerID, int numberOfPlayers, TurnState phase){            //UpdateNicknameMsg
         this.setNickname(nickname);
@@ -202,6 +202,10 @@ public class LightModelCLI extends LightModel {
     }
 
     public void update(String message){                                //ErrorMsg
+
+    }
+
+    public void update(ArrayList<Player> players){
 
     }
 

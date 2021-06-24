@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.messages.answers.ErrorMsg;
+import it.polimi.ingsw.messages.answers.GameJoinedMsg;
 import it.polimi.ingsw.messages.answers.StringMsg;
 import it.polimi.ingsw.messages.answers.UnicodeMsg;
 
@@ -35,6 +36,7 @@ public class Lobby {
         match.createMatch();
         match.getClientConnectionThreads().add(clientHandler);
         clientHandler.setController(match.getController());
+        clientHandler.sendAnswerMessage(new GameJoinedMsg());
         clientHandler.sendAnswerMessage(new StringMsg("\nYou joined a game\n"));
     }
 
@@ -46,6 +48,7 @@ public class Lobby {
             if(!m.isFull()){
                 m.getClientConnectionThreads().add(clientHandler);
                 clientHandler.setController(m.getController());
+                clientHandler.sendAnswerMessage(new GameJoinedMsg());
                 clientHandler.sendAnswerMessage(new StringMsg("\nYou joined a game\n"));
                 return;
             }
@@ -55,6 +58,7 @@ public class Lobby {
         match.createMatch();
         match.getClientConnectionThreads().add(clientHandler);
         clientHandler.setController(match.getController());
+        clientHandler.sendAnswerMessage(new GameJoinedMsg());
         clientHandler.sendAnswerMessage(new StringMsg("\nYou joined a game\n"));
     }
 

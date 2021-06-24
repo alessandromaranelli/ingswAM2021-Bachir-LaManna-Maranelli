@@ -34,7 +34,6 @@ public class ShowPlayerSituationMsg extends AnswerMsg{
     @Override
     public void processMessage(LightModel lightModel) {
         lightModel.show(phase,nickname,chest,storages,resourceList,position,popeFavours,leaderCardsPlayed);
-
     }
 
     @Override
