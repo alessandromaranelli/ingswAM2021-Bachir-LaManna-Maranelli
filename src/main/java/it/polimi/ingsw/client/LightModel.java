@@ -317,14 +317,14 @@ public abstract class LightModel {
         storageQuantity.set(0, i1);
         storageQuantity.set(1, i2);
         storageQuantity.set(2, i3);
-        storageQuantity.set(3, 14);
+        storageQuantity.set(3, i4);
     }
 
     public void setStorageQuantity(int i1, int i2, int i3, int i4, int i5) {
         storageQuantity.set(0, i1);
         storageQuantity.set(1, i2);
         storageQuantity.set(2, i3);
-        storageQuantity.set(3, 14);
+        storageQuantity.set(3, i4);
         storageQuantity.set(4, i5);
     }
 

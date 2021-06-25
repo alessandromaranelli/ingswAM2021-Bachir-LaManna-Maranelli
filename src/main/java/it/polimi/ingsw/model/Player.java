@@ -382,9 +382,9 @@ public class Player implements Serializable {
         leaderAction = true;
         char leaderAct;
         if (storageLeader<personalBoard.getWareHouse().getStorages().size()) leaderAct='s';
-        if (reduction<personalBoard.getReduction().size()) leaderAct='r';
-        if (whiteMarbles<personalBoard.getWhiteMarble().size()) leaderAct='w';
-        else leaderAct='p';
+        else if (reduction<personalBoard.getReduction().size()) leaderAct='r';
+            else if (whiteMarbles<personalBoard.getWhiteMarble().size()) leaderAct='w';
+                else leaderAct='p';
         controller.sendUpdateActivateLeader(this,leaderAct);
     }
 
