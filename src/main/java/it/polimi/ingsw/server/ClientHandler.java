@@ -24,6 +24,7 @@ public class ClientHandler extends Thread {
     private boolean ready;
     private Controller controller;
     private Lobby lobby;
+    private Match match;
     private String unicode;
     private boolean connected;
 
@@ -56,6 +57,14 @@ public class ClientHandler extends Thread {
 
     public void setUnicode(String unicode) {
         this.unicode = unicode;
+    }
+
+    public Match getMatch() {
+        return match;
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
     }
 
     public boolean isReady() {
@@ -98,6 +107,7 @@ public class ClientHandler extends Thread {
                 ioException.printStackTrace();
             }
             this.setConnected(false);
+            match.checkClientConnection(this);
 
             //System.exit(0);
 
@@ -146,6 +156,7 @@ public class ClientHandler extends Thread {
             System.out.println("Client died");
             socket.close();
             this.setConnected(false);
+            match.checkClientConnection(this);
 
             //System.exit(0);
 

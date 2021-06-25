@@ -36,8 +36,9 @@ public class Lobby {
         match.createMatch();
         match.getClientConnectionThreads().add(clientHandler);
         clientHandler.setController(match.getController());
+        clientHandler.setMatch(match);
         clientHandler.sendAnswerMessage(new GameJoinedMsg());
-        clientHandler.sendAnswerMessage(new StringMsg("\nYou joined a game\n"));
+        clientHandler.sendAnswerMessage(new StringMsg("\nYou created a game\n"));
     }
 
     public synchronized void joinMatch(ClientHandler clientHandler) throws FileNotFoundException {
@@ -47,7 +48,9 @@ public class Lobby {
         for (Match m:matches){
             if(!m.isFull()){
                 m.getClientConnectionThreads().add(clientHandler);
+                if (m.getClientConnectionThreads().size()==m.getController().getNumberOfPlayers())m.setFull(true);
                 clientHandler.setController(m.getController());
+                clientHandler.setMatch(m);
                 clientHandler.sendAnswerMessage(new GameJoinedMsg());
                 clientHandler.sendAnswerMessage(new StringMsg("\nYou joined a game\n"));
                 return;
@@ -58,14 +61,17 @@ public class Lobby {
         match.createMatch();
         match.getClientConnectionThreads().add(clientHandler);
         clientHandler.setController(match.getController());
+        clientHandler.setMatch(match);
         clientHandler.sendAnswerMessage(new GameJoinedMsg());
-        clientHandler.sendAnswerMessage(new StringMsg("\nYou joined a game\n"));
+        clientHandler.sendAnswerMessage(new StringMsg("\nYou joined a brand new game\n"));
     }
 
     public synchronized void reJoinMatch(ClientHandler clientHandler, String code){
         for (String s : unicodeList.keySet()){
             if(s.equals(code)) {
                 clientHandler.setUnicode(code);
+                clientHandler.setController(unicodeList.get(s).getController());
+                clientHandler.setMatch(unicodeList.get(s));
                 unicodeList.get(s).reAdd(clientHandler);
                 unicodeList.remove(s);
                 return;

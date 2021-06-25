@@ -141,6 +141,7 @@ public class Controller {
                 clientHandler.sendAnswerMessage(stringMsg);
             }
             this.numberOfPlayers = numberOfPlayers;
+            if(numberOfPlayers>1) match.setFull(false);
             Player player=new Player(nickname, 1, game);
             game.createNewPlayer(player);
             clientConnectionThreads.add(clientHandler);

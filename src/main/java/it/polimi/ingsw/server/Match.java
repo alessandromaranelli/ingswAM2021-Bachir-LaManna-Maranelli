@@ -15,7 +15,8 @@ public class Match {
     private final Set<ClientHandler> clientConnectionThreads = new LinkedHashSet<>();
     private final Set<ClientHandler> clientConnectionThreadsNotConnected = new LinkedHashSet<>();
     private Controller controller = new Controller(clientConnectionThreads,this);
-    private boolean isFull=false;
+    private boolean isFull=true;
+    private Thread x;
 
 
     public Match(Server server) throws FileNotFoundException {
@@ -39,6 +40,9 @@ public class Match {
         return isFull;
     }
 
+    public void setFull(boolean full) {
+        isFull = full;
+    }
 
     public void waitReady() {
         while (true) {
@@ -46,7 +50,6 @@ public class Match {
                 if (areAllReady() && controller.getNumberOfPlayers() > 0 && this.clientConnectionThreads.size() == controller.getNumberOfPlayers()) {     //vedi controller
                     System.out.println("Starting game...");
                     controller.startGame();
-                    new Thread(this::checkClientConnection).start();
                     controller.getGame().getPlayers().get(0).setAsCurrentPlayer();
                     for (ClientHandler c : clientConnectionThreads) {
                         c.sendAnswerMessage(new StringMsg("\n======  WELCOME TO MASTER OF RENAISSANCE  ======"));
@@ -73,17 +76,15 @@ public class Match {
         return clientConnectionThreads.stream().allMatch(ClientHandler::isReady);
     }
 
-    public void checkClientConnection(){
-        while(true){
-            for (ClientHandler c:clientConnectionThreads){
-                if (!c.isConnected()){
-                    server.getLobby().getUnicodeList().put(c.getUnicode(),this);
-                    clientConnectionThreads.remove(c);
-                    clientConnectionThreadsNotConnected.add(c);
-                }
-            }
+
+    public void checkClientConnection(ClientHandler clientHandler){
+        if (!clientHandler.isConnected()){
+            server.getLobby().getUnicodeList().put(clientHandler.getUnicode(),this);
+            clientConnectionThreads.remove(clientHandler);
+            clientConnectionThreadsNotConnected.add(clientHandler);
         }
     }
+
 
     public void reAdd(ClientHandler c){
         for (ClientHandler clientHandler:clientConnectionThreadsNotConnected){

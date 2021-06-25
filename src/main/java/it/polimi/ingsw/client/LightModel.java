@@ -454,7 +454,7 @@ public abstract class LightModel {
 
     }
 
-    public void update(Marble[][] market, Marble marbleInExcess, List<DevelopmentCard> developmentCards, String currentPlayer, TurnState phase, Boolean isSoloGame){    //GameStartMsg
+    public void update(Marble[][] market, Marble marbleInExcess, List<DevelopmentCard> developmentCards, String currentPlayer, TurnState phase, boolean isSoloGame){    //GameStartMsg
 
     }
 
