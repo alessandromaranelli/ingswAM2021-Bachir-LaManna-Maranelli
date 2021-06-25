@@ -15,7 +15,7 @@ public class JoinGameMsg extends BeforeStartMsg {
     }
 
     @Override
-    public void processMessage(ClientHandler clientHandler, Lobby lobby) throws FileNotFoundException {
+    public void processMessage(ClientHandler clientHandler, Lobby lobby) throws FileNotFoundException, ModelException {
         lobby.reJoinMatch(clientHandler,unicode);
     }
 

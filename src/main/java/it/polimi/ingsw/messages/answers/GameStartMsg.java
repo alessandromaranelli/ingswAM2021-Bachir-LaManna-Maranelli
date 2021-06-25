@@ -10,7 +10,6 @@ public class GameStartMsg extends AnswerMsg {
     private Marble[][] market;
     private Marble marbleInExcess;
     private List<DevelopmentCard> developmentCards;
-    private PersonalBoard personalBoard;
     private String currentPlayer;
     private TurnState phase;
     private Boolean isSoloGame;

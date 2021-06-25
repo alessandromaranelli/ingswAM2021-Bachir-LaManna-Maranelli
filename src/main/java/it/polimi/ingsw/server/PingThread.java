@@ -8,9 +8,17 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
+/**
+ * The type Ping thread.
+ */
 public class PingThread extends Thread{
     private ClientHandler clientHandler;
 
+    /**
+     * Instantiates a new Ping thread.
+     *
+     * @param clientHandler the client handler
+     */
     public PingThread(ClientHandler clientHandler) {
         this.clientHandler = clientHandler;
     }

@@ -15,6 +15,9 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
+/**
+ * The type ClientHandler runs a thread that manages the exchange of messages between a client and the server.
+ */
 public class ClientHandler extends Thread {
 
     private Socket socket;
@@ -28,6 +31,13 @@ public class ClientHandler extends Thread {
     private String unicode;
     private boolean connected;
 
+    /**
+     * Instantiates a new ClientHandler.
+     *
+     * @param socket the socket
+     * @param lobby  the lobby
+     * @throws IOException the io exception
+     */
     public ClientHandler(Socket socket, Lobby lobby) throws IOException {
         this.socket = socket;
         this.lobby=lobby;
@@ -39,50 +49,107 @@ public class ClientHandler extends Thread {
         this.start();
     }
 
+    /**
+     * Sets player id.
+     *
+     * @param playerID the player id
+     */
     public void setPlayerID(int playerID) {
         this.playerID = playerID;
     }
 
+    /**
+     * Gets player id.
+     *
+     * @return the player id
+     */
     public int getPlayerID() {
         return playerID;
     }
 
+    /**
+     * Sets controller.
+     *
+     * @param controller the controller
+     */
     public void setController(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * Gets unicode.
+     *
+     * @return the unicode
+     */
     public String getUnicode() {
         return unicode;
     }
 
+    /**
+     * Sets unicode.
+     *
+     * @param unicode the unicode
+     */
     public void setUnicode(String unicode) {
         this.unicode = unicode;
     }
 
+    /**
+     * Gets match.
+     *
+     * @return the match
+     */
     public Match getMatch() {
         return match;
     }
 
+    /**
+     * Sets match.
+     *
+     * @param match the match
+     */
     public void setMatch(Match match) {
         this.match = match;
     }
 
+    /**
+     * Is ready boolean.
+     *
+     * @return the boolean
+     */
     public boolean isReady() {
         return ready;
     }
 
+    /**
+     * Sets ready.
+     */
     public void setReady() {
         this.ready = true;
     }
 
+    /**
+     * Is connected boolean.
+     *
+     * @return the boolean
+     */
     public boolean isConnected() {
         return connected;
     }
 
+    /**
+     * Sets connected.
+     *
+     * @param connected the connected
+     */
     public void setConnected(boolean connected) {
         this.connected = connected;
     }
 
+    /**
+     * Method that reads and processes the messages received from the client and
+     * starts a new thread that manages the 'ping'.
+     */
     public void run() {
         PingThread pingThread = new PingThread(this);
         Thread ping = new Thread(pingThread);
@@ -128,6 +195,7 @@ public class ClientHandler extends Thread {
             System.out.println("client " + socket.getInetAddress() + " connection dropped");
         }
     }
+
     private void handleClientConnection() throws IOException
     {
         try {
@@ -166,11 +234,22 @@ public class ClientHandler extends Thread {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Get output object output stream.
+     *
+     * @return the object output stream
+     */
     public ObjectOutputStream getOutput(){
         return output;
     }
 
 
+    /**
+     * Sends AnswerMessages to the client.
+     *
+     * @param answerMessage the answer message
+     */
     public synchronized void sendAnswerMessage(AnswerMsg answerMessage){
         try {
             if (this.isConnected()) {
@@ -184,6 +263,9 @@ public class ClientHandler extends Thread {
     }
 
 
+    /**
+     * Closes all the socket streams.
+     */
     public synchronized void closeSocketStreams(){
         try {
             output.flush();
