@@ -244,15 +244,15 @@ public class OutputView implements Runnable{
 
 
     public boolean parseEnum(String parts[]){
-        if(parts[0].equals("QUICKSTART")&& parts.length==1 && client.getLightModel().getPhase() == TurnState.BEFORESTART){
+        if(parts[0].equals("QUICKSTART")&& parts.length==1 && client.getLightModel().getPhase() == TurnState.STARTCONNECTION){
             this.type =TypeOfCommand.QUICKSTART;
             return true;
         }
-        if(parts[0].equals("NEW GAME")&& parts.length==1 && client.getLightModel().getPhase() == TurnState.BEFORESTART){
+        if(parts[0].equals("NEW GAME")&& parts.length==1 && client.getLightModel().getPhase() == TurnState.STARTCONNECTION){
             this.type =TypeOfCommand.NEWMATCH;
             return true;
         }
-        if(parts[0].equals("REJOIN")&& parts.length==1 && client.getLightModel().getPhase() == TurnState.BEFORESTART){
+        if(parts[0].equals("REJOIN")&& parts.length==1 && client.getLightModel().getPhase() == TurnState.STARTCONNECTION){
             this.type =TypeOfCommand.REJOIN;
             return true;
         }

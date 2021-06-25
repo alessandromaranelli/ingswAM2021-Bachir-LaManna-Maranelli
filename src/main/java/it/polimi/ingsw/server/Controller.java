@@ -12,6 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * The type Controller manages the evolution of the game by setting the current player for every turn and by sending
+ * the clientHandlers the AnswerMessages in response of the clients' actions.
+ */
 public class Controller {
     private Match match;
     private Game game;
@@ -23,6 +27,13 @@ public class Controller {
     private int turnsToPlay;
     private ArrayList<Integer> availableChoices=new ArrayList<>();
 
+    /**
+     * Instantiates a new Controller.
+     *
+     * @param clientConnectionThreads the client connection threads
+     * @param match                   the match
+     * @throws FileNotFoundException the file not found exception
+     */
     public Controller(Set<ClientHandler> clientConnectionThreads, Match match) throws FileNotFoundException {
         game = new Game();
         this.clientConnectionThreads = clientConnectionThreads;
@@ -32,10 +43,20 @@ public class Controller {
         lastTurn=false;
     }
 
+    /**
+     * Gets game.
+     *
+     * @return the game
+     */
     public Game getGame() {
         return game;
     }
 
+    /**
+     * Sets the next player. If the next player is not connected, he misses his turn.
+     *
+     * @return the object (Player)
+     */
     public Object nextPlayer(){
         Object o=game.nextPlayer();
         if (o instanceof Player){
@@ -51,51 +72,110 @@ public class Controller {
         return o;
     }
 
+    /**
+     * Gets available choices.
+     *
+     * @return the available choices
+     */
     public ArrayList<Integer> getAvailableChoices() {
         return availableChoices;
     }
 
+    /**
+     * Starts a new game.
+     */
     public void startGame(){
         game.start();
         gameStarted=true;
     }
 
+    /**
+     * Sets the last turn of the game.
+     *
+     * @param lastTurn the last turn
+     */
     public void setLastTurn(boolean lastTurn) {
         this.lastTurn = lastTurn;
     }
 
+    /**
+     * Is last turn boolean.
+     *
+     * @return the boolean
+     */
     public boolean isLastTurn() {
         return lastTurn;
     }
 
+    /**
+     * Is game started boolean.
+     *
+     * @return the boolean
+     */
     public boolean isGameStarted() {
         return gameStarted;
     }
 
+    /**
+     * Gets number of players.
+     *
+     * @return the number of players
+     */
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
+    /**
+     * Sets number of players.
+     *
+     * @param numberOfPlayers the number of players
+     */
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
     }
 
+    /**
+     * Gets turns to play.
+     *
+     * @return the turns to play
+     */
     public int getTurnsToPlay() {
         return turnsToPlay;
     }
 
+    /**
+     * Sets turns to play.
+     *
+     * @param turnsToPlay the turns to play
+     */
     public void setTurnsToPlay(int turnsToPlay) {
         this.turnsToPlay = turnsToPlay;
     }
 
+    /**
+     * Gets client connection threads.
+     *
+     * @return the client connection threads
+     */
     public Set<ClientHandler> getClientConnectionThreads() {
         return clientConnectionThreads;
     }
 
+    /**
+     * Gets player client handler map.
+     *
+     * @return the player client handler map
+     */
     public Map<Player, ClientHandler> getPlayerClientHandlerMap() {
         return playerClientHandlerMap;
     }
 
+    /**
+     * Is current player boolean.
+     *
+     * @param clientHandler the client handler
+     * @return the boolean
+     */
     public boolean isCurrentPlayer(ClientHandler clientHandler){
         if(!gameStarted)return true;
         if(clientHandler.getPlayerID()!=game.getCurrentPlayer().getPlayerID()){
@@ -105,12 +185,23 @@ public class Controller {
         return true;
     }
 
+    /**
+     * Sends an AnswerMessage to everyone.
+     *
+     * @param answer the answer
+     */
     public void sendAll(AnswerMsg answer){
         for(ClientHandler clientHandler : clientConnectionThreads){
             clientHandler.sendAnswerMessage(answer);
         }
     }
 
+    /**
+     * SendAllExcept sends an AnswerMessage to everyone except one.
+     *
+     * @param answer the answer
+     * @param cH     the clientHandler
+     */
     public void sendAllExcept(AnswerMsg answer, ClientHandler cH){
         for(ClientHandler clientHandler : clientConnectionThreads){
             if(!clientHandler.equals(cH)) {
@@ -119,6 +210,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Sends everyone his position in the faithTrack.
+     *
+     * @param cH the clientHandler
+     */
     public void sendAllPos(ClientHandler cH){
         for(ClientHandler clientHandler : clientConnectionThreads){
             if(!clientHandler.equals(cH)) {
@@ -132,8 +228,14 @@ public class Controller {
     }
 
 
-    //metodo chiamato dal primo messaggio di un client in cui setta nickname e giocatori che vorrebbe nella partita
-    //messo nel controller perchè serve synchronized
+    /**
+     * Sets the nickname of a player and sends the answer to the client.
+     *
+     * @param nickname        the nickname
+     * @param numberOfPlayers the number of players
+     * @param clientHandler   the client handler
+     */
+
     public synchronized void setNickname(String nickname, int numberOfPlayers, ClientHandler clientHandler) {
         if (this.numberOfPlayers == 0) {
             if(numberOfPlayers<1 || numberOfPlayers>4) {
@@ -141,13 +243,14 @@ public class Controller {
                 clientHandler.sendAnswerMessage(stringMsg);
             }
             this.numberOfPlayers = numberOfPlayers;
+            if(numberOfPlayers>1) match.setFull(false);
             Player player=new Player(nickname, 1, game);
             game.createNewPlayer(player);
             clientConnectionThreads.add(clientHandler);
             playerClientHandlerMap.put(player,clientHandler);
             UpdateNicknameMsg updateNicknameMsg = new UpdateNicknameMsg(nickname, 1, this.numberOfPlayers);
             clientHandler.sendAnswerMessage(updateNicknameMsg);
-            clientHandler.setReady();                                   //serve a qualcosa il boolean ready?
+            clientHandler.setReady();
             clientHandler.setPlayerID(1);
             return;
         }
@@ -164,12 +267,12 @@ public class Controller {
             Player player=new Player(nickname, game.getPlayers().size()+1, game);
             game.createNewPlayer(player);
             clientConnectionThreads.add(clientHandler);
-            playerClientHandlerMap.put(player,clientHandler);//sarebbe meglio aggiungere i clienthandler al set solo dopo aver controllato che hanno un nickname giusto. E' come aggiungerli al set sapendo che sono già ready
+            playerClientHandlerMap.put(player,clientHandler);
             UpdateNicknameMsg updateNicknameMsg = new UpdateNicknameMsg(nickname, game.getPlayers().size(), this.numberOfPlayers);
             clientHandler.sendAnswerMessage(updateNicknameMsg);
-            clientHandler.setReady();                                   //serve a qualcosa il boolean ready?
+            clientHandler.setReady();
             clientHandler.setPlayerID(game.getPlayers().size());
-            for(ClientHandler c : clientConnectionThreads){             //esempio nel quale se ho aggiunto tutti i clienthandler indistintamente, va male
+            for(ClientHandler c : clientConnectionThreads){
                 if(!c.equals(clientHandler)){
                     StringMsg stringMsg = new StringMsg("Player " + nickname + " has joined the game");
                     c.sendAnswerMessage(stringMsg);
@@ -178,6 +281,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Send update draw leaders.
+     *
+     * @param player the player
+     */
     public void sendUpdateDrawLeaders(Player player){
         UpdateLeaderCardsMsg updateLeaderCardsMsg = new UpdateLeaderCardsMsg(TurnState.CHOOSELEADERCARDS,
                 player.getPersonalBoard().getLeaderCardsInHand(),
@@ -188,6 +296,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update discard leaders.
+     *
+     * @param player the player
+     */
     public void sendUpdateDiscardLeaders(Player player){
         playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateLeaderCardsMsg(player.getPhase(),
                 player.getPersonalBoard().getLeaderCardsInHand(),
@@ -197,6 +310,14 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update init storage types.
+     *
+     * @param player the player
+     * @param i1     the 1
+     * @param i2     the 2
+     * @param i3     the 3
+     */
     public void sendUpdateInitStorageTypes(Player player,Resource i1, Resource i2, Resource i3){
         UpdateStorageTypesMsg updateStorageTypesMsg = new UpdateStorageTypesMsg(player.getPhase(), i1, i2, i3);
         playerClientHandlerMap.get(player).sendAnswerMessage(updateStorageTypesMsg);
@@ -205,6 +326,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update add init resources.
+     *
+     * @param player the player
+     */
     public void sendUpdateAddInitResources(Player player){
         playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageMsg(TurnState.ENDPREPARATION,
                 player.getPersonalBoard().getWareHouse().getStorages().
@@ -219,6 +345,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update select market phase.
+     *
+     * @param player the player
+     */
     public void sendUpdateSelectMarketPhase(Player player){
         UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.MARKETPHASE, "You can select a row or column from the market");
         playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
@@ -230,6 +361,12 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update start market phase.
+     *
+     * @param player  the player
+     * @param marbles the marbles
+     */
     public void sendUpdateStartMarketPhase(Player player, ArrayList<Marble> marbles){
         playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateResourcesToAddMsg(
                 player.getPhase(),
@@ -255,6 +392,11 @@ public class Controller {
             this.sendAll(new UpdateMarketMsg(this.getGame().getTable().getMarket()));
     }
 
+    /**
+     * Send update manage white marble.
+     *
+     * @param player the player
+     */
     public void sendUpdateManageWhiteMarble(Player player){
         playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateResourcesToAddMsg(
                 player.getPhase(),
@@ -264,6 +406,11 @@ public class Controller {
                 player.getPersonalBoard().getManageWhiteMarbles()));
     }
 
+    /**
+     * Send update start organize resources.
+     *
+     * @param player the player
+     */
     public void sendUpdateStartOrganizeResources(Player player){
         playerClientHandlerMap.get(player).sendAnswerMessage(new ResourcesToOrganizeMsg(
                 player.getPersonalBoard().getWareHouse().getResourcesToOrganize(),
@@ -273,6 +420,12 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update set storage types.
+     *
+     * @param player the player
+     * @throws ModelException the model exception
+     */
     public void sendUpdateSetStorageTypes(Player player) throws ModelException {
         playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageTypesMsg(player.getPhase(),
                 player.getPersonalBoard().getWareHouse().getTypeStorage(1),
@@ -283,6 +436,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update default manage resources to organize.
+     *
+     * @param player the player
+     */
     public void sendUpdateDefaultManageResourcesToOrganize(Player player){
         playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageMsg(player.getPhase(),
                 player.getPersonalBoard().getWareHouse().getStorages().
@@ -293,6 +451,11 @@ public class Controller {
                 player.getPhase()));
     }
 
+    /**
+     * Send update manage resources to organize.
+     *
+     * @param player the player
+     */
     public void sendUpdateManageResourcesToOrganize(Player player){
         playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageMsg(player.getPhase(),
                 player.getPersonalBoard().getWareHouse().getStorages().
@@ -306,6 +469,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update start add resources.
+     *
+     * @param player the player
+     */
     public void sendUpdateStartAddResources(Player player){
         UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.ADDRESOURCES, "You can add resources");
         playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
@@ -314,6 +482,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update add resources.
+     *
+     * @param player the player
+     */
     public void sendUpdateAddResources(Player player){
         playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageMsg(player.getPhase(),
                 player.getPersonalBoard().getWareHouse().getStorages().
@@ -323,6 +496,11 @@ public class Controller {
                 player.getPersonalBoard().getWareHouse().getResourcesToAdd()));
     }
 
+    /**
+     * Send update discard resources.
+     *
+     * @param player the player
+     */
     public void sendUpdateDiscardResources(Player player){
         StringMsg stringMsg = new StringMsg(player.getNickname() + " discarded a resource, your position increases by 1 box!");
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
@@ -333,6 +511,11 @@ public class Controller {
                 player.getPersonalBoard().getWareHouse().getResourcesToAdd()));
     }
 
+    /**
+     * Send update manage resources in storage.
+     *
+     * @param player the player
+     */
     public void sendUpdateManageResourcesInStorage(Player player){
         playerClientHandlerMap.get(player).sendAnswerMessage(new ResourcesToOrganizeMsg(
                 player.getPersonalBoard().getWareHouse().getResourcesToOrganize(),
@@ -342,6 +525,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update buydevelopment phase.
+     *
+     * @param player the player
+     */
     public void sendUpdateBuydevelopmentPhase(Player player){
         UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.BUYDEVELOPMENTCARDPHASE, "You can select a card");
         playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
@@ -350,6 +538,13 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update buy card.
+     *
+     * @param player the player
+     * @param slot   the slot
+     * @throws ModelException the model exception
+     */
     public void sendUpdateBuyCard(Player player,int slot) throws ModelException {
         UpdateDecksMsg updateDecksMsg = new UpdateDecksMsg("\nYou bought the card", this.getGame().getTable().getTopDevelopmentcards());
         playerClientHandlerMap.get(player).sendAnswerMessage(updateDecksMsg);
@@ -364,6 +559,11 @@ public class Controller {
         this.sendAllExcept(updateDecksMsg1, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update pay card from chest.
+     *
+     * @param player the player
+     */
     public void sendUpdatePayCardFromChest(Player player){
         CardPriceMsg cardPriceMsg = new CardPriceMsg(player.getPhase(), player.getPersonalBoard().getCardCost());
         playerClientHandlerMap.get(player).sendAnswerMessage(cardPriceMsg);
@@ -375,6 +575,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update pay card from storage.
+     *
+     * @param player the player
+     */
     public void sendUpdatePayCardFromStorage(Player player){
         CardPriceMsg cardPriceMsg = new CardPriceMsg(player.getPhase(), player.getPersonalBoard().getCardCost());
         playerClientHandlerMap.get(player).sendAnswerMessage(cardPriceMsg);
@@ -387,6 +592,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update select production phase.
+     *
+     * @param player the player
+     */
     public void sendUpdateSelectProductionPhase(Player player){
         UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.PRODUCTIONPHASE, "You can activate productions");
         playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
@@ -395,6 +605,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update activate production.
+     *
+     * @param player the player
+     */
     public void sendUpdateActivateProduction(Player player){
         playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateCostsGainsMsg(player.getPersonalBoard().getProduction().getTotalCost(),
                 player.getPersonalBoard().getProduction().getTotalGain(),
@@ -404,6 +619,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update activate personal production.
+     *
+     * @param player the player
+     */
     public void sendUpdateActivatePersonalProduction(Player player){
         playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateCostsGainsMsg(player.getPersonalBoard().getProduction().getTotalCost(),
                 player.getPersonalBoard().getProduction().getTotalGain(),
@@ -413,6 +633,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update activate special production.
+     *
+     * @param player the player
+     */
     public void sendUpdateActivateSpecialProduction(Player player){
         playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateCostsGainsMsg(player.getPersonalBoard().getProduction().getTotalCost(),
                 player.getPersonalBoard().getProduction().getTotalGain(),
@@ -422,6 +647,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update start pay production.
+     *
+     * @param player the player
+     */
     public void sendUpdateStartPayProduction(Player player){
         UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(player.getPhase(), "You can pay productions");
         playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
@@ -430,6 +660,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update pay production from chest.
+     *
+     * @param player the player
+     */
     public void sendUpdatePayProductionFromChest(Player player){
         UpdateProductionCostMsg updateProductionCostMsg = new UpdateProductionCostMsg(player.getPersonalBoard().getProduction().getTotalCost());
         playerClientHandlerMap.get(player).sendAnswerMessage(updateProductionCostMsg);
@@ -454,6 +689,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Send update pay production from storage.
+     *
+     * @param player the player
+     */
     public void sendUpdatePayProductionFromStorage(Player player){
         UpdateProductionCostMsg updateProductionCostMsg = new UpdateProductionCostMsg(player.getPersonalBoard().getProduction().getTotalCost());
         playerClientHandlerMap.get(player).sendAnswerMessage(updateProductionCostMsg);
@@ -479,6 +719,13 @@ public class Controller {
         }
     }
 
+    /**
+     * Send update activate leader.
+     *
+     * @param player    the player
+     * @param leaderAct the leader act
+     * @throws ModelException the model exception
+     */
     public void sendUpdateActivateLeader(Player player, char leaderAct) throws ModelException {
         if (leaderAct=='s') playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageLeaderMsg(player.getPersonalBoard().getWareHouse().getTypeStorage(4)));
         else if (leaderAct=='r') playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateReductionLeaderMsg(player.getPersonalBoard().getLastReduction()));
@@ -494,6 +741,11 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Send update discard leader.
+     *
+     * @param player the player
+     */
     public void sendUpdateDiscardLeader(Player player){
         playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateFaithMarkerPositionMsg(player.getPhase(),
                 player.getPersonalBoard().getFaithTrack().getTrack().indexOf(
@@ -510,11 +762,20 @@ public class Controller {
         this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
     }
 
+    /**
+     * Start last turn.
+     */
     public void startLastTurn(){
         setLastTurn(true);
         setTurnsToPlay(game.getPlayers().size()-1);
     }
 
+    /**
+     * End game.
+     *
+     * @param Lorenzo the lorenzo
+     * @throws ModelException the model exception
+     */
     public void endGame(boolean Lorenzo) throws ModelException {
         if(Lorenzo){
             for (ClientHandler clientHandler : clientConnectionThreads){
