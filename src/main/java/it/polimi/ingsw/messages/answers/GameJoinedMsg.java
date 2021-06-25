@@ -11,6 +11,7 @@ public class GameJoinedMsg extends AnswerMsg{
     @Override
     public void processMessage(LightModel lightModel) {
         lightModel.setPhase(TurnState.BEFORESTART);
+        lightModel.update();
     }
 
     @Override
