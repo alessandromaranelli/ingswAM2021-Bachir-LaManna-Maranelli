@@ -68,7 +68,7 @@ public abstract class LightModel {
         this.client = client;
 
         nickname = new String();
-        phase = TurnState.BEFORESTART;
+        phase = TurnState.STARTCONNECTION;
         players = new ArrayList<>();
         popeFavours = new Boolean[3];
         popeFavours[0] = false;

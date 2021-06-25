@@ -139,7 +139,6 @@ public class Player implements Serializable {
         if(playerID != 4) throw new ModelException("Player " + playerID + " must choose only 1 resource");
         personalBoard.getWareHouse().addInitResources(i1, i2);
         personalBoard.getFaithTrack().movePositionForward();
-        personalBoard.getFaithTrack().movePositionForward();
         phase = TurnState.ENDPREPARATION;
         initPhaseDone = true;
         controller.sendUpdateAddInitResources(this);
