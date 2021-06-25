@@ -24,7 +24,7 @@ public class ViewAvailableDevelCardsFrame extends JFrame{
     public ViewAvailableDevelCardsFrame(LightModel lightModel, Gui gui){
         jl = new ArrayList<>();
         setLayout(new GridLayout(3,4, 5,8));
-        setMinimumSize(new Dimension(500,700));
+        setMinimumSize(new Dimension(700,700));
         this.lightModel=lightModel;
         this.gui = gui;
 
@@ -38,7 +38,7 @@ public class ViewAvailableDevelCardsFrame extends JFrame{
                 e.printStackTrace();
             }
 
-            JLabel slotLabel = new JLabel(new ImageIcon(img.getScaledInstance(200, 300, Image.SCALE_SMOOTH)));
+            JLabel slotLabel = new JLabel(new ImageIcon(img.getScaledInstance(180, 220, Image.SCALE_SMOOTH)));
             slotLabel.setHorizontalAlignment(JLabel.CENTER);
             slotLabel.setVerticalAlignment(JLabel.CENTER);
             slotLabel.setBorder(BorderFactory.createLineBorder(Color.green,3));

@@ -64,7 +64,7 @@ public class MarbleLabel extends JLabel {
         }
         if (m instanceof GreyMarble){
             //img = new ImageIcon(new ImageIcon("src/main/resources/Resources/biglianera.JPG").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-            InputStream resourceAsStream = MarbleLabel.class.getResourceAsStream("/Resources/bigliabianca.JPG");
+            InputStream resourceAsStream = MarbleLabel.class.getResourceAsStream("/Resources/biglianera.JPG");
             try {
                 img = ImageIO.read(resourceAsStream);
             } catch (IOException e) {
@@ -133,7 +133,7 @@ public class MarbleLabel extends JLabel {
         }
         if (m instanceof GreyMarble){
             //img = new ImageIcon(new ImageIcon("src/main/resources/Resources/biglianera.JPG").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-            InputStream resourceAsStream = MarbleLabel.class.getResourceAsStream("/Resources/bigliabianca.JPG");
+            InputStream resourceAsStream = MarbleLabel.class.getResourceAsStream("/Resources/biglianera.JPG");
             try {
                 img = ImageIO.read(resourceAsStream);
             } catch (IOException e) {

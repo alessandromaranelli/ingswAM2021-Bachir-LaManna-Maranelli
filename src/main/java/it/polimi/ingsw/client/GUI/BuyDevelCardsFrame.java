@@ -79,7 +79,7 @@ public class BuyDevelCardsFrame extends JFrame implements ActionListener, MouseL
                 e.printStackTrace();
             }
 
-            JLabel slotLabel = new JLabel(new ImageIcon(img.getScaledInstance(200, 300, Image.SCALE_SMOOTH)));
+            JLabel slotLabel = new JLabel(new ImageIcon(img.getScaledInstance(200, 240, Image.SCALE_SMOOTH)));
             slotLabel.setHorizontalAlignment(JLabel.CENTER);
             slotLabel.setVerticalAlignment(JLabel.CENTER);
             slotLabel.setBorder(BorderFactory.createLineBorder(Color.green,3));
