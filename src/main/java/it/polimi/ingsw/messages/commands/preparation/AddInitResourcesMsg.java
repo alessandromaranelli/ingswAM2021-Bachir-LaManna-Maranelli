@@ -12,15 +12,29 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type AddInitResourcesMsg.
+ */
 public class AddInitResourcesMsg extends CommandMsg {
     Resource r1;
     Resource r2;
 
+    /**
+     * Instantiates a new Add init resources msg.
+     *
+     * @param r1 the resource 1
+     */
     public AddInitResourcesMsg(Resource r1) {
         this.r1 = r1;
         this.r2 = null;
     }
 
+    /**
+     * Instantiates a new Add init resources msg.
+     *
+     * @param r1 the resource 1
+     * @param r2 the resource 2
+     */
     public AddInitResourcesMsg(Resource r1, Resource r2) {
         this.r1 = r1;
         this.r2 = r2;
@@ -41,11 +55,6 @@ public class AddInitResourcesMsg extends CommandMsg {
                 clientHandler.sendAnswerMessage(new ErrorMsg(e.getMessage()));
             }
         }
-        /*
-        if (controller.getGame().getPlayers().stream().allMatch(Player::isInitPhaseDone)) {
-            controller.getGame().setCurrentPlayer(controller.getGame().getPlayers().get(0));
-        } */
-
 
     }
 }

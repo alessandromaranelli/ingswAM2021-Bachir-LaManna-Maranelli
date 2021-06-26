@@ -5,6 +5,9 @@ import it.polimi.ingsw.model.*;
 
 import java.util.List;
 
+/**
+ * The type GameStartMsg.
+ */
 public class GameStartMsg extends AnswerMsg {
     private String message;
     private Marble[][] market;
@@ -14,6 +17,16 @@ public class GameStartMsg extends AnswerMsg {
     private TurnState phase;
     private Boolean isSoloGame;
 
+    /**
+     * Instantiates a new Game start msg.
+     *
+     * @param m          the marketTray
+     * @param mx         the marble in excess
+     * @param d          the list of developmentcards
+     * @param c          the current player's nickname
+     * @param phase      the phase
+     * @param isSoloGAme the is solo game
+     */
     public GameStartMsg(Marble[][] m, Marble mx, List<DevelopmentCard> d, String c, TurnState phase, Boolean isSoloGAme){
         market = m;
         marbleInExcess = mx;
@@ -27,19 +40,7 @@ public class GameStartMsg extends AnswerMsg {
 
     public void processMessage(LightModel lightModel){
         lightModel.update(market, marbleInExcess, developmentCards, currentPlayer, phase, isSoloGame);
-        /*
-        lightModel.setMarket(market);
-        lightModel.setMarbleInExcess(marbleInExcess);
-        lightModel.setDevelopmentCardsToBuy(developmentCards);
-        lightModel.setCurrentPlayer(currentPlayer);
-        lightModel.setPhase(phase);
 
-        lightModel.setStorageType(Resource.COIN, Resource.SHIELD, Resource.SERVANT);
-        lightModel.setStorageQuantity(0, 0, 0);
-        //lightModel.setChest(personalBoard.getWareHouse().getMapfromChest());
-        //lightModel.setResourcesToOrganize(personalBoard.getWareHouse().getResourcesToOrganize());
-        //lightModel.setResourcesToAdd(personalBoard.getWareHouse().getResourcesToAdd());
-        */
     }
 
     public void printMessage() {

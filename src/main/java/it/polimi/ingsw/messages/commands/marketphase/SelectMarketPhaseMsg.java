@@ -12,6 +12,9 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type SelectMarketPhaseMsg.
+ */
 public class SelectMarketPhaseMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {

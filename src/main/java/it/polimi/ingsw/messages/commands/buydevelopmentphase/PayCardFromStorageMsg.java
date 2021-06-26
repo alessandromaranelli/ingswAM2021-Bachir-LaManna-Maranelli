@@ -9,11 +9,21 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type PayCardFromStorageMsg.
+ */
 public class PayCardFromStorageMsg extends CommandMsg {
     private Resource r;
     private int n;
     private int i;      //storage number
 
+    /**
+     * Instantiates a new Pay card from storage msg.
+     *
+     * @param r the resource
+     * @param i the storage number
+     * @param n the quantity
+     */
     public PayCardFromStorageMsg(Resource r, int i, int n) {
         this.r = r;
         this.i = i;

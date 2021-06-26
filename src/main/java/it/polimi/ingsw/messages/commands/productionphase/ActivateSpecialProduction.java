@@ -11,10 +11,19 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type ActivateSpecialProduction.
+ */
 public class ActivateSpecialProduction extends CommandMsg {
     private Resource r;
     private int i;
 
+    /**
+     * Instantiates a new Activate special production.
+     *
+     * @param r the resource
+     * @param i the number
+     */
     public ActivateSpecialProduction(Resource r, int i) {
         this.r = r;
         this.i = i;

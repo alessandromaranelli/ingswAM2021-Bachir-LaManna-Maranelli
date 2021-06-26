@@ -12,11 +12,21 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type AddResourceMsg.
+ */
 public class AddResourceMsg extends CommandMsg {
     private Resource r;
     private int storageNumber;
     private int quantity;
 
+    /**
+     * Instantiates a new Add resource msg.
+     *
+     * @param r             the resource
+     * @param storageNumber the storage number
+     * @param quantity      the quantity
+     */
     public AddResourceMsg(Resource r, int storageNumber, int quantity) {
         this.r = r;
         this.storageNumber = storageNumber;

@@ -8,6 +8,9 @@ import it.polimi.ingsw.model.TurnState;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type ShowPlayerSituationMsg.
+ */
 public class ShowPlayerSituationMsg extends AnswerMsg{
     private String nickname;
     private Map<Resource,Integer> chest;
@@ -19,6 +22,19 @@ public class ShowPlayerSituationMsg extends AnswerMsg{
     private TurnState phase;
     private String message;
 
+    /**
+     * Instantiates a new Show player situation msg.
+     *
+     * @param nickname          the nickname
+     * @param chest             the chest
+     * @param storages          the storages
+     * @param resourceList      the resource list
+     * @param position          the position
+     * @param popeFavours       the pope favours
+     * @param leaderCardsPlayed the leader cards played
+     * @param phase             the phase
+     * @param message           the message
+     */
     public ShowPlayerSituationMsg(String nickname, Map<Resource, Integer> chest, Integer[] storages, List<Resource> resourceList, int position, Boolean[] popeFavours, List<LeaderCard> leaderCardsPlayed, TurnState phase, String message) {
         this.nickname=nickname;
         this.chest = chest;

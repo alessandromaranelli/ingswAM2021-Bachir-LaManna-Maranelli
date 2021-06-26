@@ -9,6 +9,9 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type ManageResourcesInStorageMsg.
+ */
 public class ManageResourcesInStorageMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {

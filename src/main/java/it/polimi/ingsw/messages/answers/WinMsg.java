@@ -2,9 +2,17 @@ package it.polimi.ingsw.messages.answers;
 
 import it.polimi.ingsw.client.LightModel;
 
+/**
+ * The type WinMsg.
+ */
 public class WinMsg extends AnswerMsg {
     private String message;
 
+    /**
+     * Instantiates a new Win msg.
+     *
+     * @param message the message
+     */
     public WinMsg(String message){
         this.message = message;
     }

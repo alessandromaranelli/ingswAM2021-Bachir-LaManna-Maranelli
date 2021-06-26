@@ -3,7 +3,10 @@ package it.polimi.ingsw.messages;
 import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.messages.answers.AnswerMsg;
 
-//sono solo messaggi di comodo che servono al client per capire che il server è ancora vivo
+
+/**
+ * The type PingMsg.
+ */
 public class PingMsg extends AnswerMsg {
     private String ping="ping";
 

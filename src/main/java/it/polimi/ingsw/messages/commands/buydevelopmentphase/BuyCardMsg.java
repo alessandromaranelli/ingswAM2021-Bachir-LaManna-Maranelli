@@ -10,11 +10,21 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type BuyCardMsg.
+ */
 public class BuyCardMsg extends CommandMsg {
     private Color c;
     private int level;
     private int slot;
 
+    /**
+     * Instantiates a new Buy card msg.
+     *
+     * @param c     the color
+     * @param level the level
+     * @param slot  the slot
+     */
     public BuyCardMsg(Color c, int level, int slot) {
         this.c = c;
         this.level = level;

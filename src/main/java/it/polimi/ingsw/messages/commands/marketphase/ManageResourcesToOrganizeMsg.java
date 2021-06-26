@@ -12,12 +12,22 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type ManageResourcesToOrganizeMsg.
+ */
 public class ManageResourcesToOrganizeMsg extends CommandMsg {
     private Resource r;
     private int storageNumber;
     private int quantity;
 
 
+    /**
+     * Instantiates a new Manage resources to organize msg.
+     *
+     * @param r             the resource
+     * @param storageNumber the storage number
+     * @param quantity      the quantity
+     */
     public ManageResourcesToOrganizeMsg(Resource r, int storageNumber, int quantity) {
         this.r = r;
         this.storageNumber = storageNumber;

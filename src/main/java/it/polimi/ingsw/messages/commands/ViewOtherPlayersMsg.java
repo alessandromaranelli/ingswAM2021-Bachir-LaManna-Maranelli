@@ -8,6 +8,9 @@ import it.polimi.ingsw.model.TurnState;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
+/**
+ * The type ViewOtherPlayersMsg.
+ */
 public class ViewOtherPlayersMsg extends CommandMsg{
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) throws ModelException {

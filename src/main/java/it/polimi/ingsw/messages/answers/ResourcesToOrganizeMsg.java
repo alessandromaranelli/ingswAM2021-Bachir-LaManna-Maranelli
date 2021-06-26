@@ -6,11 +6,20 @@ import it.polimi.ingsw.model.TurnState;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * The type ResourcesToOrganizeMsg.
+ */
 public class ResourcesToOrganizeMsg extends AnswerMsg{
     private Map<Resource,Integer> map;
     private String message;
     private TurnState phase;
 
+    /**
+     * Instantiates a new Resources to organize msg.
+     *
+     * @param map   the map
+     * @param phase the phase
+     */
     public ResourcesToOrganizeMsg(Map<Resource, Integer> map, TurnState phase) {
         this.map = map;
         this.phase=phase;
@@ -20,11 +29,7 @@ public class ResourcesToOrganizeMsg extends AnswerMsg{
     @Override
     public void processMessage(LightModel lightModel) {
         lightModel.update(map, phase);
-        /*
-        lightModel.setResourcesToOrganize(map);
-        lightModel.setPhase(phase);
 
-         */
     }
 
     @Override

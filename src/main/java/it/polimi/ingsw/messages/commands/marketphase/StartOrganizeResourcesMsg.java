@@ -10,6 +10,9 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type StartOrganizeResourcesMsg.
+ */
 public class StartOrganizeResourcesMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {

@@ -7,6 +7,9 @@ import it.polimi.ingsw.server.Lobby;
 
 import java.io.FileNotFoundException;
 
+/**
+ * The type QuickStartMsg.
+ */
 public class QuickStartMsg extends BeforeStartMsg {
 
     @Override

@@ -7,10 +7,19 @@ import it.polimi.ingsw.model.TurnState;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type AskWhichPlayerMsg.
+ */
 public class AskWhichPlayerMsg extends AnswerMsg{
     private TurnState phase;
     private String message;
 
+    /**
+     * Instantiates a new Ask which player msg.
+     *
+     * @param message the message
+     * @param phase   the phase
+     */
     public AskWhichPlayerMsg(String message, TurnState phase){
         this.phase = phase;
         this.message = message;

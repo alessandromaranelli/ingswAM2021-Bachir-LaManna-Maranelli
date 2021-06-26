@@ -13,10 +13,19 @@ import it.polimi.ingsw.server.Controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The type StartMarketPhaseMsg.
+ */
 public class StartMarketPhaseMsg extends CommandMsg {
     private int dim;
     private boolean row;
 
+    /**
+     * Instantiates a new Start market phase msg.
+     *
+     * @param dim the dim
+     * @param row the row
+     */
     public StartMarketPhaseMsg(int dim, boolean row) {
         this.dim = dim;
         this.row = row;

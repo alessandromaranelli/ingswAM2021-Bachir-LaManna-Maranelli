@@ -4,7 +4,10 @@ import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
-//sono solo messaggi di comodo che servono al server per sapere che il client è ancora vivo
+
+/**
+ * The type PongMsg.
+ */
 public class PongMsg extends CommandMsg {
     private String pong="pong";
 

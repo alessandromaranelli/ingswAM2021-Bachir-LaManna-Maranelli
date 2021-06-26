@@ -3,11 +3,19 @@ package it.polimi.ingsw.messages.answers;
 import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.model.Resource;
 
+/**
+ * The type UpdateWhiteMarbleLeaderMsg.
+ */
 public class UpdateWhiteMarbleLeaderMsg extends AnswerMsg{
     private Resource resource;
     private String message;
 
-     public UpdateWhiteMarbleLeaderMsg(Resource resource){
+    /**
+     * Instantiates a new Update white marble leader msg.
+     *
+     * @param resource the resource
+     */
+    public UpdateWhiteMarbleLeaderMsg(Resource resource){
          this.resource = resource;
          this.message = "Now you can trasform a white marble in " + resource.toString();
      }

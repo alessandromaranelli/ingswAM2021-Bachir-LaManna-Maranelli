@@ -13,11 +13,21 @@ import it.polimi.ingsw.server.Controller;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * The type PayProductionFromStorage.
+ */
 public class PayProductionFromStorage extends CommandMsg {
     private Resource r;
     private int n;
     private int i;      //storage number
 
+    /**
+     * Instantiates a new Pay production from storage.
+     *
+     * @param r the resource
+     * @param i the storage number
+     * @param n the quantity
+     */
     public PayProductionFromStorage(Resource r, int i, int n) {
         this.r = r;
         this.i = i;

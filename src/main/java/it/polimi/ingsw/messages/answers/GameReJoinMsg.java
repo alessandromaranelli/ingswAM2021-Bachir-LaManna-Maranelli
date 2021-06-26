@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type GameReJoinMsg.
+ */
 public class GameReJoinMsg extends AnswerMsg {
     private String nick;
     private int position;
@@ -23,6 +26,24 @@ public class GameReJoinMsg extends AnswerMsg {
     private TurnState phase;
     private Boolean isSoloMatch;
 
+    /**
+     * Instantiates a new Game rejoin msg.
+     *
+     * @param nickname     the nickname
+     * @param position     the position
+     * @param popeFavours  the pope favours
+     * @param r1           the resource 1
+     * @param r2           the resource 2
+     * @param r3           the resource 3
+     * @param storages     the storages
+     * @param mapFromChest the map from chest
+     * @param m            the marketTray
+     * @param mx           the marble in excess
+     * @param d            the the list of developmentcards
+     * @param c            the current player's nickname
+     * @param phase        the phase
+     * @param isSoloMatch  the is solo match
+     */
     public GameReJoinMsg(String nickname, int position, Boolean[] popeFavours, Resource r1, Resource r2, Resource r3,Integer[] storages,Map<Resource, Integer> mapFromChest,Marble[][] m, Marble mx, List<DevelopmentCard> d, String c, TurnState phase, Boolean isSoloMatch){
         nick = nickname;
         this.position = position;
@@ -57,19 +78,6 @@ public class GameReJoinMsg extends AnswerMsg {
         lightModel.setChest(map);
         lightModel.update(market, marbleInExcess, developmentCards, currentPlayer, phase, isSoloMatch);
 
-        /*
-        lightModel.setMarket(market);
-        lightModel.setMarbleInExcess(marbleInExcess);
-        lightModel.setDevelopmentCardsToBuy(developmentCards);
-        lightModel.setCurrentPlayer(currentPlayer);
-        lightModel.setPhase(phase);
-
-        lightModel.setStorageType(Resource.COIN, Resource.SHIELD, Resource.SERVANT);
-        lightModel.setStorageQuantity(0, 0, 0);
-        //lightModel.setChest(personalBoard.getWareHouse().getMapfromChest());
-        //lightModel.setResourcesToOrganize(personalBoard.getWareHouse().getResourcesToOrganize());
-        //lightModel.setResourcesToAdd(personalBoard.getWareHouse().getResourcesToAdd());
-        */
     }
 
     public void printMessage() {

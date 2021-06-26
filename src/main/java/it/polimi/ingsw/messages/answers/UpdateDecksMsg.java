@@ -5,10 +5,19 @@ import it.polimi.ingsw.model.DevelopmentCard;
 
 import java.util.List;
 
+/**
+ * The type UpdateDecksMsg.
+ */
 public class UpdateDecksMsg extends AnswerMsg{
     private List<DevelopmentCard> developmentCards;
     private String message;
 
+    /**
+     * Instantiates a new Update decks msg.
+     *
+     * @param message the message
+     * @param cards   the cards
+     */
     public UpdateDecksMsg(String message, List<DevelopmentCard> cards){
         this.developmentCards = cards;
         this.message = message;
@@ -17,11 +26,7 @@ public class UpdateDecksMsg extends AnswerMsg{
     @Override
     public void processMessage(LightModel lightModel) {
         lightModel.update(developmentCards);
-        /*
-        lightModel.setDevelopmentCardsToBuy(developmentCards);
-        lightModel.getDevelopmentCardToBuyVisualizer().plot(developmentCards);
 
-         */
     }
 
     @Override
