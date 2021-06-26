@@ -42,6 +42,7 @@ public class Gui implements Runnable{
     public void otherPlayerScene(String nickname, Map<Resource, Integer> mapFromChest, Integer[] storages, java.util.List<Resource> resourceList, int position, Boolean[] popeFavours, java.util.List<LeaderCard> leaderCardsPlayed){
         CustomFrame frame2 = new CustomFrame(this);
         frame2.setVisible(true);
+
         frame2.otherPlayerBoard(nickname, mapFromChest, storages, resourceList, position, popeFavours, leaderCardsPlayed);
     }
 

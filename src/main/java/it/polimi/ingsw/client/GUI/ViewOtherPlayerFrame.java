@@ -6,6 +6,8 @@ import it.polimi.ingsw.messages.commands.ViewOtherPlayerNumberMsg;
 import it.polimi.ingsw.model.Player;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -27,7 +29,11 @@ public class ViewOtherPlayerFrame extends JFrame implements ActionListener {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         submit = new JButton("Submit");
+        submit.setBorder(new EtchedBorder());
+        label.setForeground(Color.RED);
         label = new JLabel("Select playerID to see");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setHorizontalTextPosition(SwingConstants.CENTER);
 
         playerID = new JComboBox<>();
         nicknames = new ArrayList<>();

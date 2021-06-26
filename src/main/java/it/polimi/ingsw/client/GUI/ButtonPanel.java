@@ -405,7 +405,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
             gui.sendMessage(msg);
         }
         else if(e.getSource().equals(selectPlayer)){
-            new ViewOtherPlayerFrame(gui, lightModel);
+            new ViewOtherPlayersFrame(gui, lightModel);
         }
     }
 
@@ -416,11 +416,11 @@ public class ButtonPanel extends JPanel implements ActionListener {
         add(viewProductions);
 
         if((phase == TurnState.ENDTURN || phase == TurnState.ENDPREPARATION)){
-            add(endTurn);
-            add(manageResources);
             if(lightModel.isSoloGame() == false){
                 add(viewOtherPlayers);
             }
+            add(endTurn);
+            add(manageResources);
             if(!lightModel.getLeaderCardsInHand().isEmpty()) {
                 add(activateLeadercard);
                 add(discardLeadercard);
@@ -441,13 +441,13 @@ public class ButtonPanel extends JPanel implements ActionListener {
         }
 
         if(phase == TurnState.START){
+            if(lightModel.isSoloGame() == false){
+                add(viewOtherPlayers);
+            }
             add(marketPhase);
             add(developmentCardPhase);
             add(productionPhase);
             add(manageResources);
-            if(lightModel.isSoloGame() == false){
-                add(viewOtherPlayers);
-            }
             if(!lightModel.getLeaderCardsInHand().isEmpty()) {
                 add(activateLeadercard);
                 add(discardLeadercard);

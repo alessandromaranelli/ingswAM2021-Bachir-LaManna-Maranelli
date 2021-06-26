@@ -32,6 +32,7 @@ public class SetStorageTypeFrame extends JFrame implements ActionListener {
         jLabel = new JLabel("Set storage types");
         jLabel.setBackground(Color.YELLOW);
         jLabel.setForeground(Color.BLACK);
+        jLabel.setFont(new Font("Comic Sans", Font.BOLD, 20));
         panel.add(jLabel);
 
         for(int i=0; i < 3; i++){

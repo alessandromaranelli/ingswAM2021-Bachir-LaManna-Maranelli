@@ -9,6 +9,7 @@ import it.polimi.ingsw.messages.commands.preparation.NickNameMsg;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.TurnState;
+import it.polimi.ingsw.model.YellowMarble;
 
 import javax.swing.*;
 import java.awt.*;
@@ -163,7 +164,7 @@ public class CustomFrame extends JFrame implements ActionListener {
         panel.add(jPanel2);
         panel.add(jPanel3);
         this.setContentPane(panel);
-        panel.setLayout(new FlowLayout());
+        panel.setLayout(new GridLayout(3, 1));
         setVisible(true);
     }
 }
