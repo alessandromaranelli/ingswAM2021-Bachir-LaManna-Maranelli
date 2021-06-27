@@ -21,8 +21,12 @@ public class CPUTest {
 
     @Test
     public void actionCpu() {
-        ArrayList<CpuAction> cpuActionArrayList= new ArrayList<>();
-        cpuActionArrayList.addAll(cpu.getCpuActions());
+        if(cpu.getCpuActions().get(0) instanceof CpuActionShuffle){
+            CpuAction cpuAction=cpu.getCpuActions().get(0);
+            cpu.getCpuActions().set(0,cpu.getCpuActions().get(1));
+            cpu.getCpuActions().set(1,cpuAction);
+        }
+        ArrayList<CpuAction> cpuActionArrayList = new ArrayList<>(cpu.getCpuActions());
         cpu.actionCpu();
         for (int i=0;i<cpuActionArrayList.size()-1;i++){
             assertEquals(cpuActionArrayList.get(i+1),cpu.getCpuActions().get(i));

@@ -49,6 +49,8 @@ public class ProductionTest {
     public void testgetFaithPoints(){
         Production production = new Production(p, w, c);
         assertEquals(0, production.getFaithPoints());
+        production.setFaithPoints(5);
+        assertEquals(5,production.getFaithPoints());
     }
 
     @Test
@@ -188,6 +190,7 @@ public class ProductionTest {
         cardSlot.addCardToSlot(card, 1);
         Production production = new Production(p, w, cardSlot);
         production.activateProductionOfSlot(1);
+
     }
 
     @Test(expected = ModelException.class)
@@ -228,6 +231,7 @@ public class ProductionTest {
         assertEquals(m, production.getTotalGain());
         assertEquals(3, production.getFaithPoints());
         assertTrue(production.isProductionActivated(1));
+        production.disactivateAllProductions();
     }
 
 
@@ -293,6 +297,7 @@ public class ProductionTest {
         production.activateSpecialProduction(SHIELD, 1);
         assertTrue(production.isSpecialProductionActivated(1));
         assertEquals(1, production.getFaithPoints());
+        production.disactivateAllProductions();
     }
 
     @Test(expected = ModelException.class)

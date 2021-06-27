@@ -12,6 +12,7 @@ public class CpuActionShuffleTest {
     @Test
     public void testActivateAction() throws FileNotFoundException {
         CpuActionShuffle cpuActionShuffle = new CpuActionShuffle();
+        cpuActionShuffle.getcolor();
         ArrayList<CpuAction> cpuActions = new ArrayList<>();
         cpuActions.add(new CpuActionShuffle());
         cpuActions.add(new CpuActionDiscard(Color.YELLOW));

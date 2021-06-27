@@ -45,7 +45,7 @@ public class CardSlotTest {
         cardSlot.addCardToSlot(new DevelopmentCard(Color.BLUE, 1, 1, m, m, m, 0), 1);
         cardSlot.addCardToSlot(new DevelopmentCard(Color.BLUE, 2, 1, m, m, m, 0), 1);
         cardSlot.addCardToSlot(new DevelopmentCard(Color.BLUE, 3, 1, m, m, m, 0), 1);
-
+        cardSlot.countCards();
         assertFalse(cardSlot.controlCardToAdd(new DevelopmentCard(Color.BLUE, 1, 1, m, m, m, 0), 1));
     }
 

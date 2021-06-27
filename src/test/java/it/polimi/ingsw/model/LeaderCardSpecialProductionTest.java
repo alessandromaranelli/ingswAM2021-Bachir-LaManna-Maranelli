@@ -16,6 +16,8 @@ public class LeaderCardSpecialProductionTest {
     @Test
     public void getDescription() {
         assertEquals("This is a SpecialProduction Leader 2",leaderCardSpecialProduction.getDescription());
+        assertEquals(Color.PURPLE,leaderCardSpecialProduction.getColor());
+        assertEquals(Resource.STONE,leaderCardSpecialProduction.getCost());
     }
 
     @Test

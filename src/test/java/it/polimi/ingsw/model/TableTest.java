@@ -19,6 +19,7 @@ public class TableTest {
     }
     @Test
     public void getDevelopmentCardDeck() {
+        table.getDevelopmentCardDecks();
         DevelopmentCardDeck developmentCardDeck=table.getDevelopmentCardDeck(Color.GREEN,3);
         assertEquals(Color.GREEN, developmentCardDeck.getColor());
         assertEquals(3,developmentCardDeck.getLevel());

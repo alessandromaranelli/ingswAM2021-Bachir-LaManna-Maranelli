@@ -105,6 +105,15 @@ public class Player implements Serializable {
     }
 
     /**
+     * Sets init phase done.
+     *
+     * @param initPhaseDone the init phase done
+     */
+    public void setInitPhaseDone(boolean initPhaseDone) {
+        this.initPhaseDone = initPhaseDone;
+    }
+
+    /**
      * Get phase of the player.
      *
      * @return the phase

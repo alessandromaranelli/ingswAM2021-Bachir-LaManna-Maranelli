@@ -16,6 +16,7 @@ public class WhiteMarbleTest {
     @Test
     public void whenDrawn1() {
         Marble marble= new WhiteMarble();
+        marble.toString();
         marble.whenDrawn(personalBoard);
     }
 

@@ -102,7 +102,8 @@ public class PersonalBoard {
      * @return the resource
      */
     public Resource getLastReduction(){
-        return reduction.get(reduction.size()-1);
+        if(reduction.size()>0) return reduction.get(reduction.size()-1);
+        else return null;
     }
 
     /**
@@ -120,7 +121,8 @@ public class PersonalBoard {
      * @return the resource
      */
     public Resource getLastWhiteMarble(){
-        return whiteMarble.get(whiteMarble.size()-1);
+        if (whiteMarble.size()>0) return whiteMarble.get(whiteMarble.size()-1);
+        else return null;
     }
 
     /**

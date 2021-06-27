@@ -13,6 +13,7 @@ public class PurpleMarbleTest {
     @Test
     public void whenDrawn() throws FileNotFoundException {
         Marble marble= new PurpleMarble();Game game= new Game();
+        marble.toString();
         PersonalBoard personalBoard = new PersonalBoard(game.getVaticanReportSections());
         marble.whenDrawn(personalBoard);
         Map<Resource, Integer> m= new HashMap<>();

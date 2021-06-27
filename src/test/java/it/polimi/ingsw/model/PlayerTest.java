@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PlayerTest {
     Set<ClientHandler> clientHandlers=new LinkedHashSet<>();
     Controller controller=new Controller(clientHandlers,new Match(new Server()));
-    Map<Player,ClientHandler> playerClientHandlerMap=controller.getPlayerClientHandlerMap();
 
     public PlayerTest() throws FileNotFoundException {
     }
@@ -125,6 +124,7 @@ public class PlayerTest {
         assertEquals(card1, player.getPersonalBoard().getLeaderCardsInHand().get(0));
         assertEquals(card2, player.getPersonalBoard().getLeaderCardsInHand().get(1));
         assertEquals(TurnState.CHOOSERESOURCES, player.getPhase());
+        assertEquals(false,player.isInitPhaseDone());
     }
 
     @Test(expected = ModelException.class)
@@ -165,18 +165,17 @@ public class PlayerTest {
     @Test
     public void testaddInitResources2() throws ModelException, FileNotFoundException{
         Game game = new Game();
-        Player player = new Player("flavio", 0, game);
+        Player player = new Player("flavio", 1, game);
         player.drawLeaderCards(controller);
         player.chooseLeaderCardsToDiscard(1, 2,controller);
         player.setInitStorageTypes(controller,Resource.COIN, Resource.STONE, Resource.SERVANT);
-        player.addInitResources(controller,Resource.COIN);
         assertEquals(TurnState.ENDPREPARATION, player.getPhase());
     }
 
     @Test
     public void testaddInitResources3() throws ModelException, FileNotFoundException{
         Game game = new Game();
-        Player player = new Player("flavio", 1, game);
+        Player player = new Player("flavio", 2, game);
         player.drawLeaderCards(controller);
         player.chooseLeaderCardsToDiscard(1, 2,controller);
         player.setInitStorageTypes(controller,Resource.COIN, Resource.STONE, Resource.SERVANT);
@@ -195,7 +194,7 @@ public class PlayerTest {
         player.addInitResources(controller,Resource.COIN);
         assertEquals(TurnState.ENDPREPARATION, player.getPhase());
         assertEquals(1, player.getPersonalBoard().getWareHouse().getFromStorage(1));
-        assertEquals(player.getPersonalBoard().getFaithTrack().getTrack().get(1), player.getPersonalBoard().getFaithTrack().checkPlayerPosition());
+        assertEquals(player.getPersonalBoard().getFaithTrack().getTrack().get(0), player.getPersonalBoard().getFaithTrack().checkPlayerPosition());
     }
 
     @Test(expected = ModelException.class)
@@ -205,7 +204,7 @@ public class PlayerTest {
         player.drawLeaderCards(controller);
         player.chooseLeaderCardsToDiscard(1, 2,controller);
         player.setInitStorageTypes(controller,Resource.COIN, Resource.STONE, Resource.SERVANT);
-        player.addInitResources(controller,Resource.COIN);
+        player.addInitResources(controller,Resource.COIN,Resource.COIN);
     }
 
     @Test(expected = ModelException.class)
@@ -228,14 +227,14 @@ public class PlayerTest {
     @Test
     public void testAddInitResources3() throws ModelException, FileNotFoundException{
         Game game = new Game();
-        Player player = new Player("flavio", 3, game);
+        Player player = new Player("flavio", 4, game);
         player.drawLeaderCards(controller);
         player.chooseLeaderCardsToDiscard(1, 2,controller);
         player.setInitStorageTypes(controller,Resource.STONE, Resource.COIN, Resource.SERVANT);
         player.addInitResources(controller,Resource.COIN, Resource.COIN);
         assertEquals(TurnState.ENDPREPARATION, player.getPhase());
         assertEquals(2, player.getPersonalBoard().getWareHouse().getFromStorage(2));
-        assertEquals(player.getPersonalBoard().getFaithTrack().getTrack().get(2), player.getPersonalBoard().getFaithTrack().checkPlayerPosition());
+        assertEquals(player.getPersonalBoard().getFaithTrack().getTrack().get(1), player.getPersonalBoard().getFaithTrack().checkPlayerPosition());
     }
 
     @Test(expected = ModelException.class)
@@ -250,6 +249,7 @@ public class PlayerTest {
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectMarketPhase(controller);
         assertEquals(TurnState.MARKETPHASE, player.getPhase());
     }
@@ -265,7 +265,9 @@ public class PlayerTest {
     public void teststartMarketPhase2() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
+        player.setInitPhaseDone(true);
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectMarketPhase(controller);
         player.startMarketPhase(controller,1, true);
         assertEquals(TurnState.CHOICE, player.getPhase());
@@ -286,6 +288,7 @@ public class PlayerTest {
         player.getPersonalBoard().addWhiteMarble(Resource.STONE);
         while(player.getPhase() != TurnState.WHITEMARBLES) {
             player.setAsCurrentPlayer();
+            player.setPhase(TurnState.START);
             player.selectMarketPhase(controller);
             player.startMarketPhase(controller,1, false);
         }
@@ -309,6 +312,7 @@ public class PlayerTest {
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectMarketPhase(controller);
         player.startMarketPhase(controller,1, false);
         player.startOrganizeResources(controller);
@@ -327,6 +331,7 @@ public class PlayerTest {
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectMarketPhase(controller);
         player.startMarketPhase(controller,1, false);
         player.startOrganizeResources(controller);
@@ -338,6 +343,7 @@ public class PlayerTest {
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectMarketPhase(controller);
         player.startMarketPhase(controller,1, false);
         player.startOrganizeResources(controller);
@@ -364,13 +370,13 @@ public class PlayerTest {
         player.getPersonalBoard().getWareHouse().addResource(Resource.SERVANT, 3);
         player.getPersonalBoard().getWareHouse().addResourcestoAdd(Resource.COIN, 1, 1);
         player.getPersonalBoard().getWareHouse().addResourcestoAdd(Resource.SERVANT, 3, 3);
-
+        player.setPhase(TurnState.START);
         player.manageResourcesInStorages(controller);
         player.setStoragesTypes(controller,Resource.COIN, Resource.SHIELD, Resource.SERVANT);
         player.defaultManageResourcesToOrganize(controller);
         assertEquals(1, player.getPersonalBoard().getWareHouse().getFromStorage(1));
         assertEquals(3, player.getPersonalBoard().getWareHouse().getFromStorage(3));
-        assertEquals(TurnState.ENDTURN, player.getPhase());
+        assertEquals(TurnState.START, player.getPhase());
     }
 
     @Test(expected = ModelException.class)
@@ -388,14 +394,14 @@ public class PlayerTest {
         player.getPersonalBoard().getWareHouse().addResource(Resource.SERVANT, 3);
         player.getPersonalBoard().getWareHouse().addResourcestoAdd(Resource.COIN, 1, 1);
         player.getPersonalBoard().getWareHouse().addResourcestoAdd(Resource.SERVANT, 3, 3);
-
+        player.setPhase(TurnState.START);
         player.manageResourcesInStorages(controller);
         player.setStoragesTypes(controller,Resource.COIN, Resource.SHIELD, Resource.SERVANT);
         player.manageResourcesToOrganize(controller,Resource.COIN, 1, 1);
         player.manageResourcesToOrganize(controller,Resource.SERVANT, 3, 3);
         assertEquals(1, player.getPersonalBoard().getWareHouse().getFromStorage(1));
         assertEquals(3, player.getPersonalBoard().getWareHouse().getFromStorage(3));
-        assertEquals(TurnState.ENDTURN, player.getPhase());
+        assertEquals(TurnState.START, player.getPhase());
     }
 
     @Test(expected = ModelException.class)
@@ -410,6 +416,7 @@ public class PlayerTest {
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectMarketPhase(controller);
         player.startMarketPhase(controller,1, false);
         player.startAddResources(controller);
@@ -436,6 +443,7 @@ public class PlayerTest {
         player.getPersonalBoard().getWareHouse().addResourcestoAdd(Resource.SHIELD, 2, 1);
 
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectMarketPhase(controller);
         player.startMarketPhase(controller,1, false);
         player.startOrganizeResources(controller);
@@ -466,6 +474,7 @@ public class PlayerTest {
         player.getPersonalBoard().getWareHouse().addResource(Resource.COIN, 1);
 
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectMarketPhase(controller);
         player.startMarketPhase(controller,1, false);
         player.startAddResources(controller);
@@ -481,6 +490,7 @@ public class PlayerTest {
     public void testmanageResourcesInStorages() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
+        player.setPhase(TurnState.START);
         player.manageResourcesInStorages(controller);
         assertEquals(TurnState.ORGANIZERESOURCES, player.getPhase());
     }
@@ -492,13 +502,13 @@ public class PlayerTest {
         player.selectBuyDevelopmentCardPhase(controller);
     }
 
-    @Test
+    @Test(expected = ModelException.class)
     public void testselectBuyDevelopmentCardPhase2() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectBuyDevelopmentCardPhase(controller);
-        assertEquals(TurnState.BUYDEVELOPMENTCARDPHASE, player.getPhase());
     }
 
     @Test(expected = ModelException.class)
@@ -519,6 +529,7 @@ public class PlayerTest {
         DevelopmentCard card = game.getTable().viewDevelopmentCard(Color.BLUE, 1);
 
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectBuyDevelopmentCardPhase(controller);
         player.chooseDevelopmentCard(controller,Color.BLUE, 1, 1);
         assertEquals(card, player.getPersonalBoard().getCardSlot().getTopCardofSlot(1));
@@ -542,6 +553,7 @@ public class PlayerTest {
         player.getPersonalBoard().getWareHouse().addToChest(Resource.SHIELD, 50);
 
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectBuyDevelopmentCardPhase(controller);
         player.chooseDevelopmentCard(controller,Color.BLUE, 1, 1);
         player.payCardAllFromChest();
@@ -567,6 +579,7 @@ public class PlayerTest {
         player.getPersonalBoard().getWareHouse().addToChest(Resource.SHIELD, 50);
 
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectBuyDevelopmentCardPhase(controller);
         player.chooseDevelopmentCard(controller,Color.BLUE, 1, 1);
 
@@ -597,6 +610,7 @@ public class PlayerTest {
         player.getPersonalBoard().getWareHouse().addResourcestoAdd(Resource.COIN, 1, 1);
 
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectBuyDevelopmentCardPhase(controller);
         player.chooseDevelopmentCard(controller,Color.BLUE, 1, 1);
 
@@ -618,6 +632,7 @@ public class PlayerTest {
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectProductionPhase(controller);
         assertEquals(TurnState.PRODUCTIONPHASE, player.getPhase());
     }
@@ -644,6 +659,7 @@ public class PlayerTest {
         player.getPersonalBoard().getCardSlot().addCardToSlot(card, 1);
 
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectProductionPhase(controller);
         player.activateProductionOfSlot(controller,1);
         assertTrue(player.getPersonalBoard().getProduction().isProductionActivated(1));
@@ -666,6 +682,7 @@ public class PlayerTest {
         player.getPersonalBoard().getWareHouse().addToChest(Resource.SHIELD, 50);
 
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectProductionPhase(controller);
         player.activatePersonalProduction(controller,Resource.STONE, Resource.COIN, Resource.SERVANT);
         assertTrue(player.getPersonalBoard().getProduction().isPersonalProductionActivated());
@@ -689,6 +706,7 @@ public class PlayerTest {
         player.getPersonalBoard().getProduction().addSpecialProduction(Resource.COIN);
 
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectProductionPhase(controller);
         player.activateSpecialProduction(controller,Resource.SERVANT, 1);
         assertTrue(player.getPersonalBoard().getProduction().isSpecialProductionActivated(1));
@@ -706,6 +724,7 @@ public class PlayerTest {
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectProductionPhase(controller);
         player.startPayProduction(controller);
         assertEquals(TurnState.ENDTURN, player.getPhase());
@@ -728,6 +747,7 @@ public class PlayerTest {
         player.getPersonalBoard().getWareHouse().addToChest(Resource.SHIELD, 50);
 
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectProductionPhase(controller);
         player.activatePersonalProduction(controller,Resource.STONE, Resource.COIN, Resource.SHIELD);
         player.startPayProduction(controller);
@@ -753,6 +773,7 @@ public class PlayerTest {
         player.getPersonalBoard().getWareHouse().addToChest(Resource.SHIELD, 50);
 
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectProductionPhase(controller);
         player.activatePersonalProduction(controller,Resource.STONE, Resource.COIN, Resource.SHIELD);
         player.startPayProduction(controller);
@@ -825,6 +846,7 @@ public class PlayerTest {
         player.chooseLeaderCardsToDiscard(1, 2,controller);
         player.addInitResources(controller,Resource.COIN);
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.discardLeaderCard(controller,1);
         assertTrue(player.getLeaderAction());
     }

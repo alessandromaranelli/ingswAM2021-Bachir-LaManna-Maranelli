@@ -24,6 +24,13 @@ public class LeaderCardReductionTest {
     }
 
     @Test
+    public void getters(){
+        cardReduction.getPath();
+        assertEquals(Color.BLUE,cardReduction.getColor1());
+        assertEquals(Color.GREEN,cardReduction.getColor2());
+        assertEquals(Resource.COIN,cardReduction.getReduction());
+    }
+    @Test
     public void discard() throws FileNotFoundException {
         Game game= new Game();
         ArrayList<Player> players= new ArrayList<>();
