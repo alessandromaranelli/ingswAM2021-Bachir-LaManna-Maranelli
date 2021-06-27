@@ -114,6 +114,15 @@ public class Player implements Serializable {
     }
 
     /**
+     * Sets phase.
+     *
+     * @param phase the phase
+     */
+    public void setPhase(TurnState phase) {
+        this.phase = phase;
+    }
+
+    /**
      * Get if the leader action has been done during this turn or not
      *
      * @return the boolean

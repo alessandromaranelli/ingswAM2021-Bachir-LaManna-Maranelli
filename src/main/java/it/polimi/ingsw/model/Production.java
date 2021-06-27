@@ -94,6 +94,15 @@ public class Production {
     }
 
     /**
+     * Sets faith points.
+     *
+     * @param faithPoints the faith points
+     */
+    public void setFaithPoints(int faithPoints) {
+        this.faithPoints = faithPoints;
+    }
+
+    /**
      * Count the number of Special Productions
      *
      * @return the quantity
@@ -187,7 +196,7 @@ public class Production {
      *
      * @param i the slot
      * @return the production input of the card
-     * @throws ModelException
+     * @throws ModelException the model exception
      */
     public Map<Resource, Integer> getProductionInputOfSlot(int i) throws ModelException{
         Map<Resource, Integer> m = cardSlot.getTopCardofSlot(i).getProductionInput();
@@ -199,7 +208,7 @@ public class Production {
      *
      * @param i the slot
      * @return the production output of the card
-     * @throws ModelException
+     * @throws ModelException the model exception
      */
     public Map<Resource, Integer> getProductionOutputOfSlot(int i) throws ModelException{
         Map<Resource, Integer> m = cardSlot.getTopCardofSlot(i).getProductionOutput();
@@ -211,7 +220,7 @@ public class Production {
      *
      * @param i the slot
      * @return the faith points of the card
-     * @throws ModelException
+     * @throws ModelException the model exception
      */
     public int getFaithPointsOfSlot(int i) throws ModelException{
         return cardSlot.getTopCardofSlot(i).getFaithPoint();
@@ -222,7 +231,7 @@ public class Production {
      *
      * @param i the slot of the card
      * @return the boolean
-     * @throws ModelException
+     * @throws ModelException the model exception
      */
     public boolean controlRequirementsOfSlot(int i) throws ModelException{
         Map<Resource, Integer> cardCost = cardSlot.getTopCardofSlot(i).getProductionInput();
@@ -287,7 +296,7 @@ public class Production {
     /**
      * Activate special production.
      *
-     * @param output the resource gainded
+     * @param output the resource gained
      * @param i      the special production
      * @throws ModelException if the production can't be activated
      */
@@ -310,7 +319,7 @@ public class Production {
      * @param type the type of the resources
      * @param n    the quantity of the resources
      * @param i    the storage
-     * @throws ModelException
+     * @throws ModelException the model exception
      */
     public void payCostfromStorage(Resource type, int n, int i) throws ModelException{
         if(n > totalCost.get(type)) throw new ModelException("Paying too much");
@@ -323,7 +332,7 @@ public class Production {
      *
      * @param type the type of the resources
      * @param n    the quantity of the resources
-     * @throws ModelException
+     * @throws ModelException the model exception
      */
     public void payCostfromChest(Resource type, int n) throws ModelException{
         if(n > totalCost.get(type)) throw new ModelException("Paying too much");
@@ -368,6 +377,20 @@ public class Production {
         }
         faithPoints = 0;
 
+        for(int i=0; i < 3; i++){
+            productionActivated[i] = false;
+        }
+        personalProductionActivated = false;
+
+        for(SpecialProduction x : specialProduction){
+            x.disactivate();
+        }
+    }
+
+    /**
+     * Disactivate all productions.
+     */
+    public void disactivateAllProductions(){
         for(int i=0; i < 3; i++){
             productionActivated[i] = false;
         }

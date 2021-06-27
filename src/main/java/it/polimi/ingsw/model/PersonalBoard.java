@@ -140,6 +140,15 @@ public class PersonalBoard {
     }
 
     /**
+     * Sets manage white marbles.
+     *
+     * @param manageWhiteMarbles the manage white marbles
+     */
+    public void setManageWhiteMarbles(int manageWhiteMarbles) {
+        this.manageWhiteMarbles = manageWhiteMarbles;
+    }
+
+    /**
      * Manage white marbles.
      *
      * @param type the type

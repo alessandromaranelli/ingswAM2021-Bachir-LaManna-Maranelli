@@ -57,13 +57,14 @@ public class Controller {
      *
      * @return the object (Player)
      */
-    public Object nextPlayer(){
+    public Object nextPlayer() throws ModelException {
         Object o=game.nextPlayer();
         if (o instanceof Player){
             for(Player player: playerClientHandlerMap.keySet()){
                 if (player.equals(o)) {
                     if (!playerClientHandlerMap.get(player).isConnected()) {
-                        nextPlayer();
+                        if(player.getPhase()==TurnState.PREPARATION) manageClientDisconnectionInPreparation(playerClientHandlerMap.get(player));
+                        else nextPlayer();
                         break;
                     }
                 }
@@ -798,4 +799,109 @@ public class Controller {
         match.closeMatch();
     }
 
+    /**
+     * Manage client disconnection while playing his turn.
+     */
+    public void manageClientDisconnectionWhilePlayingHisTurn(ClientHandler clientHandler) throws ModelException {
+        Player player=game.getCurrentPlayer();
+        TurnState phase=game.getCurrentPlayer().getPhase();
+        switch (phase) {
+            case PREPARATION: {
+                player.drawLeaderCards(this);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+            case CHOOSELEADERCARDS: {
+                player.chooseLeaderCardsToDiscard(1, 2, this);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+            case CHOOSERESOURCES: {
+                player.setInitStorageTypes(this, Resource.COIN, Resource.SERVANT, Resource.SHIELD);
+                if (player.getPlayerID() == 2 || player.getPlayerID() == 3)
+                    player.addInitResources(this, Resource.COIN);
+                if (player.getPlayerID() == 4) player.addInitResources(this, Resource.COIN, Resource.SERVANT);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+            case ENDPREPARATION:
+            case START:
+            case ENDTURN:
+            case MARKETPHASE:
+            case BUYDEVELOPMENTCARDPHASE:{
+                nextPlayer();
+                for (ClientHandler c : this.getClientConnectionThreads()) {
+                    if (c.getPlayerID() == this.getGame().getCurrentPlayer().getPlayerID()) {
+                        StartTurnMsg startTurnMsg = new StartTurnMsg(this.getGame().getCurrentPlayer().getPhase(), this.getGame().getCurrentPlayer().getNickname());
+                        c.sendAnswerMessage(startTurnMsg);
+                    }
+                }
+                break;
+            }
+            case WHITEMARBLES: {
+                player.getPersonalBoard().setManageWhiteMarbles(0);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+            case CHOICE:
+            case ORGANIZERESOURCES:
+            case MANAGERESOURCES:
+            case ADDRESOURCES:{
+                player.getPersonalBoard().getWareHouse().getResourcesToAdd().clear();
+                player.getPersonalBoard().getWareHouse().getResourcesToOrganize().clear();
+                player.setPhase(TurnState.ENDTURN);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+            case PAYDEVELOPMENTCARD: {
+                Map<Resource, Integer> cardCost=player.getPersonalBoard().getCardCost();
+                Set<Resource> s = cardCost.keySet();
+                for (Resource i : s) {
+                    for (Storage storage : player.getPersonalBoard().getWareHouse().getStorages()) {
+                        if (storage.getType().equals(i)) {
+                            if(storage.getQuantity() >= cardCost.get(i)){
+                                storage.subFromStorage(i,cardCost.get(i));
+                                cardCost.put(i, 0);
+                            }
+                            else{
+                                cardCost.put(i, cardCost.get(i) - storage.getQuantity());
+                                storage.clearStorage();
+                            }
+
+                        }
+                    }
+                    if(cardCost.get(i)!=0){
+                        player.getPersonalBoard().getWareHouse().subFromChest(i, cardCost.get(i));
+                        cardCost.put(i, 0);
+                    }
+                }
+                player.setPhase(TurnState.ENDTURN);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+            case PRODUCTIONPHASE: case PAYPRODUCTIONS:{
+                Production production=player.getPersonalBoard().getProduction();
+                Map<Resource,Integer> totalCost=production.getTotalCost();
+                Map<Resource,Integer> totalGain=production.getTotalGain();
+                totalCost.clear();
+                totalGain.clear();
+                player.getPersonalBoard().getProduction().setFaithPoints(0);
+                production.disactivateAllProductions();
+                player.setPhase(TurnState.ENDTURN);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+        }
+    }
+
+    public void manageClientDisconnectionInPreparation(ClientHandler clientHandler) throws ModelException {
+        Player player=game.getCurrentPlayer();
+        player.drawLeaderCards(this);
+        player.chooseLeaderCardsToDiscard(1,2,this);
+        player.setInitStorageTypes(this,Resource.COIN,Resource.SERVANT,Resource.SHIELD);
+        if(player.getPlayerID()==2 || player.getPlayerID()==3) player.addInitResources(this,Resource.COIN);
+        if(player.getPlayerID()==4) player.addInitResources(this,Resource.COIN,Resource.SERVANT);
+        nextPlayer();
+
+    }
 }

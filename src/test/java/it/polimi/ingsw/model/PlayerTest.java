@@ -1,25 +1,22 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.server.ClientHandler;
-import it.polimi.ingsw.server.Controller;
-import it.polimi.ingsw.server.Match;
-import it.polimi.ingsw.server.Server;
+import it.polimi.ingsw.server.*;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.*;
+
 import Exceptions.ModelException;
 import org.junit.jupiter.api.*;
-
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
     Set<ClientHandler> clientHandlers=new LinkedHashSet<>();
     Controller controller=new Controller(clientHandlers,new Match(new Server()));
+    Map<Player,ClientHandler> playerClientHandlerMap=controller.getPlayerClientHandlerMap();
 
     public PlayerTest() throws FileNotFoundException {
     }
@@ -67,7 +64,7 @@ public class PlayerTest {
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.setAsCurrentPlayer();
-        assertEquals(TurnState.START, player.getPhase());
+        assertEquals(TurnState.PREPARATION, player.getPhase());
         assertFalse(player.getLeaderAction());
     }
 
@@ -86,10 +83,11 @@ public class PlayerTest {
     }
 
     @Test(expected = ModelException.class)
-    public void testdrawLeaderCards1() throws ModelException, FileNotFoundException{
+    public void testdrawLeaderCards1() throws ModelException, IOException {
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.CHOICE);
         player.drawLeaderCards(controller);
     }
 
@@ -783,6 +781,7 @@ public class PlayerTest {
 
 
         player.setAsCurrentPlayer();
+        player.setPhase(TurnState.START);
         player.selectProductionPhase(controller);
         player.activatePersonalProduction(controller,Resource.SERVANT, Resource.COIN, Resource.SHIELD);
         player.startPayProduction(controller);
