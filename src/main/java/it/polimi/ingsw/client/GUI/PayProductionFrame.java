@@ -14,6 +14,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The type Pay production frame. It displays the total cost to pay of the productions and the player can decide
+ * how to pay it
+ */
 public class PayProductionFrame extends JFrame implements ActionListener {
     private LightModel lightModel;
     private Gui gui;
@@ -30,6 +34,12 @@ public class PayProductionFrame extends JFrame implements ActionListener {
     private JLabel label2;
 
 
+    /**
+     * Instantiates a new Pay production frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     */
     public PayProductionFrame(Gui gui, LightModel lightModel){
         this.lightModel = lightModel;
         this.gui = gui;

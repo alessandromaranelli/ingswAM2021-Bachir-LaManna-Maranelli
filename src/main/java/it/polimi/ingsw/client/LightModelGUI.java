@@ -4,8 +4,16 @@ import it.polimi.ingsw.model.*;
 
 import java.util.*;
 
+/**
+ * The type Light model gui. The updates change the gui
+ */
 public class LightModelGUI extends LightModel{
 
+    /**
+     * Instantiates a new Light model gui.
+     *
+     * @param client the client
+     */
     public LightModelGUI(Client client) {
         super(client);
     }

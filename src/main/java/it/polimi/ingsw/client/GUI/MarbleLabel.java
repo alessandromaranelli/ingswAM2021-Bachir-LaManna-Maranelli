@@ -8,7 +8,15 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * The type Marble label. It displays the image of a marble
+ */
 public class MarbleLabel extends JLabel {
+    /**
+     * Instantiates a new Marble label.
+     *
+     * @param m the m
+     */
     public MarbleLabel(Marble m){
         Image img=null;
         ImageIcon icon = null;
@@ -78,6 +86,12 @@ public class MarbleLabel extends JLabel {
         setVisible(true);
     }
 
+    /**
+     * Instantiates a new Marble label.
+     *
+     * @param m    the m
+     * @param text the text
+     */
     public MarbleLabel(Marble m, String text){
         Image img=null;
         ImageIcon icon = null;

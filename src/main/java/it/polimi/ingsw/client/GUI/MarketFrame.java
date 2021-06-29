@@ -14,6 +14,9 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.List;
 
+/**
+ * The type Market frame. It displays the market
+ */
 public class MarketFrame extends JFrame {
     private List<JLabel> labels;
     private JLabel label;
@@ -21,6 +24,13 @@ public class MarketFrame extends JFrame {
     private JPanel body;
     private JPanel excess;
 
+    /**
+     * Instantiates a new Market frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     * @param buyMarbles the buy marbles
+     */
     public MarketFrame(Gui gui,LightModel lightModel,boolean buyMarbles){
         setTitle("MarketTray");
         if(buyMarbles){
@@ -50,6 +60,13 @@ public class MarketFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Process market.
+     *
+     * @param market     the market
+     * @param buyMarbles the buy marbles
+     * @param gui        the gui
+     */
     public void processMarket(Marble[][] market,boolean buyMarbles,Gui gui) {
             int z = 0;
             for (int i = 0; i < 3; i++) {

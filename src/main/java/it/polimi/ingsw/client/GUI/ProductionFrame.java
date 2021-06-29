@@ -8,7 +8,13 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Production frame. It displays the total cost and the total gains of the productions
+ */
 public class ProductionFrame extends JFrame {
+    /**
+     * The Light model.
+     */
     LightModel lightModel;
     private JPanel panel;
     private JPanel productionInput;
@@ -18,6 +24,11 @@ public class ProductionFrame extends JFrame {
     private List<ResourceLabel> totalCost;
     private List<ResourceLabel> totalGains;
 
+    /**
+     * Instantiates a new Production frame.
+     *
+     * @param lightModel the light model
+     */
     public ProductionFrame(LightModel lightModel){
         this.lightModel = lightModel;
         panel = new JPanel();

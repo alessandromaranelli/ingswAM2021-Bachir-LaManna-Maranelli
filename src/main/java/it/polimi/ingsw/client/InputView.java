@@ -10,11 +10,20 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
+/**
+ * The type Input view. It is a thread that receives messages from the server
+ */
 public class InputView implements Runnable{
     private Socket socket;
     private ObjectInputStream input;
     private Client client;
 
+    /**
+     * Instantiates a new Input view.
+     *
+     * @param socket the socket
+     * @param client the client
+     */
     public InputView(Socket socket, Client client){
         this.socket = socket;
         this.client = client;

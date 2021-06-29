@@ -14,6 +14,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Manage white marbles frame. It displays and
+ */
 public class ManageWhiteMarblesFrame extends JFrame implements ActionListener {
     private LightModel lightModel;
     private Gui gui;
@@ -23,6 +26,13 @@ public class ManageWhiteMarblesFrame extends JFrame implements ActionListener {
     private int whiteMarbles;
     private JButton button;
 
+    /**
+     * Instantiates a new Manage white marbles frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     * @param n          the n
+     */
     public ManageWhiteMarblesFrame(Gui gui, LightModel lightModel, int n){
         lightModel = lightModel;
         gui = gui;
@@ -38,8 +48,9 @@ public class ManageWhiteMarblesFrame extends JFrame implements ActionListener {
         for(int i=0; i < whiteMarbles; i++){
             JComboBox<Resource> box= new JComboBox<>();
             box.addItem(lightModel.getWhiteMarble().get(0));
-            box.addItem(lightModel.getWhiteMarble().get(1));
-
+            if(lightModel.getWhiteMarble().size() > 1 ){
+                box.addItem(lightModel.getWhiteMarble().get(1));
+            }
             boxList.add(box);
         }
 

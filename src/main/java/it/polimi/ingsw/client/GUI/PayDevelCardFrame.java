@@ -18,6 +18,9 @@ import java.beans.Visibility;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The type Pay devel card frame. It displays the cost to pay and the player decides how to pay it
+ */
 public class PayDevelCardFrame extends JFrame implements ActionListener {
     private LightModel lightModel;
     private Gui gui;
@@ -34,6 +37,12 @@ public class PayDevelCardFrame extends JFrame implements ActionListener {
     private JLabel label2;
 
 
+    /**
+     * Instantiates a new Pay devel card frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     */
     public PayDevelCardFrame(Gui gui, LightModel lightModel){
         this.lightModel = lightModel;
         this.gui = gui;

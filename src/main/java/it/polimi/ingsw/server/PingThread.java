@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 /**
- * The type Ping thread.
+ * The type Pong thread. It sends to the client a message every 10000 second to know if it is alive
  */
 public class PingThread extends Thread{
     private ClientHandler clientHandler;

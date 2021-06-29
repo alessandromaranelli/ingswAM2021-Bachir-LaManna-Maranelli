@@ -13,6 +13,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Leader cards frame. It displays the leader cards in hand and the leader cards played
+ */
 public class LeaderCardsFrame extends JFrame {
     private JPanel hand;
     private JPanel board;
@@ -21,6 +24,11 @@ public class LeaderCardsFrame extends JFrame {
     private List<JLabel> cardsInHand;
     private List<JLabel> cardsPlayed;
 
+    /**
+     * Instantiates a new Leader cards frame.
+     *
+     * @param lightModel the light model
+     */
     public LeaderCardsFrame(LightModel lightModel) {
         leaderCardsInHand = new ArrayList<>();
         leaderCardsPlayed = new ArrayList<>();
@@ -51,6 +59,9 @@ public class LeaderCardsFrame extends JFrame {
     }
 
 
+    /**
+     * Create.
+     */
     public void create() {
         int i = 0;
         JLabel jLabel1 = new JLabel("Leader Cards in hand: ");

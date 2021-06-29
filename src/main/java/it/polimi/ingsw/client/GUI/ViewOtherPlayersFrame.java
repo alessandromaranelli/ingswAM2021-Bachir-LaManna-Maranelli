@@ -11,6 +11,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The type View other players frame. It displays the chest, storages, faithtrack and leader cards of another player
+ */
 public class ViewOtherPlayersFrame extends JFrame implements ActionListener {
     private Gui gui;
     private LightModel lightModel;
@@ -19,6 +22,12 @@ public class ViewOtherPlayersFrame extends JFrame implements ActionListener {
     private JButton button;
     private JPanel panel;
 
+    /**
+     * Instantiates a new View other players frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     */
     public ViewOtherPlayersFrame(Gui gui, LightModel lightModel){
         this.gui = gui;
         this.lightModel = lightModel;

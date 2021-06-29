@@ -19,6 +19,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Activate slot production frame. It contains the development cards in the slots and the player can choose
+ * one of them to activate
+ */
 public class ActivateSlotProductionFrame extends JFrame implements ActionListener, MouseListener {
     private Gui gui;
     private LightModel lightModel;
@@ -30,6 +34,12 @@ public class ActivateSlotProductionFrame extends JFrame implements ActionListene
     private int slot;
     private JPanel contentPane;
 
+    /**
+     * Instantiates a new Activate slot production frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     */
     public ActivateSlotProductionFrame(Gui gui, LightModel lightModel) {
         this.gui = gui;
         this.lightModel = lightModel;

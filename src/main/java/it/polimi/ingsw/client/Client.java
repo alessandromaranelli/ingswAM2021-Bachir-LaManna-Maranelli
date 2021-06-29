@@ -13,12 +13,22 @@ import java.util.Scanner;
 
 import javax.swing.*;
 
+/**
+ * The type Client.
+ */
 public class Client {
     private final int PORT;
     private final String hostname;
     private LightModel lightModel;
     private static Gui gui;
 
+    /**
+     * Instantiates a new Client.
+     *
+     * @param port     the port
+     * @param hostname the hostname
+     * @param gui      the gui
+     */
     public Client(int port, String hostname,boolean gui){
         this.PORT = port;
         this.hostname = hostname;
@@ -28,6 +38,11 @@ public class Client {
         else this.lightModel=new LightModelCLI(this);
     }
 
+    /**
+     * Start the thread for communication with the server
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
 
         if (args.length != 3) {
@@ -78,10 +93,20 @@ public class Client {
         }
     }
 
+    /**
+     * Get light model
+     *
+     * @return the light model
+     */
     public LightModel getLightModel(){
         return lightModel;
     }
 
+    /**
+     * Get gui
+     *
+     * @return the gui
+     */
     public Gui getGui(){
         return gui;
     }
