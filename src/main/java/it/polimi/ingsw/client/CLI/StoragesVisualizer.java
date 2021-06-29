@@ -5,7 +5,16 @@ import it.polimi.ingsw.model.Storage;
 
 import java.util.List;
 
+/**
+ * The type Storages visualizer takes care of visualising all the storages state
+ */
 public class StoragesVisualizer {
+    /**
+     * Prints on screen the details
+     *
+     * @param storageType     the storage type
+     * @param storageQuantity amount of resources
+     */
     public void plot(List<Resource> storageType, List<Integer> storageQuantity){
         String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
         System.out.print( whiteEscape);

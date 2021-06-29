@@ -1,6 +1,15 @@
 package it.polimi.ingsw.client.CLI;
 
+/**
+ * The view of the faithrack
+ */
 public class FaithTrackVisualizer {
+    /**
+     * Prints on screen the faith track
+     *
+     * @param position    faith marker pose
+     * @param popeFavours pope favours state
+     */
     public void plot(int position, Boolean[] popeFavours){
         String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
         System.out.print( whiteEscape);

@@ -17,7 +17,7 @@ public class UpdateWhiteMarbleLeaderMsg extends AnswerMsg{
      */
     public UpdateWhiteMarbleLeaderMsg(Resource resource){
          this.resource = resource;
-         this.message = "Now you can trasform a white marble in " + resource.toString();
+         this.message = "Now you can transform a white marble in " + resource.toString();
      }
 
     @Override

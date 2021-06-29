@@ -4,21 +4,23 @@ import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.LeaderCardReduction;
 import it.polimi.ingsw.model.LeaderCardWhiteMarble;
 import it.polimi.ingsw.model.Resource;
-
+/**
+ * View of leader card type White Marble
+ */
 public class LeaderCardWhiteMarbleVisualizer {
     private static final int MAX_VERT_TILES = 7; //rows.
     private static final int MAX_HORIZ_TILES = 40;  //cols.
 
     String tiles[][] = new String[MAX_VERT_TILES][MAX_HORIZ_TILES];
 
-    /*public void setStart(int start){
-        this.start = start;
-    }*/
     public LeaderCardWhiteMarbleVisualizer() {
-        // start = 0;
     }
 
-
+    /**
+     * Creates the frame
+     *
+     * @param col width
+     */
     public void fillEmpty(Color col) {
         String blueEscape = ColorVisualizer.ANSI_BLUE.escape();
         String color;
@@ -59,7 +61,9 @@ public class LeaderCardWhiteMarbleVisualizer {
         tiles[MAX_VERT_TILES - 1][MAX_HORIZ_TILES - 1] = color + "┘" + blueEscape;
 
     }
-
+    /**
+     * Inserts data in the frame
+     */
     public void showLeaderData(LeaderCardWhiteMarble leaderCard) {
         fillEmpty(Color.YELLOW);
         String greenEscape = ColorVisualizer.ANSI_GREEN.escape();
@@ -125,6 +129,10 @@ public class LeaderCardWhiteMarbleVisualizer {
             }
         }
     }
+
+    /**
+     * Prints on screen the view
+     */
     public final void plot() {
         String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
         System.out.print( whiteEscape);

@@ -17,7 +17,7 @@ public class UpdateStorageLeaderMsg extends AnswerMsg{
      */
     public UpdateStorageLeaderMsg(Resource resource){
       this.resource = resource;
-      this.message = "You added a leader storage whith type: " + resource.toString();
+      this.message = "You added a leader storage with type: " + resource.toString();
     }
     @Override
     public void processMessage(LightModel lightModel) {

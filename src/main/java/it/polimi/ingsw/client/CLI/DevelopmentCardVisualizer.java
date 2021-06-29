@@ -4,21 +4,28 @@ import it.polimi.ingsw.model.*;
 
 import java.util.Map;
 
+/**
+ * The view of a single development card with all its features
+ */
 public class DevelopmentCardVisualizer {
     //private int start;
     private static final int MAX_VERT_TILES = 7; //rows.
     private static final int MAX_HORIZ_TILES = 15; //cols.
 
+
     String tiles[][] = new String[MAX_VERT_TILES][MAX_HORIZ_TILES];
 
-    /*public void setStart(int start){
-        this.start = start;
-    }*/
+
     public DevelopmentCardVisualizer() {
        // start = 0;
     }
 
 
+    /**
+     * Creates the border
+     *
+     * @param col width
+     */
     public void fillEmpty(Color col) {
         String greenEscape = ColorVisualizer.ANSI_GREEN.escape();
         String color;
@@ -58,6 +65,13 @@ public class DevelopmentCardVisualizer {
         tiles[MAX_VERT_TILES - 1][MAX_HORIZ_TILES - 1] = color + "┘" ;
 
     }
+
+    /**
+     * Inserts data in the frame
+     *
+     * @param developmentCard the development card
+     * @return the string [ ] [ ]
+     */
     public String[][] showDevelData(DevelopmentCard developmentCard){
         fillEmpty(developmentCard.getColor());
         String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
@@ -189,6 +203,9 @@ public class DevelopmentCardVisualizer {
     }
 */
 
+    /**
+     * Plot.
+     */
     public final void plot() {
         String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
         System.out.print( whiteEscape);
@@ -201,6 +218,9 @@ public class DevelopmentCardVisualizer {
         System.out.print( whiteEscape);
     }
 
+    /**
+     * Prints on screen
+     */
     public final void plot(int size,String[][] tiles) {
         String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
         System.out.print( whiteEscape);
