@@ -11,9 +11,17 @@ import it.polimi.ingsw.server.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type ViewOtherPlayerNumberMsg.
+ */
 public class ViewOtherPlayerNumberMsg extends CommandMsg{
     int playerNumb;
 
+    /**
+     * Instantiates a new View other player number msg.
+     *
+     * @param playerNumb the playerID number
+     */
     public ViewOtherPlayerNumberMsg(int playerNumb) {
         this.playerNumb = playerNumb;
     }

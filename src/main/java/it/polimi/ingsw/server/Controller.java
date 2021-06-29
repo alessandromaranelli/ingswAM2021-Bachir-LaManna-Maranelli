@@ -57,13 +57,14 @@ public class Controller {
      *
      * @return the object (Player)
      */
-    public Object nextPlayer(){
+    public Object nextPlayer() throws ModelException {
         Object o=game.nextPlayer();
         if (o instanceof Player){
             for(Player player: playerClientHandlerMap.keySet()){
                 if (player.equals(o)) {
                     if (!playerClientHandlerMap.get(player).isConnected()) {
-                        nextPlayer();
+                        if(player.getPhase()==TurnState.PREPARATION) manageClientDisconnectionInPreparation(playerClientHandlerMap.get(player));
+                        else nextPlayer();
                         break;
                     }
                 }
@@ -287,13 +288,15 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateDrawLeaders(Player player){
-        UpdateLeaderCardsMsg updateLeaderCardsMsg = new UpdateLeaderCardsMsg(TurnState.CHOOSELEADERCARDS,
-                player.getPersonalBoard().getLeaderCardsInHand(),
-                player.getPersonalBoard().getLeaderCardsPlayed(),
-                "\nYou drew 4 leader cards");
-        playerClientHandlerMap.get(player).sendAnswerMessage(updateLeaderCardsMsg);
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " drew 4 leader cards");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        if(!playerClientHandlerMap.isEmpty()) {
+            UpdateLeaderCardsMsg updateLeaderCardsMsg = new UpdateLeaderCardsMsg(TurnState.CHOOSELEADERCARDS,
+                    player.getPersonalBoard().getLeaderCardsInHand(),
+                    player.getPersonalBoard().getLeaderCardsPlayed(),
+                    "\nYou drew 4 leader cards");
+            playerClientHandlerMap.get(player).sendAnswerMessage(updateLeaderCardsMsg);
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " drew 4 leader cards");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -302,12 +305,14 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateDiscardLeaders(Player player){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateLeaderCardsMsg(player.getPhase(),
-                player.getPersonalBoard().getLeaderCardsInHand(),
-                player.getPersonalBoard().getLeaderCardsPlayed(),
-                "\nYou discarded 2 leader cards"));
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " discarded 2 leader cards");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateLeaderCardsMsg(player.getPhase(),
+                    player.getPersonalBoard().getLeaderCardsInHand(),
+                    player.getPersonalBoard().getLeaderCardsPlayed(),
+                    "\nYou discarded 2 leader cards"));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " discarded 2 leader cards");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -319,11 +324,13 @@ public class Controller {
      * @param i3     the 3
      */
     public void sendUpdateInitStorageTypes(Player player,Resource i1, Resource i2, Resource i3){
-        UpdateStorageTypesMsg updateStorageTypesMsg = new UpdateStorageTypesMsg(player.getPhase(), i1, i2, i3);
-        playerClientHandlerMap.get(player).sendAnswerMessage(updateStorageTypesMsg);
+        if(!playerClientHandlerMap.isEmpty()) {
+            UpdateStorageTypesMsg updateStorageTypesMsg = new UpdateStorageTypesMsg(player.getPhase(), i1, i2, i3);
+            playerClientHandlerMap.get(player).sendAnswerMessage(updateStorageTypesMsg);
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " changed his storages type");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " changed his storages type");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -332,17 +339,19 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateAddInitResources(Player player){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageMsg(TurnState.ENDPREPARATION,
-                player.getPersonalBoard().getWareHouse().getStorages().
-                        stream().map(Storage::getQuantity).toArray(Integer[]::new)));
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateFaithMarkerPositionMsg(TurnState.ENDPREPARATION,
-               player.getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                        player.getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                player.getPersonalBoard().getFaithTrack().getPopeFavours().
-                        stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageMsg(TurnState.ENDPREPARATION,
+                    player.getPersonalBoard().getWareHouse().getStorages().
+                            stream().map(Storage::getQuantity).toArray(Integer[]::new)));
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateFaithMarkerPositionMsg(TurnState.ENDPREPARATION,
+                    player.getPersonalBoard().getFaithTrack().getTrack().indexOf(
+                            player.getPersonalBoard().getFaithTrack().checkPlayerPosition()),
+                    player.getPersonalBoard().getFaithTrack().getPopeFavours().
+                            stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " added initial resources");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " added initial resources");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -351,14 +360,16 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateSelectMarketPhase(Player player){
-        UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.MARKETPHASE, "You can select a row or column from the market");
-        playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
+        if(!playerClientHandlerMap.isEmpty()) {
+            UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.MARKETPHASE, "You can select a row or column from the market");
+            playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
 
-        playerClientHandlerMap.get(player).sendAnswerMessage(new StringMsg("Here is the market!"));
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateMarketMsg(this.getGame().getTable().getMarket()));
+            playerClientHandlerMap.get(player).sendAnswerMessage(new StringMsg("Here is the market!"));
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateMarketMsg(this.getGame().getTable().getMarket()));
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " started Market phase");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " started Market phase");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -368,28 +379,31 @@ public class Controller {
      * @param marbles the marbles
      */
     public void sendUpdateStartMarketPhase(Player player, ArrayList<Marble> marbles){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateResourcesToAddMsg(
-                player.getPhase(),
-                player.getPersonalBoard().getWareHouse().getResourcesToAdd()));
-        for(Marble m: marbles){
-            if(m instanceof RedMarble) {
-                playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateFaithMarkerPositionMsg(player.getPhase(),
-                        player.getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                                player.getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                        player.getPersonalBoard().getFaithTrack().getPopeFavours().
-                                stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
-                break;
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateResourcesToAddMsg(
+                    player.getPhase(),
+                    player.getPersonalBoard().getWareHouse().getResourcesToAdd()));
+            for (Marble m : marbles) {
+                if (m instanceof RedMarble) {
+                    playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateFaithMarkerPositionMsg(player.getPhase(),
+                            player.getPersonalBoard().getFaithTrack().getTrack().indexOf(
+                                    player.getPersonalBoard().getFaithTrack().checkPlayerPosition()),
+                            player.getPersonalBoard().getFaithTrack().getPopeFavours().
+                                    stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
+                    break;
+                }
             }
-        }
-        if (player.getPhase() == TurnState.WHITEMARBLES){
-            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
-                    player.getPersonalBoard().getManageWhiteMarbles()
-            ));}
+            if (player.getPhase() == TurnState.WHITEMARBLES) {
+                playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
+                        player.getPersonalBoard().getManageWhiteMarbles()
+                ));
+            }
 
-            StringMsg stringMsg = new StringMsg(player.getNickname() + " picked "+marbles.size()+" from the market");
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " picked " + marbles.size() + " from the market");
             this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
 
             this.sendAll(new UpdateMarketMsg(this.getGame().getTable().getMarket()));
+        }
     }
 
     /**
@@ -398,12 +412,14 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateManageWhiteMarble(Player player){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateResourcesToAddMsg(
-                player.getPhase(),
-                player.getPersonalBoard().getWareHouse().getResourcesToAdd()));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateResourcesToAddMsg(
+                    player.getPhase(),
+                    player.getPersonalBoard().getWareHouse().getResourcesToAdd()));
 
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
-                player.getPersonalBoard().getManageWhiteMarbles()));
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateWhiteMarblesToManageMsg(
+                    player.getPersonalBoard().getManageWhiteMarbles()));
+        }
     }
 
     /**
@@ -412,12 +428,14 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateStartOrganizeResources(Player player){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new ResourcesToOrganizeMsg(
-                player.getPersonalBoard().getWareHouse().getResourcesToOrganize(),
-                player.getPhase()));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new ResourcesToOrganizeMsg(
+                    player.getPersonalBoard().getWareHouse().getResourcesToOrganize(),
+                    player.getPhase()));
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " started organizing his resources");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " started organizing his resources");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -427,13 +445,15 @@ public class Controller {
      * @throws ModelException the model exception
      */
     public void sendUpdateSetStorageTypes(Player player) throws ModelException {
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageTypesMsg(player.getPhase(),
-                player.getPersonalBoard().getWareHouse().getTypeStorage(1),
-                player.getPersonalBoard().getWareHouse().getTypeStorage(2),
-                player.getPersonalBoard().getWareHouse().getTypeStorage(3)));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageTypesMsg(player.getPhase(),
+                    player.getPersonalBoard().getWareHouse().getTypeStorage(1),
+                    player.getPersonalBoard().getWareHouse().getTypeStorage(2),
+                    player.getPersonalBoard().getWareHouse().getTypeStorage(3)));
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " set his storages types");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " set his storages types");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -442,13 +462,15 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateDefaultManageResourcesToOrganize(Player player){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageMsg(player.getPhase(),
-                player.getPersonalBoard().getWareHouse().getStorages().
-                        stream().map(Storage::getQuantity).toArray(Integer[]::new)));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageMsg(player.getPhase(),
+                    player.getPersonalBoard().getWareHouse().getStorages().
+                            stream().map(Storage::getQuantity).toArray(Integer[]::new)));
 
-        playerClientHandlerMap.get(player).sendAnswerMessage(new ResourcesToOrganizeMsg(
-                player.getPersonalBoard().getWareHouse().getResourcesToOrganize(),
-                player.getPhase()));
+            playerClientHandlerMap.get(player).sendAnswerMessage(new ResourcesToOrganizeMsg(
+                    player.getPersonalBoard().getWareHouse().getResourcesToOrganize(),
+                    player.getPhase()));
+        }
     }
 
     /**
@@ -457,16 +479,18 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateManageResourcesToOrganize(Player player){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageMsg(player.getPhase(),
-                player.getPersonalBoard().getWareHouse().getStorages().
-                        stream().map(Storage::getQuantity).toArray(Integer[]::new)));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageMsg(player.getPhase(),
+                    player.getPersonalBoard().getWareHouse().getStorages().
+                            stream().map(Storage::getQuantity).toArray(Integer[]::new)));
 
-        playerClientHandlerMap.get(player).sendAnswerMessage(new ResourcesToOrganizeMsg(
-                player.getPersonalBoard().getWareHouse().getResourcesToOrganize(),
-                player.getPhase()));
+            playerClientHandlerMap.get(player).sendAnswerMessage(new ResourcesToOrganizeMsg(
+                    player.getPersonalBoard().getWareHouse().getResourcesToOrganize(),
+                    player.getPhase()));
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " started to reorganize resources in storages");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " started to reorganize resources in storages");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -475,11 +499,13 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateStartAddResources(Player player){
-        UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.ADDRESOURCES, "You can add resources");
-        playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
+        if(!playerClientHandlerMap.isEmpty()) {
+            UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.ADDRESOURCES, "You can add resources");
+            playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " started adding resources to storages");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " started adding resources to storages");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -488,12 +514,14 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateAddResources(Player player){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageMsg(player.getPhase(),
-                player.getPersonalBoard().getWareHouse().getStorages().
-                        stream().map(Storage::getQuantity).toArray(Integer[]::new)));
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateResourcesToAddMsg(
-                player.getPhase(),
-                player.getPersonalBoard().getWareHouse().getResourcesToAdd()));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageMsg(player.getPhase(),
+                    player.getPersonalBoard().getWareHouse().getStorages().
+                            stream().map(Storage::getQuantity).toArray(Integer[]::new)));
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateResourcesToAddMsg(
+                    player.getPhase(),
+                    player.getPersonalBoard().getWareHouse().getResourcesToAdd()));
+        }
     }
 
     /**
@@ -502,13 +530,15 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateDiscardResources(Player player){
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " discarded a resource, your position increases by 1 box!");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
-        this.sendAllPos(playerClientHandlerMap.get(player));
+        if(!playerClientHandlerMap.isEmpty()) {
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " discarded a resource, your position increases by 1 box!");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            this.sendAllPos(playerClientHandlerMap.get(player));
 
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateResourcesToAddMsg(
-                player.getPhase(),
-                player.getPersonalBoard().getWareHouse().getResourcesToAdd()));
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateResourcesToAddMsg(
+                    player.getPhase(),
+                    player.getPersonalBoard().getWareHouse().getResourcesToAdd()));
+        }
     }
 
     /**
@@ -517,12 +547,14 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateManageResourcesInStorage(Player player){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new ResourcesToOrganizeMsg(
-                player.getPersonalBoard().getWareHouse().getResourcesToOrganize(),
-                player.getPhase()));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new ResourcesToOrganizeMsg(
+                    player.getPersonalBoard().getWareHouse().getResourcesToOrganize(),
+                    player.getPhase()));
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " started to reorganize resources in storages");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " started to reorganize resources in storages");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -531,11 +563,13 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateBuydevelopmentPhase(Player player){
-        UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.BUYDEVELOPMENTCARDPHASE, "You can select a card");
-        playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
+        if(!playerClientHandlerMap.isEmpty()) {
+            UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.BUYDEVELOPMENTCARDPHASE, "You can select a card");
+            playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " started BuyDevelopmentCard phase");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " started BuyDevelopmentCard phase");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -546,17 +580,19 @@ public class Controller {
      * @throws ModelException the model exception
      */
     public void sendUpdateBuyCard(Player player,int slot) throws ModelException {
-        UpdateDecksMsg updateDecksMsg = new UpdateDecksMsg("\nYou bought the card", this.getGame().getTable().getTopDevelopmentcards());
-        playerClientHandlerMap.get(player).sendAnswerMessage(updateDecksMsg);
+        if(!playerClientHandlerMap.isEmpty()) {
+            UpdateDecksMsg updateDecksMsg = new UpdateDecksMsg("\nYou bought the card", this.getGame().getTable().getTopDevelopmentcards());
+            playerClientHandlerMap.get(player).sendAnswerMessage(updateDecksMsg);
 
-        UpdateCardSlotMsg updateCardSlotMsg = new UpdateCardSlotMsg(player.getPersonalBoard().getCardSlot().getTopCardofSlot(slot), slot);
-        playerClientHandlerMap.get(player).sendAnswerMessage(updateCardSlotMsg);
+            UpdateCardSlotMsg updateCardSlotMsg = new UpdateCardSlotMsg(player.getPersonalBoard().getCardSlot().getTopCardofSlot(slot), slot);
+            playerClientHandlerMap.get(player).sendAnswerMessage(updateCardSlotMsg);
 
-        CardPriceMsg cp = new CardPriceMsg(TurnState.PAYDEVELOPMENTCARD, player.getPersonalBoard().getCardCost());
-        playerClientHandlerMap.get(player).sendAnswerMessage(cp);
+            CardPriceMsg cp = new CardPriceMsg(TurnState.PAYDEVELOPMENTCARD, player.getPersonalBoard().getCardCost());
+            playerClientHandlerMap.get(player).sendAnswerMessage(cp);
 
-        UpdateDecksMsg updateDecksMsg1 = new UpdateDecksMsg(player.getNickname() + " bought a card", this.getGame().getTable().getTopDevelopmentcards());
-        this.sendAllExcept(updateDecksMsg1, playerClientHandlerMap.get(player));
+            UpdateDecksMsg updateDecksMsg1 = new UpdateDecksMsg(player.getNickname() + " bought a card", this.getGame().getTable().getTopDevelopmentcards());
+            this.sendAllExcept(updateDecksMsg1, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -565,14 +601,16 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdatePayCardFromChest(Player player){
-        CardPriceMsg cardPriceMsg = new CardPriceMsg(player.getPhase(), player.getPersonalBoard().getCardCost());
-        playerClientHandlerMap.get(player).sendAnswerMessage(cardPriceMsg);
+        if(!playerClientHandlerMap.isEmpty()) {
+            CardPriceMsg cardPriceMsg = new CardPriceMsg(player.getPhase(), player.getPersonalBoard().getCardCost());
+            playerClientHandlerMap.get(player).sendAnswerMessage(cardPriceMsg);
 
-        ChestMsg chestMsg = new ChestMsg(player.getPhase(), player.getPersonalBoard().getWareHouse().getMapfromChest());
-        playerClientHandlerMap.get(player).sendAnswerMessage(chestMsg);
+            ChestMsg chestMsg = new ChestMsg(player.getPhase(), player.getPersonalBoard().getWareHouse().getMapfromChest());
+            playerClientHandlerMap.get(player).sendAnswerMessage(chestMsg);
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " paid card from chest");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " paid card from chest");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -581,15 +619,17 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdatePayCardFromStorage(Player player){
-        CardPriceMsg cardPriceMsg = new CardPriceMsg(player.getPhase(), player.getPersonalBoard().getCardCost());
-        playerClientHandlerMap.get(player).sendAnswerMessage(cardPriceMsg);
+        if(!playerClientHandlerMap.isEmpty()) {
+            CardPriceMsg cardPriceMsg = new CardPriceMsg(player.getPhase(), player.getPersonalBoard().getCardCost());
+            playerClientHandlerMap.get(player).sendAnswerMessage(cardPriceMsg);
 
-        UpdateStorageMsg updateStorageMsg = new UpdateStorageMsg(player.getPhase(), player.getPersonalBoard().getWareHouse().getStorages().
-                stream().map(Storage::getQuantity).toArray(Integer[]::new));
-        playerClientHandlerMap.get(player).sendAnswerMessage(updateStorageMsg);
+            UpdateStorageMsg updateStorageMsg = new UpdateStorageMsg(player.getPhase(), player.getPersonalBoard().getWareHouse().getStorages().
+                    stream().map(Storage::getQuantity).toArray(Integer[]::new));
+            playerClientHandlerMap.get(player).sendAnswerMessage(updateStorageMsg);
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " paid card from storage");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " paid card from storage");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -598,11 +638,13 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateSelectProductionPhase(Player player){
-        UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.PRODUCTIONPHASE, "You can activate productions");
-        playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
+        if(!playerClientHandlerMap.isEmpty()) {
+            UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(TurnState.PRODUCTIONPHASE, "You can activate productions");
+            playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " started Production phase");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " started Production phase");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -611,12 +653,14 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateActivateProduction(Player player){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateCostsGainsMsg(player.getPersonalBoard().getProduction().getTotalCost(),
-                player.getPersonalBoard().getProduction().getTotalGain(),
-                player.getPersonalBoard().getProduction().getFaithPoints()));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateCostsGainsMsg(player.getPersonalBoard().getProduction().getTotalCost(),
+                    player.getPersonalBoard().getProduction().getTotalGain(),
+                    player.getPersonalBoard().getProduction().getFaithPoints()));
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " activated a production");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " activated a production");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -625,12 +669,14 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateActivatePersonalProduction(Player player){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateCostsGainsMsg(player.getPersonalBoard().getProduction().getTotalCost(),
-                player.getPersonalBoard().getProduction().getTotalGain(),
-                player.getPersonalBoard().getProduction().getFaithPoints()));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateCostsGainsMsg(player.getPersonalBoard().getProduction().getTotalCost(),
+                    player.getPersonalBoard().getProduction().getTotalGain(),
+                    player.getPersonalBoard().getProduction().getFaithPoints()));
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " activated personal production");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " activated personal production");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -639,12 +685,14 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateActivateSpecialProduction(Player player){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateCostsGainsMsg(player.getPersonalBoard().getProduction().getTotalCost(),
-                player.getPersonalBoard().getProduction().getTotalGain(),
-                player.getPersonalBoard().getProduction().getFaithPoints()));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateCostsGainsMsg(player.getPersonalBoard().getProduction().getTotalCost(),
+                    player.getPersonalBoard().getProduction().getTotalGain(),
+                    player.getPersonalBoard().getProduction().getFaithPoints()));
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " activated a special production");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " activated a special production");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -653,11 +701,13 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateStartPayProduction(Player player){
-        UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(player.getPhase(), "You can pay productions");
-        playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
+        if(!playerClientHandlerMap.isEmpty()) {
+            UpdatePhaseMsg updatePhaseMsg = new UpdatePhaseMsg(player.getPhase(), "You can pay productions");
+            playerClientHandlerMap.get(player).sendAnswerMessage(updatePhaseMsg);
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " started to pay productions");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " started to pay productions");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -666,26 +716,27 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdatePayProductionFromChest(Player player){
-        UpdateProductionCostMsg updateProductionCostMsg = new UpdateProductionCostMsg(player.getPersonalBoard().getProduction().getTotalCost());
-        playerClientHandlerMap.get(player).sendAnswerMessage(updateProductionCostMsg);
+        if(!playerClientHandlerMap.isEmpty()) {
+            UpdateProductionCostMsg updateProductionCostMsg = new UpdateProductionCostMsg(player.getPersonalBoard().getProduction().getTotalCost());
+            playerClientHandlerMap.get(player).sendAnswerMessage(updateProductionCostMsg);
 
-        if(player.getPersonalBoard().getProduction().totalCostIsEmpty()){
-            EndProductionMsg endProductionMsg = new EndProductionMsg(TurnState.ENDTURN, player.getPersonalBoard().getWareHouse().getMapfromChest(),
-                    player.getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                            player.getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                    player.getPersonalBoard().getFaithTrack().getPopeFavours().
-                            stream().map(PopeFavour::isActivated).toArray(Boolean[]::new));
-            playerClientHandlerMap.get(player).sendAnswerMessage(endProductionMsg);
+            if (player.getPersonalBoard().getProduction().totalCostIsEmpty()) {
+                EndProductionMsg endProductionMsg = new EndProductionMsg(TurnState.ENDTURN, player.getPersonalBoard().getWareHouse().getMapfromChest(),
+                        player.getPersonalBoard().getFaithTrack().getTrack().indexOf(
+                                player.getPersonalBoard().getFaithTrack().checkPlayerPosition()),
+                        player.getPersonalBoard().getFaithTrack().getPopeFavours().
+                                stream().map(PopeFavour::isActivated).toArray(Boolean[]::new));
+                playerClientHandlerMap.get(player).sendAnswerMessage(endProductionMsg);
 
-            StringMsg stringMsg1 = new StringMsg(player.getNickname() + " ended production phase");
-            this.sendAllExcept(stringMsg1, playerClientHandlerMap.get(player));
-        }
-        else{
-            ChestMsg chestMsg = new ChestMsg(TurnState.PAYPRODUCTIONS, player.getPersonalBoard().getWareHouse().getMapfromChest());
-            playerClientHandlerMap.get(player).sendAnswerMessage(chestMsg);
+                StringMsg stringMsg1 = new StringMsg(player.getNickname() + " ended production phase");
+                this.sendAllExcept(stringMsg1, playerClientHandlerMap.get(player));
+            } else {
+                ChestMsg chestMsg = new ChestMsg(TurnState.PAYPRODUCTIONS, player.getPersonalBoard().getWareHouse().getMapfromChest());
+                playerClientHandlerMap.get(player).sendAnswerMessage(chestMsg);
 
-            StringMsg stringMsg = new StringMsg(player.getNickname() + " paid productions from chest");
-            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+                StringMsg stringMsg = new StringMsg(player.getNickname() + " paid productions from chest");
+                this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            }
         }
     }
 
@@ -695,27 +746,28 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdatePayProductionFromStorage(Player player){
-        UpdateProductionCostMsg updateProductionCostMsg = new UpdateProductionCostMsg(player.getPersonalBoard().getProduction().getTotalCost());
-        playerClientHandlerMap.get(player).sendAnswerMessage(updateProductionCostMsg);
+        if(!playerClientHandlerMap.isEmpty()) {
+            UpdateProductionCostMsg updateProductionCostMsg = new UpdateProductionCostMsg(player.getPersonalBoard().getProduction().getTotalCost());
+            playerClientHandlerMap.get(player).sendAnswerMessage(updateProductionCostMsg);
 
-        UpdateStorageMsg updateStorageMsg = new UpdateStorageMsg(player.getPhase(), player.getPersonalBoard().getWareHouse().getStorages().
-                stream().map(Storage::getQuantity).toArray(Integer[]::new));
-        playerClientHandlerMap.get(player).sendAnswerMessage(updateStorageMsg);
+            UpdateStorageMsg updateStorageMsg = new UpdateStorageMsg(player.getPhase(), player.getPersonalBoard().getWareHouse().getStorages().
+                    stream().map(Storage::getQuantity).toArray(Integer[]::new));
+            playerClientHandlerMap.get(player).sendAnswerMessage(updateStorageMsg);
 
-        if(player.getPersonalBoard().getProduction().totalCostIsEmpty()){
-            EndProductionMsg endProductionMsg = new EndProductionMsg(TurnState.ENDTURN, player.getPersonalBoard().getWareHouse().getMapfromChest(),
-                    player.getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                            player.getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                    player.getPersonalBoard().getFaithTrack().getPopeFavours().
-                            stream().map(PopeFavour::isActivated).toArray(Boolean[]::new));
-            playerClientHandlerMap.get(player).sendAnswerMessage(endProductionMsg);
+            if (player.getPersonalBoard().getProduction().totalCostIsEmpty()) {
+                EndProductionMsg endProductionMsg = new EndProductionMsg(TurnState.ENDTURN, player.getPersonalBoard().getWareHouse().getMapfromChest(),
+                        player.getPersonalBoard().getFaithTrack().getTrack().indexOf(
+                                player.getPersonalBoard().getFaithTrack().checkPlayerPosition()),
+                        player.getPersonalBoard().getFaithTrack().getPopeFavours().
+                                stream().map(PopeFavour::isActivated).toArray(Boolean[]::new));
+                playerClientHandlerMap.get(player).sendAnswerMessage(endProductionMsg);
 
-            StringMsg stringMsg1 = new StringMsg(player.getNickname() + " ended production phase");
-            this.sendAllExcept(stringMsg1, playerClientHandlerMap.get(player));
-        }
-        else{
-            StringMsg stringMsg = new StringMsg(player.getNickname() + " paid productions from storages");
-            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+                StringMsg stringMsg1 = new StringMsg(player.getNickname() + " ended production phase");
+                this.sendAllExcept(stringMsg1, playerClientHandlerMap.get(player));
+            } else {
+                StringMsg stringMsg = new StringMsg(player.getNickname() + " paid productions from storages");
+                this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            }
         }
     }
 
@@ -727,18 +779,24 @@ public class Controller {
      * @throws ModelException the model exception
      */
     public void sendUpdateActivateLeader(Player player, char leaderAct) throws ModelException {
-        if (leaderAct=='s') playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageLeaderMsg(player.getPersonalBoard().getWareHouse().getTypeStorage(4)));
-        else if (leaderAct=='r') playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateReductionLeaderMsg(player.getPersonalBoard().getLastReduction()));
-        else if (leaderAct=='w') playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateWhiteMarbleLeaderMsg(player.getPersonalBoard().getLastWhiteMarble()));
-        else if (leaderAct=='p') playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateSpecialProductionLeaderMsg(player.getPersonalBoard().getProduction().getTypeOfSpecialProduction(player.getPersonalBoard().getProduction().numOfSpecialProduction())));
+        if(!playerClientHandlerMap.isEmpty()) {
+            if (leaderAct == 's')
+                playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageLeaderMsg(player.getPersonalBoard().getWareHouse().getTypeStorage(4)));
+            else if (leaderAct == 'r')
+                playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateReductionLeaderMsg(player.getPersonalBoard().getLastReduction()));
+            else if (leaderAct == 'w')
+                playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateWhiteMarbleLeaderMsg(player.getPersonalBoard().getLastWhiteMarble()));
+            else if (leaderAct == 'p')
+                playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateSpecialProductionLeaderMsg(player.getPersonalBoard().getProduction().getTypeOfSpecialProduction(player.getPersonalBoard().getProduction().numOfSpecialProduction())));
 
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateLeaderCardsMsg(player.getPhase(),
-                player.getPersonalBoard().getLeaderCardsInHand(),
-                player.getPersonalBoard().getLeaderCardsPlayed(),
-                "LeaderCard successfully activated"));
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateLeaderCardsMsg(player.getPhase(),
+                    player.getPersonalBoard().getLeaderCardsInHand(),
+                    player.getPersonalBoard().getLeaderCardsPlayed(),
+                    "LeaderCard successfully activated"));
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " activated a leader card");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " activated a leader card");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -747,19 +805,21 @@ public class Controller {
      * @param player the player
      */
     public void sendUpdateDiscardLeader(Player player){
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateFaithMarkerPositionMsg(player.getPhase(),
-                player.getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                        player.getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                player.getPersonalBoard().getFaithTrack().getPopeFavours().
-                        stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
+        if(!playerClientHandlerMap.isEmpty()) {
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateFaithMarkerPositionMsg(player.getPhase(),
+                    player.getPersonalBoard().getFaithTrack().getTrack().indexOf(
+                            player.getPersonalBoard().getFaithTrack().checkPlayerPosition()),
+                    player.getPersonalBoard().getFaithTrack().getPopeFavours().
+                            stream().map(PopeFavour::isActivated).toArray(Boolean[]::new)));
 
-        playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateLeaderCardsMsg(player.getPhase(),
-                player.getPersonalBoard().getLeaderCardsInHand(),
-                player.getPersonalBoard().getLeaderCardsPlayed(),
-                "LeaderCard successfully discarded"));
+            playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateLeaderCardsMsg(player.getPhase(),
+                    player.getPersonalBoard().getLeaderCardsInHand(),
+                    player.getPersonalBoard().getLeaderCardsPlayed(),
+                    "LeaderCard successfully discarded"));
 
-        StringMsg stringMsg = new StringMsg(player.getNickname() + " discarded a leader card");
-        this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+            StringMsg stringMsg = new StringMsg(player.getNickname() + " discarded a leader card");
+            this.sendAllExcept(stringMsg, playerClientHandlerMap.get(player));
+        }
     }
 
     /**
@@ -798,4 +858,109 @@ public class Controller {
         match.closeMatch();
     }
 
+    /**
+     * Manage client disconnection while playing his turn.
+     */
+    public void manageClientDisconnectionWhilePlayingHisTurn(ClientHandler clientHandler) throws ModelException {
+        Player player=game.getCurrentPlayer();
+        TurnState phase=game.getCurrentPlayer().getPhase();
+        switch (phase) {
+            case PREPARATION: {
+                player.drawLeaderCards(this);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+            case CHOOSELEADERCARDS: {
+                player.chooseLeaderCardsToDiscard(1, 2, this);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+            case CHOOSERESOURCES: {
+                player.setInitStorageTypes(this, Resource.COIN, Resource.SERVANT, Resource.SHIELD);
+                if (player.getPlayerID() == 2 || player.getPlayerID() == 3)
+                    player.addInitResources(this, Resource.COIN);
+                if (player.getPlayerID() == 4) player.addInitResources(this, Resource.COIN, Resource.SERVANT);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+            case ENDPREPARATION:
+            case START:
+            case ENDTURN:
+            case MARKETPHASE:
+            case BUYDEVELOPMENTCARDPHASE:{
+                nextPlayer();
+                for (ClientHandler c : this.getClientConnectionThreads()) {
+                    if (c.getPlayerID() == this.getGame().getCurrentPlayer().getPlayerID()) {
+                        StartTurnMsg startTurnMsg = new StartTurnMsg(this.getGame().getCurrentPlayer().getPhase(), this.getGame().getCurrentPlayer().getNickname());
+                        c.sendAnswerMessage(startTurnMsg);
+                    }
+                }
+                break;
+            }
+            case WHITEMARBLES: {
+                player.getPersonalBoard().setManageWhiteMarbles(0);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+            case CHOICE:
+            case ORGANIZERESOURCES:
+            case MANAGERESOURCES:
+            case ADDRESOURCES:{
+                player.getPersonalBoard().getWareHouse().getResourcesToAdd().clear();
+                player.getPersonalBoard().getWareHouse().getResourcesToOrganize().clear();
+                player.setPhase(TurnState.ENDTURN);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+            case PAYDEVELOPMENTCARD: {
+                Map<Resource, Integer> cardCost=player.getPersonalBoard().getCardCost();
+                Set<Resource> s = cardCost.keySet();
+                for (Resource i : s) {
+                    for (Storage storage : player.getPersonalBoard().getWareHouse().getStorages()) {
+                        if (storage.getType().equals(i)) {
+                            if(storage.getQuantity() >= cardCost.get(i)){
+                                storage.subFromStorage(i,cardCost.get(i));
+                                cardCost.put(i, 0);
+                            }
+                            else{
+                                cardCost.put(i, cardCost.get(i) - storage.getQuantity());
+                                storage.clearStorage();
+                            }
+
+                        }
+                    }
+                    if(cardCost.get(i)!=0){
+                        player.getPersonalBoard().getWareHouse().subFromChest(i, cardCost.get(i));
+                        cardCost.put(i, 0);
+                    }
+                }
+                player.setPhase(TurnState.ENDTURN);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+            case PRODUCTIONPHASE: case PAYPRODUCTIONS:{
+                Production production=player.getPersonalBoard().getProduction();
+                Map<Resource,Integer> totalCost=production.getTotalCost();
+                Map<Resource,Integer> totalGain=production.getTotalGain();
+                totalCost.clear();
+                totalGain.clear();
+                player.getPersonalBoard().getProduction().setFaithPoints(0);
+                production.disactivateAllProductions();
+                player.setPhase(TurnState.ENDTURN);
+                manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
+                break;
+            }
+        }
+    }
+
+    public void manageClientDisconnectionInPreparation(ClientHandler clientHandler) throws ModelException {
+        Player player=game.getCurrentPlayer();
+        player.drawLeaderCards(this);
+        player.chooseLeaderCardsToDiscard(1,2,this);
+        player.setInitStorageTypes(this,Resource.COIN,Resource.SERVANT,Resource.SHIELD);
+        if(player.getPlayerID()==2 || player.getPlayerID()==3) player.addInitResources(this,Resource.COIN);
+        if(player.getPlayerID()==4) player.addInitResources(this,Resource.COIN,Resource.SERVANT);
+        nextPlayer();
+
+    }
 }

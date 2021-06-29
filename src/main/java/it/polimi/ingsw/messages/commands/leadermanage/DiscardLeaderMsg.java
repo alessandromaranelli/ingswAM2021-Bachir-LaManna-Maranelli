@@ -12,9 +12,17 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type DiscardLeaderMsg.
+ */
 public class DiscardLeaderMsg extends CommandMsg {
     int i;
 
+    /**
+     * Instantiates a new Discard leader msg.
+     *
+     * @param i the position
+     */
     public DiscardLeaderMsg(int i) {
         this.i = i;
     }

@@ -9,6 +9,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Faith track panel. It displays the faithtrack
+ */
 public class FaithTrackPanel extends JPanel{
     private JPanel track;
     private JPanel symbols;
@@ -17,15 +20,20 @@ public class FaithTrackPanel extends JPanel{
     private List<JLabel> lorenzoTrack;
     private List<JLabel> popeFavours;
 
+    /**
+     * Instantiates a new Faith track panel.
+     *
+     * @param lightModel the light model
+     */
     public FaithTrackPanel(LightModel lightModel){
-        setBackground(Color.RED);
+        setBackground(Color.GRAY);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         track = new JPanel();
-        track.setBackground(Color.RED);
+        track.setBackground(Color.GRAY);
         symbols = new JPanel();
-        symbols.setBackground(Color.RED);
+        symbols.setBackground(Color.GRAY);
         lorenzo = new JPanel();
-        lorenzo.setBackground(Color.RED);
+        lorenzo.setBackground(Color.GRAY);
         jLabelList = new ArrayList<>();
         lorenzoTrack = new ArrayList<>();
         popeFavours = new ArrayList<>();
@@ -33,8 +41,32 @@ public class FaithTrackPanel extends JPanel{
         for(int i=0; i < 25; i++){
             jLabelList.add(new JLabel());
             jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
-            jLabelList.get(i).setForeground(Color.BLACK);
+            jLabelList.get(i).setForeground(Color.BLUE);
             jLabelList.get(i).setSize(60, 60);
+            if(i >= 5 && i < 8){
+                jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
+            }
+            if(i == 8){
+                jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 4));
+                jLabelList.get(i).setFont(new Font("Comic Sans", Font.BOLD, 18));
+                jLabelList.get(i).setForeground(Color.YELLOW);
+            }
+            if(i >= 12 && i < 16){
+                jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.ORANGE, 2));
+            }
+            if(i == 16){
+                jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.ORANGE, 4));
+                jLabelList.get(i).setFont(new Font("Comic Sans", Font.BOLD, 18));
+                jLabelList.get(i).setForeground(Color.ORANGE);
+            }
+            if(i >= 19 && i < 24){
+                jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+            }
+            if(i == 24){
+                jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.RED, 4));
+                jLabelList.get(i).setFont(new Font("Comic Sans", Font.BOLD, 18));
+                jLabelList.get(i).setForeground(Color.RED);
+            }
             if(i == lightModel.getPosition()){
                 jLabelList.get(i).setText("X");
             }
@@ -126,13 +158,37 @@ public class FaithTrackPanel extends JPanel{
         if(lightModel.isSoloGame()){
             JLabel label = new JLabel("Lorenzo's FaithTrack");
             label.setFont(new Font("Comic Sans", Font.BOLD, 20));
-            label.setForeground(Color.BLUE);
+            label.setForeground(Color.BLACK);
             add(label);
             for(int i=0; i < 25; i++){
                 lorenzoTrack.add(new JLabel());
                 lorenzoTrack.get(i).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
                 lorenzoTrack.get(i).setForeground(Color.BLACK);
                 lorenzoTrack.get(i).setSize(60, 60);
+                if(i >= 5 && i < 8){
+                    lorenzoTrack.get(i).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
+                }
+                if(i == 8){
+                    lorenzoTrack.get(i).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 4));
+                    lorenzoTrack.get(i).setFont(new Font("Comic Sans", Font.BOLD, 18));
+                    lorenzoTrack.get(i).setForeground(Color.YELLOW);
+                }
+                if(i >= 12 && i < 16){
+                    lorenzoTrack.get(i).setBorder(BorderFactory.createLineBorder(Color.ORANGE, 2));
+                }
+                if(i == 16){
+                    lorenzoTrack.get(i).setBorder(BorderFactory.createLineBorder(Color.ORANGE, 4));
+                    lorenzoTrack.get(i).setFont(new Font("Comic Sans", Font.BOLD, 18));
+                    lorenzoTrack.get(i).setForeground(Color.ORANGE);
+                }
+                if(i >= 19 && i < 24){
+                    lorenzoTrack.get(i).setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+                }
+                if(i == 24){
+                    lorenzoTrack.get(i).setBorder(BorderFactory.createLineBorder(Color.RED, 4));
+                    lorenzoTrack.get(i).setFont(new Font("Comic Sans", Font.BOLD, 18));
+                    lorenzoTrack.get(i).setForeground(Color.RED);
+                }
                 if(i == lightModel.getPosition()){
                     lorenzoTrack.get(i).setText("X");
                 }
@@ -149,21 +205,51 @@ public class FaithTrackPanel extends JPanel{
     }
 
 
+    /**
+     * Instantiates a new Faith track panel.
+     *
+     * @param position    the position
+     * @param popeFavours the pope favours
+     */
     public FaithTrackPanel(int position, Boolean[] popeFavours){
-        setBackground(Color.RED);
+        setBackground(Color.GRAY);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         track = new JPanel();
-        track.setBackground(Color.RED);
+        track.setBackground(Color.GRAY);
         symbols = new JPanel();
-        symbols.setBackground(Color.RED);
+        symbols.setBackground(Color.GRAY);
         jLabelList = new ArrayList<>();
         //popeFavours = new ArrayList<>();
 
         for(int i=0; i < 25; i++){
             jLabelList.add(new JLabel());
-            jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-            jLabelList.get(i).setForeground(Color.BLACK);
+            jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+            jLabelList.get(i).setForeground(Color.BLUE);
             jLabelList.get(i).setSize(60, 60);
+            if(i >= 5 && i < 8){
+                jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
+            }
+            if(i == 8){
+                jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.YELLOW, 4));
+                jLabelList.get(i).setFont(new Font("Comic Sans", Font.BOLD, 18));
+                jLabelList.get(i).setForeground(Color.YELLOW);
+            }
+            if(i >= 12 && i < 16){
+                jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.ORANGE, 2));
+            }
+            if(i == 16){
+                jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.ORANGE, 4));
+                jLabelList.get(i).setFont(new Font("Comic Sans", Font.BOLD, 18));
+                jLabelList.get(i).setForeground(Color.ORANGE);
+            }
+            if(i >= 19 && i < 24){
+                jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+            }
+            if(i == 24){
+                jLabelList.get(i).setBorder(BorderFactory.createLineBorder(Color.RED, 4));
+                jLabelList.get(i).setFont(new Font("Comic Sans", Font.BOLD, 18));
+                jLabelList.get(i).setForeground(Color.RED);
+            }
             if(i == position){
                 jLabelList.get(i).setText("X");
             }

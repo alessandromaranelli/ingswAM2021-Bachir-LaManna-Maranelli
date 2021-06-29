@@ -10,6 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Activate special production frame. It asks to the player what resource he wants to produce
+ */
 public class ActivateSpecialProductionFrame extends JFrame implements ActionListener {
     private Gui gui;
     private LightModel lightModel;
@@ -20,6 +23,13 @@ public class ActivateSpecialProductionFrame extends JFrame implements ActionList
     private int i;
 
 
+    /**
+     * Instantiates a new Activate special production frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     * @param i          the
+     */
     public ActivateSpecialProductionFrame(Gui gui, LightModel lightModel, int i){
         this.gui = gui;
         this.lightModel = lightModel;

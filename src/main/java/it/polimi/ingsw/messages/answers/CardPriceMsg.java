@@ -7,10 +7,19 @@ import it.polimi.ingsw.model.TurnState;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * The type CardPriceMsg.
+ */
 public class CardPriceMsg extends AnswerMsg {
     private Map<Resource,Integer> price;
     private TurnState phase;
 
+    /**
+     * Instantiates a new Card price msg.
+     *
+     * @param phase the phase
+     * @param price the price
+     */
     public CardPriceMsg(TurnState phase, Map<Resource, Integer> price) {
         this.phase = phase;
         this.price = price;
@@ -19,10 +28,7 @@ public class CardPriceMsg extends AnswerMsg {
     @Override
     public void processMessage(LightModel lightModel){
         lightModel.updateCardPrice(phase, price);
-        /*
-        lightModel.setPhase(phase);
-        lightModel.setCardCost(price);
-        */
+
     }
 
     @Override

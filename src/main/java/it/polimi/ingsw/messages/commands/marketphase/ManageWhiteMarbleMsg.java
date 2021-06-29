@@ -14,9 +14,17 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type ManageWhiteMarbleMsg.
+ */
 public class ManageWhiteMarbleMsg extends CommandMsg {
     private Resource resource;
 
+    /**
+     * Instantiates a new Manage white marble msg.
+     *
+     * @param resource the resource
+     */
     public ManageWhiteMarbleMsg(Resource resource) {
         this.resource = resource;
     }

@@ -1,8 +1,7 @@
 package it.polimi.ingsw.model;
 
 import Exceptions.ModelException;
-import org.junit.Test;
-//import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -29,6 +28,8 @@ public class LeaderCardStorageTest {
         ArrayList<Player> players= new ArrayList<>();
         Player player= new Player("Aldo",1, game);
         players.add(player);
+        leaderCardStorage.getType();
+        leaderCardStorage.getRequirement();
         player.getPersonalBoard().getLeaderCardsInHand().add(leaderCardStorage);
         try {
             player.getPersonalBoard().discardLeaderCard(1);

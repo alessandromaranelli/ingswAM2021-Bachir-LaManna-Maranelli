@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 import Exceptions.ModelException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -53,10 +53,21 @@ public class PersonalBoardTest {
 
     @Test
     public void addGetReduction() {
+        player.getPersonalBoard().setManageWhiteMarbles(3);
+        player.getPersonalBoard().getLastReduction();
+        player.getPersonalBoard().getLastWhiteMarble();
+        player.getPersonalBoard().addWhiteMarbleToManage();
+        player.getPersonalBoard().setManageWhiteMarbles(3);
+        player.getPersonalBoard().getLeaderCardsInHand();
+        player.getPersonalBoard().getLeaderCardsPlayed();
+        player.getPersonalBoard().getWhiteMarble().add(Resource.COIN);
+        player.getPersonalBoard().getLastWhiteMarble();
         player.getPersonalBoard().addReduction(Resource.SERVANT);
+        player.getPersonalBoard().getLastReduction();
         ArrayList<Resource> resources=new ArrayList<>();
         resources.add(Resource.SERVANT);
         assertEquals(resources,player.getPersonalBoard().getReduction());
+        assertEquals(3,player.getPersonalBoard().getManageWhiteMarbles());
     }
 
     @Test
@@ -65,6 +76,7 @@ public class PersonalBoardTest {
         ArrayList<Resource> resources=new ArrayList<>();
         resources.add(Resource.SERVANT);
         assertEquals(resources,player.getPersonalBoard().getWhiteMarble());
+        player.getPersonalBoard().addWhiteMarble(Resource.COIN);
     }
 
     @Test
@@ -74,9 +86,9 @@ public class PersonalBoardTest {
     }
 
 
-    @Test(expected = ModelException.class)
+    @Test
     public void manageWhiteMarbles1() throws ModelException {
-        player.getPersonalBoard().manageWhiteMarbles(Resource.COIN);
+        assertThrows(ModelException.class,()->{player.getPersonalBoard().manageWhiteMarbles(Resource.COIN);});
     }
 
     @Test
@@ -94,16 +106,18 @@ public class PersonalBoardTest {
     }
 
     @Test
-    public void getLeaderCardsInHand() {
+    public void getLeaderCardsInHand() throws ModelException {
         LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN, "hello");
         player.getPersonalBoard().getLeaderCardsInHand().add(leaderCard);
+        player.getPersonalBoard().getDescLeaderCardinHand(1);
         assertEquals(leaderCard,player.getPersonalBoard().getLeaderCardsInHand().get(0));
     }
 
     @Test
-    public void getLeaderCardsPlayed() {
+    public void getLeaderCardsPlayed() throws ModelException {
         LeaderCard leaderCard= new LeaderCardReduction(2, "leader red 1", Color.BLUE, Color.GREEN, Resource.COIN, "hello");
         player.getPersonalBoard().getLeaderCardsPlayed().add(leaderCard);
+        player.getPersonalBoard().getDescLeaderCardPlayed(1);
         assertEquals(leaderCard,player.getPersonalBoard().getLeaderCardsPlayed().get(0));
     }
 

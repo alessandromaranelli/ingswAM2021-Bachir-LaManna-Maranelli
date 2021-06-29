@@ -11,23 +11,21 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.List;
 
+/**
+ * The type Devel cards slots panel. It contains three slots for the development cards
+ */
 public class DevelCardsSlotsPanel extends JPanel {
     private LightModel lightModel;
 
+    /**
+     * Instantiates a new Devel cards slots panel.
+     *
+     * @param lightModel the light model
+     */
     public DevelCardsSlotsPanel(LightModel lightModel) {
         this.lightModel = lightModel;
         setBackground(new Color(206,119,42, 51));
-        //setBorder(BorderFactory.createLineBorder(Color.green,3));
-        //int slotN = 0;
         List<JLabel> jl = new ArrayList<>();
-
-        //---------------per provare-----------------
-        /*ArrayList<String> d = new ArrayList<>();
-        d.add("src/main/resources/DevelopmentCards/Masters of Renaissance_Cards_FRONT_3mmBleed_1-18-1.png");
-        d.add("src/main/resources/DevelopmentCards/Masters of Renaissance_Cards_FRONT_3mmBleed_1-30-1.png");
-        d.add("src/main/resources/DevelopmentCards/Masters of Renaissance_Cards_FRONT_3mmBleed_1-3-1.png");
-        for(String s:d){*/
-
 
         for(int i=1; i <= 3; i++){
             if(lightModel.getDevelopmentCard2().get(i) == null){

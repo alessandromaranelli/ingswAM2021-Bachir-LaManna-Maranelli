@@ -3,12 +3,21 @@ package it.polimi.ingsw.messages.answers;
 import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.model.TurnState;
 
-//Lo StartTurnMsg è sempre e solo una risposta ad una richiesta di fine turno da parte di un giocatore
+/**
+ * The type StartTurnMsg.
+ */
+
 public class StartTurnMsg extends AnswerMsg{
     private TurnState phase;
     private String currentPlayer;
     private String message;
 
+    /**
+     * Instantiates a new Start turn msg.
+     *
+     * @param phase         the phase
+     * @param currentPlayer the current player
+     */
     public StartTurnMsg(TurnState phase, String currentPlayer){
         this.phase = phase;
         this.currentPlayer = currentPlayer;
@@ -17,11 +26,7 @@ public class StartTurnMsg extends AnswerMsg{
 
     public void processMessage(LightModel lightModel) {
         lightModel.update(phase, currentPlayer);
-        /*
-        lightModel.setPhase(phase);
-        lightModel.setCurrentPlayer(currentPlayer);
 
-         */
     }
 
     @Override

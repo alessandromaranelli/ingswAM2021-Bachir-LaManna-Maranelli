@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +13,7 @@ public class YellowMarbleTest {
     public void whenDrawn() throws FileNotFoundException {
         Marble marble= new YellowMarble();
         Game game= new Game();
+        marble.toString();
         PersonalBoard personalBoard = new PersonalBoard(game.getVaticanReportSections());
         marble.whenDrawn(personalBoard);
         Map<Resource, Integer> m= new HashMap<>();

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 import com.google.gson.Gson;
+import it.polimi.ingsw.client.GUI.DevelCardsSlotsPanel;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,8 +22,9 @@ public class JsonParser {
      * @throws FileNotFoundException the file not found exception
      */
     public ArrayList<DevelopmentCardDeck> deserializeDevelopment() throws FileNotFoundException {
-        file = new File("src/main/resources/cards.json");
-        inputStream = new FileInputStream(file);
+        inputStream = JsonParser.class.getResourceAsStream("/cards.json");
+        //file = new File("src/main/resources/cards.json");
+        //inputStream = new FileInputStream(file);
         reader= new InputStreamReader(inputStream);
         DevelopmentCard[] card= gson.fromJson(reader, DevelopmentCard[].class);
         ArrayList<DevelopmentCard> developmentCards= new ArrayList<>();
@@ -47,30 +49,37 @@ public class JsonParser {
      * @throws FileNotFoundException the file not found exception
      */
     public LeaderCardDeck deserializeLeaders() throws FileNotFoundException {
-        file = new File("src/main/resources/ReductionLeaderCardsData.json");
-        inputStream= new FileInputStream(file);
+        inputStream = JsonParser.class.getResourceAsStream("/ReductionLeaderCardsData.json");
+        //file = new File("src/main/resources/ReductionLeaderCardsData.json");
+        //inputStream= new FileInputStream(file);
         reader = new InputStreamReader(inputStream);
         LeaderCard []leaderCard = gson.fromJson(reader, LeaderCardReduction[].class);
         LeaderCardDeck leaderCardDeck  = new LeaderCardDeck();
         for(LeaderCard lc : leaderCard){
             leaderCardDeck.addCard(lc);
         }
-        file = new File("src/main/resources/SpecialProductionLeaderCardsData.json");
-        inputStream= new FileInputStream(file);
+
+        inputStream = JsonParser.class.getResourceAsStream("/SpecialProductionLeaderCardsData.json");
+        //file = new File("src/main/resources/SpecialProductionLeaderCardsData.json");
+        //inputStream= new FileInputStream(file);
         reader = new InputStreamReader(inputStream);
         leaderCard = gson.fromJson(reader, LeaderCardSpecialProduction[].class);
         for(LeaderCard lc : leaderCard){
             leaderCardDeck.addCard(lc);
         }
-        file = new File("src/main/resources/StorageLeaderCardsData.json");
-        inputStream= new FileInputStream(file);
+
+        inputStream = JsonParser.class.getResourceAsStream("/StorageLeaderCardsData.json");
+        //file = new File("src/main/resources/StorageLeaderCardsData.json");
+        //inputStream= new FileInputStream(file);
         reader = new InputStreamReader(inputStream);
         leaderCard = gson.fromJson(reader, LeaderCardStorage[].class);
         for(LeaderCard lc : leaderCard){
             leaderCardDeck.addCard(lc);
         }
-        file = new File("src/main/resources/WhiteMarbleLeaderCardsData.json");
-        inputStream= new FileInputStream(file);
+
+        inputStream = JsonParser.class.getResourceAsStream("/WhiteMarbleLeaderCardsData.json");
+        //file = new File("src/main/resources/WhiteMarbleLeaderCardsData.json");
+        //inputStream= new FileInputStream(file);
         reader = new InputStreamReader(inputStream);
         leaderCard = gson.fromJson(reader, LeaderCardWhiteMarble[].class);
         for(LeaderCard lc : leaderCard){

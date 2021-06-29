@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Ware house panel. It shows what storages and chest contain
+ */
 public class WareHousePanel extends JPanel {
     private List<JLabel> storageLabels;
     private JLabel coinChest;
@@ -16,6 +19,11 @@ public class WareHousePanel extends JPanel {
     private JLabel shieldChest;
     private JLabel stoneChest;
 
+    /**
+     * Instantiates a new Ware house panel.
+     *
+     * @param lightModel the light model
+     */
     public WareHousePanel(LightModel lightModel){
         setBackground(Color.ORANGE);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -55,6 +63,13 @@ public class WareHousePanel extends JPanel {
     }
 
 
+    /**
+     * Instantiates a new Ware house panel.
+     *
+     * @param mapFromChest the map from chest
+     * @param storages     the storages
+     * @param resourceList the resource list
+     */
     public WareHousePanel(Map<Resource, Integer> mapFromChest, Integer[] storages, List<Resource> resourceList){
         setBackground(Color.ORANGE);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

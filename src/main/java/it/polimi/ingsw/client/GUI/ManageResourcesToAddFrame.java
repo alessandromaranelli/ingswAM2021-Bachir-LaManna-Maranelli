@@ -15,6 +15,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The type Manage resources to add frame. It displays the resources and if they have to be added or discarded
+ */
 public class ManageResourcesToAddFrame extends JFrame implements ActionListener {
     private LightModel lightModel;
     private Gui gui;
@@ -31,6 +34,12 @@ public class ManageResourcesToAddFrame extends JFrame implements ActionListener 
     private JComboBox<String> choice;
 
 
+    /**
+     * Instantiates a new Manage resources to add frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     */
     public ManageResourcesToAddFrame(Gui gui, LightModel lightModel){
         this.lightModel = lightModel;
         this.gui = gui;

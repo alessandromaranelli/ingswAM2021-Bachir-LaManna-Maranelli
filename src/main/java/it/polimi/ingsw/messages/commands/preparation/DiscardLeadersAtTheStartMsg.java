@@ -8,10 +8,19 @@ import it.polimi.ingsw.messages.commands.CommandMsg;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.Controller;
 
+/**
+ * The type DiscardLeadersAtTheStartMsg.
+ */
 public class DiscardLeadersAtTheStartMsg extends CommandMsg {
     int leader1;
     int leader2;
 
+    /**
+     * Instantiates a new Discard leaders at the start msg.
+     *
+     * @param leader1 the leader 1
+     * @param leader2 the leader 2
+     */
     public DiscardLeadersAtTheStartMsg(int leader1, int leader2) {
         this.leader1 = leader1;
         this.leader2 = leader2;

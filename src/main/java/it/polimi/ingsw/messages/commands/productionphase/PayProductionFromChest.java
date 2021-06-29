@@ -13,10 +13,19 @@ import it.polimi.ingsw.server.Controller;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * The type PayProductionFromChest.
+ */
 public class PayProductionFromChest extends CommandMsg {
     private Resource r;
     private int i;
 
+    /**
+     * Instantiates a new Pay production from chest.
+     *
+     * @param r the resource
+     * @param i the quantity
+     */
     public PayProductionFromChest(Resource r, int i) {
         this.r = r;
         this.i = i;

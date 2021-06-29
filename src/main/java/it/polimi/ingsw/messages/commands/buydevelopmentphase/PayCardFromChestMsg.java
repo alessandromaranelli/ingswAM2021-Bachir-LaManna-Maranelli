@@ -10,10 +10,19 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type PayCardFromChestMsg.
+ */
 public class PayCardFromChestMsg extends CommandMsg {
     private Resource r;
     private int i;
 
+    /**
+     * Instantiates a new Pay card from chest msg.
+     *
+     * @param r the resource
+     * @param i the quantity
+     */
     public PayCardFromChestMsg(Resource r, int i) {
         this.r = r;
         this.i = i;

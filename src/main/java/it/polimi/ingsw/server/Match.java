@@ -4,6 +4,7 @@ import Exceptions.ModelException;
 import it.polimi.ingsw.messages.answers.GameReJoinMsg;
 import it.polimi.ingsw.messages.answers.GameStartMsg;
 import it.polimi.ingsw.messages.answers.StringMsg;
+import it.polimi.ingsw.messages.answers.UpdatePhaseMsg;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PopeFavour;
 import it.polimi.ingsw.model.Storage;
@@ -156,24 +157,27 @@ public class Match {
                 }
                 clientConnectionThreadsNotConnected.remove(clientHandler);
                 c.setController(controller);
-                c.sendAnswerMessage(new StringMsg("You reconnected successfully!!!\n\n"));
-                c.sendAnswerMessage(new GameReJoinMsg(controller.getGame().getPlayerById(clientHandler.getPlayerID()).getNickname(),
-                        controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().getTrack().indexOf(
-                                controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().checkPlayerPosition()),
-                        controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().getPopeFavours().
-                                stream().map(PopeFavour::isActivated).toArray(Boolean[]::new),
-                        controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getWareHouse().getTypeStorage(1),
-                        controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getWareHouse().getTypeStorage(2),
-                        controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getWareHouse().getTypeStorage(3),
-                        controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getWareHouse().getStorages().
-                                stream().map(Storage::getQuantity).toArray(Integer[]::new),
-                        controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getWareHouse().getMapfromChest(),
-                        controller.getGame().getTable().getMarket().getMarketTable(),
-                        controller.getGame().getTable().getMarket().getMarbleInExcess(),
-                        controller.getGame().getTable().getTopDevelopmentcards(),
-                        controller.getGame().getCurrentPlayer().getNickname(),
-                        controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPhase(),
-                        controller.getGame().isSoloMatch()));
+                c.sendAnswerMessage(new UpdatePhaseMsg(TurnState.BEFORESTART,"You reconnected successfully!!!\n\n"));
+                if(clientHandler.getPlayerID()>0) {
+                    c.sendAnswerMessage(new GameReJoinMsg(controller.getGame().getPlayerById(clientHandler.getPlayerID()).getNickname(),
+                            controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().getTrack().indexOf(
+                                    controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().checkPlayerPosition()),
+                            controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().getPopeFavours().
+                                    stream().map(PopeFavour::isActivated).toArray(Boolean[]::new),
+                            controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getWareHouse().getTypeStorage(1),
+                            controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getWareHouse().getTypeStorage(2),
+                            controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getWareHouse().getTypeStorage(3),
+                            controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getWareHouse().getStorages().
+                                    stream().map(Storage::getQuantity).toArray(Integer[]::new),
+                            controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getWareHouse().getMapfromChest(),
+                            controller.getGame().getTable().getMarket().getMarketTable(),
+                            controller.getGame().getTable().getMarket().getMarbleInExcess(),
+                            controller.getGame().getTable().getTopDevelopmentcards(),
+                            controller.getGame().getCurrentPlayer().getNickname(),
+                            controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPhase(),
+                            controller.getGame().isSoloMatch()));
+                    c.setReady();
+                }
 
             }
         }

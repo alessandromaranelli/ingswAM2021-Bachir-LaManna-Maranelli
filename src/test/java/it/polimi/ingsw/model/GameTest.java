@@ -1,13 +1,9 @@
 package it.polimi.ingsw.model;
 
-import Exceptions.ModelException;
-import org.junit.Test;
-//import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
+
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 public class GameTest {
@@ -24,6 +20,7 @@ public class GameTest {
         game.createNewPlayer(player);
         game.start();
         assertTrue(game.isSoloMatch());
+        game.getCpu();
 
     }
 
@@ -42,6 +39,7 @@ public class GameTest {
         Player player= new Player("Aldo",1, game);
         game.createNewPlayer(player);
         assertEquals(game.getPlayers().get(0),player);
+        assertEquals(player,game.getPlayerById(1));
     }
 /*
     @Test
@@ -90,6 +88,8 @@ public class GameTest {
         game.createNewPlayer(player2);
         game.nextPlayer();
         assertEquals(player2, game.getCurrentPlayer());
+        assertEquals(false,game.isGameAboutToFinish());
+        assertEquals(false,game.hasLorenzoWon());
     }
 
     @Test

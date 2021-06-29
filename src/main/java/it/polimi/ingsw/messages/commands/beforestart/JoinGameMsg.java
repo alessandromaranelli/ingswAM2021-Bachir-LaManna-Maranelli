@@ -7,9 +7,17 @@ import it.polimi.ingsw.server.Lobby;
 
 import java.io.FileNotFoundException;
 
+/**
+ * The type JoinGameMsg.
+ */
 public class JoinGameMsg extends BeforeStartMsg {
     private String unicode;
 
+    /**
+     * Instantiates a new Join game msg.
+     *
+     * @param unicode the unicode
+     */
     public JoinGameMsg(String unicode) {
         this.unicode = unicode;
     }

@@ -11,11 +11,21 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type ActivatePersonalProductionMsg.
+ */
 public class ActivatePersonalProductionMsg extends CommandMsg {
     private Resource i1;
     private Resource i2;
     private Resource o;
 
+    /**
+     * Instantiates a new Activate personal production msg.
+     *
+     * @param i1 the input1
+     * @param i2 the input2
+     * @param o  the output
+     */
     public ActivatePersonalProductionMsg(Resource i1, Resource i2, Resource o) {
         this.i1 = i1;
         this.i2 = i2;

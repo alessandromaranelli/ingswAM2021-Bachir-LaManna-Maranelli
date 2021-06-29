@@ -3,10 +3,19 @@ package it.polimi.ingsw.messages.answers;
 import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.model.TurnState;
 
+/**
+ * The type UpdateStorageMsg.
+ */
 public class UpdateStorageMsg extends AnswerMsg{
     private Integer[] storages;
     private TurnState phase;
 
+    /**
+     * Instantiates a new Update storage msg.
+     *
+     * @param phase    the phase
+     * @param storages the storages
+     */
     public UpdateStorageMsg(TurnState phase, Integer[] storages) {
         this.storages = storages;
         this.phase = phase;
@@ -15,16 +24,7 @@ public class UpdateStorageMsg extends AnswerMsg{
     @Override
     public void processMessage(LightModel lightModel) {
         lightModel.update(phase, storages);
-        /*
-        lightModel.setPhase(phase);
-        if(storages.length == 3){
-            lightModel.setStorageQuantity(storages[0], storages[1], storages[2]);
-        }
-        else if(storages.length == 4){
-            lightModel.setStorageQuantity(storages[0], storages[1], storages[2], storages[3]);
-        }
-        else lightModel.setStorageQuantity(storages[0], storages[1], storages[2], storages[3], storages[4]);
-         */
+
     }
 
     @Override

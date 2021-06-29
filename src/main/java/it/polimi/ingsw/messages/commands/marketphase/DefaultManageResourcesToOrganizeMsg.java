@@ -11,6 +11,9 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type DefaultManageResourcesToOrganizeMsg.
+ */
 public class DefaultManageResourcesToOrganizeMsg extends CommandMsg {
     @Override
     public void processMessage(ClientHandler clientHandler, Controller controller) {

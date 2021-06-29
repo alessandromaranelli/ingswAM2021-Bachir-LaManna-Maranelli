@@ -1,10 +1,9 @@
 package it.polimi.ingsw.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,6 +21,7 @@ public class CpuActionDiscardTest {
     @Test
     public void testActivateActionLevel2() throws FileNotFoundException {
         CpuActionDiscard cpuActionDiscard=new CpuActionDiscard(Color.GREEN);
+        cpuActionDiscard.getcolor();
         ArrayList<CpuAction> cpuActions= new ArrayList<>();
         Table table= new Table();
         table.getDevelopmentCardDeck(Color.GREEN,1).removeFromTop();

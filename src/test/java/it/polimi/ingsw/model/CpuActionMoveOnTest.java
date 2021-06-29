@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ public class CpuActionMoveOnTest {
     @Test
     public void testActivateAction() throws FileNotFoundException {
         CpuActionMoveOn cpuActionMoveOn = new CpuActionMoveOn();
+        cpuActionMoveOn.getcolor();
         ArrayList<CpuAction> cpuActions= new ArrayList<>();
         cpuActions.add(new CpuActionShuffle());
         cpuActions.add(new CpuActionDiscard(Color.YELLOW));

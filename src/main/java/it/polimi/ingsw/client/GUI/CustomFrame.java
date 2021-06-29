@@ -9,6 +9,7 @@ import it.polimi.ingsw.messages.commands.preparation.NickNameMsg;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.TurnState;
+import it.polimi.ingsw.model.YellowMarble;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,9 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Custom frame. It contains the four panels: ButtonPanel, WarehousePanel, FaithTrackPanel, DevelCardsSlotPanel
+ */
 public class CustomFrame extends JFrame implements ActionListener {
     private Gui gui;
     private JButton button;
@@ -26,6 +30,11 @@ public class CustomFrame extends JFrame implements ActionListener {
     private JTextField textField1;
     private JTextField textField2;
 
+    /**
+     * Instantiates a new Custom frame.
+     *
+     * @param gui the gui
+     */
     public CustomFrame(Gui gui){
         this.gui = gui;
         button = new JButton("Submit");
@@ -119,6 +128,9 @@ public class CustomFrame extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Nickname panel. It asks nickname and number of players of the game
+     */
     public void nicknamePanel(){
         getContentPane().removeAll();
         add(button);
@@ -128,6 +140,9 @@ public class CustomFrame extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * Waiting panel. It is a waiting room while other players are connecting to the game
+     */
     public void waitingPanel(){
         getContentPane().removeAll();
         JPanel jPanel = new WaitingPanel();
@@ -136,6 +151,11 @@ public class CustomFrame extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * Update personal board whit the new information from the lightmodel
+     *
+     * @param lightModel the light model
+     */
     public void updatePersonalBoard(LightModel lightModel){
         getContentPane().removeAll();
         setLayout(new GridLayout(2,2));
@@ -153,6 +173,17 @@ public class CustomFrame extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * Other player board. It is a frame used to display the state of the board of another player
+     *
+     * @param nickname          the nickname of the player
+     * @param mapFromChest      the map from chest of the player
+     * @param storages          the storages of the player
+     * @param resourceList      the resources of the player
+     * @param position          the position in the faithtrack of the player
+     * @param popeFavours       the pope favours of the player
+     * @param leaderCardsPlayed the leader cards played by the player
+     */
     public void otherPlayerBoard(String nickname, Map<Resource, Integer> mapFromChest, Integer[] storages, java.util.List<Resource> resourceList, int position, Boolean[] popeFavours, List<LeaderCard> leaderCardsPlayed){
         JPanel panel = new JPanel();
         JPanel jPanel1 = new WareHousePanel(mapFromChest, storages, resourceList);
@@ -163,7 +194,7 @@ public class CustomFrame extends JFrame implements ActionListener {
         panel.add(jPanel2);
         panel.add(jPanel3);
         this.setContentPane(panel);
-        panel.setLayout(new FlowLayout());
+        panel.setLayout(new GridLayout(3, 1));
         setVisible(true);
     }
 }

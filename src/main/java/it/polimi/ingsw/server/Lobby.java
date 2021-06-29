@@ -26,7 +26,6 @@ public class Lobby {
      * @param matches the matches
      * @throws FileNotFoundException the file not found exception
      */
-//TODO handle end game with the connections
     public Lobby(Server server,Set<Match> matches) throws FileNotFoundException {
         this.server=server;
         this.matches=matches;
@@ -77,7 +76,7 @@ public class Lobby {
         for (Match m:matches){
             if(!m.isFull()){
                 m.getClientConnectionThreads().add(clientHandler);
-                if (m.getClientConnectionThreads().size()==m.getController().getNumberOfPlayers())m.setFull(true);
+                if (m.getClientConnectionThreads().size()==m.getController().getNumberOfPlayers()) m.setFull(true);
                 clientHandler.setController(m.getController());
                 clientHandler.setMatch(m);
                 clientHandler.sendAnswerMessage(new GameJoinedMsg());

@@ -10,9 +10,17 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type ActivateLeaderMsg.
+ */
 public class ActivateLeaderMsg extends CommandMsg {
     int i;
 
+    /**
+     * Instantiates a new Activate leader msg.
+     *
+     * @param i the position
+     */
     public ActivateLeaderMsg(int i) {
         this.i = i;
     }

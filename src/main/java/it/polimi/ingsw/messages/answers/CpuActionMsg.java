@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages.answers;
 
 import it.polimi.ingsw.client.LightModel;
 
+/**
+ * The type CpuActionMsg.
+ */
 public class CpuActionMsg extends AnswerMsg{
 
     @Override

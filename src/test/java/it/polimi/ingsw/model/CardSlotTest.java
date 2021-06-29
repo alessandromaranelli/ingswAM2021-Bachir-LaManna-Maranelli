@@ -1,10 +1,10 @@
 package it.polimi.ingsw.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import Exceptions.ModelException;
-import org.junit.jupiter.api.*;
+
 
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,10 +23,11 @@ public class CardSlotTest {
         assertTrue(cardSlot.getSlot(1).isEmpty());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testgetTopCardofSlot1() throws ModelException{
         CardSlot cardSlot = new CardSlot();
-        DevelopmentCard card = cardSlot.getTopCardofSlot(1);
+
+        assertThrows(ModelException.class,()->{DevelopmentCard card = cardSlot.getTopCardofSlot(1);});
     }
 
     @Test
@@ -45,7 +46,7 @@ public class CardSlotTest {
         cardSlot.addCardToSlot(new DevelopmentCard(Color.BLUE, 1, 1, m, m, m, 0), 1);
         cardSlot.addCardToSlot(new DevelopmentCard(Color.BLUE, 2, 1, m, m, m, 0), 1);
         cardSlot.addCardToSlot(new DevelopmentCard(Color.BLUE, 3, 1, m, m, m, 0), 1);
-
+        cardSlot.countCards();
         assertFalse(cardSlot.controlCardToAdd(new DevelopmentCard(Color.BLUE, 1, 1, m, m, m, 0), 1));
     }
 
@@ -81,11 +82,11 @@ public class CardSlotTest {
         assertFalse(cardSlot.controlCardToAdd(new DevelopmentCard(Color.BLUE, 3, 1, m, m, m, 0), 1));
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddCardToSlot1() throws ModelException{
         Map<Resource, Integer> m = new HashMap<>();
         CardSlot cardSlot = new CardSlot();
-        cardSlot.addCardToSlot(new DevelopmentCard(Color.BLUE, 3, 1, m, m, m, 0), 1);
+        assertThrows(ModelException.class,()->{cardSlot.addCardToSlot(new DevelopmentCard(Color.BLUE, 3, 1, m, m, m, 0), 1);});
     }
 
     @Test

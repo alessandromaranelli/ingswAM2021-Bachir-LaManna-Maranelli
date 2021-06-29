@@ -8,7 +8,15 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * The type Resource label. It displays the image of a resource
+ */
 public class ResourceLabel extends JLabel {
+    /**
+     * Instantiates a new Resource label.
+     *
+     * @param r the r
+     */
     public ResourceLabel(Resource r){
         Image img = null;
         ImageIcon icon = null;
@@ -55,6 +63,12 @@ public class ResourceLabel extends JLabel {
         setIcon(icon);
         setVisible(true);
     }
+
+    /**
+     * Set quantity.
+     *
+     * @param i the
+     */
     public void setQuantity(int i){
         setText("" + i);
         setVerticalTextPosition(JLabel.BOTTOM);

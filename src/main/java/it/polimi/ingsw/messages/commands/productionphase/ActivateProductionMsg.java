@@ -10,9 +10,17 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type ActivateProductionMsg.
+ */
 public class ActivateProductionMsg extends CommandMsg {
     private int slot;
 
+    /**
+     * Instantiates a new Activate production msg.
+     *
+     * @param slot the slot
+     */
     public ActivateProductionMsg(int slot) {
         this.slot = slot;
     }

@@ -21,42 +21,52 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Button panel. It contains all the buttons and each button permits an action to the player
+ * The buttons are displayed based on the player's turn state
+ */
 public class ButtonPanel extends JPanel implements ActionListener {
-    Gui gui;
-    LightModel lightModel;
-    JButton endTurn;
-    JButton viewMarket;
-    JButton viewLeaderCards;
-    JButton viewAvailableDevelCards;
-    JButton viewProductions;
-    JButton drawLeaderCards;
-    JButton discardLeaderCards;
-    JButton setStorageType;
-    JButton addInitResources;
-    JButton marketPhase;
-    JButton startMarketPhase;
-    JButton manageWhiteMarbles;
-    JButton startOrganizeResources;
-    JButton defaultManageResourcesToOrganize;
-    JButton manageResourcesToOrganize;
-    JButton startAddResources;
-    JButton manageResourcesToAdd;
-    JButton developmentCardPhase;
-    JButton buyDevelopmentCard;
-    JButton payDevelCard;
-    JButton productionPhase;
-    JButton activateSlotProduction;
-    JButton activatePersonalProduction;
-    JButton activateSpecialProduction1;
-    JButton activateSpecialProduction2;
-    JButton startPayProduction;
-    JButton payProduction;
-    JButton activateLeadercard;
-    JButton discardLeadercard;
-    JButton manageResources;
-    JButton viewOtherPlayers;
-    JButton selectPlayer;
+    private Gui gui;
+    private LightModel lightModel;
+    private JButton endTurn;
+    private JButton viewMarket;
+    private JButton viewLeaderCards;
+    private JButton viewAvailableDevelCards;
+    private JButton viewProductions;
+    private JButton drawLeaderCards;
+    private JButton discardLeaderCards;
+    private JButton setStorageType;
+    private JButton addInitResources;
+    private JButton marketPhase;
+    private JButton startMarketPhase;
+    private JButton manageWhiteMarbles;
+    private JButton startOrganizeResources;
+    private JButton defaultManageResourcesToOrganize;
+    private JButton manageResourcesToOrganize;
+    private JButton startAddResources;
+    private JButton manageResourcesToAdd;
+    private JButton developmentCardPhase;
+    private JButton buyDevelopmentCard;
+    private JButton payDevelCard;
+    private JButton productionPhase;
+    private JButton activateSlotProduction;
+    private JButton activatePersonalProduction;
+    private JButton activateSpecialProduction1;
+    private JButton activateSpecialProduction2;
+    private JButton startPayProduction;
+    private JButton payProduction;
+    private JButton activateLeadercard;
+    private JButton discardLeadercard;
+    private JButton manageResources;
+    private JButton viewOtherPlayers;
+    private JButton selectPlayer;
 
+    /**
+     * Instantiates a new Button panel.
+     *
+     * @param lightModel the light model
+     * @param gui        the gui
+     */
     public ButtonPanel(LightModel lightModel, Gui gui){
         this.lightModel = lightModel;
         this.gui = gui;
@@ -405,7 +415,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
             gui.sendMessage(msg);
         }
         else if(e.getSource().equals(selectPlayer)){
-            new ViewOtherPlayerFrame(gui, lightModel);
+            new ViewOtherPlayersFrame(gui, lightModel);
         }
     }
 
@@ -416,11 +426,11 @@ public class ButtonPanel extends JPanel implements ActionListener {
         add(viewProductions);
 
         if((phase == TurnState.ENDTURN || phase == TurnState.ENDPREPARATION)){
-            add(endTurn);
-            add(manageResources);
             if(lightModel.isSoloGame() == false){
                 add(viewOtherPlayers);
             }
+            add(endTurn);
+            add(manageResources);
             if(!lightModel.getLeaderCardsInHand().isEmpty()) {
                 add(activateLeadercard);
                 add(discardLeadercard);
@@ -441,13 +451,13 @@ public class ButtonPanel extends JPanel implements ActionListener {
         }
 
         if(phase == TurnState.START){
+            if(lightModel.isSoloGame() == false){
+                add(viewOtherPlayers);
+            }
             add(marketPhase);
             add(developmentCardPhase);
             add(productionPhase);
             add(manageResources);
-            if(lightModel.isSoloGame() == false){
-                add(viewOtherPlayers);
-            }
             if(!lightModel.getLeaderCardsInHand().isEmpty()) {
                 add(activateLeadercard);
                 add(discardLeadercard);

@@ -11,10 +11,19 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type DiscardResourceMsg.
+ */
 public class DiscardResourceMsg extends CommandMsg {
     private Resource r;
     private int quantity;
 
+    /**
+     * Instantiates a new Discard resource msg.
+     *
+     * @param r        the resource
+     * @param quantity the quantity
+     */
     public DiscardResourceMsg(Resource r, int quantity) {
         this.r = r;
         this.quantity = quantity;

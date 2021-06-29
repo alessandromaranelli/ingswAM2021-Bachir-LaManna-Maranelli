@@ -11,11 +11,21 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type SetStorageTypesMsg.
+ */
 public class SetStorageTypesMsg extends CommandMsg {
     private Resource r1;
     private Resource r2;
     private Resource r3;
 
+    /**
+     * Instantiates a new Set storage types msg.
+     *
+     * @param r1 the resource 1
+     * @param r2 the resource 2
+     * @param r3 the resource 3
+     */
     public SetStorageTypesMsg(Resource r1, Resource r2, Resource r3) {
         this.r1 = r1;
         this.r2 = r2;

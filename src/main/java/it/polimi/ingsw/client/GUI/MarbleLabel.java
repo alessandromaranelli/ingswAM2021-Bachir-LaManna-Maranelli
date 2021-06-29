@@ -8,7 +8,15 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * The type Marble label. It displays the image of a marble
+ */
 public class MarbleLabel extends JLabel {
+    /**
+     * Instantiates a new Marble label.
+     *
+     * @param m the m
+     */
     public MarbleLabel(Marble m){
         Image img=null;
         ImageIcon icon = null;
@@ -64,7 +72,7 @@ public class MarbleLabel extends JLabel {
         }
         if (m instanceof GreyMarble){
             //img = new ImageIcon(new ImageIcon("src/main/resources/Resources/biglianera.JPG").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-            InputStream resourceAsStream = MarbleLabel.class.getResourceAsStream("/Resources/bigliabianca.JPG");
+            InputStream resourceAsStream = MarbleLabel.class.getResourceAsStream("/Resources/biglianera.JPG");
             try {
                 img = ImageIO.read(resourceAsStream);
             } catch (IOException e) {
@@ -78,6 +86,12 @@ public class MarbleLabel extends JLabel {
         setVisible(true);
     }
 
+    /**
+     * Instantiates a new Marble label.
+     *
+     * @param m    the m
+     * @param text the text
+     */
     public MarbleLabel(Marble m, String text){
         Image img=null;
         ImageIcon icon = null;
@@ -133,7 +147,7 @@ public class MarbleLabel extends JLabel {
         }
         if (m instanceof GreyMarble){
             //img = new ImageIcon(new ImageIcon("src/main/resources/Resources/biglianera.JPG").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
-            InputStream resourceAsStream = MarbleLabel.class.getResourceAsStream("/Resources/bigliabianca.JPG");
+            InputStream resourceAsStream = MarbleLabel.class.getResourceAsStream("/Resources/biglianera.JPG");
             try {
                 img = ImageIO.read(resourceAsStream);
             } catch (IOException e) {

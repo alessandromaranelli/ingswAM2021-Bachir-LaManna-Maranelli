@@ -1,11 +1,10 @@
 package it.polimi.ingsw.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import Exceptions.ModelException;
-import org.junit.jupiter.api.*;
 
 import java.util.Map;
 
@@ -49,6 +48,8 @@ public class ProductionTest {
     public void testgetFaithPoints(){
         Production production = new Production(p, w, c);
         assertEquals(0, production.getFaithPoints());
+        production.setFaithPoints(5);
+        assertEquals(5,production.getFaithPoints());
     }
 
     @Test
@@ -66,10 +67,11 @@ public class ProductionTest {
         assertEquals(2, production.numOfSpecialProduction());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testgetTypeOfSpecialProduction1() throws ModelException{
         Production production = new Production(p, w, c);
-        assertEquals(COIN, production.getTypeOfSpecialProduction(21));
+
+        assertThrows(ModelException.class,()->{assertEquals(COIN, production.getTypeOfSpecialProduction(21));});
     }
 
     @Test
@@ -91,10 +93,11 @@ public class ProductionTest {
         assertFalse(production.isProductionActivated(1));
     }
 
-    @Test(expected =  ModelException.class)
+
     public void testisSpecialProductionActivated1() throws ModelException{
         Production production = new Production(p, w, c);
         assertFalse(production.isSpecialProductionActivated(1));
+        assertThrows(ModelException.class,()->{production.isSpecialProductionActivated(1);});
     }
 
     @Test
@@ -177,7 +180,7 @@ public class ProductionTest {
         assertFalse(production.controlRequirementsOfSlot(1));
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testactivateProductionOfSlot1() throws ModelException{
         Map<Resource, Integer> m = new HashMap<>();
         m.put(COIN, 3);
@@ -187,10 +190,12 @@ public class ProductionTest {
         DevelopmentCard card = new DevelopmentCard(Color.BLUE, 1, 1, m, m, m, 3);
         cardSlot.addCardToSlot(card, 1);
         Production production = new Production(p, w, cardSlot);
-        production.activateProductionOfSlot(1);
+
+        assertThrows(ModelException.class,()->{production.activateProductionOfSlot(1);});
+
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testactivateProductionOfSlot2() throws ModelException{
         Map<Resource, Integer> m = new HashMap<>();
         m.put(COIN, 3);
@@ -204,7 +209,8 @@ public class ProductionTest {
         cardSlot.addCardToSlot(card, 1);
         Production production = new Production(p, wareHouse, cardSlot);
         production.activateProductionOfSlot(1);
-        production.activateProductionOfSlot(1);
+
+        assertThrows(ModelException.class,()->{production.activateProductionOfSlot(1);});
     }
 
     @Test
@@ -228,16 +234,18 @@ public class ProductionTest {
         assertEquals(m, production.getTotalGain());
         assertEquals(3, production.getFaithPoints());
         assertTrue(production.isProductionActivated(1));
+        production.disactivateAllProductions();
     }
 
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testactivatePersonalProduction1() throws ModelException{
         Production production = new Production(p, w, c);
-        production.activatePersonalProduction(STONE, COIN, SHIELD);
+
+        assertThrows(ModelException.class,()->{production.activatePersonalProduction(STONE, COIN, SHIELD);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testactivatePersonalProduction2() throws ModelException{
         WareHouse wareHouse = new WareHouse();
         wareHouse.addToChest(STONE, 20);
@@ -245,7 +253,8 @@ public class ProductionTest {
 
         Production production = new Production(p, wareHouse, c);
         production.activatePersonalProduction(STONE, COIN, SHIELD);
-        production.activatePersonalProduction(COIN, SHIELD, Resource.SERVANT);
+
+        assertThrows(ModelException.class,()->{production.activatePersonalProduction(COIN, SHIELD, Resource.SERVANT);});
     }
 
     @Test
@@ -259,20 +268,23 @@ public class ProductionTest {
         assertTrue(production.isPersonalProductionActivated());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testactivateSpecialProduction1() throws ModelException{
         Production production = new Production(p, w, c);
-        production.activateSpecialProduction(SHIELD, 1);
+
+        assertThrows(ModelException.class,()->{production.activateSpecialProduction(SHIELD, 1);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testactivateSpecialProduction2() throws ModelException{
         Production production = new Production(p, w, c);
         production.addSpecialProduction(COIN);
-        production.activateSpecialProduction(SHIELD, 1);
+
+        assertThrows(ModelException.class,()->{production.activateSpecialProduction(SHIELD, 1);});
+
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testactivateSpecialProduction3() throws ModelException{
         WareHouse wareHouse = new WareHouse();
         wareHouse.addToChest(COIN, 20);
@@ -280,7 +292,8 @@ public class ProductionTest {
 
         production.addSpecialProduction(COIN);
         production.activateSpecialProduction(SHIELD, 1);
-        production.activateSpecialProduction(STONE, 1);
+
+        assertThrows(ModelException.class,()->{production.activateSpecialProduction(STONE, 1);});
     }
 
     @Test
@@ -293,12 +306,14 @@ public class ProductionTest {
         production.activateSpecialProduction(SHIELD, 1);
         assertTrue(production.isSpecialProductionActivated(1));
         assertEquals(1, production.getFaithPoints());
+        production.disactivateAllProductions();
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testpayCostfromStorage1() throws ModelException {
         Production production = new Production(p, w, c);
-        production.payCostfromStorage(STONE, 50, 1);
+
+        assertThrows(ModelException.class,()->{production.payCostfromStorage(STONE, 50, 1);});
     }
 
     @Test
@@ -321,10 +336,11 @@ public class ProductionTest {
         assertEquals(m, production.getTotalCost());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testpayCostfromChest1() throws ModelException{
         Production production = new Production(p, w, c);
-        production.payCostfromChest(COIN, 50);
+
+        assertThrows(ModelException.class,()->{production.payCostfromChest(COIN, 50);});
     }
 
     @Test
@@ -344,11 +360,12 @@ public class ProductionTest {
         assertEquals(m, production.getTotalCost());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testpayAllfromChest1() throws ModelException{
       Production production = new Production(p, w, c);
-      production.activatePersonalProduction(STONE, COIN, SHIELD);
-      production.payAllfromChest();
+
+
+      assertThrows(ModelException.class,()->{production.activatePersonalProduction(STONE, COIN, SHIELD);});
     }
 
     @Test
@@ -364,13 +381,14 @@ public class ProductionTest {
     }
 
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testgainResourcesAndEndProduction1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
 
-        player.getPersonalBoard().getProduction().activatePersonalProduction(STONE, COIN, SHIELD);
-        player.getPersonalBoard().getProduction().gainResourcesAndEndProduction();
+
+
+        assertThrows(ModelException.class,()->{player.getPersonalBoard().getProduction().activatePersonalProduction(STONE, COIN, SHIELD);});
     }
 
     @Test

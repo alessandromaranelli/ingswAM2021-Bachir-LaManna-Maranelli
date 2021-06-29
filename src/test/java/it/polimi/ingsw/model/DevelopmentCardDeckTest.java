@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -32,9 +32,11 @@ public class DevelopmentCardDeckTest {
         ArrayList<DevelopmentCard> developmentCardArraylist= new ArrayList<>();
         Stack<DevelopmentCard> developmentCardStack= new Stack<>();
         DevelopmentCard d=new DevelopmentCard();
+        d.getPath();
         developmentCardArraylist.add(d);
         developmentCardStack.add(d);
         DevelopmentCardDeck developmentCardDeck= new DevelopmentCardDeck(developmentCardArraylist,Color.GREEN,2);
+        assertEquals(false,developmentCardDeck.isEmpty());
         assertEquals(developmentCardStack,developmentCardDeck.getDevelopmentCards());
     }
 

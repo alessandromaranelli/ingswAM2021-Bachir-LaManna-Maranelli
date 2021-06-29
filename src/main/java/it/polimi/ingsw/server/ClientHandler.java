@@ -157,7 +157,7 @@ public class ClientHandler extends Thread {
 
         try {
             while (!ready) {
-                //socket.setSoTimeout(20000);
+                socket.setSoTimeout(20000);
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg) next;
                 if (controller==null&&command instanceof BeforeStartMsg){
@@ -174,14 +174,25 @@ public class ClientHandler extends Thread {
                 ioException.printStackTrace();
             }
             this.setConnected(false);
-            match.checkClientConnection(this);
-
-            //System.exit(0);
+            if(!(match ==null))match.checkClientConnection(this);
+            if (controller!=null){
+                if (!ready) {
+                    match.getClientConnectionThreads().remove(this);
+                    if (match.isFull()) match.setFull(false);
+                }
+                else if (controller.getGame().getCurrentPlayer().getPlayerID()==playerID){
+                    try {
+                        controller.manageClientDisconnectionWhilePlayingHisTurn(this);
+                    } catch (ModelException modelException) {
+                        modelException.printStackTrace();
+                    }
+                }
+            }
 
         }
 
         catch (SocketTimeoutException e) {
-            e.printStackTrace();    //gestire la disconnessione del client
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch(IOException e){
@@ -191,18 +202,15 @@ public class ClientHandler extends Thread {
         }
         try {
             handleClientConnection();
-        } catch (IOException e) {
+        } catch (IOException | ModelException e) {
             System.out.println("client " + socket.getInetAddress() + " connection dropped");
         }
     }
 
-    private void handleClientConnection() throws IOException
-    {
+    private void handleClientConnection() throws IOException, ModelException {
         try {
             while (true) {
-                /* read commands from the client, process them, and send replies */
-                //socket.setSoTimeout(20000);
-                //System.out.println("input");
+                socket.setSoTimeout(20000);
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg) next;
                 if (controller==null&&command instanceof BeforeStartMsg){
@@ -213,7 +221,6 @@ public class ClientHandler extends Thread {
                     command.processMessage(this, controller);
                 }
                 else if(command instanceof PongMsg){
-                    //do nothing
                 }
                 else {
                     ErrorMsg errorMsg = new ErrorMsg("You are not the current player");
@@ -224,9 +231,17 @@ public class ClientHandler extends Thread {
             System.out.println("Client died");
             socket.close();
             this.setConnected(false);
-            match.checkClientConnection(this);
+            if(!(match ==null))match.checkClientConnection(this);
+            if (controller!=null){
+                if (!ready) {
+                    match.getClientConnectionThreads().remove(this);
+                    if (match.isFull()) match.setFull(false);
+                }
+                else if (controller.isGameStarted()&&controller.getGame().getCurrentPlayer().getPlayerID()==playerID){
+                    controller.manageClientDisconnectionWhilePlayingHisTurn(this);
+                }
+            }
 
-            //System.exit(0);
 
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             System.out.println("invalid stream from client");

@@ -11,6 +11,9 @@ import it.polimi.ingsw.server.Controller;
 
 import java.io.IOException;
 
+/**
+ * The type BuyDevelopmentPhaseMsg.
+ */
 public class BuyDevelopmentPhaseMsg extends CommandMsg {
 
     @Override

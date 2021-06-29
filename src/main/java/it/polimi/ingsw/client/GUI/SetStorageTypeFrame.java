@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Set storage type frame. It permits the player to choose the type of the storages
+ */
 public class SetStorageTypeFrame extends JFrame implements ActionListener {
     private LightModel lightModel;
     private Gui gui;
@@ -22,6 +25,13 @@ public class SetStorageTypeFrame extends JFrame implements ActionListener {
     private JPanel panel;
     private boolean init;
 
+    /**
+     * Instantiates a new Set storage type frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     * @param init       indicates if it is the start of the game
+     */
     public SetStorageTypeFrame(Gui gui, LightModel lightModel, boolean init){
         this.gui = gui;
         this.lightModel = lightModel;
@@ -32,6 +42,7 @@ public class SetStorageTypeFrame extends JFrame implements ActionListener {
         jLabel = new JLabel("Set storage types");
         jLabel.setBackground(Color.YELLOW);
         jLabel.setForeground(Color.BLACK);
+        jLabel.setFont(new Font("Comic Sans", Font.BOLD, 20));
         panel.add(jLabel);
 
         for(int i=0; i < 3; i++){

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ public class GreyMarbleTest {
     @Test
     public void whenDrawn() throws FileNotFoundException {
         Marble marble= new GreyMarble();
+        marble.toString();
         Game game= new Game();
         PersonalBoard personalBoard = new PersonalBoard(game.getVaticanReportSections());
         marble.whenDrawn(personalBoard);
@@ -20,5 +21,6 @@ public class GreyMarbleTest {
         m.put(Resource.STONE, 1);
         assertEquals(m,personalBoard.getWareHouse().getResourcesToAdd());
     }
+
 
 }

@@ -5,10 +5,18 @@ import it.polimi.ingsw.model.TurnState;
 
 import java.io.IOException;
 
+/**
+ * The type UpdateMarketMsg.
+ */
 public class UpdateMarketMsg extends AnswerMsg {
     private Market market;
     private String message="\nMarket updated";
 
+    /**
+     * Instantiates a new Update market msg.
+     *
+     * @param market the market
+     */
     public UpdateMarketMsg(Market market) {
         this.market = market;
     }
@@ -16,13 +24,7 @@ public class UpdateMarketMsg extends AnswerMsg {
     @Override
     public void processMessage(LightModel lightModel) {
         lightModel.update(market);
-        /*
-        lightModel.setMarket(market.getMarketTable());
-        lightModel.setMarbleInExcess(market.getMarbleInExcess());
-        lightModel.getMarketView().showMarbles(market.getMarketTable());
-        lightModel.getMarketView().plot();
 
-         */
     }
 
     @Override

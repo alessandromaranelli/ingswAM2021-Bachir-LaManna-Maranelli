@@ -1,7 +1,6 @@
-package it.polimi.ingsw.model;//devo sistemare una roba
+package it.polimi.ingsw.model;
 import Exceptions.ModelException;
-import org.junit.Test;
-///import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -19,7 +18,8 @@ public class LeaderCardWhiteMarbleTest {
         req.put(Color.PURPLE,2);
         req.put(Color.GREEN,1);
         LeaderCardWhiteMarble leaderCardWhiteMarble = new LeaderCardWhiteMarble(3,"This is a WhiteMarble Leader 1",req,Resource.COIN, "hello");
-
+        leaderCardWhiteMarble.getResource();
+        leaderCardWhiteMarble.getRequirement();
         assertEquals("This is a WhiteMarble Leader 1",leaderCardWhiteMarble.getDescription());
     }
 

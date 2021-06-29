@@ -34,7 +34,6 @@ public class LightModelCLI extends LightModel {
         this.setSoloGame(isSoloGame);
 
         this.setStorageType(Resource.COIN, Resource.SHIELD, Resource.SERVANT);
-        this.setStorageQuantity(0, 0, 0);
 
         System.out.println("Your Situation: ->");
         getFaithTrackVisualizer().plot(getPosition(), getPopeFavours());
