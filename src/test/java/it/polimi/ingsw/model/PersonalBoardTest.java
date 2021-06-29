@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 import Exceptions.ModelException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -86,9 +86,9 @@ public class PersonalBoardTest {
     }
 
 
-    @Test(expected = ModelException.class)
+    @Test
     public void manageWhiteMarbles1() throws ModelException {
-        player.getPersonalBoard().manageWhiteMarbles(Resource.COIN);
+        assertThrows(ModelException.class,()->{player.getPersonalBoard().manageWhiteMarbles(Resource.COIN);});
     }
 
     @Test

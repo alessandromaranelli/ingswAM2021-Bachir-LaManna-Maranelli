@@ -1,11 +1,10 @@
 package it.polimi.ingsw.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import Exceptions.ModelException;
-import org.junit.jupiter.api.*;
 
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,10 +47,11 @@ public class WareHouseTest {
         assertEquals(m, wareHouse.getResourcesToAdd());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testsetTypeStorage1() throws ModelException{
         WareHouse wareHouse = new WareHouse();
-        wareHouse.setTypeOfStorage(21, Resource.COIN);
+
+        assertThrows(ModelException.class,()->{wareHouse.setTypeOfStorage(21, Resource.COIN);});
     }
 
     @Test
@@ -135,40 +135,44 @@ public class WareHouseTest {
         assertTrue(personalBoard.getWareHouse().controlStoragesType());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddResourcestoOrganize1() throws ModelException{
         WareHouse wareHouse = new WareHouse();
-        wareHouse.addResourcestoOrganize(Resource.COIN, 3, 3);
+
+        assertThrows(ModelException.class,()->{wareHouse.addResourcestoOrganize(Resource.COIN, 3, 3);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddResourcestoOrganize2() throws ModelException{
         WareHouse wareHouse = new WareHouse();
         wareHouse.addResource(Resource.SERVANT, 3);
         wareHouse.addResourcestoAdd(Resource.SERVANT, 3, 3);
         wareHouse.getFromStorages();
 
-        wareHouse.addResourcestoOrganize(Resource.SERVANT, 21, 3);
+
+        assertThrows(ModelException.class,()->{wareHouse.addResourcestoOrganize(Resource.SERVANT, 21, 3);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddResourcestoOrganize3() throws ModelException{
         WareHouse wareHouse = new WareHouse();
         wareHouse.addResource(Resource.SERVANT, 3);
         wareHouse.addResourcestoAdd(Resource.SERVANT, 3, 3);
         wareHouse.getFromStorages();
 
-        wareHouse.addResourcestoOrganize(Resource.SERVANT, 3, 21);
+
+        assertThrows(ModelException.class,()->{wareHouse.addResourcestoOrganize(Resource.SERVANT, 3, 21);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddResourcestoOrganize4() throws ModelException{
         WareHouse wareHouse = new WareHouse();
         wareHouse.addResource(Resource.SERVANT, 3);
         wareHouse.addResourcestoAdd(Resource.SERVANT, 3, 3);
         wareHouse.getFromStorages();
 
-        wareHouse.addResourcestoOrganize(Resource.COIN, 3, 3);
+
+        assertThrows(ModelException.class,()->{wareHouse.addResourcestoOrganize(Resource.COIN, 3, 3);});
     }
 
     @Test
@@ -203,31 +207,35 @@ public class WareHouseTest {
 
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddResourcestoAdd1() throws ModelException{
         WareHouse wareHouse = new WareHouse();
-        wareHouse.addResourcestoAdd(Resource.COIN, 3 , 3);
+
+        assertThrows(ModelException.class,()->{wareHouse.addResourcestoAdd(Resource.COIN, 3 , 3);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddResourcestoAdd2() throws ModelException{
         WareHouse wareHouse = new WareHouse();
         wareHouse.addResource(Resource.SERVANT, 3);
-        wareHouse.addResourcestoAdd(Resource.SERVANT, 21, 3);
+
+        assertThrows(ModelException.class,()->{wareHouse.addResourcestoAdd(Resource.SERVANT, 21, 3);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddResourcestoAdd3() throws ModelException{
         WareHouse wareHouse = new WareHouse();
         wareHouse.addResource(Resource.SERVANT, 3);
-        wareHouse.addResourcestoAdd(Resource.COIN, 3, 3);
+
+        assertThrows(ModelException.class,()->{wareHouse.addResourcestoAdd(Resource.COIN, 3, 3);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddResourcestoAdd4() throws ModelException{
         WareHouse wareHouse = new WareHouse();
         wareHouse.addResource(Resource.SERVANT, 3);
-        wareHouse.addResourcestoAdd(Resource.SERVANT, 3, 21);
+
+        assertThrows(ModelException.class,()->{wareHouse.addResourcestoAdd(Resource.SERVANT, 3, 21);});
     }
 
     @Test
@@ -246,24 +254,27 @@ public class WareHouseTest {
         assertTrue(wareHouse.resourcesToAddIsEmpty());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testdiscardResourcesToAdd1() throws ModelException{
         WareHouse wareHouse = new WareHouse();
-        wareHouse.discardResourcesToAdd(Resource.COIN, 3);
+
+        assertThrows(ModelException.class,()->{wareHouse.discardResourcesToAdd(Resource.COIN, 3);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testdiscardResourcesToAdd2() throws ModelException{
         WareHouse wareHouse = new WareHouse();
         wareHouse.addResource(Resource.COIN, 3);
-        wareHouse.discardResourcesToAdd(Resource.COIN, 20);
+
+        assertThrows(ModelException.class,()->{wareHouse.discardResourcesToAdd(Resource.COIN, 20);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testdiscardResourcesToAdd3() throws ModelException{
         WareHouse wareHouse = new WareHouse();
         wareHouse.addResource(Resource.COIN, 3);
-        wareHouse.discardResourcesToAdd(Resource.SERVANT, 3);
+
+        assertThrows(ModelException.class,()->{wareHouse.discardResourcesToAdd(Resource.SERVANT, 3);});
     }
 
     @Test
@@ -334,10 +345,10 @@ public class WareHouseTest {
         assertEquals(0, wareHouse.getFromChest(Resource.COIN));
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testgetFromStorage1() throws ModelException{
         WareHouse wareHouse = new WareHouse();
-        assertEquals(0, wareHouse.getFromStorage(20));
+        assertThrows(ModelException.class,()->{wareHouse.getFromStorage(20);});
     }
 
     @Test
@@ -346,10 +357,10 @@ public class WareHouseTest {
         assertEquals(0, wareHouse.getFromStorage(1));
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testgetTypeStorage1() throws ModelException{
         WareHouse wareHouse = new WareHouse();
-        assertEquals(Resource.COIN, wareHouse.getTypeStorage(20));
+        assertThrows(ModelException.class,()->{wareHouse.getTypeStorage(20);});
     }
 
     @Test
@@ -379,10 +390,11 @@ public class WareHouseTest {
         assertEquals(m, wareHouse.getMapfromChest());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testgetMapfromStorage1() throws ModelException{
         WareHouse wareHouse = new WareHouse();
-        Map<Resource, Integer> m = wareHouse.getMapfromStorage(20);
+
+        assertThrows(ModelException.class,()->{Map<Resource, Integer> m = wareHouse.getMapfromStorage(20);});
     }
 
     @Test
@@ -433,10 +445,11 @@ public class WareHouseTest {
         assertEquals(m, wareHouse.totalResources());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testsubFromStorage1() throws ModelException{
         WareHouse wareHouse = new WareHouse();
-        wareHouse.subFromStorage(Resource.COIN, 3, 20);
+
+        assertThrows(ModelException.class,()->{wareHouse.subFromStorage(Resource.COIN, 3, 20);});
     }
 
     @Test

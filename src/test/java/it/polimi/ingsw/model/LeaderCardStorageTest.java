@@ -1,8 +1,7 @@
 package it.polimi.ingsw.model;
 
 import Exceptions.ModelException;
-import org.junit.Test;
-//import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

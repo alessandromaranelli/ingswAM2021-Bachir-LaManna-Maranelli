@@ -1,10 +1,10 @@
 package it.polimi.ingsw.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import Exceptions.ModelException;
-import org.junit.jupiter.api.*;
+
 
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,11 +45,12 @@ public class StorageTest {
         assertTrue(storage.isEmpty());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testsetType1() throws ModelException{
         Storage storage = new Storage(1, Resource.COIN);
         storage.addToStorage(Resource.COIN, 1);
-        storage.setType(Resource.COIN);
+
+        assertThrows(ModelException.class,()->{storage.setType(Resource.COIN);});
     }
 
     @Test
@@ -59,16 +60,18 @@ public class StorageTest {
         assertEquals(Resource.STONE, storage.getType());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddToStorage1() throws ModelException{
         Storage storage = new Storage(1, Resource.COIN);
-        storage.addToStorage(Resource.STONE, 1);
+
+        assertThrows(ModelException.class,()->{storage.addToStorage(Resource.STONE, 1);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddToStorage2() throws ModelException{
         Storage storage = new Storage(1, Resource.COIN);
-        storage.addToStorage(Resource.COIN, 2);
+
+        assertThrows(ModelException.class,()->{storage.addToStorage(Resource.COIN, 2);});
     }
 
     @Test
@@ -78,16 +81,18 @@ public class StorageTest {
         assertEquals(1, storage.getQuantity());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testsubFromStorage1() throws ModelException{
         Storage storage = new Storage(1, Resource.COIN);
-        storage.subFromStorage(Resource.STONE, 1);
+
+        assertThrows(ModelException.class,()->{storage.subFromStorage(Resource.STONE, 1);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testsubFromStorage2() throws ModelException{
         Storage storage = new Storage(1, Resource.COIN);
-        storage.subFromStorage(Resource.COIN, 1);
+
+        assertThrows(ModelException.class,()->{storage.subFromStorage(Resource.COIN, 1);});
     }
 
     @Test

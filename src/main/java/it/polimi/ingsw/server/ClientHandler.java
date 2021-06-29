@@ -157,7 +157,7 @@ public class ClientHandler extends Thread {
 
         try {
             while (!ready) {
-                //socket.setSoTimeout(20000);
+                socket.setSoTimeout(20000);
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg) next;
                 if (controller==null&&command instanceof BeforeStartMsg){
@@ -210,7 +210,7 @@ public class ClientHandler extends Thread {
     private void handleClientConnection() throws IOException, ModelException {
         try {
             while (true) {
-                //socket.setSoTimeout(20000);
+                socket.setSoTimeout(20000);
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg) next;
                 if (controller==null&&command instanceof BeforeStartMsg){

@@ -1,10 +1,10 @@
 package it.polimi.ingsw.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import Exceptions.ModelException;
-import org.junit.jupiter.api.*;
+
 
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,10 +45,10 @@ public class ChestTest {
         assertEquals(21, chest.getResource(Resource.COIN));
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testsubFromChest1() throws ModelException{
         Chest chest = new Chest();
-        chest.subFromChest(Resource.COIN, 21);
+        assertThrows(ModelException.class,()->{chest.subFromChest(Resource.COIN, 21);});
     }
 
     @Test

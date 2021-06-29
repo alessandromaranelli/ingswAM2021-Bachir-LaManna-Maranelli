@@ -1,15 +1,13 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.server.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.Socket;
 import java.util.*;
 
 import Exceptions.ModelException;
-import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,14 +48,6 @@ public class PlayerTest {
         assertEquals(20, player.getPlayerID());
     }
 
-    /*
-    @Test
-    public void testgetPersonalBoard() throws FileNotFoundException{
-        Game game = new Game();
-        Player player = new Player("flavio", 0, game);
-        assertEquals(new PersonalBoard(game.getVaticanReportSections()), player.getPersonalBoard());
-    } */
-
     @Test
     public void testsetAsCurrentPlayer() throws FileNotFoundException{
         Game game = new Game();
@@ -81,13 +71,14 @@ public class PlayerTest {
         assertFalse(player.getLeaderAction());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testdrawLeaderCards1() throws ModelException, IOException {
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.setAsCurrentPlayer();
         player.setPhase(TurnState.CHOICE);
-        player.drawLeaderCards(controller);
+
+        assertThrows(ModelException.class,()->{player.drawLeaderCards(controller);});
     }
 
     @Test
@@ -105,11 +96,11 @@ public class PlayerTest {
         assertTrue(!player.getPersonalBoard().getLeaderCardsInHand().get(2).equals(player.getPersonalBoard().getLeaderCardsInHand().get(3)));
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testchooseLeaderCardsToDiscard1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.chooseLeaderCardsToDiscard(0, 1,controller);
+        assertThrows(ModelException.class,()->{player.chooseLeaderCardsToDiscard(0, 1,controller);});
     }
 
     @Test
@@ -127,20 +118,20 @@ public class PlayerTest {
         assertEquals(false,player.isInitPhaseDone());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testsetInitStorageTypes1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.setInitStorageTypes(controller,Resource.COIN, Resource.STONE, Resource.SERVANT);
+        assertThrows(ModelException.class,()->{player.setInitStorageTypes(controller,Resource.COIN, Resource.STONE, Resource.SERVANT);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testsetInitStorageTypes2() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.drawLeaderCards(controller);
         player.chooseLeaderCardsToDiscard(1, 2,controller);
-        player.setInitStorageTypes(controller,Resource.COIN, Resource.COIN, Resource.SERVANT);
+        assertThrows(ModelException.class,()->{player.setInitStorageTypes(controller,Resource.COIN, Resource.COIN, Resource.SERVANT);});
     }
 
     @Test
@@ -155,11 +146,11 @@ public class PlayerTest {
         assertEquals(Resource.SERVANT, player.getPersonalBoard().getWareHouse().getTypeStorage(3));
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddInitResources1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.addInitResources(controller,Resource.COIN);
+        assertThrows(ModelException.class,()->{player.addInitResources(controller,Resource.COIN);});
     }
 
     @Test
@@ -197,31 +188,34 @@ public class PlayerTest {
         assertEquals(player.getPersonalBoard().getFaithTrack().getTrack().get(0), player.getPersonalBoard().getFaithTrack().checkPlayerPosition());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddInitResources5() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 3, game);
         player.drawLeaderCards(controller);
         player.chooseLeaderCardsToDiscard(1, 2,controller);
         player.setInitStorageTypes(controller,Resource.COIN, Resource.STONE, Resource.SERVANT);
-        player.addInitResources(controller,Resource.COIN,Resource.COIN);
+
+        assertThrows(ModelException.class,()->{player.addInitResources(controller,Resource.COIN,Resource.COIN);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testAddInitResources1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 3, game);
-        player.addInitResources(controller,Resource.COIN, Resource.STONE);
+
+        assertThrows(ModelException.class,()->{player.addInitResources(controller,Resource.COIN, Resource.STONE);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testAddInitResources2() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.drawLeaderCards(controller);
         player.chooseLeaderCardsToDiscard(1, 2,controller);
         player.setInitStorageTypes(controller,Resource.COIN, Resource.STONE, Resource.SERVANT);
-        player.addInitResources(controller,Resource.COIN, Resource.COIN);
+
+        assertThrows(ModelException.class,()->{player.addInitResources(controller,Resource.COIN, Resource.COIN);});
     }
 
     @Test
@@ -237,11 +231,12 @@ public class PlayerTest {
         assertEquals(player.getPersonalBoard().getFaithTrack().getTrack().get(1), player.getPersonalBoard().getFaithTrack().checkPlayerPosition());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testselectMarketPhase1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.selectMarketPhase(controller);
+
+        assertThrows(ModelException.class,()->{player.selectMarketPhase(controller);});
     }
 
     @Test
@@ -254,11 +249,12 @@ public class PlayerTest {
         assertEquals(TurnState.MARKETPHASE, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void teststartMarketPhase1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.startMarketPhase(controller,1, false);
+
+        assertThrows(ModelException.class,()->{player.startMarketPhase(controller,1, false);});
     }
 
     @Test
@@ -273,11 +269,12 @@ public class PlayerTest {
         assertEquals(TurnState.CHOICE, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testmanageWhiteMarbles1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.manageWhiteMarbles(controller,Resource.STONE);
+
+        assertThrows(ModelException.class,()->{player.manageWhiteMarbles(controller,Resource.STONE);});
     }
 
     @Test
@@ -300,11 +297,12 @@ public class PlayerTest {
         assertEquals(TurnState.CHOICE, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void teststartOrganizeResources1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.startOrganizeResources(controller);
+
+        assertThrows(ModelException.class,()->{player.startOrganizeResources(controller);});
     }
 
     @Test
@@ -319,14 +317,15 @@ public class PlayerTest {
         assertTrue(player.getPersonalBoard().getWareHouse().resourcesToOrganizeIsEmpty());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testsetStoragesTypes1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.setStoragesTypes(controller,Resource.COIN, Resource.STONE, Resource.SERVANT);
+
+        assertThrows(ModelException.class,()->{player.setStoragesTypes(controller,Resource.COIN, Resource.STONE, Resource.SERVANT);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testsetStoragesTypes2() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
@@ -335,7 +334,8 @@ public class PlayerTest {
         player.selectMarketPhase(controller);
         player.startMarketPhase(controller,1, false);
         player.startOrganizeResources(controller);
-        player.setStoragesTypes(controller,Resource.COIN, Resource.STONE, Resource.COIN);
+
+        assertThrows(ModelException.class,()->{player.setStoragesTypes(controller,Resource.COIN, Resource.STONE, Resource.COIN);});
     }
 
     @Test
@@ -355,11 +355,12 @@ public class PlayerTest {
         assertEquals(TurnState.ADDRESOURCES, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testdefualtManageResourcesToOrganize1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.defaultManageResourcesToOrganize(controller);
+
+        assertThrows(ModelException.class,()->{player.defaultManageResourcesToOrganize(controller);});
     }
 
     @Test
@@ -379,11 +380,12 @@ public class PlayerTest {
         assertEquals(TurnState.START, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testmanageResourcesToOrganize1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.manageResourcesToOrganize(controller,Resource.COIN, 1, 1);
+
+        assertThrows(ModelException.class,()->{player.manageResourcesToOrganize(controller,Resource.COIN, 1, 1);});
     }
 
     @Test
@@ -404,11 +406,12 @@ public class PlayerTest {
         assertEquals(TurnState.START, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void teststartAddResources1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.startAddResources(controller);
+
+        assertThrows(ModelException.class,()->{player.startAddResources(controller);});
     }
 
     @Test
@@ -427,11 +430,12 @@ public class PlayerTest {
         else assertEquals(TurnState.ADDRESOURCES, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testaddResources1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.addResources(controller,Resource.COIN, 1, 1);
+
+        assertThrows(ModelException.class,()->{player.addResources(controller,Resource.COIN, 1, 1);});
     }
 
     @Test
@@ -458,11 +462,12 @@ public class PlayerTest {
         else assertEquals(TurnState.ADDRESOURCES, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testdiscardResources1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.discardResources(controller,Resource.COIN, 1);
+
+        assertThrows(ModelException.class,()->{player.discardResources(controller,Resource.COIN, 1);});
     }
 
     @Test
@@ -495,27 +500,30 @@ public class PlayerTest {
         assertEquals(TurnState.ORGANIZERESOURCES, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testselectBuyDevelopmentCardPhase1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.selectBuyDevelopmentCardPhase(controller);
+
+        assertThrows(ModelException.class,()->{player.selectBuyDevelopmentCardPhase(controller);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testselectBuyDevelopmentCardPhase2() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
         player.setAsCurrentPlayer();
         player.setPhase(TurnState.START);
-        player.selectBuyDevelopmentCardPhase(controller);
+
+        assertThrows(ModelException.class,()->{player.selectBuyDevelopmentCardPhase(controller);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testchooseDevelopmentCard1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.chooseDevelopmentCard(controller,Color.BLUE, 1, 1);
+
+        assertThrows(ModelException.class,()->{player.chooseDevelopmentCard(controller,Color.BLUE, 1, 1);});
     }
 
     @Test
@@ -536,11 +544,12 @@ public class PlayerTest {
         assertEquals(TurnState.PAYDEVELOPMENTCARD, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testpayCardAllFromChest1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.payCardAllFromChest();
+
+        assertThrows(ModelException.class,()->{player.payCardAllFromChest();});
     }
 
     @Test
@@ -560,11 +569,12 @@ public class PlayerTest {
         assertEquals(TurnState.ENDTURN, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testpayCardFromChest1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.payCardFromChest(controller,Resource.COIN, 1);
+
+        assertThrows(ModelException.class,()->{player.payCardFromChest(controller,Resource.COIN, 1);});
     }
 
     @Test
@@ -589,11 +599,12 @@ public class PlayerTest {
         assertEquals(TurnState.ENDTURN, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testpayCardFromStorage1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.payCardFromStorage(controller,Resource.COIN, 1, 1);
+
+        assertThrows(ModelException.class,()->{player.payCardFromStorage(controller,Resource.COIN, 1, 1);});
     }
 
     @Test
@@ -620,11 +631,12 @@ public class PlayerTest {
         assertEquals(TurnState.ENDTURN, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testselectProductionPhase1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.selectProductionPhase(controller);
+
+        assertThrows(ModelException.class,()->{player.selectProductionPhase(controller);});
     }
 
     @Test
@@ -637,11 +649,12 @@ public class PlayerTest {
         assertEquals(TurnState.PRODUCTIONPHASE, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testactivateProductionOfSlot1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.activateProductionOfSlot(controller,1);
+
+        assertThrows(ModelException.class,()->{player.activateProductionOfSlot(controller,1);});
     }
 
     @Test
@@ -665,11 +678,12 @@ public class PlayerTest {
         assertTrue(player.getPersonalBoard().getProduction().isProductionActivated(1));
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testactivatePersonalProduction1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.activatePersonalProduction(controller,Resource.STONE, Resource.COIN, Resource.SHIELD);
+
+        assertThrows(ModelException.class,()->{player.activatePersonalProduction(controller,Resource.STONE, Resource.COIN, Resource.SHIELD);});
     }
 
     @Test
@@ -688,11 +702,12 @@ public class PlayerTest {
         assertTrue(player.getPersonalBoard().getProduction().isPersonalProductionActivated());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testactivateSpecialProduction1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.activateSpecialProduction(controller,Resource.SERVANT, 1);
+
+        assertThrows(ModelException.class,()->{ player.activateSpecialProduction(controller,Resource.SERVANT, 1);});
     }
 
     @Test
@@ -712,11 +727,12 @@ public class PlayerTest {
         assertTrue(player.getPersonalBoard().getProduction().isSpecialProductionActivated(1));
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void teststartPayProduction1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.startPayProduction(controller);
+
+        assertThrows(ModelException.class,()->{player.startPayProduction(controller);});
     }
 
     @Test
@@ -730,11 +746,12 @@ public class PlayerTest {
         assertEquals(TurnState.ENDTURN, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testpayProductionAllFromChest1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.payProductionAllFromChest();
+
+        assertThrows(ModelException.class,()->{player.payProductionAllFromChest();});
     }
 
     @Test
@@ -756,11 +773,13 @@ public class PlayerTest {
         assertEquals(TurnState.ENDTURN, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testpayProductionFromChest1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.payCardFromChest(controller,Resource.SHIELD, 1);
+
+        assertThrows(ModelException.class,()->{player.payCardFromChest(controller,Resource.SHIELD, 1);});
+
     }
 
     @Test
@@ -784,11 +803,12 @@ public class PlayerTest {
         assertEquals(TurnState.ENDTURN, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testpayProductionFromStorage1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.payProductionFromStorage(controller,Resource.STONE, 1, 1);
+
+        assertThrows(ModelException.class,()->{player.payProductionFromStorage(controller,Resource.STONE, 1, 1);});
     }
 
     @Test
@@ -813,14 +833,15 @@ public class PlayerTest {
         assertEquals(TurnState.ENDTURN, player.getPhase());
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testactivateLeaderCard1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.activateLeaderCard(controller,1);
+
+        assertThrows(ModelException.class,()->{player.activateLeaderCard(controller,1);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testactivateLeaderCard2() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
@@ -828,14 +849,16 @@ public class PlayerTest {
         player.chooseLeaderCardsToDiscard(1, 2,controller);
         player.addInitResources(controller,Resource.COIN);
         player.setAsCurrentPlayer();
-        player.activateLeaderCard(controller,1);
+
+        assertThrows(ModelException.class,()->{player.activateLeaderCard(controller,1);});
     }
 
-    @Test(expected = ModelException.class)
+    @Test
     public void testdiscardLeaderCard1() throws ModelException, FileNotFoundException{
         Game game = new Game();
         Player player = new Player("flavio", 0, game);
-        player.discardLeaderCard(controller,1);
+
+        assertThrows(ModelException.class,()->{player.discardLeaderCard(controller,1);});
     }
 
     @Test
