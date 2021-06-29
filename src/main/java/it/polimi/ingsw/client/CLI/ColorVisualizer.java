@@ -1,5 +1,8 @@
 package it.polimi.ingsw.client.CLI;
 
+/**
+ * enumeration for colors on CLI
+ */
 public enum ColorVisualizer {
     ANSI_RED("\u001B[31m"),
     ANSI_GREEN("\u001B[32m"),
