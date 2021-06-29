@@ -22,6 +22,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Activate leader cards frame. It contains the Leader Cards that can be activated and it permits the choice
+ * of one
+ */
 public class ActivateLeaderCardsFrame extends JFrame  implements MouseListener, ActionListener {
     private Gui gui;
     private LightModel lightModel;
@@ -35,9 +39,15 @@ public class ActivateLeaderCardsFrame extends JFrame  implements MouseListener, 
     private JPanel contentPane;
     private int i;
     private LeaderCard cardSelected = null;
-    Map<JLabel, LeaderCard> labelMap;
-    Map<LeaderCard, Integer> leaderMap;
+    private Map<JLabel, LeaderCard> labelMap;
+    private Map<LeaderCard, Integer> leaderMap;
 
+    /**
+     * Instantiates a new Activate leader cards frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     */
     public ActivateLeaderCardsFrame(Gui gui, LightModel lightModel){
         this.gui = gui;
         this.lightModel = lightModel;

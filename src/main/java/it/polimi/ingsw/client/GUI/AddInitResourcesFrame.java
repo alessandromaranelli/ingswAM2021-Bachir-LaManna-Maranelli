@@ -10,6 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Add init resources frame. It asks to the player what resource he wants at the start of the game
+ */
 public class AddInitResourcesFrame extends JFrame implements ActionListener {
     private Gui gui;
     private LightModel lightModel;
@@ -19,6 +22,12 @@ public class AddInitResourcesFrame extends JFrame implements ActionListener {
     private JButton button;
     private JPanel panel;
 
+    /**
+     * Instantiates a new Add init resources frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     */
     public AddInitResourcesFrame(Gui gui, LightModel lightModel){
         this.gui = gui;
         this.lightModel = lightModel;

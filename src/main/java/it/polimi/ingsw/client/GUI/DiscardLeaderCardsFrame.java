@@ -19,6 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Discard leader card frame. It displays the leader cards and the player can choose the leader card to
+ * discard
+ */
 public class DiscardLeaderCardsFrame extends JFrame implements ActionListener, MouseListener {
     private Gui gui;
     private LightModel lightModel;
@@ -32,9 +36,15 @@ public class DiscardLeaderCardsFrame extends JFrame implements ActionListener, M
     private JPanel contentPane;
     private int i;
     private LeaderCard cardSelected = null;
-    Map<JLabel, LeaderCard> labelMap;
-    Map<LeaderCard, Integer> leaderMap;
+    private Map<JLabel, LeaderCard> labelMap;
+    private Map<LeaderCard, Integer> leaderMap;
 
+    /**
+     * Instantiates a new Discard leader cards frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     */
     public DiscardLeaderCardsFrame(Gui gui, LightModel lightModel){
         this.gui = gui;
         this.lightModel = lightModel;

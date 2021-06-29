@@ -11,10 +11,18 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Leader cards panel. It displays the leader cards
+ */
 public class LeaderCardsPanel extends JPanel {
     private List<LeaderCard> leaderCards;
     private List<JLabel> cards;
 
+    /**
+     * Instantiates a new Leader cards panel.
+     *
+     * @param leaderCard the leader card
+     */
     public LeaderCardsPanel(List<LeaderCard> leaderCard) {
         this.leaderCards = new ArrayList<>(leaderCard);
         setBackground(Color.CYAN);
@@ -26,6 +34,9 @@ public class LeaderCardsPanel extends JPanel {
     }
 
 
+    /**
+     * Create.
+     */
     public void create() {
         int i = 0;
 

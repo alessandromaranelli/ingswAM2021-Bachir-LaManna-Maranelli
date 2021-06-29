@@ -16,11 +16,21 @@ import java.io.InputStream;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * The type View available devel cards frame. It displays all the development cards
+ */
 public class ViewAvailableDevelCardsFrame extends JFrame{
     private List<JLabel> jl;
     private LightModel lightModel;
     private Gui gui;
 
+    /**
+     * Instantiates a new View available devel cards frame.
+     *
+     * @param lightModel the light model
+     * @param gui        the gui
+     */
     public ViewAvailableDevelCardsFrame(LightModel lightModel, Gui gui){
         jl = new ArrayList<>();
         setLayout(new GridLayout(3,4, 5,8));

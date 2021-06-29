@@ -20,20 +20,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Buy devel cards frame. It displays all the development cards to the player and the player can choose
+ * one of them to buy
+ */
 public class BuyDevelCardsFrame extends JFrame implements ActionListener, MouseListener {
-    Gui gui;
-    LightModel lightModel;
-    ArrayList<JComponent> components; //clickable develCard + inputTextField for destinstion slot
-    JPanel head;
-    JPanel body;
-    JComboBox<Integer> slot;
-    JLabel text;
-    JButton submit;
-    List<JLabel> jl;
-    DevelopmentCard cardSelected = null;
-    Map<JLabel,DevelopmentCard> labelMap;
-    JPanel contentPane;
+    private Gui gui;
+    private LightModel lightModel;
+    private ArrayList<JComponent> components;
+    private JPanel head;
+    private JPanel body;
+    private JComboBox<Integer> slot;
+    private JLabel text;
+    private JButton submit;
+    private List<JLabel> jl;
+    private DevelopmentCard cardSelected = null;
+    private Map<JLabel,DevelopmentCard> labelMap;
+    private JPanel contentPane;
 
+    /**
+     * Instantiates a new Buy devel cards frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     */
     public BuyDevelCardsFrame(Gui gui, LightModel lightModel) {
         this.gui = gui;
         this.lightModel = lightModel;

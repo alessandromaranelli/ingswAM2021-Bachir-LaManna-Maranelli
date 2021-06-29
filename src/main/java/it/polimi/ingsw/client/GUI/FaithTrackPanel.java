@@ -9,6 +9,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Faith track panel. It displays the faithtrack
+ */
 public class FaithTrackPanel extends JPanel{
     private JPanel track;
     private JPanel symbols;
@@ -17,6 +20,11 @@ public class FaithTrackPanel extends JPanel{
     private List<JLabel> lorenzoTrack;
     private List<JLabel> popeFavours;
 
+    /**
+     * Instantiates a new Faith track panel.
+     *
+     * @param lightModel the light model
+     */
     public FaithTrackPanel(LightModel lightModel){
         setBackground(Color.GRAY);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -197,6 +205,12 @@ public class FaithTrackPanel extends JPanel{
     }
 
 
+    /**
+     * Instantiates a new Faith track panel.
+     *
+     * @param position    the position
+     * @param popeFavours the pope favours
+     */
     public FaithTrackPanel(int position, Boolean[] popeFavours){
         setBackground(Color.GRAY);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

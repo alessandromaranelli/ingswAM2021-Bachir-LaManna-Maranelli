@@ -4,9 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Waiting panel. It shows only a wait message
+ */
 public class WaitingPanel extends JPanel{
     private JLabel label;
 
+    /**
+     * Instantiates a new Waiting panel.
+     */
     public WaitingPanel(){
         label = new JLabel();
 

@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Activate personal production frame. It asks to the player two resources to pay and the resource to produce
+ */
 public class ActivatePersonalProductionFrame extends JFrame implements ActionListener {
     private LightModel lightModel;
     private Gui gui;
@@ -28,6 +31,12 @@ public class ActivatePersonalProductionFrame extends JFrame implements ActionLis
     private JPanel input2;
     private JPanel output;
 
+    /**
+     * Instantiates a new Activate personal production frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     */
     public ActivatePersonalProductionFrame(Gui gui, LightModel lightModel){
         this.gui = gui;
         this.lightModel = lightModel;

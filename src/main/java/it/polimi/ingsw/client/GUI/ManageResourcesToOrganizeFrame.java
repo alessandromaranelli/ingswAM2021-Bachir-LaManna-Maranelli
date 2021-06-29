@@ -15,6 +15,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The type Manage resources to organize frame. It displays the resources and in which storage they have to be added
+ */
 public class ManageResourcesToOrganizeFrame extends JFrame implements ActionListener {
     private LightModel lightModel;
     private Gui gui;
@@ -31,6 +34,12 @@ public class ManageResourcesToOrganizeFrame extends JFrame implements ActionList
     private JLabel label2;
 
 
+    /**
+     * Instantiates a new Manage resources to organize frame.
+     *
+     * @param gui        the gui
+     * @param lightModel the light model
+     */
     public ManageResourcesToOrganizeFrame(Gui gui, LightModel lightModel){
         this.lightModel = lightModel;
         this.gui = gui;
