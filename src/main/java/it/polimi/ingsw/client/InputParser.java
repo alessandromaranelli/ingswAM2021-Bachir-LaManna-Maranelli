@@ -2,8 +2,19 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.TurnState;
 
+/**
+ * The type Input parser.
+ */
 public class InputParser {
 
+    /**
+     * Parse enum boolean.
+     *
+     * @param parts      the parts
+     * @param client     the client
+     * @param outputView the output view
+     * @return the boolean
+     */
     public boolean parseEnum(String parts[], Client client, OutputView outputView){
         if(parts[0].equals("QUICKSTART")&& parts.length==1 && client.getLightModel().getPhase() == TurnState.STARTCONNECTION){
             outputView.setType(TypeOfCommand.QUICKSTART);
