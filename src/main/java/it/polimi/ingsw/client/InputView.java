@@ -30,7 +30,7 @@ public class InputView implements Runnable{
     }
 
     public void run(){
-        //ObjectInputStream input = null;
+
         try {
            input = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
@@ -40,7 +40,7 @@ public class InputView implements Runnable{
         while (true) {
             Object next = null;
             try {
-                //socket.setSoTimeout(20000);
+                socket.setSoTimeout(20000);
                 next = input.readObject();
             } catch (SocketException e){
                 System.out.println("Server died");

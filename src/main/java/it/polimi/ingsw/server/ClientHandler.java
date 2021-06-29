@@ -157,7 +157,7 @@ public class ClientHandler extends Thread {
 
         try {
             while (!ready) {
-                //socket.setSoTimeout(20000);
+                socket.setSoTimeout(20000);
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg) next;
                 if (controller==null&&command instanceof BeforeStartMsg){
@@ -210,7 +210,7 @@ public class ClientHandler extends Thread {
     private void handleClientConnection() throws IOException, ModelException {
         try {
             while (true) {
-                //socket.setSoTimeout(20000);
+                socket.setSoTimeout(20000);
                 Object next = input.readObject();
                 CommandMsg command = (CommandMsg) next;
                 if (controller==null&&command instanceof BeforeStartMsg){
@@ -237,7 +237,7 @@ public class ClientHandler extends Thread {
                     match.getClientConnectionThreads().remove(this);
                     if (match.isFull()) match.setFull(false);
                 }
-                else if (controller.getGame().getCurrentPlayer().getPlayerID()==playerID){
+                else if (controller.isGameStarted()&&controller.getGame().getCurrentPlayer().getPlayerID()==playerID){
                     controller.manageClientDisconnectionWhilePlayingHisTurn(this);
                 }
             }
