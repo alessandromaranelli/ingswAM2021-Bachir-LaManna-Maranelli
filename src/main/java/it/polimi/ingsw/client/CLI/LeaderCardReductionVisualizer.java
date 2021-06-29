@@ -2,20 +2,25 @@ package it.polimi.ingsw.client.CLI;
 
 import it.polimi.ingsw.model.*;
 
+/**
+ * View of leader card type reduction
+ */
 public class LeaderCardReductionVisualizer {
     private static final int MAX_VERT_TILES = 7; //rows.
     private static final int MAX_HORIZ_TILES = 40;  //cols.
 
     String tiles[][] = new String[MAX_VERT_TILES][MAX_HORIZ_TILES];
 
-    /*public void setStart(int start){
-        this.start = start;
-    }*/
+
     public LeaderCardReductionVisualizer() {
-        // start = 0;
     }
 
 
+    /**
+     * Creates the frame
+     *
+     * @param col width
+     */
     public void fillEmpty(Color col) {
         String blueEscape = ColorVisualizer.ANSI_BLUE.escape();
         String color;
@@ -57,6 +62,9 @@ public class LeaderCardReductionVisualizer {
 
     }
 
+    /**
+     * Inserts data in the frame
+     */
     public void showLeaderData(LeaderCardReduction leaderCard) {
         fillEmpty(Color.YELLOW);
         String greenEscape = ColorVisualizer.ANSI_GREEN.escape();
@@ -137,6 +145,10 @@ public class LeaderCardReductionVisualizer {
                 break;
         }
     }
+
+    /**
+     * Prints on screen the view
+     */
     public final void plot() {
         String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
         System.out.print( whiteEscape);

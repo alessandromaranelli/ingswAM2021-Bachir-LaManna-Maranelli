@@ -2,6 +2,9 @@ package it.polimi.ingsw.client.CLI;
 
 import it.polimi.ingsw.model.*;
 
+/**
+ * The market visualizer for cli
+ */
 public class MarketVisualizer {
     private static final int MAX_VERT_TILES = 5; //rows.
     private static final int MAX_HORIZ_TILES = 11; //cols.
@@ -10,12 +13,13 @@ public class MarketVisualizer {
 
     String tiles[][] = new String[MAX_VERT_TILES][MAX_HORIZ_TILES];
 
-
     public MarketVisualizer() {
         fillEmpty();
     }
 
-
+    /**
+     * Creates the frame
+     */
     public void fillEmpty() {
 
         tiles[0][0] = "╔";
@@ -43,7 +47,11 @@ public class MarketVisualizer {
     }
 
 
-
+    /**
+     * Inserts the marble in its correspondent position
+     *
+     * @param marbles matrix of marbles
+     */
     public void showMarbles(Marble [][] marbles){
         String greenEscape = ColorVisualizer.ANSI_GREEN.escape();
         if (marbles!=null) {
@@ -74,6 +82,9 @@ public class MarketVisualizer {
     }
 
 
+    /**
+     * Prints on screen the table
+     */
     public final void plot() {
         String whiteEscape = ColorVisualizer.ANSI_WHITE.escape();
         String greenEscape = ColorVisualizer.ANSI_GREEN.escape();
