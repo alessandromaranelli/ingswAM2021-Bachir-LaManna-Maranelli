@@ -1,7 +1,6 @@
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\model\Production.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\messages\commands\marketphase\StartMarketPhaseMsg.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\messages\answers\GameJoinedMsg.java
-C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\client\GUI\MarketBuyFrame.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\messages\commands\EndTurnMsg.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\messages\commands\marketphase\DefaultManageResourcesToOrganizeMsg.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\messages\commands\beforestart\NewGameMsg.java
@@ -53,14 +52,13 @@ C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\messages\answers\GameStartMsg.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\client\GUI\CustomFrame.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\messages\answers\UpdateCardSlotMsg.java
-C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\client\GUI\ViewOtherPlayerFrame.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\client\GUI\DiscardLeaderCardFrame.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\client\InputView.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\model\PurpleMarble.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\server\PingThread.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\messages\commands\marketphase\ManageResourcesToOrganizeMsg.java
-C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\App.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\client\GUI\ManageWhiteMarblesFrame.java
+C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\client\InputParser.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\messages\answers\ResourcesToOrganizeMsg.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\model\Box.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\client\CLI\LeaderCardWhiteMarbleVisualizer.java
@@ -99,7 +97,6 @@ C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\model\Game.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\client\LightModel.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\messages\commands\marketphase\StartAddResourcesMsg.java
-C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\client\GUI\MarketOrganizeChoiceFrame.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\model\Resource.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\messages\commands\preparation\NickNameMsg.java
 C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\src\main\java\it\polimi\ingsw\model\LeaderCardWhiteMarble.java
