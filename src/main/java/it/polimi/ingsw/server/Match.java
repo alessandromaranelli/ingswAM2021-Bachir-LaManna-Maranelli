@@ -1,10 +1,7 @@
 package it.polimi.ingsw.server;
 
 import Exceptions.ModelException;
-import it.polimi.ingsw.messages.answers.GameReJoinMsg;
-import it.polimi.ingsw.messages.answers.GameStartMsg;
-import it.polimi.ingsw.messages.answers.StringMsg;
-import it.polimi.ingsw.messages.answers.UpdatePhaseMsg;
+import it.polimi.ingsw.messages.answers.*;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PopeFavour;
 import it.polimi.ingsw.model.Storage;
@@ -176,6 +173,10 @@ public class Match {
                             controller.getGame().getCurrentPlayer().getNickname(),
                             controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPhase(),
                             controller.getGame().isSoloMatch()));
+                    c.sendAnswerMessage(new UpdateLeaderCardsMsg(controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPhase(),
+                            controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getLeaderCardsInHand(),
+                            controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getLeaderCardsPlayed(),
+                            "\n"));
                     c.setReady();
                 }
 
