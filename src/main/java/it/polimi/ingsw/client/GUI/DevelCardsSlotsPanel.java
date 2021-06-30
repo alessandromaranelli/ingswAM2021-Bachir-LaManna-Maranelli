@@ -32,7 +32,7 @@ public class DevelCardsSlotsPanel extends JPanel {
                 //ImageIcon image = new ImageIcon(getClass().getResource("/DevelopmentCards/slot.png"));
                 //Image img = image.getImage().getScaledInstance(200, 300, Image.SCALE_SMOOTH);
 
-                InputStream resourceAsStream = DevelCardsSlotsPanel.class.getResourceAsStream("/DevelopmentCards/slot.png");
+                InputStream resourceAsStream = DevelCardsSlotsPanel.class.getResourceAsStream("/DevelopmentCards/Slot.png");
                 Image img = null;
                 try {
                     img = ImageIO.read(resourceAsStream);

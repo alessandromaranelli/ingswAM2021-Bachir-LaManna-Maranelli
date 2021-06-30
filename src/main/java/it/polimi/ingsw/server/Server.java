@@ -12,7 +12,7 @@ import java.util.Set;
  * who connect to it.
  */
 public class Server {
-    public static final int PORT = 8080;
+    public static final int PORT = 1235;
     private boolean listening = true;
     private Set<Match> matches = new HashSet<>();
     private Lobby lobby;
