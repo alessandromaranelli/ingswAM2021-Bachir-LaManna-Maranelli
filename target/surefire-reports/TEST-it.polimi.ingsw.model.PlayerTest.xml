@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.polimi.ingsw.model.PlayerTest" time="0.763" tests="74" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.polimi.ingsw.model.PlayerTest" time="1.704" tests="74" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="15"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="CH"/>
     <property name="sun.boot.library.path" value="C:\Users\Alessandro\.jdks\openjdk-15.0.1\bin"/>
-    <property name="sun.java.command" value="C:\Users\ALESSA~1\AppData\Local\Temp\surefire9324024756514674709\surefirebooter16135948515350229257.jar C:\Users\Alessandro\AppData\Local\Temp\surefire9324024756514674709 2021-06-29T16-09-51_729-jvmRun1 surefire126002007212007857tmp surefire_016975980854069164819tmp"/>
+    <property name="sun.java.command" value="C:\Users\ALESSA~1\AppData\Local\Temp\surefire10112029952684623052\surefirebooter4593944798836290593.jar C:\Users\Alessandro\AppData\Local\Temp\surefire10112029952684623052 2021-06-30T11-28-20_528-jvmRun1 surefire7747662437281090367tmp surefire_015100091103575148595tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\target\test-classes;C:\Users\Alessandro\IdeaProjects\ingswAM2021-Bachir-LaManna-Maranelli6\target\classes;C:\Users\Alessandro\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\Alessandro\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Alessandro\.m2\repository\com\google\code\gson\gson\2.8.6\gson-2.8.6.jar;C:\Users\Alessandro\.m2\repository\org\junit\jupiter\junit-jupiter\5.8.0-M1\junit-jupiter-5.8.0-M1.jar;C:\Users\Alessandro\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.8.0-M1\junit-jupiter-api-5.8.0-M1.jar;C:\Users\Alessandro\.m2\repository\org\apiguardian\apiguardian-api\1.1.1\apiguardian-api-1.1.1.jar;C:\Users\Alessandro\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Alessandro\.m2\repository\org\junit\platform\junit-platform-commons\1.8.0-M1\junit-platform-commons-1.8.0-M1.jar;C:\Users\Alessandro\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.8.0-M1\junit-jupiter-params-5.8.0-M1.jar;C:\Users\Alessandro\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.8.0-M1\junit-jupiter-engine-5.8.0-M1.jar;C:\Users\Alessandro\.m2\repository\org\junit\platform\junit-platform-engine\1.8.0-M1\junit-platform-engine-1.8.0-M1.jar;C:\Users\Alessandro\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk8\1.4.20\kotlin-stdlib-jdk8-1.4.20.jar;C:\Users\Alessandro\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\1.4.20\kotlin-stdlib-1.4.20.jar;C:\Users\Alessandro\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.4.20\kotlin-stdlib-common-1.4.20.jar;C:\Users\Alessandro\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar;C:\Users\Alessandro\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk7\1.4.20\kotlin-stdlib-jdk7-1.4.20.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\ALESSA~1\AppData\Local\Temp\surefire9324024756514674709\surefirebooter16135948515350229257.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\ALESSA~1\AppData\Local\Temp\surefire10112029952684623052\surefirebooter4593944798836290593.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="15.0.1+9-18"/>
@@ -56,78 +56,78 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="59.0"/>
   </properties>
-  <testcase name="testpayProductionFromStorage1" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
+  <testcase name="testpayProductionFromStorage1" classname="it.polimi.ingsw.model.PlayerTest" time="0.011"/>
   <testcase name="testpayProductionFromStorage2" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
-  <testcase name="testpayProductionFromChest1" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testpayProductionFromChest2" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testchooseDevelopmentCard1" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
-  <testcase name="testchooseDevelopmentCard2" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
-  <testcase name="testsetInitStorageTypes1" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
-  <testcase name="testsetInitStorageTypes2" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testpayProductionFromChest1" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="testpayProductionFromChest2" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
+  <testcase name="testchooseDevelopmentCard1" classname="it.polimi.ingsw.model.PlayerTest" time="0.01"/>
+  <testcase name="testchooseDevelopmentCard2" classname="it.polimi.ingsw.model.PlayerTest" time="0.009"/>
+  <testcase name="testsetInitStorageTypes1" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
+  <testcase name="testsetInitStorageTypes2" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
   <testcase name="testsetInitStorageTypes3" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
   <testcase name="testpayCardFromStorage1" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
   <testcase name="testpayCardFromStorage2" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testgetPhase" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
-  <testcase name="teststartMarketPhase1" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
-  <testcase name="teststartMarketPhase2" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testpayCardFromChest1" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
-  <testcase name="testpayCardFromChest2" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="teststartAddResources1" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="testgetPhase" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="teststartMarketPhase1" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
+  <testcase name="teststartMarketPhase2" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
+  <testcase name="testpayCardFromChest1" classname="it.polimi.ingsw.model.PlayerTest" time="0.011"/>
+  <testcase name="testpayCardFromChest2" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="teststartAddResources1" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
   <testcase name="teststartAddResources2" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
   <testcase name="testselectBuyDevelopmentCardPhase1" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
-  <testcase name="testselectBuyDevelopmentCardPhase2" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
-  <testcase name="testdiscardLeaderCard1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testdiscardLeaderCard2" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testAddInitResources1" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testAddInitResources2" classname="it.polimi.ingsw.model.PlayerTest" time="0.002"/>
-  <testcase name="testAddInitResources3" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testdefualtManageResourcesToOrganize1" classname="it.polimi.ingsw.model.PlayerTest" time="0.002"/>
-  <testcase name="testsetNickname" classname="it.polimi.ingsw.model.PlayerTest" time="0.002"/>
-  <testcase name="testaddResources1" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testaddResources2" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testgetNickname" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
-  <testcase name="testsetStoragesTypes1" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testsetStoragesTypes2" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
-  <testcase name="testsetStoragesTypes3" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testaddInitResources1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testaddInitResources2" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testaddInitResources3" classname="it.polimi.ingsw.model.PlayerTest" time="0.002"/>
-  <testcase name="testaddInitResources4" classname="it.polimi.ingsw.model.PlayerTest" time="0.002"/>
-  <testcase name="testaddInitResources5" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
+  <testcase name="testselectBuyDevelopmentCardPhase2" classname="it.polimi.ingsw.model.PlayerTest" time="0.011"/>
+  <testcase name="testdiscardLeaderCard1" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="testdiscardLeaderCard2" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
+  <testcase name="testAddInitResources1" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="testAddInitResources2" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testAddInitResources3" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="testdefualtManageResourcesToOrganize1" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="testsetNickname" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
+  <testcase name="testaddResources1" classname="it.polimi.ingsw.model.PlayerTest" time="0.011"/>
+  <testcase name="testaddResources2" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="testgetNickname" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="testsetStoragesTypes1" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="testsetStoragesTypes2" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
+  <testcase name="testsetStoragesTypes3" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testaddInitResources1" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
+  <testcase name="testaddInitResources2" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testaddInitResources3" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
+  <testcase name="testaddInitResources4" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testaddInitResources5" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
   <testcase name="testgetLeaderAction" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testdrawLeaderCards1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testdrawLeaderCards2" classname="it.polimi.ingsw.model.PlayerTest" time="0.002"/>
-  <testcase name="testpayCardAllFromChest1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testpayCardAllFromChest2" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testdefaultManageResourcesToOrganize2" classname="it.polimi.ingsw.model.PlayerTest" time="0.002"/>
-  <testcase name="testactivatePersonalProduction1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testactivatePersonalProduction2" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="teststartPayProduction1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="teststartPayProduction2" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
+  <testcase name="testdrawLeaderCards1" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
+  <testcase name="testdrawLeaderCards2" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testpayCardAllFromChest1" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
+  <testcase name="testpayCardAllFromChest2" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="testdefaultManageResourcesToOrganize2" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
+  <testcase name="testactivatePersonalProduction1" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testactivatePersonalProduction2" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="teststartPayProduction1" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="teststartPayProduction2" classname="it.polimi.ingsw.model.PlayerTest" time="0.008"/>
   <testcase name="testactivateSpecialProduction1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testactivateSpecialProduction2" classname="it.polimi.ingsw.model.PlayerTest" time="0.002"/>
-  <testcase name="testchooseLeaderCardsToDiscard1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testchooseLeaderCardsToDiscard2" classname="it.polimi.ingsw.model.PlayerTest" time="0.002"/>
-  <testcase name="testselectProductionPhase1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testselectProductionPhase2" classname="it.polimi.ingsw.model.PlayerTest" time="0.002"/>
-  <testcase name="testmanageWhiteMarbles1" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
-  <testcase name="testmanageWhiteMarbles2" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
-  <testcase name="testselectMarketPhase1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testselectMarketPhase2" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testsetPlayerID" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testpayProductionAllFromChest1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testpayProductionAllFromChest2" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testgetPlayerID" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testdiscardResources1" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testdiscardResources2" classname="it.polimi.ingsw.model.PlayerTest" time="0.002"/>
-  <testcase name="testactivateProductionOfSlot1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testactivateProductionOfSlot2" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testactivateLeaderCard1" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testactivateLeaderCard2" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testmanageResourcesInStorages" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testsetAsCurrentPlayer" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="testmanageResourcesToOrganize1" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="testmanageResourcesToOrganize2" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
-  <testcase name="teststartOrganizeResources1" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
-  <testcase name="teststartOrganizeResources2" classname="it.polimi.ingsw.model.PlayerTest" time="0.002"/>
+  <testcase name="testactivateSpecialProduction2" classname="it.polimi.ingsw.model.PlayerTest" time="0.003"/>
+  <testcase name="testchooseLeaderCardsToDiscard1" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testchooseLeaderCardsToDiscard2" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
+  <testcase name="testselectProductionPhase1" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testselectProductionPhase2" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
+  <testcase name="testmanageWhiteMarbles1" classname="it.polimi.ingsw.model.PlayerTest" time="0.007"/>
+  <testcase name="testmanageWhiteMarbles2" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
+  <testcase name="testselectMarketPhase1" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
+  <testcase name="testselectMarketPhase2" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="testsetPlayerID" classname="it.polimi.ingsw.model.PlayerTest" time="0.009"/>
+  <testcase name="testpayProductionAllFromChest1" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testpayProductionAllFromChest2" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
+  <testcase name="testgetPlayerID" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
+  <testcase name="testdiscardResources1" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testdiscardResources2" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
+  <testcase name="testactivateProductionOfSlot1" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testactivateProductionOfSlot2" classname="it.polimi.ingsw.model.PlayerTest" time="0.073"/>
+  <testcase name="testactivateLeaderCard1" classname="it.polimi.ingsw.model.PlayerTest" time="0.056"/>
+  <testcase name="testactivateLeaderCard2" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testmanageResourcesInStorages" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testsetAsCurrentPlayer" classname="it.polimi.ingsw.model.PlayerTest" time="0.004"/>
+  <testcase name="testmanageResourcesToOrganize1" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="testmanageResourcesToOrganize2" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
+  <testcase name="teststartOrganizeResources1" classname="it.polimi.ingsw.model.PlayerTest" time="0.006"/>
+  <testcase name="teststartOrganizeResources2" classname="it.polimi.ingsw.model.PlayerTest" time="0.005"/>
 </testsuite>

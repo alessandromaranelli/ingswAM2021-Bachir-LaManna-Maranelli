@@ -58,8 +58,8 @@ public class InputParser {
         }
         if (parts[0].toLowerCase().equals("addinitialresources") &&
                 (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) &&
-                (parts.length==2 || (parts.length==3 && (parts[2].equals("COIN") || parts[2].equals("SERVANT") || parts[2].equals("SHIELD") || parts[2]=="STONE"))) &&
-                client.getLightModel().getPhase() == TurnState.CHOOSERESOURCES){
+                (parts.length==2 || (parts.length==3 && (parts[2].equals("COIN") || parts[2].equals("SERVANT") || parts[2].equals("SHIELD") || parts[2].equals("STONE"))) &&
+                client.getLightModel().getPhase() == TurnState.CHOOSERESOURCES)){
             outputView.setType(TypeOfCommand.ADDINITRESOURCES);
             return true;
         }
