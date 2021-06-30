@@ -31,6 +31,7 @@ public class FaithTrackPanel extends JPanel{
         track = new JPanel();
         track.setBackground(Color.GRAY);
         symbols = new JPanel();
+        symbols.setLayout(new GridLayout(1, 3));
         symbols.setBackground(Color.GRAY);
         lorenzo = new JPanel();
         lorenzo.setBackground(Color.GRAY);
@@ -152,6 +153,10 @@ public class FaithTrackPanel extends JPanel{
             symbols.add(slotLabel);
         }
 
+        JLabel lab = new JLabel("Your ID: " + lightModel.getPlayerID());
+        lab.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        lab.setForeground(Color.BLACK);
+        add(lab);
         add(track);
         add(symbols);
 
@@ -211,12 +216,13 @@ public class FaithTrackPanel extends JPanel{
      * @param position    the position
      * @param popeFavours the pope favours
      */
-    public FaithTrackPanel(int position, Boolean[] popeFavours){
+    public FaithTrackPanel(int position, Boolean[] popeFavours, String nickname){
         setBackground(Color.GRAY);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         track = new JPanel();
         track.setBackground(Color.GRAY);
         symbols = new JPanel();
+        symbols.setLayout(new GridLayout(1, 3));
         symbols.setBackground(Color.GRAY);
         jLabelList = new ArrayList<>();
         //popeFavours = new ArrayList<>();
@@ -335,6 +341,10 @@ public class FaithTrackPanel extends JPanel{
             symbols.add(slotLabel);
         }
 
+        JLabel lab = new JLabel(nickname);
+        lab.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        lab.setForeground(Color.BLACK);
+        add(lab);
         add(track);
         add(symbols);
         setVisible(true);

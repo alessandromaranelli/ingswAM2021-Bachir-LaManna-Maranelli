@@ -187,7 +187,7 @@ public class CustomFrame extends JFrame implements ActionListener {
     public void otherPlayerBoard(String nickname, Map<Resource, Integer> mapFromChest, Integer[] storages, java.util.List<Resource> resourceList, int position, Boolean[] popeFavours, List<LeaderCard> leaderCardsPlayed){
         JPanel panel = new JPanel();
         JPanel jPanel1 = new WareHousePanel(mapFromChest, storages, resourceList);
-        JPanel jPanel2 = new FaithTrackPanel(position, popeFavours);
+        JPanel jPanel2 = new FaithTrackPanel(position, popeFavours, nickname);
         JPanel jPanel3 = new LeaderCardsPanel(leaderCardsPlayed);
 
         panel.add(jPanel1);

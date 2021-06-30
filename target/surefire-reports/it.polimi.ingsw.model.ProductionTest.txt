@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: it.polimi.ingsw.model.ProductionTest
--------------------------------------------------------------------------------
-Tests run: 36, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.331 s - in it.polimi.ingsw.model.ProductionTest

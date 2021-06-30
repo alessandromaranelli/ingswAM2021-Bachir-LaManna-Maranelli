@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: it.polimi.ingsw.model.PlayerTest
--------------------------------------------------------------------------------
-Tests run: 74, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.704 s - in it.polimi.ingsw.model.PlayerTest
