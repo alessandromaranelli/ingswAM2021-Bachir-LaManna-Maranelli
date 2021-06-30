@@ -13,16 +13,16 @@ The final version includes:
   source code of unity tests.
   
 Implemented Functionalities:
-  Basic rules	
-  Complete rules	
-  Socket	
-  GUI
-  CLI	
-  Multiple games
-  Resilience
+  Basic rules,	
+  Complete rules,	
+  Socket,	
+  GUI,
+  CLI,	
+  Multiple games,
+  Resilience,
   
 Test cases: the line coverage of the model's classes is 98% (1259/1281)
 
 To launch the program:
-  Server only has to be launched
+  Server only has to be launched,
   Client needs three parameters to be launched: Server IP Addres, Server Port (8080), "CLI" or "GUI"
