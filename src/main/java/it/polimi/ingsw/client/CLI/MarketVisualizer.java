@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.*;
  */
 public class MarketVisualizer {
     private static final int MAX_VERT_TILES = 5; //rows.
-    private static final int MAX_HORIZ_TILES = 11; //cols.
+    private static final int MAX_HORIZ_TILES = 14; //cols.
     private static final int MARKET_VERT_TILES = 3; //rows.
     private static final int MARKET_HORIZ_TILES = 4; //cols.
 
@@ -70,7 +70,7 @@ public class MarketVisualizer {
                         tiles[i+1][j+3] = ColorVisualizer.ANSI_PURPLE.escape() + "●" + greenEscape;
                     }
                     if (marbles[i][j] instanceof GreyMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_GREY.escape() + "●" + greenEscape;
+                        tiles[i+1][j+3] = ColorVisualizer.ANSI_GREY.escape() + "●" + ColorVisualizer.RESET+ greenEscape;
                     }
                     if (marbles[i][j] instanceof BlueMarble) {
                         tiles[i+1][j+3] = ColorVisualizer.ANSI_BLUE.escape() + "●" + greenEscape;

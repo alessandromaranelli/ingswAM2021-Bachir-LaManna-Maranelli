@@ -160,7 +160,7 @@ public class ClientHandler extends Thread {
                 System.out.println("Client died");
                 closeClientSocket();
                 removeAllReferencesOfClient1();
-                break;
+                return;
             }
         }
         try {

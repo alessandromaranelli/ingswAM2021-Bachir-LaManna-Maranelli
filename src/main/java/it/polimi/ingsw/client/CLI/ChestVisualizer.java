@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.CLI;
 
 import it.polimi.ingsw.model.Chest;
+import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Resource;
 
 import java.util.Map;
@@ -22,6 +23,7 @@ public class ChestVisualizer {
         for(Resource s: chest.keySet()){
             String res = getResource(s);
             System.out.println("--" + res + ":" + chest.get(s));
+            System.out.print(ColorVisualizer.RESET);
         }
         System.out.print( whiteEscape);
         System.out.print(ColorVisualizer.RESET);
@@ -31,8 +33,6 @@ public class ChestVisualizer {
      * returns the respective symbol for the resource passed as parameter
      */
     private String getResource(Resource res) {
-        String greenEscape = ColorVisualizer.ANSI_GREEN.escape();
-        String s;
         switch (res) {
             case SERVANT:
                 return ColorVisualizer.ANSI_PURPLE.escape() + "⚒" ;
