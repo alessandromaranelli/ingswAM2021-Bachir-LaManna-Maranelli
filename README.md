@@ -19,10 +19,12 @@ Implemented Functionalities:
   GUI,
   CLI,	
   Multiple games,
-  Resilience,
+  Resilience.
   
-Test cases: the line coverage of the model's classes is 98% (1259/1281)
+Test cases: the line coverage of the model's classes is 98% (1259/1281).
+
+To run CLI it his necessary to use wsl and set "Ms Gothic" font.
 
 To launch the program:
-  Server only has to be launched,
-  Client needs three parameters to be launched: Server IP Addres, Server Port (8080), "CLI" or "GUI"
+   Server only has to be launched (Server.jar),
+   Client needs three parameters to be launched: Server IP Address, Server Port (8080), "CLI" or "GUI"  (Client.jar)
