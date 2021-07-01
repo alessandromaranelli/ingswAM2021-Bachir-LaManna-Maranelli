@@ -1,0 +1,21 @@
+ Il volume nell'unità C è Windows
+ Numero di serie del volume: D6DB-F3D4
+
+ Directory di C:\Users\karim\IdeaProjects\ingsw-AM2021-Bachir-LaManna-Maranelli\target
+
+30/06/2021  22:37    <DIR>          .
+30/06/2021  22:37    <DIR>          ..
+30/06/2021  22:11        15.693.631 AM66-1.0-SNAPSHOT-shaded.jar
+30/06/2021  22:11        15.693.631 AM66-1.0-SNAPSHOT.jar
+30/06/2021  21:28    <DIR>          classes
+30/06/2021  21:28    <DIR>          generated-sources
+30/06/2021  21:28    <DIR>          generated-test-sources
+30/06/2021  21:27                 0 java
+30/06/2021  21:27    <DIR>          maven-archiver
+30/06/2021  21:27    <DIR>          maven-status
+30/06/2021  22:11        15.693.630 original-AM66-1.0-SNAPSHOT.jar
+30/06/2021  21:27    <DIR>          surefire-reports
+30/06/2021  21:28    <DIR>          test-classes
+30/06/2021  22:37                 0 UTF8.TXT
+               5 File     47.080.892 byte
+               9 Directory  39.688.019.968 byte disponibili
