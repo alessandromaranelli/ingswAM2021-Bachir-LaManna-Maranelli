@@ -153,7 +153,7 @@ public class FaithTrackPanel extends JPanel{
             symbols.add(slotLabel);
         }
 
-        JLabel lab = new JLabel("Your ID: " + lightModel.getPlayerID());
+        JLabel lab = new JLabel("Nick: " + lightModel.getNickname());
         lab.setFont(new Font("Comic Sans", Font.BOLD, 20));
         lab.setForeground(Color.BLACK);
         add(lab);

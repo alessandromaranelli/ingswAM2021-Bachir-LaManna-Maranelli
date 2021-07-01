@@ -41,7 +41,6 @@ public class LightModelGUI extends LightModel{
         this.setSoloGame(isSologame);
 
         this.setStorageType(Resource.COIN, Resource.SHIELD, Resource.SERVANT);
-        this.setStorageQuantity(0, 0, 0);
 
         getClient().getGui().updatePersonalBoard(this);
 
