@@ -68,3 +68,5 @@ To run CLI it his necessary to use wsl and set "Ms Gothic" font.
 java -jar AM66-Client.jar 127.0.0.1 portNumber CLI   if CLI
 java -jar AM66-Client.jar 127.0.0.1 portNumber GUI   if GUI
 ```
+Here is a list of commands necessary to play the game in CLI
+https://github.com/alessandromaranelli/ingswAM2021-Bachir-LaManna-Maranelli/blob/master/blob/copertina.jpg
