@@ -196,5 +196,6 @@ public class CustomFrame extends JFrame implements ActionListener {
         this.setContentPane(panel);
         panel.setLayout(new GridLayout(3, 1));
         setVisible(true);
+        pack();
     }
 }
