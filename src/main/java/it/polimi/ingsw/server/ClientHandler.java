@@ -251,7 +251,7 @@ public class ClientHandler extends Thread {
                 match.getClientConnectionThreads().remove(this);
                 if (match.isFull()) match.setFull(false);
             }
-            else if (controller.getGame().getCurrentPlayer().getPlayerID()==playerID){
+            else if (controller.getGame().getCurrentPlayer()!=null&&controller.getGame().getCurrentPlayer().getPlayerID()==playerID){
                 try {
                     controller.manageClientDisconnectionWhilePlayingHisTurn(this);
                 } catch (ModelException modelException) {

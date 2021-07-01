@@ -53,6 +53,7 @@ public class InputView implements Runnable{
                 System.out.println("Server died");
                 try {
                     socket.close();
+                    System.exit(0);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

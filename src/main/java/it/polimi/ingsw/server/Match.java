@@ -154,8 +154,9 @@ public class Match {
                 }
                 clientConnectionThreadsNotConnected.remove(clientHandler);
                 c.setController(controller);
+                c.setReady();
                 c.sendAnswerMessage(new UpdatePhaseMsg(TurnState.BEFORESTART,"You reconnected successfully!!!\n\n"));
-                if(clientHandler.getPlayerID()>0) {
+                if(clientHandler.getPlayerID()>0&&controller.isGameStarted()) {
                     c.sendAnswerMessage(new GameReJoinMsg(controller.getGame().getPlayerById(clientHandler.getPlayerID()).getNickname(),
                             controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().getTrack().indexOf(
                                     controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getFaithTrack().checkPlayerPosition()),
@@ -170,14 +171,18 @@ public class Match {
                             controller.getGame().getTable().getMarket().getMarketTable(),
                             controller.getGame().getTable().getMarket().getMarbleInExcess(),
                             controller.getGame().getTable().getTopDevelopmentcards(),
-                            controller.getGame().getCurrentPlayer().getNickname(),
+                            (controller.getGame().getCurrentPlayer()!=null)? controller.getGame().getCurrentPlayer().getNickname() : "not started yet",
                             controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPhase(),
                             controller.getGame().isSoloMatch()));
                     c.sendAnswerMessage(new UpdateLeaderCardsMsg(controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPhase(),
                             controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getLeaderCardsInHand(),
                             controller.getGame().getPlayerById(clientHandler.getPlayerID()).getPersonalBoard().getLeaderCardsPlayed(),
                             "\n"));
-                    c.setReady();
+                }
+                else if(clientHandler.getPlayerID()>0){
+                    UpdateNicknameMsg updateNicknameMsg = new UpdateNicknameMsg(controller.getGame().getPlayerById(clientHandler.getPlayerID()).getNickname(),
+                            c.getPlayerID(), controller.getNumberOfPlayers());
+                    c.sendAnswerMessage(updateNicknameMsg);
                 }
 
             }
