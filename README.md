@@ -2,7 +2,7 @@
 ## Maestri del Rinascimento - AM66
 ### Software engineering final project 2021 - Politecnico di Milano
 
-![alt text](https://github.com/alessandromaranelli/ingswAM2021-Bachir-LaManna-Maranelli/blob/copertina.jpg)
+![alt text](https://github.com/alessandromaranelli/ingswAM2021-Bachir-LaManna-Maranelli/blob/master/blob/copertina.jpg)
 
 ## Description:
 Masters of Renaissance Board Game
