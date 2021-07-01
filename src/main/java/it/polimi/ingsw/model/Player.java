@@ -167,8 +167,15 @@ public class Player implements Serializable {
         if(phase != TurnState.CHOOSELEADERCARDS) throw new ModelException("Wrong phase, player " + playerID + " is in phase: " + phase.toString());
         if(i1<1||i1>4||i2<1||i2>4) throw new ModelException("Invalid position of the leadercard");
         if(i1 == 12) throw new ModelException("You must choose two different leader cards");
-        personalBoard.getLeaderCardsInHand().remove(i1-1);
-        personalBoard.getLeaderCardsInHand().remove(i2-2);
+        if(i1<i2){
+            personalBoard.getLeaderCardsInHand().remove(i1-1);
+            personalBoard.getLeaderCardsInHand().remove(i2-2);
+        }
+        else{
+            personalBoard.getLeaderCardsInHand().remove(i2-1);
+            personalBoard.getLeaderCardsInHand().remove(i1-2);
+        }
+
         phase = TurnState.CHOOSERESOURCES;
         controller.sendUpdateDiscardLeaders(this);
     }
