@@ -1,0 +1,36 @@
+nickname:gino:numberofplayers:1
+drawleadercards
+discardleadercards:1:4
+setinitialstoragetypes:COIN:SHIELD:SERVANT
+addinitialresources:COIN:SHIELD    addinitialresources:COIN
+
+selectmarketphase
+startmarketphase:2:true
+startorganizeresources
+setstoragetypes:COIN:SHIELD:SERVANT    manageresourcestoorganize:SERVANT:3:1
+defaultmanageresourcestoorganize
+startaddresources
+addresources:SHIELD:2:1   addresources:SERVANT:3:1 addresources:COIN:1:1
+discardresources:STONE:1
+
+selectbuydevelopmentcardphase
+buydevelopmentcard:GREEN:1:1
+paycardfromstorage:COIN:3:2
+paycardfromchest:SERVANT:1
+
+selectproductionphase
+activateproduction:2
+activatepersonalproduction:COIN:SERVANT:SERVANT
+startpayproduction
+payproductionfromstorage:COIN:3:1
+
+activateleadercard:1
+
+viewotherplayers
+viewresources
+viewproduction
+viewdevelopmentcardstobuy
+viewfaithtrack
+viewleaders
+viewdevelopmentcard
+viewmarket
