@@ -23,14 +23,20 @@ The final version includes:
 * Amir Bachir Kaddis Beshay - 10659740
 * Flavio La Manna - 10620549
 
-## Implemented features
-* Basic rules
-* Complete rules
-* CLI
-* GUI
-* Socket
-* Multiple games 
-* Resilience
+
+## Implemented Functionalities
+| Functionality | Status |
+|:-----------------------|:------------------------------------:|
+| Basic rules | [![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
+| Complete rules | [![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
+| Socket |[![GREEN](http://placehold.it/15/44bb44/44bb44)]()|
+| GLI | [![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
+| GUI |[![GREEN](http://placehold.it/15/44bb44/44bb44)]()|
+| Multiple games | [![GREEN](http://placehold.it/15/44bb44/44bb44)]()|
+| Resilience | [![GREEN](http://placehold.it/15/44bb44/44bb44)]()|
+| Persistence | [![RED](http://placehold.it/15/f03c15/f03c15)]() |
+| Editor | [![RED](http://placehold.it/15/f03c15/f03c15)]() |
+| Local games | [![RED](http://placehold.it/15/f03c15/f03c15)]() |
 
 ## Tests' coverage
 |Package|Method coverage [%]|Line coverage [%]|
@@ -69,4 +75,4 @@ java -jar AM66-Client.jar 127.0.0.1 portNumber CLI   if CLI
 java -jar AM66-Client.jar 127.0.0.1 portNumber GUI   if GUI
 ```
 Here is a list of commands necessary to play the game in CLI
-https://github.com/alessandromaranelli/ingswAM2021-Bachir-LaManna-Maranelli/blob/master/blob/copertina.jpg
+https://github.com/alessandromaranelli/ingswAM2021-Bachir-LaManna-Maranelli/blob/master/blob/commands.txt
