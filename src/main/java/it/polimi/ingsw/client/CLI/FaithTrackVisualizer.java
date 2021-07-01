@@ -53,6 +53,7 @@ public class FaithTrackVisualizer {
         }
         System.out.println("  Actual state of your PopeFavours");
         System.out.print( whiteEscape);
+        System.out.print(ColorVisualizer.RESET);
     }
 
 }

@@ -8,9 +8,7 @@ import it.polimi.ingsw.messages.answers.ErrorMsg;
 import it.polimi.ingsw.messages.commands.beforestart.BeforeStartMsg;
 import it.polimi.ingsw.messages.commands.CommandMsg;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -134,7 +132,7 @@ public class ClientHandler extends Thread {
      * @return the boolean
      */
     public boolean isConnected() {
-        return connected;
+        return connected&&socket!=null;
     }
 
     /**
@@ -154,51 +152,16 @@ public class ClientHandler extends Thread {
         PingThread pingThread = new PingThread(this);
         Thread ping = new Thread(pingThread);
         ping.start();
-
-        try {
-            while (!ready) {
-                socket.setSoTimeout(20000);
-                Object next = input.readObject();
-                CommandMsg command = (CommandMsg) next;
-                if (controller==null&&command instanceof BeforeStartMsg){
-                    BeforeStartMsg beforeStartMsg=(BeforeStartMsg) command;
-                    beforeStartMsg.processMessage(this,lobby);
-                }
-                else command.processMessage(this, controller);
+        Object next = null;
+        while (!ready) {
+            next=readObjectfromSocket();
+            if(next!=null)processObject(next);
+            else{
+                System.out.println("Client died");
+                closeClientSocket();
+                removeAllReferencesOfClient1();
+                break;
             }
-
-        } catch (SocketException e){
-            try {
-                socket.close();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-            this.setConnected(false);
-            if(!(match ==null))match.checkClientConnection(this);
-            if (controller!=null){
-                if (!ready) {
-                    match.getClientConnectionThreads().remove(this);
-                    if (match.isFull()) match.setFull(false);
-                }
-                else if (controller.getGame().getCurrentPlayer().getPlayerID()==playerID){
-                    try {
-                        controller.manageClientDisconnectionWhilePlayingHisTurn(this);
-                    } catch (ModelException modelException) {
-                        modelException.printStackTrace();
-                    }
-                }
-            }
-
-        }
-
-        catch (SocketTimeoutException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch(IOException e){
-            e.printStackTrace();
-        } catch (ModelException e) {
-            e.printStackTrace();
         }
         try {
             handleClientConnection();
@@ -207,47 +170,147 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void handleClientConnection() throws IOException, ModelException {
-        try {
-            while (true) {
-                socket.setSoTimeout(20000);
-                Object next = input.readObject();
-                CommandMsg command = (CommandMsg) next;
-                if (controller==null&&command instanceof BeforeStartMsg){
-                    BeforeStartMsg beforeStartMsg=(BeforeStartMsg) command;
-                    beforeStartMsg.processMessage(this,lobby);
+    /**
+     * Processes a message from the client
+     * @param next the message from the client
+     */
+    private void processObject(Object next) {
+        if (next==null) return;
+        CommandMsg command = (CommandMsg) next;
+            if (controller == null && command instanceof BeforeStartMsg) {
+                BeforeStartMsg beforeStartMsg = (BeforeStartMsg) command;
+                try {
+                    beforeStartMsg.processMessage(this, lobby);
+                } catch (FileNotFoundException | ModelException exc) {
+                    System.out.println("Error FIleNotFound | Model");
                 }
-                else if (controller.isCurrentPlayer(this)) {
+            }else{
+                try {
                     command.processMessage(this, controller);
-                }
-                else if(command instanceof PongMsg){
-                }
-                else {
-                    ErrorMsg errorMsg = new ErrorMsg("You are not the current player");
-                    sendAnswerMessage(errorMsg);
+                } catch (ModelException exc) {
+                    System.out.println("Error Model");
                 }
             }
-        } catch (SocketException e){
-            System.out.println("Client died");
-            socket.close();
-            this.setConnected(false);
-            if(!(match ==null))match.checkClientConnection(this);
-            if (controller!=null){
-                if (!ready) {
-                    match.getClientConnectionThreads().remove(this);
-                    if (match.isFull()) match.setFull(false);
-                }
-                else if (controller.isGameStarted()&&controller.getGame().getCurrentPlayer().getPlayerID()==playerID){
-                    controller.manageClientDisconnectionWhilePlayingHisTurn(this);
-                }
+    }
+
+    /**
+     * Processes a command from the client
+     * @param next the command from the client
+     */
+    private void processCommand(Object next){
+        if (next==null) return;
+        CommandMsg command = (CommandMsg) next;
+        if (controller==null&&command instanceof BeforeStartMsg) {
+            BeforeStartMsg beforeStartMsg = (BeforeStartMsg) command;
+            try {
+                beforeStartMsg.processMessage(this, lobby);
+            } catch (FileNotFoundException | ModelException exc) {
+                System.out.println("Error FIleNotFound | Model");
             }
-
-
-        } catch (ClassNotFoundException | ClassCastException | IOException e) {
-            System.out.println("invalid stream from client");
-        } catch (ModelException e) {
-            e.printStackTrace();
         }
+        else if (controller.isCurrentPlayer(this)) {
+            try {
+                command.processMessage(this, controller);
+            } catch (ModelException exc) {
+                System.out.println("Error Model");
+            }
+        }
+        else if(command instanceof PongMsg){
+        }
+        else {
+            ErrorMsg errorMsg = new ErrorMsg("You are not the current player");
+            sendAnswerMessage(errorMsg);
+        }
+
+    }
+
+    /**
+     * Reads an object from the socket input
+     * @return
+     */
+    private Object readObjectfromSocket() {
+        try {
+            Object next = input.readObject();
+            return next;
+        } catch (ClassNotFoundException ioException) {
+        ioException.printStackTrace();
+        return null;
+        }
+        catch (IOException ioException) {
+            return null;
+        }
+    }
+
+    /**
+     * Removes all client references on the server when a disconnection happens
+     */
+    private void removeAllReferencesOfClient1(){
+        if(!(match ==null))match.checkClientConnection(this);
+        if (controller!=null){
+            if (!ready) {
+                match.getClientConnectionThreads().remove(this);
+                if (match.isFull()) match.setFull(false);
+            }
+            else if (controller.getGame().getCurrentPlayer().getPlayerID()==playerID){
+                try {
+                    controller.manageClientDisconnectionWhilePlayingHisTurn(this);
+                } catch (ModelException modelException) {
+                    modelException.printStackTrace();
+                }
+            }
+        }
+    }
+    /**
+     * Removes all client references on the server when a disconnection happens
+     */
+    private void removeAllReferencesOfClient2() throws ModelException {
+        if(!(match ==null))match.checkClientConnection(this);
+        if (controller!=null){
+            if (!ready) {
+                match.getClientConnectionThreads().remove(this);
+                if (match.isFull()) match.setFull(false);
+            }
+            else if (controller.isGameStarted()&&controller.getGame().getCurrentPlayer().getPlayerID()==playerID){
+                controller.manageClientDisconnectionWhilePlayingHisTurn(this);
+            }
+        }
+    }
+
+    /**
+     * Closes the socket
+     */
+    private void closeClientSocket(){
+        if(socket==null){
+            this.setConnected(false);
+            return;
+        }
+        try {
+            socket.close();
+        } catch (IOException ioException) {
+            System.out.println("Cannot close socket");
+        }
+        socket=null;
+        this.setConnected(false);
+    }
+
+    /**
+     * Reads and processes commands from the client
+     * @throws IOException
+     * @throws ModelException
+     */
+    private void handleClientConnection() throws IOException, ModelException {
+        Object next=null;
+        while (true) {
+            next = readObjectfromSocket();
+            if (next != null) processCommand(next);
+            else {
+                System.out.println("Client died");
+                closeClientSocket();
+                removeAllReferencesOfClient2();
+                break;
+            }
+        }
+
     }
 
     /**
@@ -267,11 +330,14 @@ public class ClientHandler extends Thread {
      */
     public synchronized void sendAnswerMessage(AnswerMsg answerMessage){
         try {
-            if (this.isConnected()) {
+            if (this.isConnected() && socket != null) {
                 output.writeObject(answerMessage);
                 output.flush();
                 output.reset();
             }
+        }catch (SocketException socketException){
+            closeClientSocket();
+            removeAllReferencesOfClient1();
         } catch (IOException e) {
             e.printStackTrace();
         }

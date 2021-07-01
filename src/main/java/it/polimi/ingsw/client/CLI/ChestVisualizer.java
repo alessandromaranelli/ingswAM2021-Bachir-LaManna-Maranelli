@@ -24,6 +24,7 @@ public class ChestVisualizer {
             System.out.println("--" + res + ":" + chest.get(s));
         }
         System.out.print( whiteEscape);
+        System.out.print(ColorVisualizer.RESET);
     }
 
     /**

@@ -25,10 +25,11 @@ public class PingThread extends Thread{
 
     public void run(){
         while(true) {
-            if (clientHandler.isConnected()) {
-                PingMsg pingMsg = new PingMsg();
-                clientHandler.sendAnswerMessage(pingMsg);
-            }
+            boolean isConnected = clientHandler.isConnected();
+            if(!isConnected)
+                break;
+            PingMsg pingMsg = new PingMsg();
+            clientHandler.sendAnswerMessage(pingMsg);
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {

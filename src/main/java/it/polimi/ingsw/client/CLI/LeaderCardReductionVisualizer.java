@@ -159,6 +159,7 @@ public class LeaderCardReductionVisualizer {
             }
         }
         System.out.print( whiteEscape);
+        System.out.print(ColorVisualizer.RESET);
     }
 }
 

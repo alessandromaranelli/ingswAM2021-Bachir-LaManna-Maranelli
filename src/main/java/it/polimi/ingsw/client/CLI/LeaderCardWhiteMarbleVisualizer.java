@@ -143,5 +143,6 @@ public class LeaderCardWhiteMarbleVisualizer {
             }
         }
         System.out.print( whiteEscape);
+        System.out.print(ColorVisualizer.RESET);
     }
 }

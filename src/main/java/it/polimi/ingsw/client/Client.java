@@ -69,6 +69,7 @@ public class Client {
 
         try {
             socket = new Socket(hostName, portNumber);
+            socket.setSoTimeout(20000);
         } catch (IOException e) {
             System.out.println("server unreachable");
             return;

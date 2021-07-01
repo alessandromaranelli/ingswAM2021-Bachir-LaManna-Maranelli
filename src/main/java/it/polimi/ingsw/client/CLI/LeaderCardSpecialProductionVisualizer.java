@@ -142,5 +142,6 @@ public class LeaderCardSpecialProductionVisualizer {
             }
         }
         System.out.print( whiteEscape);
+        System.out.print(ColorVisualizer.RESET);
     }
 }

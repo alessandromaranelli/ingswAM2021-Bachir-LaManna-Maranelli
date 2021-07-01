@@ -23,12 +23,13 @@ public class DevelCardsOfPlayerVisualizer {
      * @param developmentCards map between slot number and card
      */
     public void plot(Map<Integer,DevelopmentCard> developmentCards){
-
+        System.out.print(ColorVisualizer.RESET);
         System.out.print( "\nYour card slot situation:  \n");
         DevelopmentCardVisualizer dcv = new DevelopmentCardVisualizer();
         for(DevelopmentCard d: developmentCards.values()){
             dcv.showDevelData(d);
             dcv.plot();
         }
+        System.out.print(ColorVisualizer.RESET);
     }
 }

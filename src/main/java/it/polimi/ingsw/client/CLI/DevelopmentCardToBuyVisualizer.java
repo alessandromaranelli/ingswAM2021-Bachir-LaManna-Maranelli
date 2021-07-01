@@ -16,11 +16,13 @@ public class DevelopmentCardToBuyVisualizer {
      * @param developmentCards list of the development cards
      */
     public void plot(List<DevelopmentCard> developmentCards){
+        System.out.print(ColorVisualizer.RESET);
         System.out.print( "\nCards you are able to buy from the table:  \n");
         DevelopmentCardVisualizer developmentCardVisualizer = new DevelopmentCardVisualizer();
         for(int i=0; i < developmentCards.size(); i++){
             developmentCardVisualizer.showDevelData(developmentCards.get(i));
             developmentCardVisualizer.plot();
         }
+        System.out.print(ColorVisualizer.RESET);
     }
 }

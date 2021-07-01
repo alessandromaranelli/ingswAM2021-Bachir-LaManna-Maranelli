@@ -21,6 +21,7 @@ import it.polimi.ingsw.model.TurnState;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Scanner;
 
 public class OutputView implements Runnable{
@@ -76,6 +77,9 @@ public class OutputView implements Runnable{
     public synchronized void sendCommandMessage(CommandMsg commandMessage){
         try {
             output.writeObject(commandMessage);
+        }catch (
+            SocketException socketException){
+            System.out.println("SocketException");
         } catch (IOException e) {
             e.printStackTrace();
         }

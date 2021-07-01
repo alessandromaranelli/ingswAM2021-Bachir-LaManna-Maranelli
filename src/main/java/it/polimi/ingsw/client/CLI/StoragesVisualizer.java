@@ -27,6 +27,7 @@ public class StoragesVisualizer {
             System.out.println();
         }
         System.out.print( whiteEscape);
+        System.out.print(ColorVisualizer.RESET);
     }
 
     private String getResource(Resource res){

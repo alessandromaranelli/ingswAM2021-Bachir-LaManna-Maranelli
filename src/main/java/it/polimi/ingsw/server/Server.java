@@ -12,7 +12,7 @@ import java.util.Set;
  * who connect to it.
  */
 public class Server {
-    public static final int PORT = 1235;
+    public static final int PORT = 8080;
     private boolean listening = true;
     private Set<Match> matches = new HashSet<>();
     private Lobby lobby;
@@ -48,6 +48,7 @@ public class Server {
             System.out.println("Server waiting for connections...");
             while (listening) {
                 Socket client = serverSocket.accept();
+                client.setSoTimeout(20000);
                 lobby.add(new ClientHandler(client,lobby));
             }
         } catch (IOException e) {

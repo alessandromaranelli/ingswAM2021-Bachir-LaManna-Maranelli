@@ -1,4 +1,5 @@
 package it.polimi.ingsw.messages.answers;
+import it.polimi.ingsw.client.CLI.ColorVisualizer;
 import it.polimi.ingsw.client.LightModel;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.model.TurnState;

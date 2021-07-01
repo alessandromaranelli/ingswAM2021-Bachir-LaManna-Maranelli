@@ -173,35 +173,6 @@ public class DevelopmentCardVisualizer {
 
 
 
-  /*  public void showMarbles(Marble[][] marbles){
-        String greenEscape = ColorVisualizer.ANSI_GREEN.escape();
-        if (marbles!=null) {
-            for (int i = 0; i < MARKET_VERT_TILES; i++) {
-                for (int j =0; j < MARKET_HORIZ_TILES; j++) {
-                    if (marbles[i][j] instanceof WhiteMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_WHITE.escape() +  "●" + greenEscape;
-                    }
-                    if (marbles[i][j] instanceof RedMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_RED.escape() + "●" + greenEscape;
-                    }
-                    if (marbles[i][j] instanceof YellowMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_YELLOW.escape() + "●" + greenEscape;
-                    }
-                    if (marbles[i][j] instanceof PurpleMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_PURPLE.escape() + "●" + greenEscape;
-                    }
-                    if (marbles[i][j] instanceof GreyMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_GREY.escape() + "●" + greenEscape;
-                    }
-                    if (marbles[i][j] instanceof BlueMarble) {
-                        tiles[i+1][j+3] = ColorVisualizer.ANSI_BLUE.escape() + "●" + greenEscape;
-                    }
-                }
-            }
-        }
-
-    }
-*/
 
     /**
      * Plot.
@@ -231,5 +202,6 @@ public class DevelopmentCardVisualizer {
             }
         }
         System.out.print( whiteEscape);
+        System.out.print(ColorVisualizer.RESET);
     }
 }

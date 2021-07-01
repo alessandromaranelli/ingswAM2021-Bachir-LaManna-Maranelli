@@ -96,6 +96,7 @@ public class MarketVisualizer {
             }
         }
         System.out.print( whiteEscape);
+        System.out.print(ColorVisualizer.RESET);
     }
 
 }

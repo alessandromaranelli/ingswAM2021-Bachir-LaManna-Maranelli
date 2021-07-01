@@ -32,6 +32,7 @@ public class ProductionVisualizer {
 
         System.out.println("Faithpoints gained: " + faithPoints);
         System.out.print( whiteEscape);
+        System.out.print(ColorVisualizer.RESET);
     }
 
     private String getResource(Resource res) {
