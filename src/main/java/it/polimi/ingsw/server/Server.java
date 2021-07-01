@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server;
 
+import Exceptions.ModelException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -12,7 +14,7 @@ import java.util.Set;
  * who connect to it.
  */
 public class Server {
-    public static final int PORT = 8080;
+    private static int port = 8080;
     private boolean listening = true;
     private Set<Match> matches = new HashSet<>();
     private Lobby lobby;
@@ -34,7 +36,17 @@ public class Server {
      * @throws IOException the io exception
      */
     public static void main(String[] args) throws IOException {
-
+        if(args.length == 1){
+            try{
+            port = Integer.parseInt(args[0]);}
+            catch (NumberFormatException e){
+                System.out.println("Port must be a number");
+            }
+            if(port<1000 || port>9999) {
+                System.out.println("Port number must be between 1000 and 9999");
+                System.out.println("Used default port 8080");
+            }
+        }
         Server s = new Server();
         s.runServer();
     }
@@ -44,15 +56,15 @@ public class Server {
      * RunServer method opens a socket and waits for clients to connect.
      */
     public void runServer() {
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("Server waiting for connections...");
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("Server waiting for connections...on port:" + port);
             while (listening) {
                 Socket client = serverSocket.accept();
                 client.setSoTimeout(20000);
                 lobby.add(new ClientHandler(client,lobby));
             }
         } catch (IOException e) {
-            System.err.println("Could not listen on port " + PORT);
+            System.err.println("Could not listen on port " + port);
             System.exit(-1);
         }
     }
