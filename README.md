@@ -21,7 +21,7 @@ The final version includes:
 ## Students:
 * Alessandro Maranelli - 10661029
 * Amir Bachir Kaddis Beshay - 10659740
-* Flavio La Manna - 10617370
+* Flavio La Manna - 10620549
 
 ## Implemented features
 * Basic rules
@@ -68,6 +68,3 @@ To run CLI it his necessary to use wsl and set "Ms Gothic" font.
 java -jar AM66-Client.jar 127.0.0.1 portNumber CLI   if CLI
 java -jar AM66-Client.jar 127.0.0.1 portNumber GUI   if GUI
 ```
-
-Here is a list of commands necessary to play the game:
-https://github.com/alessandromaranelli/ingswAM2021-Bachir-LaManna-Maranelli/blob/master/blob/commands.txt
