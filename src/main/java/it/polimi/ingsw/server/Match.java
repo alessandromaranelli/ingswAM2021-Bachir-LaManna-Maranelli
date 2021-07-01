@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import Exceptions.ModelException;
+import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.messages.answers.*;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PopeFavour;
@@ -140,8 +141,10 @@ public class Match {
      * @throws ModelException the model exception
      */
     public void reAdd(ClientHandler c) throws ModelException {
+        ClientHandler disconnectedOne=null;
         for (ClientHandler clientHandler:clientConnectionThreadsNotConnected){
             if(c.getUnicode().equals(clientHandler.getUnicode())){
+                disconnectedOne=clientHandler;
                 c.setConnected(true);
                 for(Player p: controller.getPlayerClientHandlerMap().keySet()){
                     if(controller.getPlayerClientHandlerMap().get(p).equals(clientHandler)){
@@ -152,7 +155,6 @@ public class Match {
                         break;
                     }
                 }
-                clientConnectionThreadsNotConnected.remove(clientHandler);
                 c.setController(controller);
                 c.setReady();
                 c.sendAnswerMessage(new UpdatePhaseMsg(TurnState.BEFORESTART,"You reconnected successfully!!!\n\n"));
@@ -187,6 +189,7 @@ public class Match {
 
             }
         }
+        if(disconnectedOne!=null) clientConnectionThreadsNotConnected.remove(disconnectedOne);
     }
 
     /**

@@ -60,6 +60,9 @@ public class Controller {
     public Object nextPlayer() throws ModelException {
         Object o=game.nextPlayer();
         if (o instanceof Player){
+            if(playerClientHandlerMap.values().stream().filter(ClientHandler::isConnected).count()==0){
+                return null;
+            }
             for(Player player: playerClientHandlerMap.keySet()){
                 if (player.equals(o)) {
                     if (!playerClientHandlerMap.get(player).isConnected()) {
