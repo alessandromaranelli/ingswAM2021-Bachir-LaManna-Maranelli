@@ -2,10 +2,9 @@
 ## Maestri del Rinascimento - AM66
 ### Software engineering final project 2021 - Politecnico di Milano
 
-![alt text](https://github.com/alessandromaranelli/ingswAM2021-Bachir-LaManna-Maranelli/blob/master/copertina.jpg)
+![alt text](https://github.com/alessandromaranelli/ingswAM2021-Bachir-LaManna-Maranelli/blob/copertina.jpg)
 
-
-##Description:
+## Description:
 Masters of Renaissance Board Game
 Masters of Renaissance Board Game is the final test of "Software Engineering", course of "Computer Science Engineering" held at Politecnico di Milano (2020/2021).
 
