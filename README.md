@@ -21,7 +21,7 @@ The final version includes:
 ## Students:
 * Alessandro Maranelli - 10661029
 * Amir Bachir Kaddis Beshay - 10659740
-* Flavio La Manna - 10617370
+* Flavio La Manna - 10620549
 
 ## Implemented features
 * Basic rules
