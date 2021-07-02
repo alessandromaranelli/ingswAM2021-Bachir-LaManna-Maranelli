@@ -30,7 +30,7 @@ The final version includes:
 | Basic rules | [![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
 | Complete rules | [![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
 | Socket |[![GREEN](http://placehold.it/15/44bb44/44bb44)]()|
-| GLI | [![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
+| CLI | [![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
 | GUI |[![GREEN](http://placehold.it/15/44bb44/44bb44)]()|
 | Multiple games | [![GREEN](http://placehold.it/15/44bb44/44bb44)]()|
 | Resilience | [![GREEN](http://placehold.it/15/44bb44/44bb44)]()|
@@ -66,13 +66,19 @@ java -jar AM66-Server.jar
 
 ### Client
 
-To launch the client digit the following command:
+To launch the client digit the following command: 
 
-To run CLI it his necessary to use wsl and set "Ms Gothic" font.
+For GUI
+```
+java -jar AM66-Client.jar 127.0.0.1 portNumber GUI 
+```
+For CLI
+```
+java -jar AM66-Client.jar 127.0.0.1 portNumber CLI 
+```
+Note that to run CLI it his necessary to use wsl and set "Ms Gothic" font.
+GUI interfaces instead are not supported on wsl so GUI needs to be launched on some other terminal/console (powershell, cmd, ..)
 
-```
-java -jar AM66-Client.jar 127.0.0.1 portNumber CLI   if CLI
-java -jar AM66-Client.jar 127.0.0.1 portNumber GUI   if GUI
-```
+
 Here is a list of commands necessary to play the game in CLI
 https://github.com/alessandromaranelli/ingswAM2021-Bachir-LaManna-Maranelli/blob/master/blob/commands.txt
