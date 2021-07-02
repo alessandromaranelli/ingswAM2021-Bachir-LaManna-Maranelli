@@ -297,7 +297,7 @@ public class PersonalBoard {
      * @throws ModelException the model exception
      */
     public boolean controlCardToBuy(DevelopmentCard card, int i) throws ModelException{
-        if(wareHouse.controlRequirements(card) == false) return false;
+        if(wareHouse.controlRequirements(this,card) == false) return false;
         if(cardSlot.controlCardToAdd(card, i) == false) return false;
         else return true;
     }
@@ -324,7 +324,7 @@ public class PersonalBoard {
                 cardCost.put(x, cardCost.get(x)-1);
             }
 
-            if(reduction.get(1) != null){
+            if(reduction.size() >1){
                 x = reduction.get(1);
                 if(cardCost.get(x) != null && cardCost.get(x)-1 >= 0){
                     cardCost.put(x, cardCost.get(x)-1);

@@ -8,7 +8,7 @@ import java.io.IOException;
  */
 public class UpdateWhiteMarblesToManageMsg extends AnswerMsg{
     private int whiteMarbles;
-    private String message="Still "+whiteMarbles+" white marbles to manage";
+    private String message;
 
 
     /**
@@ -18,6 +18,7 @@ public class UpdateWhiteMarblesToManageMsg extends AnswerMsg{
      */
     public UpdateWhiteMarblesToManageMsg(int whiteMarbles) {
         this.whiteMarbles = whiteMarbles;
+        this.message="Still "+whiteMarbles+" white marbles to manage";
     }
 
     @Override

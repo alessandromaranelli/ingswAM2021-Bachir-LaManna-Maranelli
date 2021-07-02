@@ -383,9 +383,25 @@ public class WareHouse {
      * @param card the card
      * @return the boolean
      */
-    public boolean controlRequirements(DevelopmentCard card) {
+    public boolean controlRequirements(PersonalBoard personalBoard,DevelopmentCard card) {
         Map<Resource, Integer> m = totalResources();
-        Map<Resource, Integer> c = card.getRequirements();
+        Map<Resource,Integer> c=new HashMap<>();
+        for(Resource r:card.getRequirements().keySet()){
+            c.put(r,card.getRequirements().get(r));
+        }
+        if(personalBoard.getReduction().isEmpty() == false){
+            Resource x = personalBoard.getReduction().get(0);
+            if(c.get(x) != null){
+                c.put(x, c.get(x)-1);
+            }
+
+            if(personalBoard.getReduction().size() >1){
+                x = personalBoard.getReduction().get(1);
+                if(c.get(x) != null && c.get(x)-1 >= 0){
+                    c.put(x, c.get(x)-1);
+                }
+            }
+        }
         Set<Resource> s = c.keySet();
         for (Resource i : s) {
             if (m.get(i) < c.get(i)) return false;

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import Exceptions.ModelException;
 
@@ -479,6 +480,13 @@ public class WareHouseTest {
 
     @Test
     public void testcontrolRequirements(){
+        ArrayList<VaticanReportSection> vaticanReportSectionArrayList=new ArrayList<>();
+        VaticanReportSection vaticanReportSection= new VaticanReportSection(5,1,null);
+        vaticanReportSectionArrayList.add(vaticanReportSection);
+        vaticanReportSection= new VaticanReportSection(12,2,null);
+        vaticanReportSectionArrayList.add(vaticanReportSection);
+        vaticanReportSection= new VaticanReportSection(19,3,null);
+        vaticanReportSectionArrayList.add(vaticanReportSection);
         Map<Resource, Integer> m = new HashMap<>();
         m.put(Resource.COIN, 3);
         m.put(Resource.SERVANT, 5);
@@ -487,10 +495,17 @@ public class WareHouseTest {
         wareHouse.addToChest(Resource.SERVANT, 50);
         DevelopmentCard card = new DevelopmentCard(Color.BLUE, 1, 1, m, m, m, 0);
 
-        assertTrue(wareHouse.controlRequirements(card));
+        assertTrue(wareHouse.controlRequirements(new PersonalBoard(vaticanReportSectionArrayList),card));
     }
     @Test
     public void testcontrolRequirements1() throws ModelException {
+        ArrayList<VaticanReportSection> vaticanReportSectionArrayList=new ArrayList<>();
+        VaticanReportSection vaticanReportSection= new VaticanReportSection(5,1,null);
+        vaticanReportSectionArrayList.add(vaticanReportSection);
+        vaticanReportSection= new VaticanReportSection(12,2,null);
+        vaticanReportSectionArrayList.add(vaticanReportSection);
+        vaticanReportSection= new VaticanReportSection(19,3,null);
+        vaticanReportSectionArrayList.add(vaticanReportSection);
         Map<Resource, Integer> m = new HashMap<>();
         m.put(Resource.SHIELD, 0);
         m.put(Resource.STONE, 0);
@@ -504,8 +519,8 @@ public class WareHouseTest {
         wareHouse.getStorages().get(1).addToStorage(Resource.SHIELD,2);
         wareHouse.getStorages().get(2).addToStorage(Resource.COIN,2);
         DevelopmentCard card = new DevelopmentCard(Color.BLUE, 1, 1, m, m, m, 0);
-        boolean b=wareHouse.controlRequirements(card);
-        assertFalse(wareHouse.controlRequirements(card));
+        boolean b=wareHouse.controlRequirements(new PersonalBoard(vaticanReportSectionArrayList),card);
+        assertFalse(wareHouse.controlRequirements(new PersonalBoard(vaticanReportSectionArrayList),card));
     }
     @Test
     public void testcontrolForStorage(){

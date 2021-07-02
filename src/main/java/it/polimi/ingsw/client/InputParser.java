@@ -77,7 +77,8 @@ public class InputParser {
             outputView.setType(TypeOfCommand.STARTMARKETPHASE);
             return true;
         }
-        if (parts[0].toLowerCase().equals("managewhitemarbles") && parts.length==1 && client.getLightModel().getPhase() == TurnState.WHITEMARBLES){
+        if (parts[0].toLowerCase().equals("managewhitemarbles") && parts.length==2 &&
+                (parts[1].equals("COIN") || parts[1].equals("SERVANT") || parts[1].equals("SHIELD") || parts[1].equals("STONE")) && client.getLightModel().getPhase() == TurnState.WHITEMARBLES){
             outputView.setType(TypeOfCommand.WHITEMARBLES);
             return true;
         }

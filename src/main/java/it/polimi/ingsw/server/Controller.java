@@ -902,6 +902,7 @@ public class Controller {
             }
             case WHITEMARBLES: {
                 player.getPersonalBoard().setManageWhiteMarbles(0);
+                player.setPhase(TurnState.ENDTURN);
                 manageClientDisconnectionWhilePlayingHisTurn(clientHandler);
                 break;
             }
