@@ -200,8 +200,10 @@ public class LightModelGUI extends LightModel{
         getClient().getGui().errorMessage(message);
     }
 
-    public void update(String message, Boolean bool){               //LorenzoAction
+    public void update(String message, int lorenzoPosition){               //LorenzoAction
+        this.setLorenzoPosition(lorenzoPosition);
         getClient().getGui().lorenzoAction(message);
+        getClient().getGui().updatePersonalBoard(this);
     }
 
     public void update(ArrayList<Player> players) {

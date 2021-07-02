@@ -34,8 +34,8 @@ public class ManageWhiteMarblesFrame extends JFrame implements ActionListener {
      * @param n          the n
      */
     public ManageWhiteMarblesFrame(Gui gui, LightModel lightModel, int n){
-        lightModel = lightModel;
-        gui = gui;
+        this.lightModel = lightModel;
+        this.gui = gui;
         whiteMarbles = n;
         jPanel = new JPanel();
         boxList = new ArrayList<>();

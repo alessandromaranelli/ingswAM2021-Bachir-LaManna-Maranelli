@@ -350,6 +350,10 @@ public class Player implements Serializable {
             personalBoard.getWareHouse().setTypeOfStorage(3, resource3);
             throw new ModelException("Wrong choice for storage types");
         }
+        else if(manageResources && personalBoard.getWareHouse().resourcesToOrganizeIsEmpty()){
+            phase = lastState;
+            manageResources = false;
+        }
         else if(manageResources) phase = TurnState.MANAGERESOURCES;
         else if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty() && personalBoard.getWareHouse().resourcesToAddIsEmpty()) phase = TurnState.ENDTURN;
         else if(personalBoard.getWareHouse().resourcesToOrganizeIsEmpty()) phase = TurnState.ADDRESOURCES;

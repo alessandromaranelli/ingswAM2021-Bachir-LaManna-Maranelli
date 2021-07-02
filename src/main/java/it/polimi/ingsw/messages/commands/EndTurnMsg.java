@@ -24,22 +24,22 @@ public class EndTurnMsg extends CommandMsg{
                 if (cpuAction instanceof CpuActionDiscard){
                     UpdateDecksMsg updateDecksMsg = new UpdateDecksMsg("\n\nLorenzo discarded two "+cpuAction.getcolor().toString()+" cards", controller.getGame().getTable().getTopDevelopmentcards());
                     clientHandler.sendAnswerMessage(updateDecksMsg);
-                    AnswerMsg msg = new LorenzoAction("Lorenzo discarded two "+cpuAction.getcolor().toString()+" cards");
+                    AnswerMsg msg = new LorenzoAction("Lorenzo discarded two "+cpuAction.getcolor().toString()+" cards", controller.getGame().getCpu().getCpuPosition());
                     clientHandler.sendAnswerMessage(msg);
                 }
                 if (cpuAction instanceof CpuActionShuffle){
                     clientHandler.sendAnswerMessage(new StringMsg("\nLorenzo moved his faith marker 1 box forward"));
-                    AnswerMsg msg = new LorenzoAction("Lorenzo moved his faith marker 1 box forward");
+                    AnswerMsg msg = new LorenzoAction("Lorenzo moved his faith marker 1 box forward", controller.getGame().getCpu().getCpuPosition());
                     clientHandler.sendAnswerMessage(msg);
                 }
                 if (cpuAction instanceof CpuActionMoveOn){
                     clientHandler.sendAnswerMessage(new StringMsg("\nLorenzo moved his faith marker 2 boxes forward"));
-                    AnswerMsg msg = new LorenzoAction("Lorenzo moved his faith marker 2 box forward");
+                    AnswerMsg msg = new LorenzoAction("Lorenzo moved his faith marker 2 box forward", controller.getGame().getCpu().getCpuPosition());
                     clientHandler.sendAnswerMessage(msg);
                 }
                 if (controller.getGame().hasLorenzoWon()){
                     clientHandler.sendAnswerMessage(new WinMsg("\nLorenzo Won"));
-                    AnswerMsg msg = new LorenzoAction("Lorenzo Won");
+                    AnswerMsg msg = new LorenzoAction("Lorenzo Won", controller.getGame().getCpu().getCpuPosition());
                     clientHandler.sendAnswerMessage(msg);
                     controller.endGame(true);
                     return;

@@ -29,6 +29,7 @@ public abstract class LightModel {
     private int position;
     private int faithPoints;
     private boolean isSoloGame;
+    private int lorenzoPosition;
 
     private Marble[][] market;
     private Marble marbleInExcess;
@@ -474,11 +475,21 @@ public abstract class LightModel {
         return marbleInExcess;
     }
 
+    public int getLorenzoPosition() {
+        return lorenzoPosition;
+    }
+
+    public void setLorenzoPosition(int lorenzoPosition) {
+        this.lorenzoPosition = lorenzoPosition;
+    }
+
     /**
      * Sets marble in excess.
      *
      * @param marbleInExcess the marble in excess
      */
+
+
     public void setMarbleInExcess(Marble marbleInExcess) {
         this.marbleInExcess = marbleInExcess;
     }
@@ -1039,9 +1050,9 @@ public abstract class LightModel {
      * Update.
      *
      * @param message the message
-     * @param bool    the bool
+     * @param lorenzoPosition
      */
-    public void update(String message, Boolean bool){
+    public void update(String message, int lorenzoPosition){            //LorenzoAction
 
     }
 

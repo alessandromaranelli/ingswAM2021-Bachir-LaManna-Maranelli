@@ -391,13 +391,13 @@ public class WareHouse {
         }
         if(personalBoard.getReduction().isEmpty() == false){
             Resource x = personalBoard.getReduction().get(0);
-            if(c.get(x) != null){
+            if(c.get(x) != 0){
                 c.put(x, c.get(x)-1);
             }
 
             if(personalBoard.getReduction().size() >1){
                 x = personalBoard.getReduction().get(1);
-                if(c.get(x) != null && c.get(x)-1 >= 0){
+                if(c.get(x) != 0 && c.get(x)-1 >= 0){
                     c.put(x, c.get(x)-1);
                 }
             }

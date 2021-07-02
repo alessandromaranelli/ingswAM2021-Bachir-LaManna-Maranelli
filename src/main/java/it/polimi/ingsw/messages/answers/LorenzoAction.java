@@ -7,19 +7,21 @@ import it.polimi.ingsw.client.LightModel;
  */
 public class LorenzoAction extends AnswerMsg{
     private String message;
+    private int position;
 
     /**
      * Instantiates a new Lorenzo action.
      *
      * @param msg the message
      */
-    public LorenzoAction(String msg){
+    public LorenzoAction(String msg, int pos){
         message = msg;
+        position = pos;
     }
 
     @Override
     public void processMessage(LightModel lightModel) {
-        lightModel.update(message, true);
+        lightModel.update(message, position);
     }
 
     @Override

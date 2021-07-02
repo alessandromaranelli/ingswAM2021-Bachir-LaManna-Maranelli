@@ -784,7 +784,7 @@ public class Controller {
     public void sendUpdateActivateLeader(Player player, char leaderAct) throws ModelException {
         if(!playerClientHandlerMap.isEmpty()) {
             if (leaderAct == 's')
-                playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageLeaderMsg(player.getPersonalBoard().getWareHouse().getTypeStorage(4)));
+                playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateStorageLeaderMsg(player.getPersonalBoard().getWareHouse().getTypeStorage(player.getPersonalBoard().getWareHouse().getStorages().size())));
             else if (leaderAct == 'r')
                 playerClientHandlerMap.get(player).sendAnswerMessage(new UpdateReductionLeaderMsg(player.getPersonalBoard().getLastReduction()));
             else if (leaderAct == 'w')

@@ -14,10 +14,10 @@ public class Chest {
      */
     public Chest(){
         resources = new HashMap<>();
-        resources.put(Resource.COIN, 0);
-        resources.put(Resource.SERVANT, 0);
-        resources.put(Resource.SHIELD, 0);
-        resources.put(Resource.STONE, 0);
+        resources.put(Resource.COIN, 50);
+        resources.put(Resource.SERVANT, 50);
+        resources.put(Resource.SHIELD, 50);
+        resources.put(Resource.STONE, 50);
     }
 
     /**

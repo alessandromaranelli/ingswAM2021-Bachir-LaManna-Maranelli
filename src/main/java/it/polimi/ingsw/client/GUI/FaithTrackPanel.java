@@ -194,7 +194,7 @@ public class FaithTrackPanel extends JPanel{
                     lorenzoTrack.get(i).setFont(new Font("Comic Sans", Font.BOLD, 18));
                     lorenzoTrack.get(i).setForeground(Color.RED);
                 }
-                if(i == lightModel.getPosition()){
+                if(i == lightModel.getLorenzoPosition()){
                     lorenzoTrack.get(i).setText("X");
                 }
                 else{
