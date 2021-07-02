@@ -45,6 +45,9 @@ The final version includes:
 
 
 ## JAR Execution
+
+JAR files are available in the deliverables folder
+
 ### Server
 
 To execute the server digit the following command on the terminal:
