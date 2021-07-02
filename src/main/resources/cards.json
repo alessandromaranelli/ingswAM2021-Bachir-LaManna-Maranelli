@@ -538,8 +538,8 @@
     "requirements" :
     {
       "COIN" : 0,
-      "STONE" : 4,
-      "SHIELD" : 0,
+      "STONE" : 0,
+      "SHIELD" : 4,
       "SERVANT" : 0
     },
     "productionInput" :
@@ -875,7 +875,7 @@
     {
       "COIN" : 0,
       "STONE" : 4,
-      "SHIELD" : 2,
+      "SHIELD" : 0,
       "SERVANT" : 0
     },
     "productionInput" :

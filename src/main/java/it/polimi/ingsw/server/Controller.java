@@ -830,7 +830,10 @@ public class Controller {
      */
     public void startLastTurn(){
         setLastTurn(true);
-        setTurnsToPlay(game.getPlayers().size()-1);
+        if(game.getCurrentPlayer().getPlayerID() == 1){
+            setTurnsToPlay(0);
+        }
+        else setTurnsToPlay(game.getPlayers().size()-(game.getCurrentPlayer().getPlayerID()-1));
     }
 
     /**

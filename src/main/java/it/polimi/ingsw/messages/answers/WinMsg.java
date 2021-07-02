@@ -17,7 +17,9 @@ public class WinMsg extends AnswerMsg {
         this.message = message;
     }
 
-    public void processMessage(LightModel lightModel){}
+    public void processMessage(LightModel lightModel){
+        lightModel.update(message);
+    }
 
     public void printMessage(){
         System.out.println(message);
