@@ -6,6 +6,7 @@ addinitialresources:COIN:SHIELD    addinitialresources:COIN
 
 selectmarketphase
 startmarketphase:2:true
+managewhitemarbles:SERVANT
 startorganizeresources
 setstoragetypes:COIN:SHIELD:SERVANT    manageresourcestoorganize:SERVANT:3:1
 defaultmanageresourcestoorganize
@@ -21,10 +22,12 @@ paycardfromchest:SERVANT:1
 selectproductionphase
 activateproduction:2
 activatepersonalproduction:COIN:SERVANT:SERVANT
+activatespecialproduction:COIN:1
 startpayproduction
 payproductionfromstorage:COIN:3:1
 
 activateleadercard:1
+discardleadercard:1
 
 viewotherplayers
 viewresources

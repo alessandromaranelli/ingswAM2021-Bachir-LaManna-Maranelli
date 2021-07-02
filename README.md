@@ -44,16 +44,6 @@ The final version includes:
 |__model__|100%|98%|
 
 
-## Libraries e Plugins
-|Library/Plugin|Description|
-|--------------|-----------|
-|__maven__|tool to manage softwares based on Java and build automation|
-|__maven-shade-plugin__|plugin to create an uber-jar|
-|__gson__|plugin used to customize Json translation settings|
-|__junit__|framework dedicated to Java for unit testing|
-
-
-
 ## JAR Execution
 ### Server
 
