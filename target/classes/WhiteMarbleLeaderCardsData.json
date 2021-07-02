@@ -1,0 +1,42 @@
+[
+  {
+    "victoryPoints": 5,
+    "description": "This is a WhiteMarble Leader 1",
+    "requirement": {
+      "PURPLE" : 2,
+      "GREEN" : 1
+    },
+    "resource": "COIN",
+    "path": "Masters of Renaissance_Cards_FRONT_3mmBleed_1-60-1.png"
+  },
+  {
+    "victoryPoints": 5,
+    "description": "This is a WhiteMarble Leader 2",
+    "requirement": {
+      "BLUE" : 2,
+      "YELLOW" : 1
+    },
+    "resource": "STONE",
+    "path": "Masters of Renaissance_Cards_FRONT_3mmBleed_1-59-1.png"
+  },
+  {
+    "victoryPoints": 5,
+    "description": "This is a WhiteMarble Leader 3",
+    "requirement": {
+      "GREEN" : 2,
+      "PURPLE" : 1
+    },
+    "resource": "SHIELD",
+    "path": "Masters of Renaissance_Cards_FRONT_3mmBleed_1-58-1.png"
+  },
+  {
+    "victoryPoints": 5,
+    "description": "This is a WhiteMarble Leader 4",
+    "requirement": {
+      "YELLOW" : 2,
+      "BLUE" : 1
+    },
+    "resource": "SERVANT",
+    "path": "Masters of Renaissance_Cards_FRONT_3mmBleed_1-57-1.png"
+  }
+]
